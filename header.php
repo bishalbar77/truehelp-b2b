@@ -1,0 +1,134 @@
+<?php
+session_start();
+
+ 
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+?>
+<script>
+function login() {
+return 'false';
+}
+</script>
+<?php 
+} else {
+?>
+<script>
+function login() {
+ return 'true';
+}
+</script>
+<?php } ?>
+
+<?php
+$page = $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+$cookie_name = "refUrl";
+setcookie($cookie_name, $page, time() + (86400 * 30), "/");
+?>
+
+
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <title>TrueHelp Enterprise</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+
+    <!-- External CSS libraries -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-submenu.css">
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/leaflet.css" type="text/css">
+    <link rel="stylesheet" href="css/map.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" type="text/css" href="fonts/linearicons/style.css">
+    <link rel="stylesheet" type="text/css"  href="css/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" type="text/css"  href="css/dropzone.css">
+    <link rel="stylesheet" type="text/css"  href="css/slick.css">
+
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" id="style_sheet" href="css/skins/default.css">
+
+    <!-- Favicon icon -->
+    <link rel="shortcut icon" href="img/logos/icon.png" type="image/x-icon" >
+
+    <!-- Google fonts -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,300,700">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link rel="stylesheet" type="text/css" href="css/ie10-viewport-bug-workaround.css">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script  src="js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script  src="js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script  src="js/html5shiv.min.js"></script>
+    <script  src="js/respond.min.js"></script>
+    <![endif]-->
+ 
+   <script>
+
+    function hide() {
+       
+         $(".navbar-toggler").hide();
+    } 
+
+   </script>
+   <?php if($_REQUEST["verificationID"]!=""){ ?>
+   <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5dd4db4c6826a20014f08ad0&product=inline-share-buttons" async="async"></script>
+   <?php } ?>
+</head>
+<body>
+<div class="page_loader"></div>
+
+<!-- Main header start -->
+<header class="main-header header-2 fixed-header">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand logo pad-0" href="index.php">
+                <img src="img/logos/black-logo.png" alt="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-nones" id="navbarSupportedContent">
+                <div class="navbar-buttons ml-auto d-nones d-xl-block d-lg-block">
+                    <ul>
+                        <li>
+                            <div class="dropdown btns">
+                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                    <?php  $base_url = "https://".$_SERVER['SERVER_NAME'].dirname($_SERVER["REQUEST_URI"].'?').'/'; 
+                                            if(!empty($photo)){ ?>
+                                            <img src="<?php echo $base_url.'upload/'.$photo; ?>" alt="avatar">
+                                            <?php } else { ?>
+                                            <img src="https://placehold.it/45x45" alt="avatar">
+                                            <?php } ?>
+                                    My Account
+                                </a>
+                                <div class="dropdown-menu">                       
+                                    <a class="dropdown-item" href="index.php">Dashboard</a>
+                                    <a class="dropdown-item" href="messages.php">Messages</a>
+                                    <a class="dropdown-item" href="employees.php">Employees</a>
+                                    <a class="dropdown-item" href="my-profile.php">My profile</a>
+                                    <a class="dropdown-item" href="logout.php">Logout</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="btn btn-theme btn-md" href="new-employee.php">New employee</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<!-- Main header end -->
