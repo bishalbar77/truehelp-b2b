@@ -29,10 +29,10 @@ setcookie($cookie_name, $page, time() + (86400 * 30), "/");
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-    <title>TrueHelp Enterprise</title>
+    <title>TrueHelp - India's first ML/AI based complete, comprehensive and continuous verification&trade; service for employees. Take an informed decision before hiring your next maid, driver, gardener or just about any employee for your home or office. We help you get their Aadhar verified, background verification and criminal history checked.</title>
+    <meta name="description" content="TrueHelp - India's first ML/AI based complete, comprehensive and continuous verification&trade; service for employees. Take an informed decision before hiring your next maid, driver, gardener or just about any employee for your home or office. We help you get their Aadhar verified, background verification and criminal history checked.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-
     <!-- External CSS libraries -->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/animate.min.css">
