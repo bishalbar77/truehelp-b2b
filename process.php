@@ -26,7 +26,7 @@ if((!empty($workID)) && (!empty($companyID)) ){
 
        if(empty($title_err) && empty($message_err)){    
 
-          $query = "UPDATE B2B_workers SET status=$statUS WHERE worker_id='$workID'";
+          $query = "UPDATE employees SET status=$statUS WHERE id='$workID'";
 
           $data = mysqli_query ($link, $query)or die(mysqli_error($link));
 

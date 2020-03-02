@@ -18,13 +18,13 @@ $param_id = $_SESSION["id"];
     	
 if(!empty($param_id)){  
     	  	
-  $revQuery      = "SELECT * FROM B2B_company_details WHERE ID='$param_id'";
+  $revQuery      = "SELECT * FROM employers WHERE id='$param_id'";
 
   $revResult     = mysqli_query($link, $revQuery) or die(mysqli_error($link));
   
   $revAllResult  = $revResult->fetch_all(MYSQLI_ASSOC); 
       
-  $current_id    = $revAllResult[0]['ID'];
+  $current_id    = $revAllResult[0]['id'];
       
   $yourname      = $revAllResult[0]['rep_full_name'];
   
@@ -92,24 +92,24 @@ if(isset($_COOKIE['visit']) && $_COOKIE['visit'] == "true"){
                                     <div class="left">
                                       <?php  $param_id = $_SESSION["id"]; 
     	 
-						if(!empty($param_id)){  
+						               if(!empty($param_id)){  
 
-                                                $query = "SELECT * FROM B2B_workers WHERE company_id = '$current_id'";
+                                        $query = "SELECT a.id as networkId, b.* FROM networks a LEFT JOIN employees b ON a.worker_id = b.id WHERE b.company_id = '$param_id' AND b.source='B' AND a.status='1' GROUP BY b.id ORDER BY b.id DESC";
 	 
-						$result = mysqli_query($link, $query) or die(mysqli_error($link));	
-			
-		  				$rowcount = mysqli_num_rows($result);
+                    						$result = mysqli_query($link, $query) or die(mysqli_error($link));	
+                    			
+                    		  				$rowcount = mysqli_num_rows($result);
 
-						} 
-					?>
-					<h4><?php echo $rowcount; ?></h4>
+                    						} 
+                    					?>
+					                   <h4><?php echo $rowcount; ?></h4>
                                         <p>Registered<br />Employees</p>
                                     </div>
                                     <div class="right">
                                         <i class="fa fa-user-o"></i>
                                     </div>
-                                </div>
-				</a>
+                                  </div>
+				                </a>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6">
                                <a href="<?php echo $base_urls; ?>employees.php?status=verified">
@@ -119,7 +119,7 @@ if(isset($_COOKIE['visit']) && $_COOKIE['visit'] == "true"){
 
                                                 if(!empty($param_id)){  
 
-                                                $query = "SELECT * FROM B2B_workers WHERE company_id = '$current_id' AND status = 1";
+                                                $query = "SELECT a.id as networkId, b.* FROM networks a LEFT JOIN employees b ON a.worker_id = b.id WHERE b.company_id = '$param_id' AND b.source='B' AND a.status='1' AND b.empStatus = '1' GROUP BY b.id ORDER BY b.id DESC";
 
                                                 $result = mysqli_query($link, $query) or die(mysqli_error($link));      
 
@@ -144,7 +144,7 @@ if(isset($_COOKIE['visit']) && $_COOKIE['visit'] == "true"){
 
                                                 if(!empty($param_id)){  
 
-                                                $query = "SELECT * FROM B2B_workers WHERE company_id = '$current_id' AND status = 2";
+                                                $query = "SELECT a.id as networkId, b.* FROM networks a LEFT JOIN employees b ON a.worker_id = b.id WHERE b.company_id = '$param_id' AND b.source='B' AND a.status='1' AND b.empStatus = '2' GROUP BY b.id ORDER BY b.id DESC";
 
                                                 $result = mysqli_query($link, $query) or die(mysqli_error($link));      
 
@@ -169,7 +169,7 @@ if(isset($_COOKIE['visit']) && $_COOKIE['visit'] == "true"){
 
                                                 if(!empty($param_id)){  
 
-                                                $query = "SELECT * FROM B2B_workers WHERE company_id = '$current_id' AND status = 0";
+                                                $query = "SELECT a.id as networkId, b.* FROM networks a LEFT JOIN employees b ON a.worker_id = b.id WHERE b.company_id = '$param_id' AND b.source='B' AND a.status='1' AND b.empStatus = '0' GROUP BY b.id ORDER BY b.id DESC";
 
                                                 $result = mysqli_query($link, $query) or die(mysqli_error($link));      
 

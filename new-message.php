@@ -30,13 +30,13 @@ if(empty($workid) || empty($companyid)){
     	
 if(!empty($param_id)){  
     	  	
-    $revQuery      = "SELECT * FROM B2B_company_details WHERE ID='$param_id'";
+    $revQuery      = "SELECT * FROM employers WHERE id='$param_id'";
 
     $revResult     = mysqli_query($link, $revQuery) or die(mysqli_error($link));
   
     $revAllResult  = $revResult->fetch_all(MYSQLI_ASSOC); 		  
 
-    $current_id    = $revAllResult[0]['ID'];	
+    $current_id    = $revAllResult[0]['id'];	
 
 	$photo         = $revAllResult[0]['photo'];	 
 		  

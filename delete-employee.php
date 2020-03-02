@@ -7,7 +7,7 @@ if(!empty($_REQUEST["ID"])){
 
     $workerid = $_REQUEST["ID"];
 
-    $query = "DELETE FROM B2B_workers WHERE worker_id='".$workerid."'";
+    $query = "UPDATE networks SET status = '0' WHERE worker_id = '$workerid'";
 
     $data = mysqli_query($link, $query)or die(mysqli_error($link));
 

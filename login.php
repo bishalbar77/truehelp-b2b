@@ -17,7 +17,7 @@ $email_err = $password_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){ 
 
     if(empty(trim($_POST["email"]))){
-        $email_err = "Please enter email address.";
+        $email_err = "Please enter your email address.";
     } else{
         $email = trim($_POST["email"]);
     }
@@ -34,7 +34,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 	$password = $_POST['password'];
 
-	$query = "SELECT * FROM B2B_company_details WHERE email='$username' AND status = '1' AND source = 'B' AND pass='".md5($password)."'";
+	$query = "SELECT * FROM employers WHERE email='$username' AND status = '1' AND source = 'B' AND pass='".md5($password)."'";
 	 
 	$result = mysqli_query($link, $query) or die(mysqli_error($link));
 	
@@ -50,7 +50,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 	$_SESSION["loggedin"] = true;
 	
-        $_SESSION["id"] = $id;
+    $_SESSION["id"] = $id;
 
 	$_SESSION["email"] = $email;
 
@@ -98,12 +98,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <!-- Form start -->
                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                             <div class="form-group">
-                                <input type="email" name="email" maxlength="38" class="input-text" autocomplete="off" placeholder="Email address" />
-				                <span class="help-block"><?php echo $email_err; ?></span>
+                                <input type="email" name="email" id="email" maxlength="38" class="input-text" autocomplete="off" placeholder="Email address" />
+				                <span class="help-block" id="email_err"><?php echo $email_err; ?></span>
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" maxlength="38" class="input-text" autocomplete="off" placeholder="Password" />
-				                <span class="help-block"><?php echo $password_err; ?></span>
+                                <input type="password" name="password" id="password" maxlength="38" class="input-text" autocomplete="off" placeholder="Password" />
+				                <span class="help-block" id="password_err"><?php echo $password_err; ?></span>
                             </div>
                             <div class="checkbox">
                                 <div class="ez-checkbox pull-left">
@@ -133,3 +133,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <!-- Contact section end -->
 
 <?php include("footer.php"); ?>
+
+<script type="text/javascript">
+jQuery(document).ready(function($){
+
+  $('#email').bind("keydown",function(e){
+    $("#email_err").html("");
+  });
+
+  $('#password').bind("keydown change",function(e){
+    $("#password_err").html("");
+  }); 
+
+}); 
+</script>

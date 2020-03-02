@@ -16,7 +16,7 @@ $otp    = '';
 setcookie('TRUE_HELP_OTP', $otp, time() + (86400 * 30), "/");
 if($_GET['phone']){
     $phone       = $_GET['phone'];    
-    $getIdQuery  = "SELECT ID FROM B2B_company_details WHERE phone = '$phone' AND source = 'B' AND mobile_verify = '1'";
+    $getIdQuery  = "SELECT id FROM employers WHERE phone='$phone' AND source='B' AND mobile_verify='1'";
     $getIdResult = mysqli_query($link, $getIdQuery) or die(mysqli_error($link));
     $getIdfetch  = mysqli_fetch_row($getIdResult);
     if(!empty($getIdfetch[0])){

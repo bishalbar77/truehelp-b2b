@@ -13,16 +13,22 @@ require_once "config.php";
 $statuss = $_REQUEST["status"];
 
 $param_id = $_SESSION["id"];
+
+
+$uploaddoc = $_SESSION["uploaddoc"];
+
+$uploadpro = $_SESSION["uploadpro"];
+
     	
 if(!empty($param_id)){  
     	  	
-  $revQuery      = "SELECT * FROM B2B_company_details WHERE ID='$param_id'";
+  $revQuery      = "SELECT * FROM employers WHERE id='$param_id'";
 
   $revResult     = mysqli_query($link, $revQuery) or die(mysqli_error($link));
   
   $revAllResult  = $revResult->fetch_all(MYSQLI_ASSOC); 
       
-  $current_id    = $revAllResult[0]['ID'];
+  $current_id    = $revAllResult[0]['id'];
       
   $yourname      = $revAllResult[0]['rep_full_name'];
   
@@ -325,6 +331,21 @@ button#frm-feedback-cancel {
     clear: both!important;
 }
 
+.color-blue {
+  color: #fff!important;
+  background: #4393d7!important;
+}
+
+.color-green {
+  color: #fff!important;
+  background: #28a745!important;
+}
+
+.color-red {
+  color: #fff!important;
+  background: #ff0000!important;
+}
+
 
 @media screen and (max-width: 1024px) {
   #abc div#popupContact {
@@ -343,6 +364,237 @@ button#frm-feedback-cancel {
 }
 
 </style>
+
+<style>
+
+.tab {
+  display: none;
+}
+
+#prevBtn {
+  background-color: #bbbbbb;
+}
+
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;  
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+.step.finish {
+  background-color: #4CAF50;
+}
+
+#emp-image {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+#empimages {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+#emp-image + label {
+    font-size: 12px;
+    padding: 10px 15px 7px 15px;
+    cursor: pointer;
+    max-width: 100%;
+    margin: 0;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 65px;
+}
+
+.bg-blue2-dark {
+    background-color: #4A89DC!important;
+    color: #FFFFFF!important;
+}
+.button-m {
+    padding: 10px 20px 8px 20px;
+    font-size: 12px;
+    line-height: 20px;
+    border: none
+}
+.button-circle {
+    border-radius: 65px;
+}
+
+button.scanner-btn {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    margin-top: 14px;
+    padding: 10px 20px 13px 20px;
+    width: 100%;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.col-md-12.mar-bottom-10.capture-image img {
+  width: 30%!important;
+}
+
+.col-md-12.mar-bottom-10.capture-image {
+    text-align: center;
+}
+
+button#frm-onboard-submit {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    margin-top: 14px;
+    padding: 10px 20px 13px 20px;
+    width: 100%;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+</style>
+
+<style type="text/css">
+ .capture-image-area {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 100000000;
+    display: none;
+ } 
+ .camera-width {
+    width: 100%;
+    height: 100vh;
+    z-index: 100000000;
+ }  
+
+ button#capture {
+    z-index: 10000000000000;
+    position: fixed;
+    bottom: 8%;
+    left: 50%;
+    transform: translate(-50%, -8%);
+    background: red;
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    color: #fff;
+    font-size: 12px;
+    border: 2px solid #fff;
+    font-weight: bold;
+    box-shadow: 0 0 6px #aaa;
+}
+
+.custom-btn {
+    margin-left: 5px;
+    font-size: 12px!important;
+    padding: 9px 20px 7px 20px!important;
+    line-height: 18px!important;
+    background-color: #4A89DC!important;
+    color: #FFFFFF!important;
+    font-weight: normal!important;
+    border-radius: 20px;
+}
+
+.color-unassign {
+  background: #4393d7!important;
+  color: #fff!important;
+}
+
+.color-wip {
+  background: #4393d7!important;
+  color: #fff!important;
+}
+
+.color-escalated {
+  background: #4393d7!important;
+  color: #fff!important;
+}
+
+.color-insufficiencyresponded {
+  background: #4393d7!important;
+  color: #fff!important;
+}
+
+.color-awaitingresponse {
+  background: #4393d7!important;
+  color: #fff!important;
+}
+
+.color-completed {
+  background: #28a745!important;
+  color: #fff!important;
+}
+
+.varificationllist .color-unassign:hover {
+    background: #4393d7!important;
+    color: #fff;
+}
+
+.varificationllist .color-wip:hover {
+    background: #4393d7!important;
+    color: #fff;
+}
+
+.varificationllist .color-escalated:hover {
+    background: #4393d7!important;
+    color: #fff;
+}
+
+.varificationllist .color-insufficiencyresponded:hover {
+    background: #4393d7!important;
+    color: #fff;
+}
+
+.varificationllist .color-awaitingresponse:hover {
+    background: #4393d7!important;
+    color: #fff;
+}
+
+.varificationllist .color-completed:hover {
+    background: #28a745!important;
+    color: #fff;
+}
+
+</style>
+
+
+<div id="captureImage" class="capture-image-area">
+  <input type="hidden" id="uploadtype" value="" />
+  <div id="camera" class="camera-width">
+    <div class="camerarealtime">             
+      <div class="camera-overlay"></div>
+      <video class="camera-video" id="video" style="height: 100vh;margin: 0 auto;display: flex;"></video>
+      <div class="Camera-overlay"></div>
+    </div>            
+  </div>
+
+  <div id="sourceSelectPanel" style="display:none!important; visibility: hidden !important;">
+    <select class="browser-default" id="sourceSelect" style="max-width:400px"></select>
+  </div>
+  <button id="capture">Capture</button>
+</div>
 
 
 <?php 
@@ -400,6 +652,65 @@ $onboard = $_REQUEST['onboard'];
 ?>
 
 
+<?php 
+if ( $_REQUEST['onboard']==='yes' && $_REQUEST['onboard']!='no' && !empty($_REQUEST['onboard']) ) {     
+$workerID = $_REQUEST['workerId'];
+$onboard = $_REQUEST['onboard'];
+?>
+
+<div id="abc">
+    <!-- Popup Div Starts Here -->
+        <div id="popupContact">                                       
+                  <div id="step1" class="tab">
+                    <div class="col-md-12 mar-bottom-10 capture-image">
+                      <img id="emp-image-show" src="img/camera-capture-icon.png" alt="Take Document Picture" style="width: auto; height: auto!important;" />
+                      <span id="profileImg_err"></span>
+                    </div>
+                    <div class="col-md-12" style="margin-top: 10px;">
+                        <div class="form-group" style="text-align: center;">       
+                        <?php $uploaddoc = $_SESSION["uploaddoc"]; 
+                          if(!empty($uploaddoc)){
+                        ?>
+                        <input type="hidden" name="photos" id="photos_image" value="<?php echo $uploaddoc; ?>" />
+                      <?php } else { ?>
+                        <input type="hidden" name="photos" id="photos_image" value="" />
+                      <?php } ?>
+         
+                            <input type="hidden" name="photos" id="photos_image" value="" />
+                            <label data-type="1" id="btn-document-img" class="btn-profile-img button button-3d button-m button-circle bg-blue2-dark bg-red2-light" style="font-size: 12px;padding: 7px 15px 7px 15px;cursor: pointer;max-width: 100%;margin: 0;">Take Document Picture</label>                       
+                        </div>
+                    </div>              
+
+                      <div class="col-md-12 mar-bottom-10 capture-image">
+                          <img id="emp-image-shows" src="img/camera-capture-icon.png" alt="Take Profile Picture" style="width: auto; height: auto!important;" />
+                          <span id="profileImg2_err"></span>
+                      </div>
+                      <div class="col-md-12" style="margin-top: 10px;">
+                          <div class="form-group" style="text-align: center;">   
+                              <?php $uploadpro = $_SESSION["uploadpro"];
+                                if(!empty($uploadpro)){
+                               ?>                          
+                                 <input type="hidden" name="photos2" id="photos_image2" value="<?php echo $uploadpro; ?>" />     
+                              <?php } else { ?>
+                                 <input type="hidden" name="photos2" id="photos_image2" value="" />
+                              <?php } ?>               
+                              <label data-type="2" id="btn-profile-img" class="btn-profile-img button button-3d button-m button-circle bg-blue2-dark bg-red2-light" style="font-size: 12px;padding: 7px 15px 7px 15px;cursor: pointer;max-width: 100%;" >Capture Profile Picture</label>
+                            <input type="hidden" name="empId" value="<?php echo $empId; ?>" />
+                          </div>
+                      </div>
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <button class="button button-m button-full bg-blue2-dark submit-btn2" id="frm-onboard-submit">Submit</button>
+                      </div>
+                  </div> 
+        </div>
+    <!-- Popup Div Ends Here -->
+</div>
+
+<?php
+} else {
+  header("location: employees.php");
+}
+?>
 
 
 <!-- Dashboard start -->
@@ -461,11 +772,11 @@ $onboard = $_REQUEST['onboard'];
                                       if(empty($statuss)){
 
                                           if($filter=="verified"){
-                                          $filterVal = "1";
+                                          $filterVal = 1;
                                           } else if($filter=="pending"){
-                                          $filterVal = "2";
+                                          $filterVal = 2;
                                           } else if($filter=="failed"){
-                                          $filterVal = "0";
+                                          $filterVal = 0;
                                           } 
 
                                           if($orderby=="ascending"){
@@ -474,13 +785,13 @@ $onboard = $_REQUEST['onboard'];
                                            $order = "DESC";
                                           }
 
-                                          if($filter=="all"){                     
+                                          if($filter=="all"){                                                    
 
-                                            $query = "SELECT a.ID as networkId, b.* FROM B2B_networks a LEFT JOIN B2B_workers b ON a.worker_id = b.worker_id WHERE a.company_id = '$current_id' AND b.source='B' AND a.status = '1' GROUP BY a.ID ORDER BY a.ID $order";
+                                            $query = "SELECT a.id as networkId, b.* FROM networks a LEFT JOIN employees b ON a.worker_id = b.id WHERE a.company_id = '$param_id' AND b.source='B' AND a.status='1' AND b.empStatus = '0' GROUP BY b.id ORDER BY b.id $order";
 
-                                          } else {
+                                          } else {                            
 
-                                            $query = "SELECT a.ID as networkId, b.* FROM B2B_networks a LEFT JOIN B2B_workers b ON a.worker_id = b.worker_id WHERE a.company_id = '$current_id' AND b.status=$filterVal AND b.source='B' AND a.status = '1' GROUP BY a.ID ORDER BY a.ID $order";                              
+                                            $query = "SELECT a.id as networkId, b.* FROM networks a LEFT JOIN employees b ON a.worker_id = b.id WHERE a.company_id = '$param_id' AND b.source='B' AND a.status='1' AND b.empStatus = '$filterVal' GROUP BY b.id ORDER BY b.id $order";                              
                                           }
 
                                       } else {
@@ -501,13 +812,13 @@ $onboard = $_REQUEST['onboard'];
                                           $order = "DESC";
                                           }  
 
-                                          if($filter=="all"){
+                                          if($filter=="all"){                          
 
-                                           $query = "SELECT a.ID as networkId, b.* FROM B2B_networks a LEFT JOIN B2B_workers b ON a.worker_id = b.worker_id WHERE a.company_id = '$current_id' AND b.source='B' AND a.status = '1' GROUP BY a.ID ORDER BY a.ID $order";
+                                           $query = "SELECT a.id as networkId, b.* FROM networks a LEFT JOIN employees b ON a.worker_id = b.id WHERE a.company_id = '$param_id' AND b.source='B' AND a.status='1' AND b.empStatus = '1' GROUP BY b.id ORDER BY b.id $order";
 
-                                          } else {
+                                          } else {                                 
 
-                                            $query = "SELECT a.ID as networkId, b.* FROM B2B_networks a LEFT JOIN B2B_workers b ON a.worker_id = b.worker_id WHERE a.company_id = '$current_id' AND b.status=$filterVal AND b.source='B' AND a.status = '1' GROUP BY a.ID ORDER BY a.ID $order";                                     
+                                            $query = "SELECT a.id as networkId, b.* FROM networks a LEFT JOIN employees b ON a.worker_id = b.id WHERE a.company_id = '$param_id' AND b.source='B' AND a.status='1' AND b.empStatus = $filterVal GROUP BY b.id ORDER BY b.id DESC $order";                                     
 
                                           }   
 
@@ -517,22 +828,21 @@ $onboard = $_REQUEST['onboard'];
                                   } else {
 
 
-                                        if(empty($statuss)){                              
+                                        if(empty($statuss)){                                                  
 
-                                          $query = "SELECT a.ID as networkId, b.* FROM B2B_networks a LEFT JOIN B2B_workers b ON a.worker_id = b.worker_id WHERE a.company_id = '$current_id' AND b.source='B' AND a.status = '1' GROUP BY a.ID ORDER BY a.ID ASC";
+                                           $query = "SELECT a.id as networkId, b.* FROM networks a LEFT JOIN employees b ON a.worker_id = b.id WHERE a.company_id = '$param_id' AND b.source='B' AND a.status='1' GROUP BY b.id ORDER BY b.id DESC";
 
                                         } else {
 
+                                            if($statuss=="verified"){
+                                            $status= 1; 
+                                            } else if($statuss=="pending") {
+                                            $status= 2;
+                                            } else if($statuss=="failed") {
+                                            $status= 0;
+                                            }   
 
-                                        if($statuss=="verified"){
-                                        $status= 1; 
-                                        } else if($statuss=="pending") {
-                                        $status= 2;
-                                        } else {
-                                        $status= 0;
-                                        } 
-
-                                          $query = "SELECT a.ID as networkId, b.* FROM B2B_networks a LEFT JOIN B2B_workers b ON a.worker_id = b.worker_id WHERE a.company_id = '$current_id' AND b.status=$status AND b.source='B' AND a.status = '1' GROUP BY a.ID ORDER BY a.ID ASC";       
+                                            $query = "SELECT a.id as networkId, b.* FROM networks a LEFT JOIN employees b ON a.worker_id = b.id WHERE a.company_id = '$param_id' AND b.source='B' AND a.status='1' AND b.empStatus = '$status' GROUP BY b.id ORDER BY b.id DESC";                                             
 
                                         }
 
@@ -543,13 +853,13 @@ $onboard = $_REQUEST['onboard'];
 
                                   $result     = mysqli_query($link, $query) or die(mysqli_error($link));
   
-                                  $revAllResult  = $result->fetch_all(MYSQLI_ASSOC);   
+                                  $revAllResult  = $result->fetch_all(MYSQLI_ASSOC);            
 
                                   if ($result->num_rows!=0) {	                                    
 
                                   foreach ($revAllResult as $key => $values) {                                    
 
-                                  $work_id       = $values['worker_id']; 
+                                  $work_id       = $values['id']; 
                                   $company_id    = $values['company_id']; 
 
                                   if($company_id=='0'){
@@ -558,11 +868,11 @@ $onboard = $_REQUEST['onboard'];
                                     $currently = 1;
                                   }
 
-                                  $companyname   = $values['worker_fullname']; 
+                                  $companyname   = $values['first_name']; 
                                   $work_type_id  = $values['worker_type'];
 
                                   if(!empty($param_id)){ 
-                                  $revQuery      = "SELECT * FROM B2B_employee_type WHERE source ='B' AND ID='$work_type_id'";
+                                  $revQuery      = "SELECT * FROM employee_types WHERE source ='B' AND id='$work_type_id'";
                                   $revResult     = mysqli_query($link, $revQuery) or die(mysqli_error($link));                                  
                                   $revAllResult  = $revResult->fetch_all(MYSQLI_ASSOC);                                                                                         
                                   $position      = $revAllResult[0]['emp_type'];
@@ -571,16 +881,11 @@ $onboard = $_REQUEST['onboard'];
                                   $dob_date      = $values['dob']; 
                                   $doj_date      = $values['doj']; 
                                   $name          = $values['contact_name']; 
-                                  $mname         = $values['mname']; 
-                                  $email         = $values['contact_email']; 
-                                  $phone         = $values['contact_phone']; 
-                                  $address       = $values['address']; 
-                                  $photo         = $values['photo']; 
-                                  $verify        = $values['verification_type'];                        
-                                  $status        = $values['status']; 
-                                  $string        = preg_replace('/[,]/', ' ', $verify);   
-                                  $array         = explode(" ",$string);
-                                  $date          = $values['regisration_date']; 
+                                  $mname         = $values['middle_name']; 
+                                  $email         = $values['email']; 
+                                  $phone         = $values['mobile'];                                 
+                                  $date          = $values['created_at'];                                
+
                                   $finalamount   = $values['final_amount']; 
                                   $amountstatus  = $values['amount_status']; 
                                   $temp_id       = $values['temp_id']; 
@@ -600,20 +905,30 @@ $onboard = $_REQUEST['onboard'];
 
                                   $sinceDate = date("Y-m-d", strtotime($date));
 
-                                  $queryese = "SELECT * FROM B2B_payment_history WHERE worker_id=$work_id AND company_id=$company_id AND temp_id=$addtional_temp_id";
+                                  $queryese = "SELECT * FROM payment_histories WHERE id=$work_id AND company_id=$company_id AND temp_id=$addtional_temp_id";
 
                                   $resultese = mysqli_query($link, $queryese);
 
                                   $fetchese = mysqli_fetch_row($resultese);
 
                                   $additional_amount = $fetchese[3];
+
+
+                                  $addrQueryess     = "SELECT * FROM employee_pictures WHERE worker_id = '$work_id'";
+
+                                  $addrResultess    = mysqli_query($link, $addrQueryess) or die(mysqli_error($link));
+
+                                  $addrAllResultess = $addrResultess->fetch_all(MYSQLI_ASSOC);
+
+                                  $profile = $addrAllResultess[0]['photo'];
+
                                   ?>  	                                  
                                 	
                                     <div class="comment">
-                                        <div class="comment-author">                                            
-                                            <?php  $base_url = "https://".$_SERVER['SERVER_NAME'].dirname($_SERVER["REQUEST_URI"].'?').''; 
-                                            if(!empty($photo)){ ?>
-                                            <img src="<?php echo $base_url.'upload/'.$photo; ?>" alt="profile-photo" class="img-fluid">
+                                        <div class="comment-author" style="overflow: hidden;display: flex;align-items: center;">                                            
+                                            <?php 
+                                            if(!empty($profile)){ ?>
+                                            <img src="<?php echo $profile; ?>" alt="profile-photo" class="img-fluid">
                                             <?php } else { ?>
                                             <img src="<?php echo $base_url.'img/dummy-image.jpg'; ?>" alt="profile-photo" class="img-fluid">
                                             <?php } ?>                                           
@@ -684,47 +999,75 @@ $onboard = $_REQUEST['onboard'];
                                   						 <?php } ?>
                                   							<li><span class="left-align">Payment status</span> <span>: <?php echo $amtstatus; ?> | <a href="<?php echo $base_url; ?>repayment.php?name=<?php echo $companyname.' '.$mname; ?>&amount=<?php echo $additional_amount; ?>&phone=<?php echo $phone; ?>&email=<?php echo $email; ?>&temp_id=<?php echo $temp_id; ?>" style="color:#4393d7;">Retry for payment</a></span></li><?php } ?>
                                   						 <?php } ?>
-                              						      <li><span class="left-align">Verification type</span> 
-                                                    <span class="custom-brack buttons mb-20 <?php if($status==2){ echo "color-blue"; } else if($status==1){ echo "color-green"; } else if($status==0){ echo "color-red"; } ?>"><?php
+                              						      <li style="margin-top: 10px;" class="varificationllist">
+                                                    <?php 
+                                                      $orderQuery     = "SELECT a.*, a.status as orderStatus, b.verification_type,b.id as varification_id FROM order_histories a left join verification_types b ON a.verification_type=b.id WHERE a.company_id='$company_id' AND a.worker_id='$work_id'";
+                                                      $orderResult    = mysqli_query($link, $orderQuery) or die(mysqli_error($link));
+                                                      $orderAllResult = $orderResult->fetch_all(MYSQLI_ASSOC);                                          
+                                                    ?>
+                                                    <span class="left-align">Verification type</span> 
+                                                    <span class="custom-brack buttons mb-20">
+                                                    <?php                                                                                 
+                                                     if(!empty($orderAllResult)): 
+                                                     foreach ($orderAllResult as $key => $order): 
 
-                                                    $queryess = "SELECT * FROM B2B_verification_type";
+                                                      $status = $order['task_status'];
+                                           
+                                                      switch ($order['task_status']) {
+                                                          case "0":
+                                                              $faClass = 'Unassign';
+                                                              $statuscolor = "color-unassign"; 
+                                                              break;
+                                                          case "1":
+                                                              $faClass = 'Work in Progress';
+                                                              $statuscolor = "color-wip"; 
+                                                              break;
+                                                          case "2":
+                                                              $faClass = 'Escalated';
+                                                              $statuscolor = "color-escalated"; 
+                                                              break;
+                                                          case "3":
+                                                              $faClass = 'Insufficient';
+                                                              $statuscolor = "color-insufficient"; 
+                                                              break;
+                                                          case "4":
+                                                              $faClass = 'Insufficiency Responded';
+                                                              $statuscolor = "color-insufficiencyresponded"; 
+                                                              break;
+                                                          case "5":
+                                                              $faClass = 'Work in Progress';
+                                                              $statuscolor = "color-wip"; 
+                                                              break;
+                                                          case "6":
+                                                              $faClass = 'Awaiting Response';
+                                                              $statuscolor = "color-awaitingresponse"; 
+                                                              break;
+                                                          case "7":
+                                                              $faClass = 'Completed';
+                                                              $statuscolor = "color-completed"; 
+                                                              break;
+                                                          default:
+                                                              $faClass = 'Completed';
+                                                              $statuscolor = "color-completed"; 
+                                                      }
 
-                                                    $resultess = mysqli_query($link, $queryess) or die(mysqli_error($link));
-
-                                                    $count = 1;
-
-                                                    if ($resultess->num_rows!=0) {
-
-                                                    while ($row=mysqli_fetch_row($resultess)){
-
-                                                    $ID = $row[0];
-
-                                                    $type = ucfirst($row[1]);
-
-                                                    $amount = $row[2];
-
-                                                    $str_arry = preg_split ("/\,/", $verify); 
-
-                                                    if (in_array($ID, $str_arry)) {
-
-                                                    if($row[3]==1){
                                                   ?>
-    				                                    <a href="<?php echo $base_url; ?>slip.php?workerID=<?php echo $work_id; ?>&verificationID=<?php echo $ID; ?>&status=<?php echo $status; ?>" class="btn-1 btn-gray" title="<?php echo ucfirst($type); ?>" style="padding: 2px 10px;" target="_blank"><i class="fa <?php if($status==2){ echo 'fa-clock-o'; }else if($status==1){ echo 'fa-check'; } else if($status==0){ echo 'fa-ban'; } ?>"></i> <?php echo ucfirst($type); ?></a>
-    				                                  <?php $count++; } } } } ?>
-
+    				                                            <a href="javascript:void(0)" class="btn-1 btn-gray <?php echo $statuscolor; ?>" title="<?php echo ucfirst($type); ?>" style="padding: 2px 10px;margin-bottom: 5px;" target="_blank">
+                                                        <?php echo ucfirst($order['verification_type']).' - '.$faClass; ?></a>
+                    				                        <?php endforeach; ?>
+                                                <?php endif; ?>
                                               </span>
     						                            </li>                                            
                                       </ul> 
 
 				                                    <div class="edit_update_button buttons mb-20">
-                                                <a href="<?php echo $base_url; ?>view-employee.php?ID=<?php echo $work_id; ?>" style="color: #4393d7;"><i class="fa fa-eye" style="color: #4393d7;"></i> View</a> | <a href="<?php echo $base_url; ?>delete-employee.php?ID=<?php echo $work_id; ?>" onclick="return confirm('Are you sure you want to delete this employee?');"><i class="fa fa-trash"></i> Delete</a>
+                                                <a href="<?php echo $base_url; ?>view-employee.php?ID=<?php echo $work_id; ?>" style="color: #4393d7;"><i class="fa fa-eye" style="color: #4393d7;"></i> View</a> | <a href="<?php echo $base_url; ?>delete-employee.php?ID=<?php echo $work_id; ?>" onclick="return confirm('Are you sure you want to remove from employees?');"><i class="fa fa-trash"></i> Delete</a>
                                             </ul>
 
                                             </div>
                                     </div> </div>
                                     
-                                     <?php } } else { echo "No record."; }
-                                       	?>
+                                     <?php } } else { echo "No record."; } ?>
                                     </div>
                                 </div>
                             </div>
@@ -921,3 +1264,221 @@ jQuery(document).ready(function($){
         location.href='employees.php';
     }
 </script>
+
+<script>
+var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the current tab
+
+function showTab(n) {
+  // This function will display the specified tab of the form...
+  var x = document.getElementsByClassName("tab");
+  x[n].style.display = "block";
+  //... and fix the Previous/Next buttons:
+  if (n == 0) {
+    document.getElementById("prevBtn").style.display = "none";
+  } else {
+    document.getElementById("prevBtn").style.display = "inline";
+  }
+  if (n == (x.length - 1)) {
+    document.getElementById("nextBtn").innerHTML = "Submit";
+  } else {
+    document.getElementById("nextBtn").innerHTML = "Next";
+  }
+  //... and run a function that will display the correct step indicator:
+  fixStepIndicator(n)
+}
+
+function nextPrev(n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("tab");
+  // Exit the function if any field in the current tab is invalid:
+  //if (n == 1 && !validateForm()) return false;
+  // Hide the current tab:
+  x[currentTab].style.display = "none";
+  // Increase or decrease the current tab by 1:
+
+  currentTab = currentTab + n;
+  // if you have reached the end of the form...
+  if (currentTab >= x.length) {
+    // ... the form gets submitted: 
+    document.getElementById("frmSelectType").submit();
+    return false;
+  }
+  // Otherwise, display the correct tab:
+  showTab(currentTab);
+}
+
+</script>
+
+
+<script type="text/javascript">
+$('#frm-onboard-submit').on('click', function(e){
+  //e.preventdefault();
+  var profileImg     = $('#photos_image').val();
+  var profileImg2     = $('#photos_image2').val();
+  var status      = false;
+
+  if(profileImg == ''){
+      $('#profileImg_err').html('Please upload document picture.');
+      status = true;
+  } else {
+      $('#profileImg_err').html('');
+      status = false;
+  }
+
+  if(profileImg2 == ''){
+      $('#profileImg2_err').html('Please upload profile picture.');
+      status = true;
+  } else {
+      $('#profileImg2_err').html('');
+      status = false;
+  }
+
+  if(status == false){
+      $.ajax({
+          url:"upload-profile.php",
+          method:"POST",
+          data: {
+              'company_id': '<?php echo $param_id; ?>',
+              'worker_id' : '<?php echo $workerID; ?>',
+              'photo1'     : profileImg,   
+              'photo2'     : profileImg2,   
+              'onboard'   : '<?php echo $onboard; ?>',
+     
+          },
+          success: function(data) {
+              var status = data;
+              if(status.trim() == 'SUCCESS'){            
+                refreshPage();                       
+              }
+          }
+      });
+  }
+});  
+</script>
+
+
+
+<script type="text/javascript"> 
+jQuery(document).ready(function($){
+  $(".btn-profile-img").click(function(){
+    $("#captureImage").show();
+    var vals;
+    vals = $(this).attr("data-type");
+    $("#capture").attr("data-type", vals);
+    $("#uploadtype").val(vals);
+  });
+}); 
+</script>
+
+<script type="text/javascript" src="zxing.min.js"></script>
+
+<script type="text/javascript">
+
+    function decodeOnce(codeReader, selectedDeviceId) {
+      codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
+      }).catch((err) => {
+        console.error(err);
+        document.getElementById('result').textContent = err;
+      })
+    }
+
+    window.addEventListener('load', function () {
+      let selectedDeviceId;
+      const codeReader = new ZXing.BrowserQRCodeReader()
+      console.log('ZXing code reader initialized')
+
+      codeReader.getVideoInputDevices()
+        .then((videoInputDevices) => {
+          const sourceSelect = document.getElementById('sourceSelect');
+          
+          if (videoInputDevices.length == 1) {
+            selectedDeviceId = videoInputDevices[0].deviceId
+          } else {
+            selectedDeviceId = videoInputDevices[1].deviceId
+          }
+          
+          if (videoInputDevices.length >= 1) {
+            videoInputDevices.forEach((element) => {
+              const sourceOption = document.createElement('option')
+              sourceOption.text = element.label
+              sourceOption.value = element.deviceId
+              sourceSelect.appendChild(sourceOption)
+            })
+
+            sourceSelect.onchange = () => {
+              selectedDeviceId = sourceSelect.value;
+              decodeOnce(codeReader, selectedDeviceId);
+            };
+
+            const sourceSelectPanel = document.getElementById('sourceSelectPanel')
+            sourceSelectPanel.style.display = 'block'
+          }
+
+          decodeOnce(codeReader, selectedDeviceId);
+
+          console.log(`Started decode from camera with id ${selectedDeviceId}`)
+
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+    })
+  </script>
+  <script type="text/javascript">
+    (function() {
+        "use strict";
+     
+        var video, $output;
+        var scale = .5;
+     
+        var initialize = function() {
+            $output = $("#emp-image-show");
+            video = $("#video").get(0);
+            $("#capture").click(captureImage);   
+        };
+     
+        var captureImage = function() {
+            $("#captureImage").hide(); 
+            var canvas = document.createElement("canvas");
+            var selectedVals = document.getElementById('uploadtype').value;
+            canvas.width = video.videoWidth * scale;
+            canvas.height = video.videoHeight * scale;
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+            var img = document.createElement("img");
+            img.src = canvas.toDataURL();
+            $output.prepend(img);
+
+            $.ajax({
+                method: 'POST',
+                url: 'camsave-img.php',
+                data: {
+                    photo: canvas.toDataURL(),
+                    uploadtype: selectedVals
+                },
+                dataType: 'JSON',
+                success: function(data) {   
+                    var fileUrl = data.file;               
+                    var fileupload_type = data.upload_type;  
+
+                    if(fileupload_type==1){
+                      $("#emp-image-show").attr('src', fileUrl);   
+                      $("#photos_image").val(fileUrl);   
+                      $("#btn-document-img").text('Retake document picture');                
+                    }  
+
+                    if(fileupload_type==2){ 
+                       $("#emp-image-shows").attr('src', fileUrl);   
+                       $("#photos_image2").val(fileUrl); 
+                       $("#btn-profile-img").text('Retake profile picture');
+                    }             
+                    
+                    
+                }
+            });
+        };
+     
+        $(initialize);            
+     
+    }());
+  </script>

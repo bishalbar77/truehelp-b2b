@@ -1,6 +1,5 @@
 <?php
-session_start();
-
+$varificationID = "";
  
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 ?>
@@ -76,16 +75,10 @@ setcookie($cookie_name, $page, time() + (86400 * 30), "/");
     <![endif]-->
  
    <script>
-
-    function hide() {
-       
-         $(".navbar-toggler").hide();
+    function hide() {       
+        $(".navbar-toggler").hide();    
     } 
-
    </script>
-   <?php if($_REQUEST["verificationID"]!=""){ ?>
-   <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5dd4db4c6826a20014f08ad0&product=inline-share-buttons" async="async"></script>
-   <?php } ?>
 </head>
 <body>
 <div class="page_loader"></div>

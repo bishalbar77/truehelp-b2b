@@ -23,6 +23,36 @@ function login() {
 $page = $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 $cookie_name = "refUrl";
 setcookie($cookie_name, $page, time() + (86400 * 30), "/");
+
+
+$param_id = $_SESSION["id"]; 
+        
+if(!empty($param_id)){  
+            
+  $revQuery      = "SELECT * FROM employers WHERE id='$param_id'";
+
+  $revResult     = mysqli_query($link, $revQuery) or die(mysqli_error($link));
+  
+  $revAllResult  = $revResult->fetch_all(MYSQLI_ASSOC); 
+      
+  $current_id    = $revAllResult[0]['id'];
+      
+  $yourname      = $revAllResult[0]['rep_full_name'];
+  
+  $email         = $revAllResult[0]['email'];
+  
+  $address       = $revAllResult[0]['address'];
+   
+  $companyname   = $revAllResult[0]['company_name'];
+   
+  $photo         = $revAllResult[0]['photo'];
+  
+  $phone         = $revAllResult[0]['phone']; 
+
+  $role          = $revAllResult[0]['role'];    
+    
+}
+
 ?>
 
 
@@ -82,7 +112,7 @@ setcookie($cookie_name, $page, time() + (86400 * 30), "/");
     } 
 
    </script>
-   <?php if($_REQUEST["verificationID"]!=""){ ?>
+   <?php if(isset($_REQUEST["verificationID"]) && $_REQUEST["verificationID"]!=""){ ?>
    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5dd4db4c6826a20014f08ad0&product=inline-share-buttons" async="async"></script>
    <?php } ?>
 </head>
@@ -105,22 +135,35 @@ setcookie($cookie_name, $page, time() + (86400 * 30), "/");
                         <li>
                             <div class="dropdown btns">
                                 <a class="dropdown-toggle" data-toggle="dropdown">
-                                    <?php  $base_url = "https://".$_SERVER['SERVER_NAME'].dirname($_SERVER["REQUEST_URI"].'?').'/'; 
+                                    <?php 
                                             if(!empty($photo)){ ?>
-                                            <img src="<?php echo $base_url.'upload/'.$photo; ?>" alt="avatar">
+                                            <img src="<?php echo $photo; ?>" alt="avatar">
                                             <?php } else { ?>
-                                            <img src="https://placehold.it/45x45" alt="avatar">
+                                            <img src="img/dummy-image.jpg" alt="avatar">
                                             <?php } ?>
                                     My Account
                                 </a>
                                 <div class="dropdown-menu">                       
                                     <a class="dropdown-item" href="index.php">Dashboard</a>
-                                    <a class="dropdown-item" href="messages.php">Messages</a>
+                                    <a class="dropdown-item" href="notifications.php">Notifications</a>
                                     <a class="dropdown-item" href="employees.php">Employees</a>
                                     <a class="dropdown-item" href="my-profile.php">My profile</a>
                                     <a class="dropdown-item" href="logout.php">Logout</a>
                                 </div>
                             </div>
+                        </li>
+                        <li>
+                            <a href="notifications.php">
+                                <?php 
+                                $querys = "SELECT * FROM company_notifications WHERE status='0' AND company_id='$current_id'"; 
+                                $results = mysqli_query($link, $querys) or die(mysqli_error($link)); 
+                                $rowes = $results->fetch_all(MYSQLI_ASSOC); 
+                                if ($results->num_rows > 0) { ?>
+                                    <img src="img/notifications.png" style="border: none; margin:20px 0 20px 0;" />
+                                <?php } else { ?>
+                                    <img src="img/notification.png" style="border: none; margin:20px 0 20px 0;" />
+                                <?php } ?>
+                            </a>
                         </li>
                         <li>
                             <a class="btn btn-theme btn-md" href="new-employee.php">New employee</a>

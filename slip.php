@@ -94,38 +94,52 @@ textarea:hover, textarea:focus, #items td.total-value textarea:hover, #items td.
 
 <?php 
 
-    $revQuery      = "SELECT * FROM B2B_workers WHERE worker_id='$workID'";
+    $revQuery      = "SELECT * FROM employees WHERE id='$workID'";
 
     $revResult     = mysqli_query($link, $revQuery) or die(mysqli_error($link));
 
     $revAllResult  = $revResult->fetch_all(MYSQLI_ASSOC);
 
-	$name = $revAllResult[0]['worker_fullname'];
+	$name = $revAllResult[0]['first_name'];
 
-	$mname = $revAllResult[0]['mname'];
+	$mname = $revAllResult[0]['middle_name'];
 
-	$address = $revAllResult[0]['address'];
-	
-	$street = $revAllResult[0]['street'];
+	$phone = $revAllResult[0]['mobile'];
 
-	$state = $revAllResult[0]['state'];
+    $email = $revAllResult[0]['email'];
 
-	$postal_code = $revAllResult[0]['postal_code'];
-
-	$phone = $revAllResult[0]['contact_phone'];
-
-    $email = $revAllResult[0]['contact_email'];
-
-	$dates = $revAllResult[0]['regisration_date'];
+	$dates = $revAllResult[0]['created_at'];
 
 	$newDate = date("m-d-Y H:i A", strtotime($dates));
+
+
+   $addrQuery     = "SELECT * FROM addresses WHERE worker_id = '$workID' AND addressType='PR' ORDER BY id ASC";
+
+   $addrResult    = mysqli_query($link, $addrQuery) or die(mysqli_error($link));
+
+   $addrAllResult = $addrResult->fetch_all(MYSQLI_ASSOC); 
+
+   $near_by        = $addrAllResult[0]['near_by'];
+
+   $village        = $addrAllResult[0]['village']; 
+
+   $postoffice     = $addrAllResult[0]['postoffice'];
+
+   $policestation  = $addrAllResult[0]['policestation'];
+
+   $state          = trim($addrAllResult[0]['state']); 
+
+   $district       = $addrAllResult[0]['district'];
+
+   $postalcode     = $addrAllResult[0]['pincode'];
 
 ?>
 		
     <div id="identity">		
-    <div id="address"><b><?php echo $name." ".$mname; ?></b></br><?php echo $address.", ".$street.", ".$state.", Postal code: ".$postal_code; ?></br>
-    Phone: <?php echo $phone; ?></br>
-    Email: <?php echo $email; ?>
+    <div id="address"><b><?php echo $name; ?></b></br><b>Address</b>: <?php echo $near_by.", ".$village.", ".$state; ?></br>
+    Postal code: <?php echo $postalcode; ?></br>
+    <b>Phone</b>: <?php echo $phone; ?></br>
+    <b>Email</b>: <?php echo $email; ?>
     </div>
 
             <div id="logo">
@@ -152,38 +166,32 @@ textarea:hover, textarea:focus, #items td.total-value textarea:hover, #items td.
                 <tr>
                     <td class="meta-head">Verification Status</td>
                     <td><div class="due">
-			<?php if($status==0){ ?>
-				Failed
-			<?php } else if($status==1){ ?>
-				Verified	
-			<?php } else if($status==2){ ?>
-				Pending
-			<?php } ?>	
-			</div></td>
+                        <?php if($status==0){ ?>
+                        Failed
+                        <?php } else if($status==1){ ?>
+                        Verified	
+                        <?php } else if($status==2){ ?>
+                        Pending
+                        <?php } ?>	
+                        </div>
+                    </td>
                 </tr>
 
-		<tr>
-                    <td class="meta-head">Date / Time</td>
-                    <td><div id="date"><?php echo $newDate; ?></div></td>
-                </tr>
+            <tr>
+            <td class="meta-head">Date / Time</td>
+            <td><div id="date"><?php echo $newDate; ?></div></td>
+            </tr>
 
-		<tr>
-		    <td class="meta-head">Verification type</td>
-
-			<?php
-
-	                   $queryess = "SELECT * FROM B2B_verification_type WHERE ID='$varificationID'";
-
-                           $resultess = mysqli_query($link, $queryess) or die(mysqli_error($link));
-
-			   $row = mysqli_fetch_row($resultess);
-
-			   $type = ucfirst($row[1]);
-
-                         ?>
-
-		    <td><div id="date"><?php echo $type; ?></div></td>
-                </tr>
+            <tr>
+            <td class="meta-head">Verification type</td>
+            <?php
+            $queryess = "SELECT * FROM verification_types WHERE source='B' AND id='$varificationID'";
+            $resultess = mysqli_query($link, $queryess) or die(mysqli_error($link));
+            $rowVal = $resultess->fetch_all(MYSQLI_ASSOC);
+            $type = ucfirst($rowVal[0]['verification_type']);
+            ?>
+            <td><div id="date"><?php echo $type; ?></div></td>
+            </tr>
             </table>
 		
 		</div>

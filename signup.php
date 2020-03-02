@@ -1,4 +1,10 @@
 <?php
+// Import PHPMailer classes into the global namespace
+// These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 // Initialize the session
 session_start();
 
@@ -7,23 +13,22 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     exit;
 }
 
+/*ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);*/
+
 // Include config file
 require_once "config.php";
+require 'mail/vendor/autoload.php';
 
 include "getIP.php";
 
 $fullname = "";
 $otp = "";
 $email = $password = $confirm_password = "";
-$fullname_err = $email_err = $password_err = $confirm_password_err = "";
+$fullname_err = $email_err = $password_err = $confirm_password_err = $company = $otp_err = $phone_err = $phone = $company_err = "";
  
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-    if(empty(trim($_POST["fullname"]))) {
-      $fullname_err = "Please enter your full name.";
-    } else {
-      $fullname = trim($_POST["fullname"]);
-    }
 
     if(empty(trim($_POST["companyname"]))) {
       $company_err = "Please enter your company name.";
@@ -31,21 +36,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       $company = $_POST["companyname"];
     }
 
+    if(empty(trim($_POST["fullname"]))) {
+      $fullname_err = "Please enter your representative name.";
+    } else {
+      $fullname = trim($_POST["fullname"]);
+    }
+
     if(empty(trim($_POST["phone"]))) {
         $phone_err = "Please enter your mobile number.";
     } else {
-        $mobile     = $_POST["phone"];
-        $query      = "SELECT * FROM B2B_company_details WHERE phone = '$mobile' AND mobile_verify = '1'";
-        $result     = mysqli_query($link, $query) or die(mysqli_error($link));
-        $fetch      = mysqli_fetch_row($result);
-        $id         = $fetch[0];
-        $count      = mysqli_num_rows($result);
-
-        if ($count == 1){
-            $phone_err = "Phone Number Already Registered. Please Login!!";
-        } else {
-            $phone = $_POST["phone"];
-        }
+        $phone = $_POST["phone"];
     }
 
     if(empty(trim($_POST["otp"]))) {
@@ -58,7 +58,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $email_err = "Please enter a email address.";
     } else {
     
-        $sql = "SELECT ID FROM B2B_company_details WHERE email = ?";
+        $sql = "SELECT id FROM employers WHERE email = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
  
@@ -92,38 +92,38 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
     if(empty(trim($_POST["confirm_password"]))){
-        $confirm_password_err = "Please confirm password.";     
+        $confirm_password_err = "Please enter confirm password.";     
     } else{
         $confirm_password = trim($_POST["confirm_password"]);
         if(empty($password_err) && ($password != $confirm_password)){
             $confirm_password_err = "Password did not match.";
         }
     }
+
     
-    if(empty($email_err) && empty($company_err) && empty($password_err) && empty($confirm_password_err) && empty($phone_err) && $otp == trim($_COOKIE['TRUE_HELP_OTP'])){
+    if(empty($email_err) && empty($company_err) && empty($password_err) && empty($confirm_password_err) && empty($phone_err) && empty($otp_err) && $otp == trim($_COOKIE['TRUE_HELP_OTP'])){
      	
     $current_ip = getUserIpAddr();
 
-	date_default_timezone_set('Asia/Kolkata');
-
 	$activationcode = md5($email.time());
 
-	$query = "INSERT INTO B2B_company_details (rep_full_name, email, company_name, phone, pass, activationcode, registered_ip, mobile_verify) VALUES ('$fullname', '$email', '$company', '$phone', '".md5($password)."', '$activationcode', '$current_ip', '1')";	
+    $created_at     = date('Y-m-d H:i:s');
+
+    $employee_id    = rand(1000,9999);
+
+	$query = "INSERT INTO employers (emp_code, rep_full_name, email, company_name, country_code, phone, role, otp, pass, activationcode, status, registration_date, registered_ip, mobile_verify, created_at) VALUES ('$employee_id','$fullname', '$email', '$company', '91', '$phone', '0', '$otp', '".md5($password)."', '$activationcode', '0', '$created_at', '$current_ip', '1', '$created_at')";	
 
 	$data = mysqli_query ($link, $query)or die(mysqli_error($link));
 
-	if($data)
-	{	
+	if($data) {
+
 		$to = $email;
-		$msg = "Thanks for Registration.";   
+		$emails = 'support@gettruehelp.com';	 
 		$subject ="Email verification - TrueHelp Enterprise";
-		$headers .= "MIME-Version: 1.0"."\r\n";
-		$headers .= 'Content-type: text/html; charset=iso-8859-1'."\r\n";
-		$headers .= 'From:TrueHelp Enterprise <gettruehelp@gmail.com>'."\r\n";
 
 	    $url_codes= '<a target="_blank" style="text-decoration:none; color:#f9f9f9; display:inline-block; padding:22px 22px;" href="https://enterprise.gettruehelp.com/email_verification.php?code='.$activationcode.'">Activation account</a>';
            
-		$ms ="<html xmlns='http://www.w3.org/1999/xhtml'>
+		$body ="<html xmlns='http://www.w3.org/1999/xhtml'>
 	        <head>
 		<title>TrueHelp Enterprise</title>
 		<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
@@ -252,21 +252,86 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </html>
 
 ";
+		// Instantiation and passing `true` enables exceptions
+		$mail = new PHPMailer(true);
+		$mail1 = new PHPMailer(true);
 
-	mail($to,$subject,$ms,$headers);
+		try {
+		    //Server settings
+		    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+		    $mail->isSMTP();
+		    $mail->Host       = 'smtp.sendgrid.net';
+		    $mail->SMTPAuth   = true;
+		    $mail->Username   = 'project91';
+		    $mail->Password   = 'EMAIL@P91';
+		    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+		    $mail->Port       = 587;
+		    $mail->SMTPDebug  = 0; 
 
-	header("location: thankyou.php");
+		    //Recipients
+		    $mail->setFrom($emails, 'TrueHelp');
+		    $mail->addAddress($to, 'TrueHelp');
+		    $mail->addReplyTo($emails, $fullname);
+		    // $mail->addCC('jalaj@gettruehelp.com');
+		    // $mail->addBCC('jalaj@gettruehelp.com');
+
+		    // Attachments
+		    //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+		    //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+
+		    // Content
+		    $mail->isHTML(true);
+		    $mail->Subject = $subject;
+		    $mail->Body    = $body;
+		    $mail->AltBody = $body;
+
+		    if($mail->send()=="1"){
+		 	   header("location: thankyou.php");
+			} else {
+
+				$mail1->SMTPDebug = SMTP::DEBUG_SERVER;
+			    $mail1->isSMTP();
+			    $mail1->Host       = 'email-smtp.ap-south-1.amazonaws.com';
+			    $mail1->SMTPAuth   = true;
+			    $mail1->Username   = 'AKIA4SH5KM3GA65RIVWE';
+			    $mail1->Password   = 'BNfZSS+z+Is/dNMHLabNXPmI5KRH71CMTh2TYEFWjyh8';
+			    $mail1->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+			    $mail1->Port       = 587;
+			    $mail1->SMTPDebug  = 0; 
+
+			    //Recipients
+			    $mail1->setFrom($emails, 'TrueHelp');
+			    $mail1->addAddress($to, 'TrueHelp');
+			    $mail1->addReplyTo($emails, $fullname);
+			    // $mail->addCC('jalaj@gettruehelp.com');
+			    // $mail->addBCC('jalaj@gettruehelp.com');
+
+			    // Attachments
+			    //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+			    //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+
+			    // Content
+			    $mail1->isHTML(true);
+			    $mail1->Subject = $subject;
+			    $mail1->Body    = $body;
+			    $mail1->AltBody = $body;
+
+			    if($mail1->send()){
+			 	   header("location: thankyou.php");
+				} 
+
+			}
+
+		} catch (Exception $e) {
+		    //echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+		}
+
+	
 
 	} 
+
        	
-    } else {        
-        ?>
-        	<script type="text/javascript">
-        		document.getElementById("hide").removeAttribute("style");
-        	</script>
-        <?php 
-        $otp_err = "Invalid OTP.";
-    }
+    } 
 
     mysqli_close($link);
 }
@@ -308,28 +373,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <!-- Form start-->
                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 			                <div class="form-group">
-                                <input type="text" name="companyname" class="input-text" maxlength="40" placeholder="Company name" autocomplete="off" value="<?php echo $company; ?>" />
-                                <span class="help-block"><?php echo $company_err; ?></span>
+                                <input type="text" name="companyname" id="companyname" class="input-text" maxlength="40" placeholder="Company name" autocomplete="off" value="<?php echo $company; ?>" />
+                                <span class="help-block" id="company_err"><?php echo $company_err; ?></span>
                             </div>
 
                             <div class="form-group">
-                                <input type="text" name="fullname" class="input-text" maxlength="38" placeholder="Representative name" autocomplete="off" value="<?php echo $fullname; ?>" />
-				                <span class="help-block"><?php echo $fullname_err; ?></span>
+                                <input type="text" name="fullname" id="fullname" class="input-text" maxlength="38" placeholder="Representative name" autocomplete="off" value="<?php echo $fullname; ?>" />
+				                <span class="help-block" id="fullname_err"><?php echo $fullname_err; ?></span>
                             </div>
 
                             <div class="form-group">
-                                <input type="email" name="email" class="input-text" maxlength="38" placeholder="Email address" autocomplete="off" value="<?php echo $email; ?>" />
-				                <span class="help-block"><?php echo $email_err; ?></span>
+                                <input type="email" name="email" id="email" class="input-text" maxlength="38" placeholder="Email address" autocomplete="off" value="<?php echo $email; ?>" />
+				                <span class="help-block" id="email_err"><?php echo $email_err; ?></span>
                             </div>
 
                             <div class="form-group">
                             	<input type="hidden" id="country" name="country" value="91" />
-                                <input type="text" name="phone" class="input-text" maxlength="10" placeholder="Mobile number" id="phone" autocomplete="off" value="<?php echo $phone; ?>" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); sendotp(this.value)" onkeyup="numberMobile(event);" style="padding: 10px 15px 10px 44px;" />
+                                <input type="text" name="phone" id="phone" class="input-text" maxlength="10" placeholder="Mobile number" id="phone" autocomplete="off" value="<?php echo $phone; ?>" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); sendotp(this.value)" onkeyup="numberMobile(event);" style="padding: 10px 15px 10px 44px;" />
 				                <span class="help-block" id="phone_err"><?php echo $phone_err; ?></span>
                             </div>
 
-                            <div class="form-group" id="hide" <?php echo !empty($otp_err) ? '' : 'style="display: none;"'; ?>>
-                                <input type="number" name="otp" class="input-text" maxlength="4" placeholder="OTP code" autocomplete="off" value="<?php echo $otp; ?>" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)" onkeyup="numberMobile(event);" />
+                            <div class="form-group">
+                                <input type="number" name="otp" id="otp" class="input-text" maxlength="4" placeholder="OTP code" autocomplete="off" value="<?php echo $otp; ?>" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)" onkeyup="numberMobile(event);" />
 				                <span class="help-block" id="otp_err"><?php echo $otp_err; ?></span>
                             </div>
 
@@ -341,13 +406,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 				            </div>
 
                             <div class="form-group">
-                                <input type="password" name="password" class="input-text" maxlength="20" placeholder="Password" autocomplete="off" value="<?php echo $password; ?>" />
-				                <span class="help-block"><?php echo $password_err; ?></span>
+                                <input type="password" name="password" id="password" class="input-text" maxlength="20" placeholder="Password" autocomplete="off" value="<?php echo $password; ?>" />
+				                <span class="help-block" id="password_err"><?php echo $password_err; ?></span>
                             </div>
 
                             <div class="form-group">
-                                <input type="password" name="confirm_password" class="input-text" maxlength="20" autocomplete="off" placeholder="Confirm password" value="<?php echo $confirm_password; ?>" />
-				                <span class="help-block"><?php echo $confirm_password_err; ?></span>
+                                <input type="password" name="confirm_password" id="confirm_password" class="input-text" maxlength="20" autocomplete="off" placeholder="Confirm password" value="<?php echo $confirm_password; ?>" />
+				                <span class="help-block" id="confirm_password_err"><?php echo $confirm_password_err; ?></span>
                             </div>
 
                             <div class="form-group mb-0">                 
@@ -373,6 +438,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <?php include("footer.php"); ?>
 
 <script  src="js/intlTelInput.js"></script>
+
 <script type="text/javascript">
     var input = $('#phone');
     var country = $('#country');
@@ -382,19 +448,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         switch(iti.getSelectedCountryData().iso2) {
             case 'us':
                 countryCode = 1;
-                break;
-            case 'ae':
-                countryCode = 971;
-                break;
+                break;    
             case 'in':
                 countryCode = 91;
-                break;
-            case 'pk':
-                countryCode = 92;
-                break;
-            case 'bd':
-                countryCode = 880;
-                break;
+                break;   
             default:
                 countryCode = 91;
                 break;
@@ -437,13 +494,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     timer(31);
                     document.getElementById("hide").removeAttribute("style");
                     document.getElementById("phone").readOnly = true;                  
-                } else if(this.readyState == 4 && this.status == 200 && xhttp.responseText.trim() == 'NOT_EXIST'){
-                    document.getElementById('phone_err').innerHTML = 'Mobile Number Not Registered! Please Register and try again!';
+                } else if(this.readyState == 4 && this.status == 200 && xhttp.responseText.trim() == 'ALREADY_EXIST'){
+                    document.getElementById('phone_err').innerHTML = 'Mobile Number Already Registered with another account. Please enter another mobile number!';
                 } else {
-                    //document.getElementById('mobile_err').innerHTML = 'Somthing Wrong!!';
+                    //document.getElementById('phone_err').innerHTML = 'Somthing Wrong!!';
                 }
             };
-            xhttp.open("get", "sns/index.php?phone=" + mobile + '&country=' + country , true);
+            xhttp.open("get", "sns/register.php?phone=" + mobile + '&country=' + country , true);
             xhttp.send();
         } 
     }
@@ -469,11 +526,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 timer(31);
                 document.getElementById("hide").removeAttribute("style");
                 document.getElementById("phone").readOnly = true;               
-            } else if(this.readyState == 4 && this.status == 200 && xhttp.responseText.trim() == 'NOT_EXIST'){
-                document.getElementById('phone_err').innerHTML = 'Mobile Number Not Registered! Please Register and try again!';
-            } 
+            } else if(this.readyState == 4 && this.status == 200 && xhttp.responseText.trim() == 'ALREADY_EXIST'){
+                document.getElementById('phone_err').innerHTML = 'Mobile Number Already Registered with another account. Please enter another mobile number!';
+            } else {
+                //document.getElementById('phone_err').innerHTML = 'Somthing Wrong!!';
+            }
         };
-        xhttp.open("get", "sns/index.php?phone=" + mobile + '&country=' + country , true);
+        xhttp.open("get", "sns/register.php?phone=" + mobile + '&country=' + country , true);
         xhttp.send();
     }
 
@@ -492,4 +551,38 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
         }, 1000);
     }
+</script>
+
+<script type="text/javascript">
+jQuery(document).ready(function($){
+
+  $('#companyname').bind("keydown",function(e){
+    $("#company_err").html("");
+  });
+
+  $('#fullname').bind("keydown change",function(e){
+    $("#fullname_err").html("");
+  }); 
+
+  $('#email').bind("keydown change",function(e){
+    $("#email_err").html("");
+  }); 
+
+  $('#phone').bind("keydown change",function(e){
+    $("#phone_err").html("");
+  }); 
+
+  $('#otp').bind("keydown change",function(e){
+    $("#otp_err").html("");
+  }); 
+
+  $('#password').bind("keydown change",function(e){
+    $("#password_err").html("");
+  }); 
+
+  $('#confirm_password').bind("keydown change",function(e){
+    $("#confirm_password_err").html("");
+  });  
+
+}); 
 </script>

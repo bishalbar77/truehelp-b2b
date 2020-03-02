@@ -10,6 +10,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 // Include config file
 require_once "config.php";
 
+require 'sns/vendor/autoload.php';
+use Aws\S3\S3Client;
+use Aws\S3\Exception\S3Exception;
+
 $yourname = $email = $companyname = $phone = "";
 
 $new_password = $confirm_password = "";
@@ -26,13 +30,13 @@ $param_id = $_SESSION["id"];
     	
 if(!empty($param_id)){  
     	  	
-  $revQuery      = "SELECT * FROM B2B_company_details WHERE ID='$param_id'";
+  $revQuery      = "SELECT * FROM employers WHERE id='$param_id'";
 
   $revResult     = mysqli_query($link, $revQuery) or die(mysqli_error($link));
   
   $revAllResult  = $revResult->fetch_all(MYSQLI_ASSOC); 
     
-  $current_id    = $revAllResult[0]['ID'];
+  $current_id    = $revAllResult[0]['id'];
       
   $yourname      = $revAllResult[0]['rep_full_name'];
   
@@ -59,37 +63,38 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   			  			
           if($_FILES['photo']['name']){
       			
-          $target_path = $base_url = dirname(__FILE__).'/upload/';      
+            $tempName = md5(rand(100000,999999));
+            $fileName = $tempName.$_FILES["photo"]["name"]; 
 
-          $errors= "";
-          $file_name = $_FILES['photo']['name'];
-          $file_size = $_FILES['photo']['size'];
-          $file_tmp = $_FILES['photo']['tmp_name'];
-          $file_type = $_FILES['photo']['type'];
-          $file_et = end(explode('.', $file_name));
-          $file_ext = strtolower($file_et);
-          
-          $extensions= array("jpeg","jpg","png");
-          
-          if(in_array($file_ext,$extensions)=== false){
-             $errors="extension not allowed, please choose a JPEG or PNG file.";
-          }
-          
-          if($file_size > 2097152){
-             $errors='File size must be excately 2 MB';
-          }
-          
-          if(empty($errors)==true){
-          	$num = rand(10,100);
-          	$getfilename =  str_replace(' ', '_', $file_name);
-          	$final_name = $num.'_'.$getfilename;
-          	$result = 1;
-             move_uploaded_file($file_tmp,$target_path.$final_name);          
-          }
+            // Set Amazon s3 credentials
+            $client = S3Client::factory([
+              'version' => 'latest',
+              'region'  => 'ap-south-1',
+              'credentials' => [
+                'key'    => "AKIA4SH5KM3GHHQL5CUF",
+                'secret' => "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"
+              ]
+            ]);
+
+            $result = $client->putObject(array(
+                'Bucket'        => 'cdn.gettruehelp.com',
+                'Key'           => 'img/'.$fileName,
+                'SourceFile'    => $_FILES["photo"]["tmp_name"],
+                'StorageClass'  => 'STANDARD',
+                'ACL'           => 'public-read',
+                'StorageClass'  => 'REDUCED_REDUNDANCY',
+            ));
+
+
+            if($result){
+              $filename = $result['ObjectURL'];
+            } else {
+              $filename = '';
+            }
       			
-      		} else {
-      			$final_name = $photo;
-      		}	
+      		}  else {
+              $filename = $_POST["imageurl"];
+          }
       
 			$companyname = trim($_POST["companyname"]); 
 			
@@ -99,7 +104,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			
 			$address = $_POST["personalinfo"];			
 		
-			$sql = "UPDATE B2B_company_details SET rep_full_name = '$yourname', address = '$address', photo = '$final_name', phone = '$phone', company_name = '$companyname' WHERE ID =$current_id"; 
+			$sql = "UPDATE employers SET rep_full_name = '$yourname', address = '$address', photo = '$filename', phone = '$phone', company_name = '$companyname' WHERE id =$current_id"; 
       	  
       $data = mysqli_query($link, $sql)or die(mysqli_error($link));			
 	
@@ -140,7 +145,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     	
     	  $param_id = $_SESSION["id"];    	  
     	  	
-    	  $query = "SELECT * FROM B2B_company_details WHERE ID='$param_id'";
+    	  $query = "SELECT * FROM employers WHERE id='$param_id'";
 	 
 		  $result = mysqli_query($link, $query) or die(mysqli_error($link));
 	
@@ -156,7 +161,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     	  	
     		  $param_password = md5($new_password);
       
-      	  $sql = "UPDATE B2B_company_details SET pass = '$param_password' WHERE email ='$email'";
+      	  $sql = "UPDATE employers SET pass = '$param_password' WHERE email ='$email'";
       	  
       	  $data = mysqli_query($link, $sql)or die(mysqli_error($link));
       	  

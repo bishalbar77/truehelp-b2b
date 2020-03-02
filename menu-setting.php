@@ -4,11 +4,11 @@
 <ul>       
     <li class="<?php echo $file_name == 'index' ? 'active' : ''; ?>"><a href="index.php"><i class="flaticon-dashboard"></i> Dashboard</a></li>
      <?php  
-             $query = "SELECT * FROM B2B_messages WHERE company_id='$param_id' AND message_status='0'";
+             $query = "SELECT * FROM messages WHERE company_id='$param_id' AND message_status='0'";
 
              $result = mysqli_query($link, $query) or die(mysqli_error($link));
         ?>
-    <li class="<?php echo $file_name == 'messages' ? 'active' : ''; ?>"><a href="messages.php"><i class="flaticon-mail"></i> Messages <?php if ($result->num_rows!=0) { ?><span class="nav-tag"><?php echo $result->num_rows; ?> <?php } ?></span> </a></li>
+    <li class="<?php echo $file_name == 'notifications' ? 'active' : ''; ?>"><a href="notifications.php"><i class="flaticon-mail"></i> Notifications <?php if ($result->num_rows!=0) { ?><span class="nav-tag"><?php echo $result->num_rows; ?> <?php } ?></span> </a></li>
 </ul>
 <h4>Listings</h4>
 <ul>

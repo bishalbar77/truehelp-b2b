@@ -25,7 +25,7 @@
         //    Order (if >1 country with same dial code),
         //    Area codes
         // ]
-        var allCountries = [ [ "India (भारत)", "in", "91" ], [ "United States", "us", "1", 0 ], [ "United Arab Emirates (‫الإمارات العربية المتحدة‬‎)", "ae", "971" ], [ "Pakistan (‫پاکستان‬‎)", "pk", "92" ], [ "Bangladesh (বাংলাদেশ)", "bd", "880" ]];
+        var allCountries = [ [ "India (भारत)", "in", "91" ], [ "United States", "us", "1", 0 ] ];
         // loop over all of the countries above, restructuring the data to be objects with named keys
         for (var i = 0; i < allCountries.length; i++) {
             var c = allCountries[i];

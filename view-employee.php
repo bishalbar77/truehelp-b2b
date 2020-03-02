@@ -23,14 +23,14 @@ $aadhar_number = "";
 $param_ids = $_REQUEST["ID"];
 
 if(empty($param_ids)){
-    header("location: employees.php");
-    exit;
+    //header("location: employees.php");
+    //exit;
 }
  
 
 if(!empty($param_ids)){ 
 
-   $revQuery      = "SELECT * FROM B2B_workers WHERE worker_id='$param_ids'";
+   $revQuery      = "SELECT * FROM employees WHERE source='B' AND id='$param_ids'";
 
    $revResult     = mysqli_query($link, $revQuery) or die(mysqli_error($link));
   
@@ -40,9 +40,9 @@ if(!empty($param_ids)){
    
    $doctype_ID     = $revAllResult[0]["docTypeId"]; 
    
-   $documentnumber = $revAllResult[0]["aadhar_no"]; 
+   $documentnumber = $revAllResult[0]["document_no"]; 
 
-   $worker_ids     = $revAllResult[0]['worker_id'];
+   $worker_ids     = $revAllResult[0]['id'];
 
    $company_id     = $revAllResult[0]['company_id'];
 
@@ -52,17 +52,17 @@ if(!empty($param_ids)){
       $currently = 1;
    }
 
-   $worker_name    = $revAllResult[0]['worker_fullname'];
+   $worker_name    = $revAllResult[0]['first_name'];
 
    $gender         = $revAllResult[0]['gender'];
 	
-   $aadhar_no      = $revAllResult[0]['aadhar_no'];
+   $document_no    = $revAllResult[0]['document_no'];
 
-   $mname          = $revAllResult[0]['mname'];
+   $mname          = $revAllResult[0]['middle_name'];
 
-   $sname          = $revAllResult[0]['sname'];
+   $sname          = $revAllResult[0]['last_name'];
 
-   $alias          = $revAllResult[0]['alias'];
+   $alias          = $revAllResult[0]['alias_name'];
 
    $dob_date       = $revAllResult[0]['dob'];
 
@@ -70,23 +70,19 @@ if(!empty($param_ids)){
 
    $salary         = $revAllResult[0]['salary'];   
 
-   $father_name    = $revAllResult[0]['contact_name'];
+   $father_name    = $revAllResult[0]['father_name'];
    
-   $contact_email  = $revAllResult[0]['contact_email'];
+   $contact_email  = $revAllResult[0]['email'];
 
-   $contact_phone  = $revAllResult[0]['contact_phone'];
-
-   $postal_code    = $revAllResult[0]['postal_code']; 
+   $contact_phone  = $revAllResult[0]['mobile'];
 
    $photos         = $revAllResult[0]['photo']; 
-
-   $files          = $revAllResult[0]['files']; 
  
    $other_details  = $revAllResult[0]['other_details'];
 
 
 
-   $addrQuery     = "SELECT * FROM B2B_address WHERE worker_id = '$worker_ids' AND addressType='PR' ORDER BY ID ASC";
+   $addrQuery     = "SELECT * FROM addresses WHERE worker_id = '$worker_ids' AND addressType='PR' ORDER BY id ASC";
    $addrResult    = mysqli_query($link, $addrQuery) or die(mysqli_error($link));
    $addrAllResult = $addrResult->fetch_all(MYSQLI_ASSOC); 
 
@@ -104,7 +100,7 @@ if(!empty($param_ids)){
 
    $postalcode     = $addrAllResult[0]['pincode'];
 
-   $addrQuery     = "SELECT * FROM B2B_address WHERE worker_id = '$worker_ids' AND addressType='PE' ORDER BY ID ASC";
+   $addrQuery     = "SELECT * FROM addresses WHERE worker_id = '$worker_ids' AND addressType='PE' ORDER BY id ASC";
    $addrResult    = mysqli_query($link, $addrQuery) or die(mysqli_error($link));
    $addrAllResults = $addrResult->fetch_all(MYSQLI_ASSOC);
 
@@ -124,8 +120,6 @@ if(!empty($param_ids)){
 
    $verification   = $revAllResult[0]['verification_type'];
 
-   $term_ids       = $revAllResult[0]['temp_id'];
-
    $finalamount    = $revAllResult[0]['final_amount'];
 
 
@@ -139,6 +133,25 @@ if(!empty($param_ids)){
 
    }
 
+
+   $addrQuerys     = "SELECT * FROM payment_histories WHERE worker_id = '$worker_ids' AND company_id='$company_id'";
+
+   $addrResults    = mysqli_query($link, $addrQuerys) or die(mysqli_error($link));
+
+   $addrAllResultes = $addrResults->fetch_all(MYSQLI_ASSOC);
+
+   $term_ids = $addrAllResultes[0]['temp_id'];
+
+
+   $addrQueryes     = "SELECT * FROM uploaded_documents WHERE worker_id = '$worker_ids' AND company_id='$company_id'";
+
+   $addrResultes    = mysqli_query($link, $addrQueryes) or die(mysqli_error($link));
+
+   $addrAllResultess = $addrResultes->fetch_all(MYSQLI_ASSOC);
+
+   $filesName = $addrAllResultess[0]['filesName'];
+
+
 }
 
 
@@ -146,13 +159,13 @@ $param_id = $_SESSION["id"];
     	
 if(!empty($param_id)){  
     	  	
-  $revQuery      = "SELECT * FROM B2B_company_details WHERE ID='$param_id'";
+  $revQuery      = "SELECT * FROM employers WHERE id='$param_id'";
 
   $revResult     = mysqli_query($link, $revQuery) or die(mysqli_error($link));
   
   $revAllResult  = $revResult->fetch_all(MYSQLI_ASSOC); 
       
-  $current_id    = $revAllResult[0]['ID'];
+  $current_id    = $revAllResult[0]['id'];
       
   $yourname      = $revAllResult[0]['rep_full_name'];
   
@@ -175,6 +188,8 @@ if(!empty($param_id)){
 
 
 <?php include "header.php"; ?>
+
+<link rel="stylesheet" type="text/css" href="css/jquery.fancybox.min.css">
 
 <style>
 .file_remove li {
@@ -259,6 +274,36 @@ div#selection {
     width: 100%;
     display: inherit;
 }
+
+.color-unassign {
+  background: #4393d7!important;
+  color: #fff!important;
+}
+
+.color-wip {
+  background: #4393d7!important;
+  color: #fff!important;
+}
+
+.color-escalated {
+  background: #4393d7!important;
+  color: #fff!important;
+}
+
+.color-insufficiencyresponded {
+  background: #4393d7!important;
+  color: #fff!important;
+}
+
+.color-awaitingresponse {
+  background: #4393d7!important;
+  color: #fff!important;
+}
+
+.color-completed {
+  background: #28a745!important;
+  color: #fff!important;
+}
 </style>
 
 <!-- Dashboard start -->
@@ -300,7 +345,7 @@ div#selection {
                                             <label>Employee Type</label>
                                             <select class="browser-default custom-select" name="worktype" id="worktype" readonly style="height: 45px;background: #ddd;">
                                                 <?php
-                                                    $queryees = "SELECT * FROM B2B_employee_type WHERE source ='B' AND ID='$emptype_ID'";
+                                                    $queryees = "SELECT * FROM employee_types WHERE source ='B' AND id='$emptype_ID'";
 
                                                     $res = mysqli_query($link, $queryees) or die(mysqli_error($link));
                     
@@ -326,7 +371,7 @@ div#selection {
                                             <select class="browser-default custom-select" name="doctype" id="doctype" readonly style="height: 45px;background: #ddd;">
                                                 <?php
 
-                                                    $queryeess = "SELECT * FROM B2B_documents_type WHERE source ='B' AND ID='$doctype_ID'";
+                                                    $queryeess = "SELECT * FROM document_types WHERE source ='B' AND id='$doctype_ID'";
 
                                                     $rese = mysqli_query($link, $queryeess) or die(mysqli_error($link));
                     
@@ -581,63 +626,31 @@ div#selection {
                             <div class="row pad-20">
                                 <div class="col-lg-3">
                                      <h4 class="bg-grea-3">Profile picture</h4>
-                                     <div class="edit-profile-photo">
-                                            <div id="targetLayer"></div>
+                                     <div class="edit-profile-photo">                         
                                             <div class="imagehidden" id="imagehidden">
-                                            <?php  $base_url = "http://".$_SERVER['SERVER_NAME'].dirname($_SERVER["REQUEST_URI"].'?').''; 
-                                            if(!empty($photos)){ ?>
-                                            <img src="<?php echo $base_url.'upload/'.$photos; ?>" alt="profile-photo" class="img-fluid">
+                                            <?php 
+                                            $profileImage   = getProfileImage($link,$worker_ids);
+                                            if(!empty($profileImage)){ ?>
+                                            <img src="<?php echo $profileImage; ?>" alt="profile-photo" class="img-fluid">
                                             <?php } else { ?>
                                             <img src="<?php echo $base_url.'img/dummy-image.jpg'; ?>" alt="profile-photo" class="img-fluid">
                                             <?php } ?>
-                                            </div>                                            
-                                            <div class="change-photo-btn">
-                                                <div class="photoUpload">
-                                                    <span><i class="fa fa-upload"></i></span>
-                                                    <input type="file" class="upload" name="photo" id="photo" accept="image/*" onChange="showPreview(this);" />
-                                                </div>                                                 
-                                            </div>   
-                                                                               
+                                            </div>                   
                                       </div>
-
-                                      <?php if(!empty($errors)){ ?>
-                          				        <span class="help-block"><?php echo $errors; ?></span>      
-                          					  <?php } ?> 
                                 </div>
                                 <div class="col-lg-9">
-                                      <h4 class="bg-grea-3">All documents (upload only 4 files)</h4>
+                                      <h4 class="bg-grea-3">All documents</h4>
                                       <div id="myDropZone" class="dropzone dropzone-design" style="display: none;">
                                           <div class="dz-default dz-message"><span>Drop files here to upload</span></div>                                   
                                       </div>
 				    
-                          				    <div class="document_pervious" style="margin-top:10px;">
-                          					    <?php $string_name = preg_replace('/[,]/', ' ', $files);
-                                          $files_imgs = explode(" ",$string_name); 
-                                        ?>
+                          				    <div class="document_pervious" style="margin-top:10px;">                          		
                           				      <ul class="file_remove">
                           				       <li>
-                          				        <?php if($files_imgs[0]){ ?>
-                                           <img src="<?php echo $base_url.'upload/'.$files_imgs[0]; ?>" alt="file" class="file_image" style="height:150px;" />  		
+                          				        <?php if($filesName){ ?>
+                                           <img src="<?php echo $filesName; ?>" alt="file" class="file_image" style="height:150px;" />  		
                           				        <?php } ?>
-                          				       </li>
-
-                          				       <li>
-                                          <?php if($files_imgs[1]){ ?>
-                                           <img src="<?php echo $base_url.'upload/'.$files_imgs[1]; ?>" alt="file" class="file_image" style="height:150px;" />            
-                          				        <?php } ?>
-                          			         </li>
-                          				       
-                          				       <li>				      
-                          				        <?php if($files_imgs[2]){ ?>
-                                            <img src="<?php echo $base_url.'upload/'.$files_imgs[2]; ?>" alt="file" class="file_image" style="height:150px;" /> 
-                                          <?php } ?>
-                          				       </li>
-
-                          				       <li>
-                          				        <?php if($files_imgs[3]){ ?>
-                                            <img src="<?php echo $base_url.'upload/'.$files_imgs[3]; ?>" alt="file" class="file_image" style="height:150px;" />  				  
-                                          <?php } ?>
-                          				       </li>
+                          				       </li>                          				     
                           				      </ul>
                           				    </div>
                                 </div>
@@ -652,49 +665,73 @@ div#selection {
                             <h4 class="bg-grea-3">Verification type</h4>
                             <div class="row pad-20">
 				                        <?php  
-                                    $string = preg_replace('/[,]/', ' ', $verification);
-                                    
-                                    $arrayVal = explode(" ",$string); 
-                               
-				                            $queryese = "SELECT * FROM B2B_payment_history WHERE worker_id=$worker_ids AND company_id=$company_id AND temp_id=$term_ids";
+                                  $orderQuery     = "SELECT a.*, a.status as orderStatus, b.verification_type FROM order_histories a left join verification_types b ON a.verification_type=b.id WHERE a.company_id='$company_id' AND a.worker_id='$worker_ids'";
+                                  $orderResult    = mysqli_query($link, $orderQuery) or die(mysqli_error($link));
+                                  $orderAllResult = $orderResult->fetch_all(MYSQLI_ASSOC);
+     
+                                 if(!empty($orderAllResult)): 
+                                ?>
 
-                                    $resultese = mysqli_query($link, $queryese);
+                                  <?php foreach ($orderAllResult as $key => $order): ?>
 
-                                    $fetchese = mysqli_fetch_row($resultese);
+                                    <?php
+                                          switch ($order['task_status']) {
+                                                case "0":
+                                                    $faClass = 'Unassign';
+                                                    $statuscolor = "color-unassign"; 
+                                                    break;
+                                                case "1":
+                                                    $faClass = 'Work in Progress';
+                                                    $statuscolor = "color-wip"; 
+                                                    break;
+                                                case "2":
+                                                    $faClass = 'Escalated';
+                                                    $statuscolor = "color-escalated"; 
+                                                    break;
+                                                case "3":
+                                                    $faClass = 'Insufficient';
+                                                    $statuscolor = "color-insufficient"; 
+                                                    break;
+                                                case "4":
+                                                    $faClass = 'Insufficiency Responded';
+                                                    $statuscolor = "color-insufficiencyresponded"; 
+                                                    break;
+                                                case "5":
+                                                    $faClass = 'Work in Progress';
+                                                    $statuscolor = "color-wip"; 
+                                                    break;
+                                                case "6":
+                                                    $faClass = 'Awaiting Response';
+                                                    $statuscolor = "color-awaitingresponse"; 
+                                                    break;
+                                                case "7":
+                                                    $faClass = 'Completed';
+                                                    $statuscolor = "color-completed"; 
+                                                    break;
+                                                default:
+                                                    $faClass = 'Completed';
+                                                    $statuscolor = "color-completed"; 
+                                            }
+                                    ?>
 
-                                    $additional_amount_status = $fetchese[4];
+                                      <div class="col-lg-3 col-md-4 col-sm-6" style="margin-bottom:10px;">
+                                          <div class="checkbox checkbox-theme checkbox-circle <?php if(in_array($ID, $arrayVal)){} else { ?> click-checkbox <?php } ?>">
+                                              <input id="checkbox<?php echo $count; ?>" type="checkbox" data-amount="<?php echo $amount; ?>" name="verify[]" value="<?php echo $ID; ?>" class="<?php if(in_array($ID, $arrayVal)){ ?>checked_box<?php } else { ?> <?php if($additional_amount_status==0 && $finalamount>1){ echo 'check_payment'; } } ?>" checked />
+                                              <label for="checkbox<?php echo $count; ?>">
+                                                  <?php echo ucfirst($order['verification_type']); ?>
+                                              </label>
+                                              <p style="margin: 0;">Order status: <span class="<?php echo $statuscolor; ?>" style="padding:2px 5px;margin:0;"><?php echo $faClass; ?></span></p>
+                                              <?php 
+                                              if($order['task_status']==7){
+                                                  $file = $order['report_file']; ?>
+                                                 <p>Report file: <a class="fancybox" href="<?php echo $file; ?>" style="color: #4393d7;">View PDF</a></p>
+                                              <?php } ?>
+                                          </div>
+                                      </div>
 
+                                  <?php endforeach; ?>
 
-                                     $queryess = "SELECT * FROM B2B_verification_type WHERE source='B'";
-
-                                     $resultess = mysqli_query($link, $queryess) or die(mysqli_error($link));
-
-                                     $count = 1;
-
-                                     if ($resultess->num_rows!=0) {
-
-                                     while ($row=mysqli_fetch_row($resultess)){
-
-                                     $ID = $row[0];
-
-                                     $type = ucfirst($row[1]);
-
-                                     $amount = $row[2];
-
-                                     if($row[3]==1){
-                                 ?>
-                                <div class="col-lg-3 col-md-4 col-sm-6" style="margin-bottom:10px;">
-                                    <div class="checkbox checkbox-theme checkbox-circle <?php if(in_array($ID, $arrayVal)){} else { ?> click-checkbox <?php } ?>">
-                                        <input id="checkbox<?php echo $count; ?>" type="checkbox" data-amount="<?php echo $amount; ?>" name="verify[]" value="<?php echo $ID; ?>" class="<?php if(in_array($ID, $arrayVal)){ ?>checked_box<?php } else { ?> <?php if($additional_amount_status==0 && $finalamount>1){ echo 'check_payment'; } } ?>" <?php if(in_array($ID, $arrayVal)){ ?> checked  <?php } ?> />
-                                        <label for="checkbox<?php echo $count; ?>">
-                                            <?php echo ucfirst($type); ?>
-                                        </label>
-                                        <p class="verification-amount">Amount: &#x20a8; <?php echo $amount; ?></p>
-                                    </div>
-                                </div>
-
-                                <?php $count++; } } } ?>
-
+                                <?php endif; ?>
                             </div>
                         </form>
                     </div>
@@ -708,41 +745,14 @@ div#selection {
 
 <?php include("footer.php"); ?>
 
-
-<script type="text/javascript">
-function showPreview(objFileInput) {
-    if (objFileInput.files[0]) {
-        var fileReader = new FileReader();
-        fileReader.onload = function (e) {
-         $('#blah').attr('src', e.target.result);
-			$("#targetLayer").html('<img src="'+e.target.result+'" width="291px" height="280px" class="upload-preview" />');
-			$("#imagehidden").hide();
-        }
-		fileReader.readAsDataURL(objFileInput.files[0]);
-    }
-}
-</script>
-
+<script src="js/jquery.fancybox.js"></script>
 
 <script>
-//Disabling autoDiscover
-Dropzone.autoDiscover = false;
-
-$(function() {
-    //Dropzone class
-    var myDropzone = new Dropzone(".dropzone", {
-		url: "upload-files.php",
-		paramName: "file",
-		maxFilesize: 2,
-		maxFiles: 4,
-                addRemoveLinks: true,
-		acceptedFiles: "image/*,application/pdf",
-                success: function(file, response){
-                console.log('WE NEVER REACH THIS POINT.');
-                 var txt = $("#alldocs").val();
-                 $("#alldocs").val(txt + response + ","); 
-                }
-	});
+jQuery(document).ready(function($){
+$(".fancybox").fancybox({
+    width  : 1200,
+    height : 800,
+    type   :'iframe'
+});
 });
 </script>
-

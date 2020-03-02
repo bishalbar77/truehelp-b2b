@@ -33,13 +33,13 @@ $param_id = $_SESSION["id"];
     	
 if(!empty($param_id)){  
     	  	
-  $revQuery      = "SELECT * FROM B2B_company_details WHERE ID='$param_id'";
+  $revQuery      = "SELECT * FROM employers WHERE id='$param_id'";
 
   $revResult     = mysqli_query($link, $revQuery) or die(mysqli_error($link));
   
   $revAllResult  = $revResult->fetch_all(MYSQLI_ASSOC); 
       
-  $current_id    = $revAllResult[0]['ID'];
+  $current_id    = $revAllResult[0]['id'];
       
   $yourname      = $revAllResult[0]['rep_full_name'];
   
@@ -119,17 +119,18 @@ if(!empty($param_id)){
                                         <div class="edit-profile-photo">
                                             <div id="targetLayer"></div>
                                             <div class="imagehidden" id="imagehidden">
-                                            <?php  $base_url = "https://".$_SERVER['SERVER_NAME'].dirname($_SERVER["REQUEST_URI"].'?').'/'; 
+                                            <?php
                                             if(!empty($photo)){ ?>
-                                            <img src="<?php echo $base_url.'upload/'.$photo; ?>" alt="profile-photo" class="img-fluid">
+                                            <img src="<?php echo $photo; ?>" alt="profile-photo" class="img-fluid">
                                             <?php } else { ?>
-                                            <img src="<?php echo $base_url.'img/dummy-image.jpg'; ?>" alt="profile-photo" class="img-fluid">
+                                            <img src="img/dummy-image.jpg" alt="profile-photo" class="img-fluid">
                                             <?php } ?>
                                             </div>
                                             <div class="change-photo-btn">
                                                 <div class="photoUpload">
                                                     <span><i class="fa fa-upload"></i></span>
-                                                    <input type="file" class="upload" name="photo" id="photo" accept="image/*" onChange="showPreview(this);" />                                                                                                
+                                                    <input type="file" class="upload" name="photo" id="photo" accept="image/*" onChange="showPreview(this);" />
+                                                    <input type="hidden" name="imageurl" value="<?php echo $photo; ?>" />
                                                 </div>                                                 
                                             </div>   
                                                                                
@@ -202,7 +203,7 @@ if(!empty($param_id)){
                                                     <div class="form-group subject">
                                                         <label>Confirm new password</label>
                                                         <input type="password" name="confirm_password" class="form-control" maxlength="20" placeholder="Confirm New Password">
-																		  <span class="help-block"><?php echo $confirm_password_err; ?></span>
+														<span class="help-block"><?php echo $confirm_password_err; ?></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12">
@@ -252,7 +253,7 @@ jQuery(document).ready(function(){
 
 	  // Allow only backspace and delete
 
-	  if(jQuery(this).val().length <= 10 || event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 )
+	  if(jQuery(this).val().length <= 9 || event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 )
 
 	  {
 

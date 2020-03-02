@@ -29,7 +29,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
        if(empty($document_err)){    
 
-          $query = "INSERT INTO B2B_upload_files (files,worker_id,company_id,verification_type) VALUES ('$document','$workid','$companyid','$vType')";
+          $query = "INSERT INTO upload_files (files,worker_id,company_id,verification_type) VALUES ('$document','$workid','$companyid','$vType')";
 
           $data = mysqli_query ($link, $query)or die(mysqli_error($link));
 

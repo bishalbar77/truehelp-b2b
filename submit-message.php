@@ -39,7 +39,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
        if(empty($title_err) && empty($message_err)){    
 
-          $query = "INSERT INTO B2B_messages (worker_id,company_id,message_title,message_body,message_time,message_status,verification_type) VALUES ('$workid','$companyid','$title','$message','$last_date','1','$vType')";
+          $query = "INSERT INTO messages (worker_id,company_id,message_title,message_body,message_time,message_status,verification_type) VALUES ('$workid','$companyid','$title','$message','$last_date','1','$vType')";
 
           $data = mysqli_query ($link, $query)or die(mysqli_error($link));
 

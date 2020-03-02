@@ -31,7 +31,7 @@ if( (empty($workid)) && empty($companyid) ){
     	
 if(!empty($param_id)){  
     	  	
-   $query = "SELECT * FROM B2B_company_details WHERE ID='$param_id'";
+   $query = "SELECT * FROM employers WHERE id='$param_id'";
 	 
 	$result = mysqli_query($link, $query) or die(mysqli_error($link));
 	
