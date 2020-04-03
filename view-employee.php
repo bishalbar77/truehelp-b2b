@@ -648,7 +648,7 @@ div#selection {
                           				      <ul class="file_remove">
                           				       <li>
                           				        <?php if($filesName){ ?>
-                                           <img src="<?php echo $filesName; ?>" alt="file" class="file_image" style="height:150px;" />  		
+                                           <img src="<?php echo $filesName; ?>" alt="file" class="file_image" />  		
                           				        <?php } ?>
                           				       </li>                          				     
                           				      </ul>
@@ -662,7 +662,7 @@ div#selection {
                                     <textarea class="input-text" maxlength="250" name="otherdetails" placeholder="Detailed Information" readonly style="background: #ddd;"><?php echo $other_details; ?></textarea>
                                 </div>
                             </div>
-                            <h4 class="bg-grea-3">Verification type</h4>
+                            <h4 class="bg-grea-3">Verification History</h4>
                             <div class="row pad-20">
 				                        <?php  
                                   $orderQuery     = "SELECT a.*, a.status as orderStatus, b.verification_type FROM order_histories a left join verification_types b ON a.verification_type=b.id WHERE a.company_id='$company_id' AND a.worker_id='$worker_ids'";
@@ -672,36 +672,38 @@ div#selection {
                                  if(!empty($orderAllResult)): 
                                 ?>
 
-                                  <?php foreach ($orderAllResult as $key => $order): ?>
-
-                                    <?php
+                                  <?php foreach ($orderAllResult as $key => $order): 
+                                    $caseID = $order['task_id'];
+                                    $create_Dates = $order['created_at'];
+                                    
+                                    
                                           switch ($order['task_status']) {
                                                 case "0":
-                                                    $faClass = 'Unassign';
+                                                    $faClass = 'In Progress';
                                                     $statuscolor = "color-unassign"; 
                                                     break;
                                                 case "1":
-                                                    $faClass = 'Work in Progress';
+                                                    $faClass = 'In Progress';
                                                     $statuscolor = "color-wip"; 
                                                     break;
                                                 case "2":
-                                                    $faClass = 'Escalated';
+                                                    $faClass = 'In Progress';
                                                     $statuscolor = "color-escalated"; 
                                                     break;
                                                 case "3":
-                                                    $faClass = 'Insufficient';
+                                                    $faClass = 'In Progress';
                                                     $statuscolor = "color-insufficient"; 
                                                     break;
                                                 case "4":
-                                                    $faClass = 'Insufficiency Responded';
+                                                    $faClass = 'In Progress';
                                                     $statuscolor = "color-insufficiencyresponded"; 
                                                     break;
                                                 case "5":
-                                                    $faClass = 'Work in Progress';
+                                                    $faClass = 'In Progress';
                                                     $statuscolor = "color-wip"; 
                                                     break;
                                                 case "6":
-                                                    $faClass = 'Awaiting Response';
+                                                    $faClass = 'In Progress';
                                                     $statuscolor = "color-awaitingresponse"; 
                                                     break;
                                                 case "7":
@@ -720,12 +722,22 @@ div#selection {
                                               <label for="checkbox<?php echo $count; ?>">
                                                   <?php echo ucfirst($order['verification_type']); ?>
                                               </label>
-                                              <p style="margin: 0;">Order status: <span class="<?php echo $statuscolor; ?>" style="padding:2px 5px;margin:0;"><?php echo $faClass; ?></span></p>
-                                              <?php 
-                                              if($order['task_status']==7){
-                                                  $file = $order['report_file']; ?>
-                                                 <p>Report file: <a class="fancybox" href="<?php echo $file; ?>" style="color: #4393d7;">View PDF</a></p>
+
+                                              <p style="margin: 0;">Case number: <?php echo $caseID; ?></p>
+
+                                              <p style="margin: 0;">Status: <span class="<?php echo $statuscolor; ?>" style="padding:2px 5px;margin:0;"><?php echo $faClass; ?></span></p>
+                                              <p style="margin: 0;">Report:
+                                              <?php if($order['status'] == '1' && !empty($order['report_file'])){
+                                                  $file = $order['report_file']; 
+                                              ?>
+                                               <a class="fancybox" href="<?php echo $file; ?>" style="color: #4393d7;">View PDF</a>
+                                              <?php } else { ?>
+                                                <img src="img/pening-icon.png" alt="Status" />
                                               <?php } ?>
+                                              </p>
+
+                                              <p style="margin: 0;">Date: <?php echo date('d M Y',strtotime($create_Dates)); ?></p>
+                                              
                                           </div>
                                       </div>
 

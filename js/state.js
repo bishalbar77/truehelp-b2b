@@ -318,7 +318,7 @@ function selct_district($val)
    $(function() {
   var options = '';
   for (var i = 0; i < punjab.length; i++) {
-      options += '<option value="' + punjab[i] + '">' + napunjabgaland[i] + '</option>';
+      options += '<option value="' + punjab[i] + '">' + punjab[i] + '</option>';
   }
   $('#district').html(options);
   });
@@ -719,7 +719,7 @@ function selct_pdistrict($val)
    $(function() {
   var optionss = '';
   for (var i = 0; i < punjab.length; i++) {
-      optionss += '<option value="' + punjab[i] + '">' + napunjabgaland[i] + '</option>';
+      optionss += '<option value="' + punjab[i] + '">' + punjab[i] + '</option>';
   }
   $('#pdistrict').html(optionss);
   });

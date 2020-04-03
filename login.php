@@ -91,7 +91,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <img src="img/logos/black-logo.png" class="cm-logo" alt="black-logo">
                         </a>
                         <!-- Name -->
-                        <h3>Sign into your account</h3>
+                        <h3>Login to Account</h3>
 
 		                <span class="help-block"><?php if(!empty($error)){ echo $error; } ?></span>
 
@@ -122,7 +122,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     </div>
                     <!-- Footer -->
                     <div class="footer">
-                        <span>Don't have an account? <a href="signup.php">Register here</a></span>
+                        <span>New to TrueHelp? <a href="signup.php">Create an account</a></span>
                     </div>
                 </div>
                 <!-- Form content box end -->

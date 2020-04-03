@@ -81,7 +81,7 @@ if(isset($_COOKIE['visit']) && $_COOKIE['visit'] == "true"){
                       <?php if($load == true){ ?>
                         <div class="alert alert-success alert-2" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <strong>Hello, <?php echo $yourname; ?> </strong> Welcome to True Help App.
+                            <strong>Hello, <?php echo $yourname; ?> </strong> Welcome to TrueHelp.
                         </div>      
                       <?php } ?>                 
                         

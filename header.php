@@ -114,7 +114,22 @@ if(!empty($param_id)){
    </script>
    <?php if(isset($_REQUEST["verificationID"]) && $_REQUEST["verificationID"]!=""){ ?>
    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5dd4db4c6826a20014f08ad0&product=inline-share-buttons" async="async"></script>
-   <?php } ?>
+   <?php } 
+   if(isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true){ ?>
+   <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+      var OneSignal = window.OneSignal || [];
+      OneSignal.push(function() {
+        OneSignal.init({
+          appId: "58e414a4-f67c-4bba-826e-b80dc1540014",
+        });
+      OneSignal.sendTags({
+        userid  : '<?php echo $_SESSION["userid"] ?>',
+        mobile  : '<?php echo $_SESSION["mobile"] ?>',
+      }); 
+      });
+    </script>
+  <?php } ?>
 </head>
 <body>
 <div class="page_loader"></div>

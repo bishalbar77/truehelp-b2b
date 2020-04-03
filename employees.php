@@ -18,7 +18,6 @@ $param_id = $_SESSION["id"];
 $uploaddoc = $_SESSION["uploaddoc"];
 
 $uploadpro = $_SESSION["uploadpro"];
-
     	
 if(!empty($param_id)){  
     	  	
@@ -1015,31 +1014,31 @@ $onboard = $_REQUEST['onboard'];
                                            
                                                       switch ($order['task_status']) {
                                                           case "0":
-                                                              $faClass = 'Unassign';
+                                                              $faClass = 'In Progress';
                                                               $statuscolor = "color-unassign"; 
                                                               break;
                                                           case "1":
-                                                              $faClass = 'Work in Progress';
+                                                              $faClass = 'In Progress';
                                                               $statuscolor = "color-wip"; 
                                                               break;
                                                           case "2":
-                                                              $faClass = 'Escalated';
+                                                              $faClass = 'In Progress';
                                                               $statuscolor = "color-escalated"; 
                                                               break;
                                                           case "3":
-                                                              $faClass = 'Insufficient';
+                                                              $faClass = 'In Progress';
                                                               $statuscolor = "color-insufficient"; 
                                                               break;
                                                           case "4":
-                                                              $faClass = 'Insufficiency Responded';
+                                                              $faClass = 'In Progress';
                                                               $statuscolor = "color-insufficiencyresponded"; 
                                                               break;
                                                           case "5":
-                                                              $faClass = 'Work in Progress';
+                                                              $faClass = 'In Progress';
                                                               $statuscolor = "color-wip"; 
                                                               break;
                                                           case "6":
-                                                              $faClass = 'Awaiting Response';
+                                                              $faClass = 'In Progress';
                                                               $statuscolor = "color-awaitingresponse"; 
                                                               break;
                                                           case "7":

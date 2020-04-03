@@ -1,7 +1,7 @@
 <?php 
 // Initialize the session
 session_start();
- 
+
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
@@ -12,9 +12,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);*/
 
 $doc_url = $_SESSION["docurl"];
-
 $pro_url = $_SESSION["prourl"];
-
  
 // Include config file
 require_once "config.php";
@@ -50,7 +48,7 @@ if(!empty($param_id)){
 }
 
 
-$order_id = $company_id = $worker_id = $verification_type = $verification_amount = $varification = $totalprices = '';
+$order_id = $company_id = $worker_id = $verification_type = $verification_amount = $varification = $totalprices = $error = '';
 
 $doc_err = $fname_err = $gender_err = $email_err = $phone_err = $address_err = $village_err = $postoffice_err = $policestation_err = $postalcode_err = $district_err = $choosestate_err = $documentnumber_err = '';
 
@@ -204,10 +202,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if( empty($fname_err) && empty($dob_err) && empty($doj_err) && empty($email_err) && empty($phone_err) ){ 
 
-      $query = "INSERT INTO employees (employee_id, company_id, first_name, middle_name, last_name, alias_name, father_name, worker_type, docTypeId, document_no, dob, doj, gender, salary, email, mobile, photo, other_details, temp_id, created_at) VALUES ('$empID','$company_ids','$fname','$mname','$sname','$alias','$father_name','$worker_type','$doc_type','$documentnumber','$dob_date','$doj_date','$gender','$salary','$email','".$phone."','$proUrl','$other_details','$tempID','$createdDate')";
+      $revQuerys      = "SELECT * FROM employees WHERE document_no='$documentnumber'";
+      $revResults     = mysqli_query($link, $revQuerys) or die(mysqli_error($link));
+      $revAllResults  = $revResults->fetch_all(MYSQLI_ASSOC); 
+      
+      if(empty($revAllResults)){
 
-    $data         = mysqli_query ($link, $query)or die(mysqli_error($link));
-    $worker_id    = mysqli_insert_id($link);
+      $query = "INSERT INTO employees (employee_id, company_id, first_name, middle_name, last_name, alias_name, father_name, worker_type, docTypeId, document_no, dob, doj, gender, salary, email, mobile, other_details, temp_id, created_at) VALUES ('$empID','0','$fname','$mname','$sname','$alias','$father_name','$worker_type','$doc_type','$documentnumber','$dob_date','$doj_date','$gender','$salary','$email','".$phone."','$other_details','$tempID','$createdDate')";
+
+      $data         = mysqli_query ($link, $query)or die(mysqli_error($link));
+      $worker_id    = mysqli_insert_id($link);
 
 
     if(!empty($worker_type)){
@@ -234,9 +238,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $isAddress = $verifications[0]['isAddress'];
 
+    $tat = $verifications[0]['tat'];
+
     $taskID         = $order_id + $i;
 
-    mysqli_query ($link, "INSERT INTO order_histories (task_id, order_id, company_id, worker_id, verification_type, verification_amount, documentRequired, isAddress, created_at) VALUES ('$taskID', '$order_id', '$company_id', '$worker_id', '$verification_type', '$verifications_amount', '$documentRequired', '$isAddress', '$createdDate')") or die(mysqli_error($link));
+    mysqli_query ($link, "INSERT INTO order_histories (task_id, order_id, company_id, worker_id, verification_type, verification_amount, documentRequired, isAddress, tat,created_at) VALUES ('$taskID', '$order_id', '$company_id', '$worker_id', '$verification_type', '$verifications_amount', '$documentRequired', '$isAddress', '$tat','$createdDate')") or die(mysqli_error($link));
     }
 
     $saveDocQuery = "INSERT INTO employee_pictures (company_id, worker_id, photo, created_at) VALUES ('$param_id', '$worker_id','$proUrl','$createdDate')";
@@ -269,25 +275,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     mysqli_query ($link, "INSERT INTO payment_histories (worker_id, company_id, additional_amount, temp_id, gst, subTotal, created_at) VALUES ('$worker_id', '$company_id', '$amount', '$order_id','$gst','$subTotal','$createdDate')") or die(mysqli_error($link));
 
 
-    if($amount>0){
-
-          $key1 = "order_id";
-          $key2 = "worker_id";
-          $key3 = "amount";
-          $text1 = $order_id;
-          $text2 = $worker_id;
-          $text3 = $amount;
-          $orderid = bin2hex(openssl_encrypt($text1,'AES-128-CBC', $key1));
-          $workerid = bin2hex(openssl_encrypt($text2,'AES-128-CBC', $key2));
-          $amounts = bin2hex(openssl_encrypt($text3,'AES-128-CBC', $key3));
-
-      header('location: pay-process.php?order_id='.$orderid.'&worker_id='.$workerid.'&amount='.$amounts.'');
-
-      } else {
+    if(!empty($worker_id)){
 
         header("Location: freepayment-thankyou.php?temp_id=".$tempID."");
 
       }
+
+    } else {
+
+      $error = "Document number already exist!";
+
+    }
 
    }
 
@@ -704,6 +702,10 @@ button.scanner-btn {
                     </div>
 
                     <div class="submit-address dashboard-list">
+                        <?php if(!empty($error)){ ?>
+                          <span style="color: red;"><?php echo $error; ?></span>
+                        <?php } ?>
+
                         <?php $worker_ID = $_REQUEST["employeetype"]; 
                          $doctype_ID = $_REQUEST["documenttype"]; 
                          $documentnumber = $_REQUEST["documentnumber"]; 
@@ -793,7 +795,7 @@ button.scanner-btn {
                                       <div class="col-lg-4 col-md-4 col-sm-12">
                                           <div class="form-group">
                                               <label class="control-label">Document number</label>
-                                               <input type="text" class="input-text" autocomplete="off" name="documentnumber" id="documentnumber" maxlength="12" placeholder="Document number" value="<?php echo $documentnumber; ?>" readonly style="background: #ddd;"/>
+                                               <input type="text" class="input-text" autocomplete="off" name="documentnumber" id="documentnumber" maxlength="12" placeholder="Document number" value="<?php echo $documentnumber; ?>"<?php if(empty($error)){ ?> readonly style="background: #ddd;"<?php } ?> />
                                               <span class="help-block"><?php echo $documentnumber_err; ?></span>
                                           </div>
                                       </div>
@@ -1063,7 +1065,7 @@ button.scanner-btn {
                                      $verResult    = mysqli_query($link, $queryess) or die(mysqli_error($link));
                                      $verAllResult = $verResult->fetch_all(MYSQLI_ASSOC);     
                                      foreach($verAllResult as $verification): 
-                                     $amount = $verification['verification_amount'];
+                                     $amount = $verification['verification_amount'];                                  
                                  ?>
                                 <div class="col-lg-3 col-md-4 col-sm-6" style="">
                                     <div class="checkbox checkbox-theme checkbox-circle click-checkbox">
@@ -1088,7 +1090,7 @@ button.scanner-btn {
                             <input type="hidden" name="pro-url" id="ProUrl" value="<?php echo $pro_url; ?>" />
                             <input type="hidden" name="addemp" value="addnew" />
                             <span style="display:none;"><b>Payment amount:</b></br> &#x20a8; <span id="finaltotal">0</span></span>
-                            <button type="submit" class="btn btn-md button-theme" name="add_worker" id="sub-btn" style="padding: 13px 30px 11px 30px; color: #fff; font-size: 15px; width: 175px; text-align: center;">Pay &#8377;<span id="button_amount" style="color:#fff;">0</span></button> 
+                            <button type="submit" class="btn btn-md button-theme" name="add_worker" id="sub-btn" style="padding: 13px 30px 11px 30px; color: #fff; font-size: 15px; width: 175px; text-align: center;">Submit</button> 
                             <div class="success_image"><img src="<?php echo $base_url; ?>/img/pay.png" alt="Success" style="width: 180px; margin-top: 10px;" /></div>
                             </div>
                             </div>
@@ -1188,7 +1190,8 @@ $stonevar_action = $_GET['documentnumber'] ? $_GET['documentnumber'] : NULL;
 
                   <div class="col-md-12">
                       <div class="form-group">
-                        <button type="button" class="button button-m button-full bg-blue2-dark scanner-btn hide-button1 submit-btn2" id="nextBtn" onclick="nextPrev(1)">Next</button>          
+                        <button type="button" class="button button-m button-full bg-blue2-dark scanner-btn hide-button1 submit-btn2" id="nextBtn" onclick="return Validatess();">Next</button>          
+                        <!-- <button type="button" class="button button-m button-full bg-blue2-dark scanner-btn hide-button1 submit-btn2" id="nextBtn" onclick="nextPrev(1)">Next</button>  -->         
                       </div>
                   </div>      
 
@@ -1338,12 +1341,14 @@ jQuery(document).ready(function($){
                     if(fileupload_type==1){
                       $("#emp-image-show").attr('src', fileUrl);   
                       $("#DocUrl").val(fileUrl);   
+                      $("#photos_image").val(fileUrl);   
                       $("#btn-document-img").text('Retake document picture');                
                     }  
 
                     if(fileupload_type==2){ 
                        $("#emp-image-shows").attr('src', fileUrl);   
                        $("#ProUrl").val(fileUrl); 
+                       $("#photos_image2").val(fileUrl); 
                        $("#btn-profile-img").text('Retake profile picture');
                     }             
                     
@@ -1773,15 +1778,10 @@ document.getElementById('abc').style.display = "none";
             return false;
         }
 
-        if (checkBox.checked == false){
+        if(checkBox.checked == false){
             alert('Please Accept Terms and Condition');
             return false;
         } 
-
-/*        if( document.getElementById("empimages").files.length == 0 ){
-            alert('Please upload profile picture.');
-            return false;
-        }*/
 
 
         if(documentType){
@@ -1790,6 +1790,55 @@ document.getElementById('abc').style.display = "none";
             var docText = documentTypeText.options[documentTypeText.selectedIndex].text;
             document.getElementById("frmSelectType").action = "new-employee.php?employeetype=" + employeetype + "&documenttype=" + documentType + "&documentnumber=" + documentNumberv;
         }
+    }
+</script>
+
+<script type="text/javascript">
+    function Validate() {        
+        var documentType    = document.getElementById("documentType").value;
+        var documentNumberv = document.getElementById("documentNumber").value;
+        var employeetype    = document.getElementById("employeetype").value;
+        var documentTypeText = document.getElementById("documentType");
+        var documentNumber = document.getElementById("documentNumber");
+        var docText = documentTypeText.options[documentTypeText.selectedIndex].text;
+        var checkBox = document.getElementById("checkboxterm");
+
+        if(employeetype == ''){
+            alert('Please Select Employee Type ');
+            return false;
+        }
+
+        if(documentType == ''){
+            alert('Please Select Document Type ');
+            return false;
+        } 
+
+        if(documentNumberv == ''){
+            alert('Please Put ' + docText +' Number ');
+            return false;
+        }
+
+        if (checkBox.checked == false){
+            alert('Please Accept Terms and Condition');
+            return false;
+        } 
+
+        nextPrev(1);
+
+    }
+
+    function Validatess() {  
+
+      var photos_image = document.getElementById("photos_image").value;
+
+        if(photos_image == ''){
+            alert('Please upload Document picture.');
+            return false;
+        } else {
+            nextPrev(1);
+            return true;
+        }
+
     }
 </script>
 
