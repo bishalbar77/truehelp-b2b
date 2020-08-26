@@ -172,19 +172,20 @@ body {
             <a href="index.php">
                 <img src="images/Logo-07.png" class="img-fluid rounded mx-auto d-block" alt="black-logo" height="54px" width="70px">
               </a>
-            <h4 class="card-title text-center">Login to Account</h4>
-            <form method="POST" class="form-signin" action="{{ route('login')}}">
+            <h4 class="card-title text-center">Verify to Account</h4>
+            <form method="POST" class="form-signin" action="{{ route('verify-process')}}">
                 @csrf
               <div class="form-label-group">
-              <input id="mobile" type="text" class="form-control @error('mobile') is-invalid @enderror" name="mobile" required>
-                <label for="mobile">Mobile Number</label>
-                @error('mobile')
+                <input type="hidden" name="mobile" id="mobile" value="{{ $data->response->data }}">
+              <input id="otp" type="text" class="form-control @error('otp') is-invalid @enderror" name="otp" required>
+                <label for="otp">OTP</label>
+                @error('otp')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
               </div>
-              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Verify</button>
               <hr class="my-4">
               <a href="/register" class="btn btn-lg btn btn-success btn-block text-uppercase"><i class="fab fa-new-f mr-2"></i> Create New Account</a>
             </form>

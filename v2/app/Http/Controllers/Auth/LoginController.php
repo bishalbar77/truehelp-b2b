@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class LoginController extends Controller
 {
@@ -41,5 +43,52 @@ class LoginController extends Controller
     public function login()
     {
         return view('auth.login');
+    }
+
+    public function loginProcess(Request $request)
+    {
+        $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
+
+        $device_id = 'XXXXXXXXXXXXXXXXXXXXYYYYYY';
+
+        $response = Http::post('https://api.gettruehelp.com/api/send-otp', [
+            'mobile' => $request->mobile,
+            'device_id' => $device_id,
+            'api_key' => $apiKeys,
+        ]);
+
+        $contents = $response->getBody();
+
+        $data = json_decode($contents);
+
+        // echo '<pre>';
+        // print_r($data);
+        // exit;
+
+        return view('auth.verifyotp', [
+            'data' => $data
+        ]);
+    }
+
+    public function verifyProcess(Request $request)
+    {
+        $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
+
+        $device_id = 'XXXXXXXXXXXXXXXXXXXXYYYYYY';
+
+        $response = Http::post('http://localhost/gettruehelp/api/public/api/verify-otp', [
+            'mobile' => $request->mobile,
+            'device_id' => $device_id,
+            'api_key' => $apiKeys,
+            'otp' => $request->otp,
+        ]);
+
+        $contents = $response->getBody();
+
+        $data = json_decode($contents);
+
+        echo '<pre>';
+        print_r($data);
+        exit;
     }
 }

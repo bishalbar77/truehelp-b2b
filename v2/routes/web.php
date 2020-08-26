@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 // Auth::routes();
 
 Route::get('login', 'Auth\LoginController@login')->name('login');
-Route::post('super/admin', 'Auth\AuthController@postLogin')->name('auth.login.post');
-Route::get('super/admin/logout', 'Auth\AuthController@getLogout')->name('auth.logout.get');
+Route::post('login', 'Auth\LoginController@loginProcess')->name('login.post');
+Route::post('verify-process', 'Auth\LoginController@verifyProcess')->name('verify-process');
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
