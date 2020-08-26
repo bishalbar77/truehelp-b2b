@@ -12,8 +12,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// 
+// Auth::routes();
 
-Auth::routes();
+Route::get('login', 'Auth\LoginController@login')->name('login');
+Route::post('super/admin', 'Auth\AuthController@postLogin')->name('auth.login.post');
+Route::get('super/admin/logout', 'Auth\AuthController@getLogout')->name('auth.logout.get');
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
