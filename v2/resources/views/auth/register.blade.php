@@ -176,7 +176,7 @@ body {
             <form method="POST" class="form-signin" action="{{ route('register') }}">
                         @csrf
             <div class="form-label-group">
-                <input id="name" type="name" class="form-control @error('name') is-invalid @enderror" name="first_name" required>
+                <input id="name" type="name" class="form-control @error('name') is-invalid @enderror" name="name" required>
                 <label for="name">Name</label>
                 @error('name')
                     <span class="invalid-feedback" role="alert">
