@@ -5,6 +5,23 @@
 <title>TrueHelp | Dashboard</title>
 <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
 <script defer src="{{ mix('js/app.js') }}"></script>
+<style>
+.Oval {
+  width: 40px;
+  height: 40px;
+}
+.nav-name {
+  margin-top: 3px;
+  font-family: Helvetica;
+  font-size: 15.8px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  color: #121212;
+}
+</style>
 @endsection
 
 {{-- Content --}}
@@ -14,72 +31,81 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
+      <li>
+        <div class="pl-4">
+          <img src="dist/img/user1-128x128.jpg" alt="User Avatar"  class="Oval img-circle">
+        </div>
+      </li>
+      <li class="pl-2 pt-2">
+        <p class="nav-name">{{ Auth::user()->first_name }}</p>
+      </li>
+      <li class="pl-2 pt-2">
+        <i class="fa fa-caret-down"></i>
+      </li>
     </ul>
   </nav>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar elevation-4 side-bar">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="images/Logo-07.png" alt="TrueHelp Logo" class="brand-image elevation-3">
-      <span class="brand-text font-weight-light pl-4 ls-5" word-spacing: "30px">TRUEHELP</span>
+    <a href="/" class="brand-link">
+      <img src="images/Logo-07.png" alt="TrueHelp Logo" class="brand-image">
+      <span class="brand-text font-weight-light pl-5 ls-5"><img src="images/truehelp-01.png" alt="TrueHelp Logo" class="brand-image"></span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="dist/img/user8-128x128.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
-        </div>
-      </div>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview menu-open">
-            <a href="/home" class="nav-link active">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Dashboard
-                <span class="right"><i class="fa fa-exclamation-circle"></i></span>
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/employees" class="nav-link">
-              <i class="nav-icon fa fa-user"></i>
-              <p>
-                My Employee
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fa fa-user-circle-o"></i>
-              <p>
-                Search Employee
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/order" class="nav-link">
-              <i class="nav-icon fa fa-list-alt"></i>
-              <p>
-                Orders
-              </p>
-            </a>
-          </li>
+               <li class="nav-header nav-menu-tag">MENU</li>
+               <li class="nav-item">
+                 <a href="/home" class="nav-link active">
+                   <i class="nav-icon fas fa-th"></i>
+                   <p class="nav-menu">
+                     Dashboard
+                     <span class="right"><i class="fa fa-exclamation-circle"></i></span>
+                   </p>
+                 </a>
+               </li>
+               <li class="nav-item">
+                 <a href="/employees" class="nav-link">
+                   <i class="nav-icon fa fa-user"></i>
+                   <p class="nav-menu">
+                     My Employee
+                   </p>
+                 </a>
+               </li>
+               <li class="nav-item">
+                 <a href="/students" class="nav-link">
+                   <i class="nav-icon fa fa-users"></i>
+                   <p class="nav-menu">
+                     Students
+                   </p>
+                 </a>
+               </li>
+               <li class="nav-item">
+                 <a href="pages/widgets.html" class="nav-link">
+                   <i class="nav-icon fa fa-user-circle-o"></i>
+                   <p class="nav-menu">
+                     Search Employee
+                   </p>
+                 </a>
+               </li>
+               <li class="nav-item">
+                 <a href="/order" class="nav-link">
+                   <i class="nav-icon fa fa-list-alt"></i>
+                   <p class="nav-menu">
+                     Orders
+                   </p>
+                 </a>
+               </li>
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
               <i class="nav-icon fa fa-bell-o"></i>
-              <p>
+              <p class="nav-menu">
                 Notifications
               </p>
             </a>
@@ -87,16 +113,16 @@
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
               <i class="nav-icon fa fa-address-card-o"></i>
-              <p>
+              <p class="nav-menu">
                 Profile
               </p>
             </a>
           </li>
-          <li class="nav-header">SUPPORT</li>
+          <li class="nav-header nav-menu-tag">SUPPORT</li>
           <li class="nav-item">
             <a href="pages/calendar.html" class="nav-link">
               <i class="nav-icon far fa-calendar-alt"></i>
-              <p>
+              <p class="nav-menu">
                 Need help?
               </p>
             </a>
@@ -104,22 +130,22 @@
           <li class="nav-item">
             <a href="pages/calendar.html" class="nav-link">
                 <i class="nav-icon far fa-envelope"></i>
-              <p>
+                <p class="nav-menu">
                 Contact us
               </p>
             </a>
           </li>
-          <li class="nav-header">SETTINGS</li>
+          <li class="nav-header nav-menu-tag">SETTINGS</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-cog"></i>
-              <p>Account</p>
+              <p class="nav-menu">Account</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-moon-o"></i>
-              <p>Dark Mode</p>
+              <p class="nav-menu">Dark Mode</p>
             </a>
           </li>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -128,7 +154,7 @@
           <li class="nav-item">
             <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
               <i class="nav-icon fa fa-sign-out"></i>
-              <p>Logout</p>
+              <p class="nav-menu">Logout</p>
             </a>
           </li>
         </ul>
@@ -152,9 +178,9 @@
         <div class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-info">
+            <div class="small-box bg-info" style="border-radius: 12px;">
               <div class="inner">
-                <h3>{{ $count }}</h3>
+                <h3>{{ $empcount }}</h3>
 
                 <p>Registered Employess</p>
               </div>
@@ -167,7 +193,7 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-success" style="border-radius: 12px;">
               <div class="inner">
                 <h3>{{ $count }}<sup style="font-size: 20px"></sup></h3>
 
@@ -182,7 +208,7 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-warning">
+            <div class="small-box bg-warning" style="border-radius: 12px;">
               <div class="inner">
                 <h3>0</h3>
 
@@ -197,7 +223,7 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-danger">
+            <div class="small-box bg-danger" style="border-radius: 12px;">
               <div class="inner">
                 <h3>0</h3>
 

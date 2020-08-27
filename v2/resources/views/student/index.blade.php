@@ -2,7 +2,7 @@
 @extends('layouts.default')
 {{-- Styles Section --}}
 @section('styles')
-<title>TrueHelp | My Employees</title>
+<title>TrueHelp | Students</title>
 <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
 <script defer src="{{ mix('js/app.js') }}"></script>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
@@ -55,8 +55,8 @@
 }
 .t-head {
   font-family: Montserrat;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -152,6 +152,22 @@
   text-align: center;
   color: #999999;
 }
+.Upload-Employee-Pic {
+  height: 13px;
+  font-family: Montserrat;
+  font-size: 11px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.21px;
+  text-align: center;
+  opacity: 1;
+  /* position: absolute; */
+  position: relative;
+  color: Black;
+  z-index: 5;
+}
 .check-box-selected {
   font-family: Montserrat;
   font-size: 14px;
@@ -219,6 +235,21 @@
   letter-spacing: normal;
   color: #167aff;
 }
+.Oval {
+  width: 40px;
+  height: 40px;
+}
+.nav-name {
+  margin-top: 3px;
+  font-family: Helvetica;
+  font-size: 15.8px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  color: #121212;
+}
 .VERIFIED {
   width: 78px;
   height: 19px;
@@ -230,35 +261,6 @@
   line-height: normal;
   letter-spacing: normal;
   color: #07901a;
-}
-.Verify- {
-  width: 68px;
-  height: 22px;
-  font-family: Montserrat;
-  font-size: 15px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #167aff;
-}
-.UNVERIFIED {
-  width: 104px;
-  height: 19px;
-  font-family: Montserrat;
-  font-size: 15px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #9295a5;
-}
-.Path-107 {
-  width: 6px;
-  height: 13px;
-  border: solid 1px #171819;
 }
 .Upload-Employee-Pic {
   height: 13px;
@@ -279,21 +281,6 @@
 }
 .custom-file-input::-webkit-file-upload-button {
   visibility: hidden;
-}
-.Oval {
-  width: 40px;
-  height: 40px;
-}
-.nav-name {
-  margin-top: 3px;
-  font-family: Helvetica;
-  font-size: 15.8px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.25;
-  letter-spacing: normal;
-  color: #121212;
 }
 </style>
 @endsection
@@ -321,9 +308,7 @@
     </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto pl-5">
-      <button type="button" class="btn btn-primary">Order Verification</button>
-      <a class="pl-5"></a>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+ Add Employee</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+ Add Student</button>
       <a class="pl-5"></a>
     </ul>
   </nav>
@@ -332,7 +317,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <div class="Add-Employees pt-3" id="exampleModalLabel">Add Employee</div>
+        <div class="Add-Employees pt-3" id="exampleModalLabel">Add Student</div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -343,7 +328,7 @@
           <label class="checkbox-inline check-box-unselected p-2"><input type="checkbox" data-dismiss="modal" data-toggle="modal" data-target="#bulkModal"><a class="pl-2">Upload List</a></label>
         </div>
       <div class="signup-form">
-      <form action="{{ route('employees.store') }}" method="post">
+      <form action="{{ route('students.store') }}" method="post">
       @csrf
         <div class="form-group row">
             <div class="col-lg-4">
@@ -360,18 +345,39 @@
             </div>  	
             </div>
             <div class="form-group row">
-            <div class="col-lg-4">
-            <label class="form-label-text">Email:</label>
-            <input type="email" class="form-control" name="email" required="required">
-            </div>
               <div class="col-lg-4">
-              <label class="form-label-text">Mobile</label>
-              <input type="phone" class="form-control" name="mobile" required="required">
+                <label class="form-label-text">Email:</label>
+                <input type="email" class="form-control" name="email" required="required">
               </div>
+                <div class="col-lg-4">
+                  <label class="form-label-text">Mobile</label>
+                  <input type="phone" class="form-control" name="mobile" required="required">
+                </div>
+                <div class="col-lg-4">
+                  <label class="form-label-text">Date of Birth:</label>
+                  <input type="date" class="form-control" name="dob" required="required">
+                </div>  	           
+              </div>
+              <div class="form-group row">
               <div class="col-lg-4">
-              <label class="form-label-text">Date of Birth:</label>
-              <input type="date" class="form-control" name="dob" required="required">
-              </div>  	           
+                <label class="form-label-text">Guardian Name</label>
+                <input type="text" class="form-control" name="guardian_name" required="required">
+              </div>
+                <div class="col-lg-4">
+                  <label class="form-label-text">Guardian Phone</label>
+                  <input type="phone" class="form-control" name="guardian_phone" required="required">
+                </div>
+                <div class="col-lg-4">
+                <label class="form-label-text">Relationship</label>
+                  <select name="guardian_relation" class="form-control" id="guardian_relation">
+                      <option value="">Select Relation</option>
+                      <option value="Father">Father</option>
+                      <option value="Mother">Mother</option>
+                      <option value="Brother">Brother</option>
+                      <option value="Sister">Sister</option>
+                      <option value="Others">Others</option>
+                  </select>
+                </div>  	           
               </div>
                   <div class="form-group row">
               <div class="col-lg-6">
@@ -388,15 +394,12 @@
               </select>
               </div>
             </div>   
-            <div class="form-group row pl-3">
-          <label class="Employee-currently-w"><input type="checkbox"><a class="pl-2">Employee currently works with you</a></label>
-        </div>
         <div class="form-group row pl-3">
-          <div class="col-lg-4">
+        <div class="col-lg-4">
             <div class="upload-pink">
               <span class="upload-pink"><input type="file" class="custom-file-input" />
               <i class="fa fa-picture-o pl-5" style="margin-left:20px;" aria-hidden="true"></i>
-                <div><p class="Upload-Employee-Pic" style="color:black;">Upload Employee Pic</p></div>
+                <div><p class="Upload-Employee-Pic" style="color:black;">Upload Student Pic</p></div>
               </span>
             </div>
           </div>
@@ -421,7 +424,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-      <div class="Add-Employees pt-3" id="exampleModalLabel">Add Employees</div>
+      <div class="Add-Employees pt-3" id="exampleModalLabel">Add Students</div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -431,7 +434,7 @@
           <label class="checkbox-inline check-box-unselected p-2"><input type="checkbox" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal"><a class="pl-2">Individually</a></label>
           <label class="checkbox-inline check-box-selected p-2"><input type="checkbox" checked ="Checked"><a class="pl-2">Upload List</a></label>
         </div>
-      <form method="post" enctype="multipart/form-data" action="{{ url('/import_excel/import') }}">
+      <form method="post" enctype="multipart/form-data" action="/import">
         {{ csrf_field() }}
         <div class="form-group row pt-5 pl-5">
           <p class="Download-the-Excel-s">
@@ -446,10 +449,10 @@
           </p>
         </div>
         <div class="form-group row pr-5 pl-5">
-            <a class="Download-Template pl-2" href="/export"><i class="nav-icon fa fa-user pr-2"></i>Download Template</a>
+            <a class="Download-Template pl-2" href="{{ route('students.export') }}"><i class="nav-icon fa fa-user pr-2"></i>Download Template</a>
         </div>
         <div class="form-group row pt-2 pl-5">
-          <div class="col-lg-4">
+        <div class="col-lg-4">
             <div class="upload-blue">
               <span class="upload-blue"><input type="file" name="select_file"  class="custom-file-input"/></span>
               <i class="fa fa-picture-o pl-5" style="margin-left:24px;" aria-hidden="true"></i>
@@ -489,19 +492,19 @@
                  </a>
                </li>
                <li class="nav-item">
-                 <a href="/employees" class="nav-link active">
+                 <a href="/employees" class="nav-link">
                    <i class="nav-icon fa fa-user"></i>
                    <p class="nav-menu">
                      My Employee
-                     <span class="right"><i class="fa fa-exclamation-circle"></i></span>
                    </p>
                  </a>
                </li>
                <li class="nav-item">
-                 <a href="/students" class="nav-link">
+                 <a href="/students" class="nav-link active">
                    <i class="nav-icon fa fa-users"></i>
                    <p class="nav-menu">
                      Students
+                     <span class="right"><i class="fa fa-exclamation-circle"></i></span>
                    </p>
                  </a>
                </li>
@@ -594,7 +597,7 @@
 
             <div class="Rectangle-Copy-6 pl-4 t-head">
               <div class="pt-4 pl-4">
-                <h3  class=" My-employees">My Employees</h3>
+                <h3  class=" My-employees">Students</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body" >
@@ -603,30 +606,18 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Guardian Name</th>
                                 <th>Status</th>
-                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody class="t-body">
                           @foreach($employees as $employee)
-                          @if($employee->user_type=='Employee')
+                          @if($employee->user_type=='Student')
                             <tr>
                                 <td>{{ $employee->first_name }} {{ $employee->last_name }}</td>
                                 <td>{{ $employee->email }}</td>
-                                <td>
-                                @if( $employee->is_active==1)
-                                <span class="VERIFIED">Verified</span>
-                                @else
-                                <span class="UNVERIFIED">Unverified</span>
-                                @endif
-                                </td>
-                                <td>
-                                @if( $employee->is_active==1)
-                                <a href="{{ route('employees.changestatus', $employee->id )}}" class="pl-3" type="submit"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                                @else
-                                <a href="{{ route('employees.changestatus', $employee->id )}}" type="submit" class="Verify-">								
-                                Verify ></a>
-                                @endif
+                                <td>{{ $employee->guardian_name }}</td>
+                                <td><span class="VERIFIED">Verified</span>
                                 </td>
                             </tr>
                           @endif

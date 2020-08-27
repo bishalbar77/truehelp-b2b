@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\Employee;
 class HomeController extends Controller
 {
     /**
@@ -23,9 +23,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $userCount = User::count();
+        $userCount = Employee::where('is_active','0')->count();
+        $empcount = Employee::where([
+            'user_type' => 'Employee'
+        ])->count();
         return view('home')->with([
-            'count' => $userCount
+            'count' => $userCount,
+            'empcount' => $empcount,
         ]);
     }
 }

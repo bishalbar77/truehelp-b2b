@@ -36,6 +36,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!--Manual CSS -->
+    <link href="css/dashboard.css" rel="stylesheet" type="text/css">
     
 </head>
     <body class="hold-transition sidebar-mini layout-fixed">

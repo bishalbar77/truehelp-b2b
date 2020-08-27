@@ -1,12 +1,10 @@
 <?php
 
 namespace App\Exports;
-
-use App\Employee;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class EmployeesExport implements FromArray, WithHeadings
+class StudentExport implements FromArray, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -27,6 +25,9 @@ class EmployeesExport implements FromArray, WithHeadings
             'dob',
             'email',
             'address',
+            'guardian_name',
+            'guardian_phone',
+            'guardian_relation',
         ];
     }
 }

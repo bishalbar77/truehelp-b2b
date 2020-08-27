@@ -14,6 +14,11 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class EmployeeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $employees = Employee::all();
@@ -67,11 +72,11 @@ class EmployeeController extends Controller
 
     public function import(Request $request)
     {  
-    $this->validate($request, [
-    'select_file'  => 'required|mimes:xls,xlsx'
-    ]);
-    Excel::import(new EmployeesImport,request()->file('select_file'));    
-    return back();
+        $this->validate($request, [
+        'select_file'  => 'required|mimes:xls,xlsx'
+        ]);
+        Excel::import(new EmployeesImport,request()->file('select_file'));    
+        return back();
     }
 
     public function export() 
