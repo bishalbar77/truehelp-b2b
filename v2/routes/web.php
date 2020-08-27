@@ -14,13 +14,20 @@ use Illuminate\Support\Facades\Route;
 */
 // 
 // Auth::routes();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+// 	return $request->user();
+// });
 
 Route::get('login', 'Auth\LoginController@login')->name('login');
 Route::post('login', 'Auth\LoginController@loginProcess')->name('login.post');
 Route::post('verify-process', 'Auth\LoginController@verifyProcess')->name('verify-process');
+Route::get('register', 'Auth\RegisterController@register')->name('register');
+Route::post('register', 'Auth\RegisterController@registerProcess')->name('login.register');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::resource('order', 'OrderController');
 Route::resource('employees', 'EmployeeController');
 Route::get('/employees/{user}/changestatus', 'EmployeeController@changestatus')->name('employees.changestatus');

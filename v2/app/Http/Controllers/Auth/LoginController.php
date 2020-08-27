@@ -7,6 +7,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -72,11 +74,12 @@ class LoginController extends Controller
 
     public function verifyProcess(Request $request)
     {
+
         $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
 
         $device_id = 'XXXXXXXXXXXXXXXXXXXXYYYYYY';
 
-        $response = Http::post('http://localhost/gettruehelp/api/public/api/verify-otp', [
+        $response = Http::post('https://api.gettruehelp.com/api/verify-otp', [
             'mobile' => $request->mobile,
             'device_id' => $device_id,
             'api_key' => $apiKeys,
@@ -86,9 +89,18 @@ class LoginController extends Controller
         $contents = $response->getBody();
 
         $data = json_decode($contents);
-
+        session()->put('name', 'vishnug');
+        // $email = session()->get('name');
+        return redirect()->route('employees.index');
+        // Auth::logout();     
+        // return redirect()->route('user.login');
         echo '<pre>';
         print_r($data);
         exit;
+    }
+
+    public function logout(){
+        session()->forget('name');
+        return redirect()->route('login');
     }
 }

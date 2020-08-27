@@ -34,7 +34,8 @@
           <img src="dist/img/user8-128x128.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+          <!-- <a href="#" class="d-block"> Auth::user()->name </a> -->
+          <a href="#" class="d-block">{{session()->get('name')}}</a>
         </div>
       </div>
 

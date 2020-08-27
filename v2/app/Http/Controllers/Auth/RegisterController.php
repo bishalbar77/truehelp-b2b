@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -47,6 +48,50 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+    public function register(){
+        return view('auth.register');
+    }
+
+    public function registerProcess(Request $request)
+    {
+        // $response = Http::post('https://api.gettruehelp.com/api/send-otp', [
+        //     'mobile' => $request->mobile,
+        //     'device_id' => $device_id,
+        //     'api_key' => $apiKeys,
+        // ]);
+
+        // $contents = $response->getBody();
+
+        // $data = json_decode($contents);
+
+        // echo '<pre>';
+        // print_r($data);
+        // exit;
+
+        dd($request->mobile);
+        $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
+
+        $device_id = 'XXXXXXXXXXXXXXXXXXXXYYYYYY';
+
+        $response = Http::post('https://api.gettruehelp.com/api/send-otp', [
+            'mobile' => $request->mobile,
+            'device_id' => $device_id,
+            'api_key' => $apiKeys,
+        ]);
+
+        $contents = $response->getBody();
+
+        $data = json_decode($contents);
+
+        echo '<pre>';
+        print_r($data);
+        exit;
+
+        return view('auth.verifyotp', [
+            'data' => $data
+        ]);
+    }
+
     protected function validator(array $data)
     {
         return Validator::make($data, [

@@ -8,15 +8,21 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Hash;
 use DB;
+use Illuminate\Support\Facades\Session;
 use App\Imports\EmployeesImport;
 use App\Exports\EmployeesExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class EmployeeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $name = session()->get('name');
+        // session()->forget('name');
         $employees = Employee::all();
+        if(empty($name)){
+            return redirect()->route('login');
+        }
         return view('employees.index', compact('employees'));
     }
 
@@ -94,4 +100,6 @@ class EmployeeController extends Controller
             
         }
     }
+
+    
 }

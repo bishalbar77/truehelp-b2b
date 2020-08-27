@@ -175,7 +175,7 @@ body {
             <h4 class="card-title text-center">Register your Account</h4>
             <form method="POST" class="form-signin" action="{{ route('register') }}">
                         @csrf
-            <div class="form-label-group">
+            <!-- <div class="form-label-group">
                 <input id="name" type="name" class="form-control @error('name') is-invalid @enderror" name="name" required>
                 <label for="name">Name</label>
                 @error('name')
@@ -183,7 +183,39 @@ body {
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
+             </div>  -->
+
+            <div class="form-label-group">
+                <input id="first_name" type="first_name" class="form-control @error('first_name') is-invalid @enderror" name="first_name" required>
+                <label for="first_name">First Name</label>
+                @error('first_name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
+
+            <div class="form-label-group">
+                <input id="middle_name" type="middle_name" class="form-control @error('middle_name') is-invalid @enderror" name="middle_name" required>
+                <label for="middle_name">Middle Name</label>
+                @error('middle_name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="form-label-group">
+                <input id="last_name" type="last_name" class="form-control @error('last_name') is-invalid @enderror" name="last_name" required>
+                <label for="last_name">Last Name</label>
+                @error('last_name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+
 
               <div class="form-label-group">
                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required>
@@ -195,7 +227,40 @@ body {
                 @enderror
               </div>
 
+
               <div class="form-label-group">
+              <input id="mobile" type="text" class="form-control @error('mobile') is-invalid @enderror" name="mobile" required>
+                <label for="mobile">Mobile Number</label>
+                @error('mobile')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+
+              
+              <div class="form-label-group">
+                <input id="company_name" type="company_name" class="form-control @error('company_name') is-invalid @enderror" namce="company_name" required>
+                <label for="company_name">Company Name</label>
+                @error('company_name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="form-label-group">
+                <input id="employer_type" type="employer_type" class="form-control @error('employer_type') is-invalid @enderror" name="employer_type" required>
+                <label for="employer_type">Employer Name</label>
+                @error('employer_type')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+
+              <!-- <div class="form-label-group">
                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                 <label for="inputPassword">Password</label>
                 <div class="col-md-6">
@@ -217,7 +282,7 @@ body {
                         </span>
                     @enderror
                 </div>
-              </div>
+              </div> -->
 
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign up</button>
               <hr class="my-4">
