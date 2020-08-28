@@ -300,7 +300,7 @@
         </div>
       </li>
       <li class="pl-2 pt-2">
-        <p class="nav-name">{{ Auth::user()->first_name }}</p>
+        <p class="nav-name">{{ session()->get('first_name') }}</p>
       </li>
       <li class="pl-2 pt-2">
         <i class="fa fa-caret-down"></i>

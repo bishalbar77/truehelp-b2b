@@ -14,10 +14,10 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     
     /**
      * Display a listing of the resource.
@@ -26,6 +26,10 @@ class StudentController extends Controller
      */
     public function index()
     {
+        $name = session()->get('first_name');
+        if(empty($name)){
+            return redirect()->route('login');
+        }
         $employees = Employee::all();
         return view('student.index', compact('employees'));
     }

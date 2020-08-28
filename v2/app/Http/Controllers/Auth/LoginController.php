@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -36,5 +40,45 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function login()
+    {
+        return view('auth.login');
+    }
+
+    public function loginProcess(Request $request)
+    {
+        $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
+        $email = $request->email;
+        $password = $request->password;   
+
+        $response = Http::post('https://api.gettruehelp.com/api/login-by-email', [
+            'email' => $email,
+            'password' => $password,
+            'api_key' => $apiKeys,
+        ]);
+
+        $contents = $response->getBody();
+
+        $data = json_decode($contents);
+
+        if($data->response->status != 200){
+//             $message = 'Email or Password is not correct.'
+            return view('auth.login');
+        }
+        session()->put('first_name', $data->response->data->first_name);
+        session()->put('api_token', $data->response->data->api_token);
+        return redirect()->route('home');
+        // echo '<pre>';
+        // print_r($data);
+        // exit;
+
+
+    }
+
+    public function logout(){
+        session()->forget('first_name');
+        return redirect()->route('login');
     }
 }

@@ -14,13 +14,17 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class EmployeeController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     
     public function index()
     {
+        $name = session()->get('first_name');
+        if(empty($name)){
+            return redirect()->route('login');
+        }
         $employees = Employee::all();
         return view('employees.index', compact('employees'));
     }

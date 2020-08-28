@@ -37,7 +37,7 @@
         </div>
       </li>
       <li class="pl-2 pt-2">
-        <p class="nav-name">{{ Auth::user()->first_name }}</p>
+        <p class="nav-name">{{ session()->get('first_name') }}</p>
       </li>
       <li class="pl-2 pt-2">
         <i class="fa fa-caret-down"></i>
@@ -180,7 +180,7 @@
             <!-- small box -->
             <div class="small-box bg-info" style="border-radius: 12px;">
               <div class="inner">
-                <h3>{{ $empcount }}</h3>
+                <h3>{{ $registered_employees }}</h3>
 
                 <p>Registered Employess</p>
               </div>
@@ -195,7 +195,7 @@
             <!-- small box -->
             <div class="small-box bg-success" style="border-radius: 12px;">
               <div class="inner">
-                <h3>{{ $count }}<sup style="font-size: 20px"></sup></h3>
+                <h3>{{ $pending_verifications }}<sup style="font-size: 20px"></sup></h3>
 
                 <p>Pending Verification</p>
               </div>
@@ -210,7 +210,7 @@
             <!-- small box -->
             <div class="small-box bg-warning" style="border-radius: 12px;">
               <div class="inner">
-                <h3>0</h3>
+                <h3>{{ $verified_employees }}</h3>
 
                 <p>Verified Users</p>
               </div>
@@ -225,7 +225,7 @@
             <!-- small box -->
             <div class="small-box bg-danger" style="border-radius: 12px;">
               <div class="inner">
-                <h3>0</h3>
+                <h3>{{ $red_cases }}</h3>
 
                 <p>Red Cases</p>
               </div>
