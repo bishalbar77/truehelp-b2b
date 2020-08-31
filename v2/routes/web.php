@@ -18,14 +18,14 @@ use Illuminate\Support\Facades\Route;
 // Route::post('/login', 'Auth\LoginController@login');
 Route::get('/login', 'Auth\LoginController@login')->name('login');
 Route::post('/login', 'Auth\LoginController@loginProcess');
-
 Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('/register', 'Auth\RegisterController@register');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 // Home Routes
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
-// Route::resource('order', 'OrderController');
+Route::get('/order', 'SurveyController@getsurvey')->name('getsurvey');
+Route::get('/checksurvey={order}', 'SurveyController@checksurvey')->name('checksurvey');
 Route::resource('employees', 'EmployeeController');
 Route::get('/students', 'StudentController@index')->name('students.index');
 Route::post('/students/store', 'StudentController@store')->name('students.store');
@@ -34,3 +34,8 @@ Route::get('/sexport', 'StudentController@export')->name('students.export');
 Route::get('/employees/{user}/changestatus', 'EmployeeController@changestatus')->name('employees.changestatus');
 Route::post('/import_excel/import', 'EmployeeController@import');
 Route::get('export', 'EmployeeController@export')->name('export');
+Route::get('/verify={user}', 'EmployeeController@verify')->name('verify');
+Route::get('/search', 'EmployeeController@search')->name('search');
+Route::get('/otp', 'Auth\LoginController@loginotp')->name('loginotp');
+Route::post('/sendotp', 'Auth\LoginController@sendotp')->name('sendotp');
+Route::post('/checkotp', 'Auth\LoginController@checkotp')->name('checkotp');

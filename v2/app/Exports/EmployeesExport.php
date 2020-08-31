@@ -26,7 +26,16 @@ class EmployeesExport implements FromArray, WithHeadings
             'gender',
             'dob',
             'email',
-            'address',
+            'student_code',
+            'co_relation',
+            'parent_email',
+            'parent_mobile',
+            'parent_first_name',
+            'parent_middle_name',
+            'parent_last_name',
+            'parent_dob',
+            'parent_gender',
+            'employee_types_id',
         ];
     }
 }

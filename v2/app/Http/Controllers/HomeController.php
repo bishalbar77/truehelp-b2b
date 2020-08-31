@@ -52,16 +52,17 @@ class HomeController extends Controller
         $pending_verifications = $data->response->data->pending_verifications;
         $red_cases = $data->response->data->red_cases;        
 
-        // $userCount = Employee::where('is_active','0')->count();
-        // $empcount = Employee::where([
-        //     'user_type' => 'Employee'
-        // ])->count();
-
+        $employees = Employee::orderBy('id', 'desc')->take(4)->get();
+        $userCount = Employee::where('is_active','0')->count();
+        $empcount = Employee::all()->count();
         return view('home')->with([
             'registered_employees' => $registered_employees,
             'verified_employees' => $verified_employees,
             'pending_verifications' => $pending_verifications,
-            'red_cases' => $red_cases
+            'red_cases' => $red_cases,
+            'employees' => $employees,
+            'count' => $userCount,
+            'empcount' => $empcount,
         ]);
     }
 }

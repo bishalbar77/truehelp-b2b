@@ -173,12 +173,12 @@ body {
                 <img src="images/Logo-07.png" class="img-fluid rounded mx-auto d-block" alt="black-logo" height="54px" width="70px">
               </a>
             <h4 class="card-title text-center">Login to Account</h4>
-            <form method="POST" class="form-signin" action="{{ route('login')}}">
+            <form method="POST" class="form-signin" action="{{ route('checkotp')}}">
                         @csrf
               <div class="form-label-group">
-              <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required>
-                <label for="email">Email address</label>
-                @error('email')
+              <input id="mobile" type="phone" class="form-control @error('mobile') is-invalid @enderror" value="{{ $mobile }}" name="mobile" required>
+                <label for="mobile">Phone number</label>
+                @error('mobile')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -186,10 +186,10 @@ body {
               </div>
 
               <div class="form-label-group">
-              <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                <label for="inputPassword">Password</label>
+              <input id="OTP" type="number" class="form-control @error('OTP') is-invalid @enderror" name="OTP" required>
+                <label for="OTP">OTP</label>
                 <div class="col-md-6">
-                    @error('password')
+                    @error('OTP')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -204,7 +204,7 @@ body {
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
               <hr class="my-4">
               <a href="/register" class="btn btn-lg btn btn-success btn-block text-uppercase"><i class="fab fa-new-f mr-2"></i> Create New Account</a>
-              <a href="/otp" class="btn btn-lg btn btn-danger btn-block text-uppercase"><i class="fab fa-new-f mr-2"></i> Sign in by Phone number</a>
+              <a href="/login" class="btn btn-lg btn btn-danger btn-block text-uppercase"><i class="fab fa-new-f mr-2"></i> Sign in by Email</a>
             </form>
           </div>
         </div>

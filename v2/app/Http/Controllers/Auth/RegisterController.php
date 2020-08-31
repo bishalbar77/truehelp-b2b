@@ -8,6 +8,9 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
+use Auth;
 
 class RegisterController extends Controller
 {
@@ -51,7 +54,8 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'mobile' => ['required', 'max:13', 'unique:users'],
+            'email' => '',
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -64,10 +68,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'first_name' => $data['name'],
+        $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
+        $response = Http::post('https://api.gettruehelp.com/api/register-employer', [
             'email' => $data['email'],
+            'first_name' => $data['name'],
+            'source_name' => 'B2B',
+            'device_id' => '00000000-89ABCDEF-01234567-89ABCDEH',
+            'dob' => '2000-11-22',
+            'mac_address' => '00:00:00:00',
+            'gender' => 'M',
+            'employer_type' => 'SCHOOL',
+            'mobile' => $data['mobile'],
             'password' => Hash::make($data['password']),
+            'api_key' => $apiKeys,
         ]);
+        $contents = $response->getBody();
+        // dd($response);
+        $data = json_decode($contents);
+
+        if($data->response->status != 200){
+            dd($data->response);
+        }
+        session()->put('first_name', $data->response->data->first_name);
+        session()->put('api_token', $data->response->data->api_token);
+        return redirect()->route('home');
+
     }
 }

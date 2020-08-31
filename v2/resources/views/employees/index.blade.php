@@ -2,7 +2,7 @@
 @extends('layouts.default')
 {{-- Styles Section --}}
 @section('styles')
-<title>TrueHelp | My Employees</title>
+<title>TrueHelp | My Candidate</title>
 <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
 <script defer src="{{ mix('js/app.js') }}"></script>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
@@ -323,16 +323,16 @@
     <ul class="navbar-nav ml-auto pl-5">
       <button type="button" class="btn btn-primary">Order Verification</button>
       <a class="pl-5"></a>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+ Add Employee</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+ Add Candidate</button>
       <a class="pl-5"></a>
     </ul>
   </nav>
   <!-- /.navbar -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <div class="Add-Employees pt-3" id="exampleModalLabel">Add Employee</div>
+        <div class="Add-Employees pt-3" id="exampleModalLabel">Add Candidate</div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -352,7 +352,7 @@
             </div>
             <div class="col-lg-4">
             <label class="form-label-text">Middle Name:</label>
-            <input type="text" class="form-control" name="middle_name" required="required">
+            <input type="text" class="form-control" name="middle_name">
             </div>  	
             <div class="col-lg-4">
             <label class="form-label-text">Last Name:</label>
@@ -362,23 +362,28 @@
             <div class="form-group row">
             <div class="col-lg-4">
             <label class="form-label-text">Email:</label>
-            <input type="email" class="form-control" name="email" required="required">
+            <input type="email" class="form-control" name="email">
             </div>
               <div class="col-lg-4">
               <label class="form-label-text">Mobile</label>
               <input type="phone" class="form-control" name="mobile" required="required">
               </div>
               <div class="col-lg-4">
-              <label class="form-label-text">Date of Birth:</label>
-              <input type="date" class="form-control" name="dob" required="required">
-              </div>  	           
+              <label class="form-label-text">Student Code</label>
+              <input type="number" class="form-control" name="student_code">
+              </div>
               </div>
                   <div class="form-group row">
-              <div class="col-lg-6">
-              <label class="form-label-text">Address:</label>
-              <input type="text" class="form-control" name="address" required="required">
+                    <div class="col-lg-4">
+              <label class="form-label-text">Candidate Type:</label>
+              <select name="emp_type" class="form-control" id="emp_type">
+                  <option value="9">Select Candidate Type</option>
+                  @foreach ($emp_type as $emp)
+                  <option value={{$emp->id}}>{{$emp->type}}</option>
+                  @endforeach
+              </select>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-4">
               <label class="form-label-text">Gender:</label>
               <select name="gender" class="form-control" id="gender">
                   <option value="">Select Gender</option>
@@ -387,16 +392,69 @@
                   <option value="Others">Others</option>
               </select>
               </div>
-            </div>   
+              <div class="col-lg-4">
+              <label class="form-label-text">Date of Birth:</label>
+              <input type="date" class="form-control" name="dob" required="required">
+              </div>  
+            </div> 
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                          <label class="form-label-text">Parent First Name</label>
+                          <input type="text" class="form-control" name="parent_first_name">
+                        </div>
+                        <div class="col-lg-4">
+                        <label class="form-label-text">Parent Middle Name:</label>
+                        <input type="text" class="form-control" name="parent_middle_name">
+                        </div>    
+                        <div class="col-lg-4">
+                        <label class="form-label-text">Parent Last Name:</label>
+                        <input type="text" class="form-control" name="parent_last_name">
+                        </div>    
+                    </div>
+                    <div class="form-group row">
+                          <div class="col-lg-4">
+                          <label class="form-label-text">Parent Email:</label>
+                          <input type="email" class="form-control" name="parent_email" >
+                          </div>
+                            <div class="col-lg-4">
+                            <label class="form-label-text">Parent Mobile</label>
+                            <input type="phone" class="form-control" name="parent_mobile">
+                            </div>
+                            <div class="col-lg-4">
+                            <label class="form-label-text">Parent Date of Birth:</label>
+                            <input type="date" class="form-control" name="parent_dob">
+                            </div>               
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-lg-4">
+                          <label class="form-label-text">Parent Gender:</label>
+                          <select name="parent_gender" class="form-control" id="parent_gender">
+                              <option value="">Select Gender</option>
+                              <option value="M">M</option>
+                              <option value="F">F</option>
+                              <option value="Others">Other</option>
+                          </select>
+                          </div>
+                          <div class="col-lg-4">
+                          <label class="form-label-text">Co-relation:</label>
+                          <select name="relation" class="form-control" id="relation">
+                              <option value="">Select Relation</option>
+                              <option value="FATHER">Father</option>
+                              <option value="MOTHER">Mother</option>
+                              <option value="GAURDIAN">Gaurdian</option>
+                          </select>
+                          </div>
+                    </div>
+
             <div class="form-group row pl-3">
-          <label class="Employee-currently-w"><input type="checkbox"><a class="pl-2">Employee currently works with you</a></label>
+          <label class="Employee-currently-w"><input type="checkbox"><a class="pl-2">Candidate currently works with you</a></label>
         </div>
         <div class="form-group row pl-3">
           <div class="col-lg-4">
             <div class="upload-pink">
               <span class="upload-pink"><input type="file" class="custom-file-input" />
               <i class="fa fa-picture-o pl-5" style="margin-left:20px;" aria-hidden="true"></i>
-                <div><p class="Upload-Employee-Pic" style="color:black;">Upload Employee Pic</p></div>
+                <div><p class="Upload-Employee-Pic" style="color:black;">Upload Candidate Pic</p></div>
               </span>
             </div>
           </div>
@@ -417,54 +475,54 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="bulkModal" tabindex="-1" role="dialog" aria-labelledby="bulkModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-      <div class="Add-Employees pt-3" id="exampleModalLabel">Add Employees</div>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group row pl-3">
-          <label class="checkbox-inline check-box-unselected p-2"><input type="checkbox" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal"><a class="pl-2">Individually</a></label>
-          <label class="checkbox-inline check-box-selected p-2"><input type="checkbox" checked ="Checked"><a class="pl-2">Upload List</a></label>
+  <div class="modal fade" id="bulkModal" tabindex="-1" role="dialog" aria-labelledby="bulkModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        <div class="Add-Employees pt-3" id="exampleModalLabel">Add Candidates</div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-      <form method="post" enctype="multipart/form-data" action="{{ url('/import_excel/import') }}">
-        {{ csrf_field() }}
-        <div class="form-group row pt-5 pl-5">
-          <p class="Download-the-Excel-s">
-          Download the Excel sheet >> Fill details >> Upload
-          </p>
-        </div>
-        <div class="form-group row pr-5 pl-5">
-          <p class="Lorem-ipsum-dolor-si">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-          sed do eiusmod tempor incididunt ut labore et dolore 
-          Ut enim ad minim veniam, quis nostrud exercitation 
-          </p>
-        </div>
-        <div class="form-group row pr-5 pl-5">
-            <a class="Download-Template pl-2" href="/export"><i class="nav-icon fa fa-user pr-2"></i>Download Template</a>
-        </div>
-        <div class="form-group row pt-2 pl-5">
-          <div class="col-lg-4">
-            <div class="upload-blue">
-              <span class="upload-blue"><input type="file" name="select_file"  class="custom-file-input"/></span>
-              <i class="fa fa-picture-o pl-5" style="margin-left:24px;" aria-hidden="true"></i>
-              <div><p class="Upload-Employee-Pic" style="color:black;">Upload Excel template</p></div>
+        <div class="modal-body">
+          <div class="form-group row pl-3">
+            <label class="checkbox-inline check-box-unselected p-2"><input type="checkbox" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal"><a class="pl-2">Individually</a></label>
+            <label class="checkbox-inline check-box-selected p-2"><input type="checkbox" checked ="Checked"><a class="pl-2">Upload List</a></label>
+          </div>
+        <form method="post" enctype="multipart/form-data" action="{{ url('/import_excel/import') }}">
+          {{ csrf_field() }}
+          <div class="form-group row pt-5 pl-5">
+            <p class="Download-the-Excel-s">
+            Download the Excel sheet >> Fill details >> Upload
+            </p>
+          </div>
+          <div class="form-group row pr-5 pl-5">
+            <p class="Lorem-ipsum-dolor-si">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            sed do eiusmod tempor incididunt ut labore et dolore 
+            Ut enim ad minim veniam, quis nostrud exercitation 
+            </p>
+          </div>
+          <div class="form-group row pr-5 pl-5">
+              <a class="Download-Template pl-2" href="/export"><i class="nav-icon fa fa-user pr-2"></i>Download Template</a>
+          </div>
+          <div class="form-group row pt-2 pl-5">
+            <div class="col-lg-4">
+              <div class="upload-blue">
+                <span class="upload-blue"><input type="file" name="select_file"  class="custom-file-input"/></span>
+                <i class="fa fa-picture-o pl-5" style="margin-left:24px;" aria-hidden="true"></i>
+                <div><p class="Upload-Employee-Pic" style="color:black;">Upload Excel template</p></div>
+              </div>
             </div>
           </div>
+          <div class="form-group row float-right">
+              <button type="submit" class="btn-warning button-proceed Proceed">Proceed</button><a class="p-5"></a>
+          </div>
+        </form>
         </div>
-        <div class="form-group row float-right">
-            <button type="submit" class="btn-warning button-proceed Proceed">Proceed</button><a class="p-5"></a>
-        </div>
-      </form>
       </div>
     </div>
   </div>
-</div>
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar elevation-4 side-bar">
     <!-- Brand Logo -->
@@ -479,48 +537,40 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-               <li class="nav-header nav-menu-tag">MENU</li>
-               <li class="nav-item">
-                 <a href="/home" class="nav-link">
-                   <i class="nav-icon fas fa-th"></i>
-                   <p class="nav-menu">
-                     Dashboard
-                   </p>
-                 </a>
-               </li>
-               <li class="nav-item">
-                 <a href="/employees" class="nav-link active">
-                   <i class="nav-icon fa fa-user"></i>
-                   <p class="nav-menu">
-                     My Employee
-                     <span class="right"><i class="fa fa-exclamation-circle"></i></span>
-                   </p>
-                 </a>
-               </li>
-               <li class="nav-item">
-                 <a href="/students" class="nav-link">
-                   <i class="nav-icon fa fa-users"></i>
-                   <p class="nav-menu">
-                     Students
-                   </p>
-                 </a>
-               </li>
-               <li class="nav-item">
-                 <a href="pages/widgets.html" class="nav-link">
-                   <i class="nav-icon fa fa-user-circle-o"></i>
-                   <p class="nav-menu">
-                     Search Employee
-                   </p>
-                 </a>
-               </li>
-               <li class="nav-item">
-                 <a href="/order" class="nav-link">
-                   <i class="nav-icon fa fa-list-alt"></i>
-                   <p class="nav-menu">
-                     Orders
-                   </p>
-                 </a>
-               </li>
+          <li class="nav-header nav-menu-tag">MENU</li>
+          <li class="nav-item">
+            <a href="/home" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p class="nav-menu">
+                Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/employees" class="nav-link active">
+              <i class="nav-icon fa fa-user"></i>
+              <p class="nav-menu">
+                My Candidate
+                <span class="right"><i class="fa fa-exclamation-circle"></i></span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="pages/widgets.html" class="nav-link">
+              <i class="nav-icon fa fa-user-circle-o"></i>
+              <p class="nav-menu">
+                Search Candidate
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/order" class="nav-link">
+              <i class="nav-icon fa fa-list-alt"></i>
+              <p class="nav-menu">
+                Orders
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
               <i class="nav-icon fa fa-bell-o"></i>
@@ -569,7 +619,7 @@
           </li>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
-        </form>
+          </form>
           <li class="nav-item">
             <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
               <i class="nav-icon fa fa-sign-out"></i>
@@ -583,9 +633,6 @@
     <!-- /.sidebar -->
   </aside>
   <div class="content-wrapper">
-
-
-
     <section class="content pt-5">
       <div class="container-fluid">
         <div class="row">
@@ -594,7 +641,7 @@
 
             <div class="Rectangle-Copy-6 pl-4 t-head">
               <div class="pt-4 pl-4">
-                <h3  class=" My-employees">My Employees</h3>
+                <h3  class=" My-employees">My Candidates</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body" >
@@ -602,34 +649,36 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Email</th>
+                                <th>Designation</th>
+                                <th>Verification</th>
                                 <th>Status</th>
-                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody class="t-body">
                           @foreach($employees as $employee)
-                          @if($employee->user_type=='Employee')
+                          
                             <tr>
                                 <td>{{ $employee->first_name }} {{ $employee->last_name }}</td>
-                                <td>{{ $employee->email }}</td>
+                                <td>{{ $employee->type }}</td>
                                 <td>
-                                @if( $employee->is_active==1)
-                                <span class="VERIFIED">Verified</span>
+                                @if( $employee->verified=="I")
+                                Police Verification, & more
                                 @else
-                                <span class="UNVERIFIED">Unverified</span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-
                                 @endif
                                 </td>
                                 <td>
-                                @if( $employee->is_active==1)
-                                <a href="{{ route('employees.changestatus', $employee->id )}}" class="pl-3" type="submit"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                                @if( $employee->type=="I")
+                                <span class="VERIFIED">Verified</span>
+                                <a href="{{ route('verify', 1 )}}" class="pl-3 float-right pr-4 " type="submit"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
                                 @else
-                                <a href="{{ route('employees.changestatus', $employee->id )}}" type="submit" class="Verify-">								
+                                <span class="UNVERIFIED">Unverified</span>
+                                <a href="{{ route('verify', 1 )}}" type="submit" class="Verify- float-right">								
                                 Verify ></a>
                                 @endif
                                 </td>
                             </tr>
-                          @endif
+                          
                           @endforeach
                         </tbody>
                     </table>

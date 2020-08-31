@@ -184,15 +184,18 @@ body {
                     </span>
                 @enderror
             </div>
-
-              <div class="form-label-group">
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required>
-                <label for="email">Email address</label>
-                @error('email')
+            <div class="form-label-group">
+                <input id="mobile" type="number" class="form-control @error('mobile') is-invalid @enderror" name="mobile" required>
+                <label for="mobile">Phone Number</label>
+                @error('mobile')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
+            </div>
+              <div class="form-label-group">
+                <input id="email" type="email" class="form-control" name="email" >
+                <label for="email">Email address</label>
               </div>
 
               <div class="form-label-group">
