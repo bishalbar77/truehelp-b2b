@@ -45,6 +45,9 @@ class EmployeeController extends Controller
 
         $data = json_decode($contents);
         $emp_type = $data->response->data;
+        // echo "<pre>";
+        // print_r($data);
+        // exit;
         return view('employees.index', compact('employees','emp_type'));
     }
 

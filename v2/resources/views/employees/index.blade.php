@@ -397,6 +397,12 @@
               <input type="date" class="form-control" name="dob" required="required">
               </div>  
             </div> 
+            <label for="cars">Is Student is above 18:</label>  
+            <select id="test" name="form_select" onchange="showDiv(this)">
+               <option value="0">Yes</option>
+               <option value="1">No</option>
+            </select>
+            <div id="hidden_div" style="display:none";>
                     <div class="form-group row">
                         <div class="col-lg-4">
                           <label class="form-label-text">Parent First Name</label>
@@ -418,17 +424,17 @@
                           </div>
                             <div class="col-lg-4">
                             <label class="form-label-text">Parent Mobile</label>
-                            <input type="phone" class="form-control" name="parent_mobile">
+                            <input type="phone" class="form-control" name="parent_mobile" >
                             </div>
                             <div class="col-lg-4">
                             <label class="form-label-text">Parent Date of Birth:</label>
-                            <input type="date" class="form-control" name="parent_dob">
+                            <input type="date" class="form-control" name="parent_dob" >
                             </div>               
                     </div>
                     <div class="form-group row">
                       <div class="col-lg-4">
                           <label class="form-label-text">Parent Gender:</label>
-                          <select name="parent_gender" class="form-control" id="parent_gender">
+                          <select name="parent_gender" class="form-control" id="parent_gender" >
                               <option value="">Select Gender</option>
                               <option value="M">M</option>
                               <option value="F">F</option>
@@ -437,7 +443,7 @@
                           </div>
                           <div class="col-lg-4">
                           <label class="form-label-text">Co-relation:</label>
-                          <select name="relation" class="form-control" id="relation">
+                          <select name="relation" class="form-control" id="relation" >
                               <option value="">Select Relation</option>
                               <option value="FATHER">Father</option>
                               <option value="MOTHER">Mother</option>
@@ -445,7 +451,7 @@
                           </select>
                           </div>
                     </div>
-
+            </div>
             <div class="form-group row pl-3">
           <label class="Employee-currently-w"><input type="checkbox"><a class="pl-2">Candidate currently works with you</a></label>
         </div>
@@ -695,7 +701,15 @@
     </section>
     <!-- /.content -->
   </div>
-  
+  <script type="text/javascript">
+function showDiv(select){
+   if(select.value==1){
+    document.getElementById('hidden_div').style.display = "block";
+   } else{
+    document.getElementById('hidden_div').style.display = "none";
+   }
+} 
+</script>
 @endsection
 
 @section('scripts')
