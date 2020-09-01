@@ -353,7 +353,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="/search" class="nav-link">
               <i class="nav-icon fa fa-user-circle-o"></i>
               <p class="nav-menu">
                 Search Candidate
@@ -378,7 +378,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="/profile" class="nav-link">
               <i class="nav-icon fa fa-address-card-o"></i>
               <p class="nav-menu">
                 Profile

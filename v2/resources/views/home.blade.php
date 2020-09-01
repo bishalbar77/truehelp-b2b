@@ -80,6 +80,32 @@
   letter-spacing: normal;
   color: #167aff;
 }
+.order-img {
+  width: 346px;
+  height: 242px;
+}
+.Request-sent {
+  width:100%;
+  font-family: Montserrat;
+  font-size: 19px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--black);
+}
+.Lorem-ipsum-dolor-si {
+  height: 66px;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #b6b8c3;
+}
 </style>
 @endsection
 
@@ -162,7 +188,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="/profile" class="nav-link">
               <i class="nav-icon fa fa-address-card-o"></i>
               <p class="nav-menu">
                 Profile
@@ -231,7 +257,7 @@
             <!-- small box -->
             <div class="small-box bg-info" style="border-radius: 12px;">
               <div class="inner">
-                <h3>{{ $empcount }}</h3>
+                <h3>{{ $registered_employees }}</h3>
 
                 <p>Registered Employess</p>
               </div>
@@ -246,7 +272,7 @@
             <!-- small box -->
             <div class="small-box bg-success" style="border-radius: 12px;">
               <div class="inner">
-                <h3>{{ $count }}<sup style="font-size: 20px"></sup></h3>
+                <h3>{{ $pending_verifications }}<sup style="font-size: 20px"></sup></h3>
 
                 <p>Pending Verification</p>
               </div>
@@ -313,32 +339,84 @@
                                 <th>Status</th>
                             </tr>
                         </thead>
+                        <?php $sl=1 ?>
                         <tbody class="t-body">
                           @foreach($employees as $employee)
+                          @if($sl>4)@continue;@endif
                             <tr>
                                 <td>{{ $employee->first_name }} {{ $employee->last_name }}</td>
-                                <td>{{ $employee->user_type }}</td>
+                                <td>{{ $employee->type }}</td>
                                 <td>
-                                @if( $employee->is_active==1)
+                                @if( $employee->verified=="I")
                                 Police Verification, & more
                                 @else
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-
                                 @endif
                                 </td>
                                 <td>
-                                @if( $employee->is_active==1)
+                                @if( $employee->type=="I")
                                 <span class="VERIFIED">Verified</span>
-                                <a href="{{ route('verify', $employee->id )}}" class="pl-3 float-right pr-4 " type="submit"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                                <a href="{{ route('verify', 1 )}}" class="pl-3 float-right pr-4 " type="submit"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
                                 @else
                                 <span class="UNVERIFIED">Unverified</span>
-                                <a href="{{ route('verify', $employee->id )}}" type="submit" class="Verify- float-right">								
+                                <a href="{{ route('verify', 1 )}}" type="submit" class="Verify- float-right">								
                                 Verify ></a>
                                 @endif
                                 </td>
                             </tr>
+                          <?php $sl++ ?>
                           @endforeach
                         </tbody>
                     </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <section class="content pt-5">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <!-- /.card -->
+
+            <div class="Rectangle-Copy-6 pl-4 t-head">
+              <div class="pt-4 pl-4 pb-2 pr-5">
+                <h3  class=" My-employees">Your Orders</h3>
+                <hr>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body" >
+                <div class="container">
+                  <div class="form-group row">
+                    <div class="col-lg-5">
+                      <img src="images/request.jpg" alt="User Avatar"  class="order-img">
+                    </div>
+                    <div class="col-lg-7">
+                      <div class="form-group row pt-2 pl-5 pr-5">
+                        <p class="Request-sent">
+                        Request has been sent successfully
+                        </p>
+                      </div>
+                      <div class="form-group row pr-5 pl-5">
+                        <p class="Lorem-ipsum-dolor-si">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore 
+                        Ut enim ad minim veniam, quis nostrud exercitation 
+                        </p>
+                      </div>
+                      <div class="form-group row pr-5 pl-5">
+                        <a href="/employees"><button type="button" class="btn btn-primary">+ Add Candidate</button></a>
+                        <a class="pl-5"></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <!-- /.card-body -->
             </div>

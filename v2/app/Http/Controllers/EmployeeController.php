@@ -45,9 +45,6 @@ class EmployeeController extends Controller
 
         $data = json_decode($contents);
         $emp_type = $data->response->data;
-        // echo "<pre>";
-        // print_r($data);
-        // exit;
         return view('employees.index', compact('employees','emp_type'));
     }
 
@@ -105,18 +102,6 @@ class EmployeeController extends Controller
         'select_file'  => 'required|mimes:xls,xlsx'
         ]);
         Excel::import(new EmployeesImport,request()->file('select_file'));    
-        // $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
-        // $api_token = session()->get('api_token');
-        // $file = $request->select_file;
-        // dd($file);
-        // $response = Http::withHeaders(['Authorization' => "Bearer ".$api_token])
-        //     ->post('https://api.gettruehelp.com/api/import-student', [
-        //     'file' => $file,
-        //     'api_key' => $apiKeys,
-        // ]);
-        // $contents = $response->getBody();
-        // $data = json_decode($contents);
-        // dd($response);
         return back();
     }
 
@@ -137,7 +122,6 @@ class EmployeeController extends Controller
         else {
            
             return redirect(route('employees.changestatus'));
-            
         }
     }
 
@@ -147,6 +131,11 @@ class EmployeeController extends Controller
         return view('employees.verify')->with([
             'user' =>$user]
         );
+    }
+
+    public function profile()
+    {
+        return view('employees.profile');
     }
 
     public function search()
