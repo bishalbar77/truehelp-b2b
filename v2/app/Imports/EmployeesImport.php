@@ -57,7 +57,12 @@ class EmployeesImport implements ToModel, WithHeadingRow, SkipsOnError, WithVali
     public function rules(): array
     {
         return [
-            '*.email' => ['email']
+            '*.email' => ['email'],
+            '*.mobile' => ['required','max:13'],
+            '*.first_name' => ['required','string'],
+            '*.last_name' => ['required','string'],
+            '*.dob' => ['required','string'],
+            '*.gender' => ['required','string']
         ];
     }
 
