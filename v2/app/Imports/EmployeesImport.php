@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Imports;
-
-use App\Employee;
+use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
@@ -17,7 +16,12 @@ use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Validators\Failure;
 use Throwable;
 
-class EmployeesImport implements ToModel, WithHeadingRow, SkipsOnError, WithValidation, SkipsOnFailure
+class EmployeesImport implements 
+    ToModel,
+    WithHeadingRow, 
+    SkipsOnError, 
+    WithValidation, 
+    SkipsOnFailure
 {
 
     use Importable, SkipsErrors, SkipsFailures;
@@ -57,12 +61,12 @@ class EmployeesImport implements ToModel, WithHeadingRow, SkipsOnError, WithVali
     public function rules(): array
     {
         return [
-            '*.email' => ['email'],
-            '*.mobile' => ['required','max:13'],
+            '*.mobile' => ['required','max:13','min:10'],
             '*.first_name' => ['required','string'],
             '*.last_name' => ['required','string'],
             '*.dob' => ['required'],
-            '*.gender' => ['required']
+            '*.employee_types_id' => ['required','min:1'],
+            '*.gender' => ['required','string']
         ];
     }
 

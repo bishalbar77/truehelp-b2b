@@ -577,12 +577,31 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/order" class="nav-link">
+            <a href="#" class="nav-link">
               <i class="nav-icon fa fa-list-alt"></i>
               <p class="nav-menu">
-                Orders
+                Health Check
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/order" class="nav-link">
+                  <i class="nav-icon fa fa-angle-double-right"></i>
+                  <p class="nav-menu">
+                    Orders
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/order" class="nav-link">
+                  <i class="nav-icon fa fa-angle-double-right"></i>
+                  <p class="nav-menu">
+                    Reports
+                  </p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
@@ -681,25 +700,25 @@
                         <th>Inserted Data</th>
                     </tr>
 
-                    @foreach (session()->get('failures') as $validation)
+                    @foreach (session()->get('failures') as $failure)
                         <tr>
-                            <td>{{ $validation->row() }}</td>
-                            <td>{{ $validation->attribute() }}</td>
+                            <td>{{ $failure->row() }}</td>
+                            <td>{{ $failure->attribute() }}</td>
                             <td>
-                            @foreach ($validation->errors() as $e)
+                            @foreach ($failure->errors() as $e)
                                 <ul>{{ $e }}</ul>
                             @endforeach
                             </td>
                             <td>
-                                {{ $validation->values()[$validation->attribute()] }}
+                                {{ $failure->values()[$failure->attribute()] }}
                             </td>
                         </tr>
                     @endforeach
                 </table>
               </div>
             </div>
-            @endif
             <br>
+            @endif
             <div class="Rectangle-Copy-6 pl-4 t-head">
               <div class="pt-4 pl-4">
                 <h3  class=" My-employees">My Candidates</h3>

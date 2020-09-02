@@ -361,13 +361,32 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/order" class="nav-link active">
+            <a href="#" class="nav-link active">
               <i class="nav-icon fa fa-list-alt"></i>
               <p class="nav-menu">
-                Orders
-                <span class="right"><i class="fa fa-exclamation-circle"></i></span>
+                Health Check
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/order" class="nav-link active">
+                  <i class="nav-icon fa fa-angle-double-right"></i>
+                  <p class="nav-menu">
+                    Orders
+                <span class="right"><i class="fa fa-exclamation-circle"></i></span>
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/order" class="nav-link">
+                  <i class="nav-icon fa fa-angle-double-right"></i>
+                  <p class="nav-menu">
+                    Reports
+                  </p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">

@@ -35,16 +35,6 @@ class RegisterController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
-
-    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -56,7 +46,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'mobile' => ['required', 'max:13', 'unique:users'],
             'email' => '',
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string','confirmed'],
         ]);
     }
 
@@ -72,6 +62,7 @@ class RegisterController extends Controller
         $response = Http::post('https://api.gettruehelp.com/api/register-employer', [
             'email' => $data['email'],
             'first_name' => $data['name'],
+            "last_name" => 'Truehelp',
             'source_name' => 'B2B',
             'device_id' => '00000000-89ABCDEF-01234567-89ABCDEH',
             'dob' => '2000-11-22',
@@ -83,15 +74,12 @@ class RegisterController extends Controller
             'api_key' => $apiKeys,
         ]);
         $contents = $response->getBody();
-        // dd($response);
-        $data = json_decode($contents);
+        $registerdata = json_decode($contents);
 
-        if($data->response->status != 200){
-            dd($data->response);
+        if($registerdata->response->status != 200){
+            return redirect()->back();
         }
-        session()->put('first_name', $data->response->data->first_name);
-        session()->put('api_token', $data->response->data->api_token);
-        return redirect()->route('home');
+        return redirect()->route('login');
 
     }
 }

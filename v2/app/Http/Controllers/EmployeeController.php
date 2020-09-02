@@ -13,7 +13,7 @@ use App\Exports\EmployeesExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
-
+use Maatwebsite\Excel\Validators\ValidationException;
 
 class EmployeeController extends Controller
 {

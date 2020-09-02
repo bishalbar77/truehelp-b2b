@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', 'Auth\LoginController@login')->name('login');
 Route::post('/login', 'Auth\LoginController@loginProcess');
 Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('/register', 'Auth\RegisterController@register');
+Route::post('/register', 'RegisterApiController@create');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 // Home Routes
 Route::get('/', 'HomeController@index')->name('home');

@@ -67,6 +67,7 @@ class LoginController extends Controller
         $data = json_decode($contents);
 
         if($data->response->status != 200){
+            dd($data->response);
             $message = 'Incorrect Email or Password';
             session()->flash('msg', $message);
             return redirect()->back();
