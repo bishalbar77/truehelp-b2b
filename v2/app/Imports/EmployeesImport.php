@@ -61,8 +61,8 @@ class EmployeesImport implements ToModel, WithHeadingRow, SkipsOnError, WithVali
             '*.mobile' => ['required','max:13'],
             '*.first_name' => ['required','string'],
             '*.last_name' => ['required','string'],
-            '*.dob' => ['required','string'],
-            '*.gender' => ['required','string']
+            '*.dob' => ['required'],
+            '*.gender' => ['required']
         ];
     }
 

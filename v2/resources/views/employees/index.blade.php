@@ -652,11 +652,12 @@
           <div class="col-12">
             <!-- /.card -->
 
-            <div class="Rectangle-Copy-6">
             @if (session('status'))
+            <div class="Rectangle-Copy-6">
                 <div class="alert alert-success" role="alert">
                     {{ session('status') }}
                 </div>
+            </div>
             @endif
             @if (isset($errors) && $errors->any())
               <div class="alert alert-danger">
@@ -667,8 +668,12 @@
             @endif
 
             @if (session()->has('failures'))
+            <div class="Rectangle-Copy-6 pl-4 t-head">
+              <div class="pt-4 pl-4">
+                <h3  class=" My-employees">Upload Response</h3>
+              </div>
               <div class="card-body" >
-                <table class="table table-danger">
+                <table class="table table-stripped">
                     <tr>
                         <th>Error at Row</th>
                         <th>Attribute</th>
@@ -681,11 +686,9 @@
                             <td>{{ $validation->row() }}</td>
                             <td>{{ $validation->attribute() }}</td>
                             <td>
-                                <ul>
-                                    @foreach ($validation->errors() as $e)
-                                        <li>{{ $e }}</li>
-                                    @endforeach
-                                </ul>
+                            @foreach ($validation->errors() as $e)
+                                <ul>{{ $e }}</ul>
+                            @endforeach
                             </td>
                             <td>
                                 {{ $validation->values()[$validation->attribute()] }}
@@ -693,9 +696,10 @@
                         </tr>
                     @endforeach
                 </table>
-              <div>
-            @endif
+              </div>
             </div>
+            @endif
+            <br>
             <div class="Rectangle-Copy-6 pl-4 t-head">
               <div class="pt-4 pl-4">
                 <h3  class=" My-employees">My Candidates</h3>
