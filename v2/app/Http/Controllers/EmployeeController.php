@@ -101,8 +101,13 @@ class EmployeeController extends Controller
         $this->validate($request, [
         'select_file'  => 'required|mimes:xls,xlsx'
         ]);
-        Excel::import(new EmployeesImport,request()->file('select_file'));    
-        return back();
+        $import = new EmployeesImport;
+        $import->import(request()->file('select_file'));
+        // dd($import->failures());
+        if ($import->failures()->isNotEmpty()) {
+            return back()->withFailures($import->failures());
+        }
+        return back()->withStatus('Candidates imported successfully.');
     }
 
     public function export() 

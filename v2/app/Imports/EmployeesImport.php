@@ -5,11 +5,22 @@ namespace App\Imports;
 use App\Employee;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\SkipsOnError;
+use Maatwebsite\Excel\Concerns\SkipsErrors;
+use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Illuminate\Support\Facades\Http;
+use Maatwebsite\Excel\Concerns\WithValidation;
 use Illuminate\Support\Facades\Session;
-class EmployeesImport implements ToModel, WithHeadingRow
+use Maatwebsite\Excel\Validators\Failure;
+use Throwable;
+
+class EmployeesImport implements ToModel, WithHeadingRow, SkipsOnError, WithValidation, SkipsOnFailure
 {
+
+    use Importable, SkipsErrors, SkipsFailures;
     /**
     * @param array $row
     *
@@ -42,4 +53,12 @@ class EmployeesImport implements ToModel, WithHeadingRow
             'employee_types_id' => $row['employee_types_id']
         ]);
     }
+
+    public function rules(): array
+    {
+        return [
+            '*.email' => ['email']
+        ];
+    }
+
 }

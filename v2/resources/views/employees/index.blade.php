@@ -512,6 +512,13 @@
           <div class="form-group row pr-5 pl-5">
               <a class="Download-Template pl-2" href="/export"><i class="nav-icon fa fa-user pr-2"></i>Download Template</a>
           </div>
+          @if (isset($errors) && $errors->any())
+              <div class="alert alert-danger">
+                  @foreach ($errors->all() as $error)
+                      {{ $error }}
+                  @endforeach
+              </div>
+          @endif
           <div class="form-group row pt-2 pl-5">
             <div class="col-lg-4">
               <div class="upload-blue">
@@ -645,6 +652,50 @@
           <div class="col-12">
             <!-- /.card -->
 
+            <div class="Rectangle-Copy-6">
+            @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
+            @if (isset($errors) && $errors->any())
+              <div class="alert alert-danger">
+                  @foreach ($errors->all() as $error)
+                      {{ $error }}
+                  @endforeach
+              </div>
+            @endif
+
+            @if (session()->has('failures'))
+              <div class="card-body" >
+                <table class="table table-danger">
+                    <tr>
+                        <th>Error at Row</th>
+                        <th>Attribute</th>
+                        <th>Errors</th>
+                        <th>Inserted Data</th>
+                    </tr>
+
+                    @foreach (session()->get('failures') as $validation)
+                        <tr>
+                            <td>{{ $validation->row() }}</td>
+                            <td>{{ $validation->attribute() }}</td>
+                            <td>
+                                <ul>
+                                    @foreach ($validation->errors() as $e)
+                                        <li>{{ $e }}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td>
+                                {{ $validation->values()[$validation->attribute()] }}
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
+              <div>
+            @endif
+            </div>
             <div class="Rectangle-Copy-6 pl-4 t-head">
               <div class="pt-4 pl-4">
                 <h3  class=" My-employees">My Candidates</h3>
