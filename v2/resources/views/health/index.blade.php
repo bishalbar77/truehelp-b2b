@@ -319,9 +319,79 @@
         <i class="fa fa-caret-down"></i>
       </li>
     </ul>
+    <ul class="navbar-nav ml-auto pl-5">
+      <a href="/order"><button type="button" class="btn btn-primary">Order Verification</button></a>
+      <a class="pl-5"></a>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bulkModal">+ Add Visitors</button>
+      <a class="pl-5"></a>
+    </ul>
     <!-- Right navbar links -->
   </nav>
-  <!-- Main Sidebar Container -->
+  
+  <div class="modal fade" id="bulkModal" tabindex="-1" role="dialog" aria-labelledby="bulkModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        <div class="Add-Employees pt-3" id="exampleModalLabel">Add Visitor</div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        <div class="signup-form">
+        <form action="{{ route('employees.store') }}" method="post">
+        @csrf
+          <div class="form-group row">
+            <div class="col-lg-6">
+              <label class="form-label-text">First Name</label>
+              <input type="text" class="form-control" name="first_name" required="required">
+            </div>
+            <div class="col-lg-6">
+            <label class="form-label-text">Last Name:</label>
+            <input type="text" class="form-control" name="last_name" required="required">
+            </div>  	
+            </div>
+            <div class="form-group row">
+            <div class="col-lg-6">
+            <label class="form-label-text">Email:</label>
+            <input type="email" class="form-control" name="email">
+            </div>
+            <div class="col-lg-6">
+            <label class="form-label-text">Mobile</label>
+            <input type="phone" class="form-control" name="mobile" required="required">
+            </div>
+            </div>
+            <div class="form-group row">
+            <div class="col-lg-6">
+            <label class="form-label-text">DOB:</label>
+            <input type="date" class="form-control" name="dob">
+            </div>
+            <div class="col-lg-6">
+            <label class="form-label-text">Gender</label>
+            <select name="ge" class="form-control" id="parent_gender" >
+                <option value="">Select Gender</option>
+                <option value="M">M</option>
+                <option value="F">F</option>
+                <option value="Others">Other</option>
+            </select>
+            </div>
+            </div>
+            <div class="form-group row">
+            <div class="col-lg-12">
+            &nbsp;<label class="form-label-text">Address</label>
+            &nbsp;<input type="phone" class="form-control" name="mobile" required="required">
+            </div>
+            </div>
+            <div class="form-group row"><a class="p-2"></a></div>
+        <div class="form-group row float-right">
+                <button type="submit" class="btn-warning button-proceed Proceed">Proceed</button>
+            </div>
+        </form>
+    </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <aside class="main-sidebar elevation-4 side-bar">
     <!-- Brand Logo -->
     <a href="/" class="brand-link">
@@ -370,11 +440,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="/healthcheck" class="nav-link">
+                  <i class="nav-icon fa fa-angle-double-right"></i>
+                  <p class="nav-menu">
+                    Dashboard
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="/order" class="nav-link active">
                   <i class="nav-icon fa fa-angle-double-right"></i>
                   <p class="nav-menu">
                     Orders
-                <span class="right"><i class="fa fa-exclamation-circle"></i></span>
+                  <span class="right"><i class="fa fa-exclamation-circle"></i></span>
                   </p>
                 </a>
               </li>
@@ -473,7 +551,8 @@
                             </tr>
                         </thead>
                         <tbody class="t-body">
-                        @foreach($orders as $order)
+                        @if($orders!="")
+                          @foreach($orders as $order)
                             <tr>
                                 <td>{{ $order->surve_type }}</td>
                                 <td>{{ $order->employee_id }}</td>
@@ -484,6 +563,7 @@
                                 </td>
                             </tr>
                           @endforeach
+                        @endif
                         </tbody>
                     </table>
               </div>

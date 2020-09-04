@@ -2,7 +2,7 @@
 @extends('layouts.default')
 {{-- Styles Section --}}
 @section('styles')
-<title>TrueHelp | My Candidate</title>
+<title>TrueHelp | Dashboard</title>
 <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
 <script defer src="{{ mix('js/app.js') }}"></script>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
@@ -22,119 +22,89 @@
   letter-spacing: normal;
   color: #121212;
 }
-.card-layout {
-  width: 100%;
-  background-color: #1e2933;
-}
-.card-2nd {
-  width: 45%;
-  height: 276px;
-  transform: rotate(-360deg);
-  opacity: 0.05;
-  background-image: linear-gradient(184deg, #167aff 124%, #99bff2 9%);
-}
-.Mask {
-  width: 126px;
-  height: 126px;
-}
-.Name {
-  width: 100%;
-  height: 24px;
+.My-employees {
   font-family: Montserrat;
-  font-size: 26px;
+  font-size: 18px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--black);
+}
+.t-head {
+  font-family: Montserrat;
+  font-size: 16px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  text-align: left;
-  color: #ffffff;
+  color: var(--black);
+  overflow-x:auto;
 }
-.bottom-text {
-  height: 10px;
+.t-body {
   font-family: Montserrat;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  text-align: left;
-  color: #dadada;
+  color: #85899a;
+  overflow-x:auto;
 }
-.Unverified {
-  height: 0px;
-  font-family: Montserrat;
-  font-size: 11px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: red;
-}
-.Verified-user {
-  height: 0px;
-  font-family: Montserrat;
-  font-size: 11px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: green;
-}
-.icon-shape {
-  width: 22px;
-  height: 22px;
-  margin: 5px;
-}
-.box-item {
-  width: 100%;
-  border-radius: 10px;
+.Rectangle-Copy-6 {
+  border-radius: 15px;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.14);
   background-color: #ffffff;
-  margin-top: 45px;
 }
-.body-text-4 {
-  height: 18%;
+.nav-menu {
+  height: 25px;
+  font-family: Helvetica;
+  font-size: 14.3px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  color: #ffffff;
+}
+.table-side-tag {
   font-family: Montserrat;
-  font-size: 1.2rem;
-  font-weight: 900;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #167aff;
+}
+.order-img {
+  width: 346px;
+  height: 242px;
+}
+.Request-sent {
+  width:100%;
+  font-family: Montserrat;
+  font-size: 19px;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
   color: var(--black);
 }
-.body-text-8 {
-  height: 18%;
+.Lorem-ipsum-dolor-si {
+  height: 66px;
   font-family: Montserrat;
-  font-size: 1rem;
-  font-weight: 900;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: var(--black);
-}
-.body-text-sm-4 {
-  font-family: Montserrat;
-  font-size: 0.9rem;
+  font-size: 16px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #939396;
-}
-.btn-hire {
-  width: 192px;
-  height: 48px;
-  border-radius: 6.2px;
-  background-color: #167aff;
+  color: #b6b8c3;
 }
 .signup-form{
   width: 95%;
@@ -326,17 +296,6 @@
   letter-spacing: normal;
   color: var(--black);
 }
-.Request-sent {
-  width:100%;
-  font-family: Montserrat;
-  font-size: 19px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: var(--black);
-}
 .Lorem-ipsum-dolor-si {
   height: 66px;
   font-family: Montserrat;
@@ -358,6 +317,42 @@
   line-height: normal;
   letter-spacing: normal;
   color: #167aff;
+}
+.VERIFIED {
+  width: 78px;
+  height: 19px;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #07901a;
+}
+.Verify- {
+  width: 68px;
+  height: 22px;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #167aff;
+}
+.UNVERIFIED {
+  width: 104px;
+  height: 19px;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #9295a5;
 }
 .Path-107 {
   width: 6px;
@@ -384,49 +379,6 @@
 .custom-file-input::-webkit-file-upload-button {
   visibility: hidden;
 }
-.Oval {
-  width: 40px;
-  height: 40px;
-}
-.nav-name {
-  margin-top: 3px;
-  font-family: Helvetica;
-  font-size: 15.8px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.25;
-  letter-spacing: normal;
-  color: #121212;
-}
-.Add {
-  width: 82px;
-  height: 82px;
-  margin: 5px;
-}
-.aadhar {
-  width: 84px;
-  height: 64px;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.14);
-  background-color: #ffffff;
-  margin: 5px;
-}
-.amount {
-  height: 2%px;
-  font-family: Montserrat;
-  font-size: 14px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #167aff;
-}
-.request-img {
-  width: 570px;
-  height: 380px;
-}
 </style>
 @endsection
 
@@ -450,16 +402,18 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto pl-5">
-      <button type="button" class="btn btn-primary">Order Verification</button>
+      <a href="/order"><button type="button" class="btn btn-primary">Order Verification</button></a>
+      <a class="pl-5"></a>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bulkModal">+ Add Visitors</button>
       <a class="pl-5"></a>
     </ul>
   </nav>
   <!-- /.navbar -->
-  <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="requestModalLabel" aria-hidden="true">
+  <div class="modal fade" id="bulkModal" tabindex="-1" role="dialog" aria-labelledby="bulkModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-        <div class="Add-Employees pt-3" id="exampleModalLabel">Change Password</div>
+        <div class="Add-Employees pt-3" id="exampleModalLabel">Add Visitor</div>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -469,23 +423,46 @@
         <form action="{{ route('employees.store') }}" method="post">
         @csrf
           <div class="form-group row">
+            <div class="col-lg-6">
+              <label class="form-label-text">First Name</label>
+              <input type="text" class="form-control" name="first_name" required="required">
+            </div>
+            <div class="col-lg-6">
+            <label class="form-label-text">Last Name:</label>
+            <input type="text" class="form-control" name="last_name" required="required">
+            </div>  	
+            </div>
+            <div class="form-group row">
+            <div class="col-lg-6">
+            <label class="form-label-text">Email:</label>
+            <input type="email" class="form-control" name="email">
+            </div>
+            <div class="col-lg-6">
+            <label class="form-label-text">Mobile</label>
+            <input type="phone" class="form-control" name="mobile" required="required">
+            </div>
+            </div>
+            <div class="form-group row">
+            <div class="col-lg-6">
+            <label class="form-label-text">DOB:</label>
+            <input type="date" class="form-control" name="dob">
+            </div>
+            <div class="col-lg-6">
+            <label class="form-label-text">Gender</label>
+            <select name="ge" class="form-control" id="parent_gender" >
+                <option value="">Select Gender</option>
+                <option value="M">M</option>
+                <option value="F">F</option>
+                <option value="Others">Other</option>
+            </select>
+            </div>
+            </div>
+            <div class="form-group row">
             <div class="col-lg-12">
-              <label class="form-label-text">Current Password</label>
-              <input type="text" class="form-control" name="password" required="required">
-            </div> 	
-          </div>
-          <div class="form-group row">
-            <div class="col-lg-12">
-              <label class="form-label-text">New Password</label>
-              <input type="text" class="form-control" name="password" required="required">
-            </div> 	
-          </div>
-          <div class="form-group row">
-            <div class="col-lg-12">
-              <label class="form-label-text">Confirm Password</label>
-              <input type="text" class="form-control" name="password" required="required">
-            </div> 	
-          </div>
+            &nbsp;<label class="form-label-text">Address</label>
+            &nbsp;<input type="phone" class="form-control" name="mobile" required="required">
+            </div>
+            </div>
             <div class="form-group row"><a class="p-2"></a></div>
         <div class="form-group row float-right">
                 <button type="submit" class="btn-warning button-proceed Proceed">Proceed</button>
@@ -536,7 +513,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link active">
               <i class="nav-icon fa fa-list-alt"></i>
               <p class="nav-menu">
                 Health Check
@@ -544,6 +521,15 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/healthcheck" class="nav-link active">
+                  <i class="nav-icon fa fa-angle-double-right"></i>
+                  <p class="nav-menu">
+                    Dashboard
+                  <span class="right"><i class="fa fa-exclamation-circle"></i></span>
+                  </p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="/order" class="nav-link">
                   <i class="nav-icon fa fa-angle-double-right"></i>
@@ -563,19 +549,10 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fa fa-bell-o"></i>
-              <p class="nav-menu">
-                Notifications
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/profile" class="nav-link active">
+            <a href="/profile" class="nav-link">
               <i class="nav-icon fa fa-address-card-o"></i>
               <p class="nav-menu">
                 Profile
-                <span class="right"><i class="fa fa-exclamation-circle"></i></span>
               </p>
             </a>
           </li>
@@ -598,7 +575,7 @@
           </li>
           <li class="nav-header nav-menu-tag">SETTINGS</li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/company" class="nav-link">
               <i class="nav-icon fa fa-cog"></i>
               <p class="nav-menu">Account</p>
             </a>
@@ -627,62 +604,137 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+    </div>
+    <!-- /.content-header -->
+
     <!-- Main content -->
-    <div class="card-layout">
-      <div class="container">
-        <div class="form-group row">
-          <div class="col-lg-6">
-            <div class="p-xl-5 pt-xl-5">
-              <div class="form-group row">
-                <div class="col-lg-3">
-                  <img src="dist/img/user1-128x128.jpg" alt="User Avatar"  class="img-circle Mask">
-                </div>
-                <div class="col-lg-9 pt-1 pl-5">
-                  <p class="Name">{{ session()->get('first_name') }}</p>
-                  <p class="bottom-text">Admin</p>
-                  <p class="bottom-text">Ph no: 9996663331</p>             
-                  <p class="Verified-user pt-2"><i class="fa fa-check-circle fa-lg pr-2" aria-hidden="true"></i></i>Verified</p>				
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info" style="border-radius: 12px;">
+              <div class="inner">
+                <h3>0</h3>
+
+                <p>Registered Employees</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-arrow-circle-up"></i>
+              </div>
+              <a href="#" class="small-box-footer">Get Started <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success" style="border-radius: 12px;">
+              <div class="inner">
+                <h3>0<sup style="font-size: 20px"></sup></h3>
+
+                <p>Pending Verification</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-arrow-circle-up"></i>
+              </div>
+              <a href="#" class="small-box-footer">Get Started <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning" style="border-radius: 12px;">
+              <div class="inner">
+                <h3>0</h3>
+
+                <p>Verified Users</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-arrow-circle-down"></i>
+              </div>
+              <a href="#" class="small-box-footer">Get Started <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger" style="border-radius: 12px;">
+              <div class="inner">
+                <h3>0</h3>
+
+                <p>Red Cases</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-arrow-circle-down"></i>
+              </div>
+              <a href="#" class="small-box-footer">Get Started <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <section class="content pt-5">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <!-- /.card -->
+
+            <div class="Rectangle-Copy-6 pl-4 t-head">
+              <div class="pt-4 pl-4 pb-2 pr-5">
+                <h3  class=" My-employees">Recent Reports</h3>
+                <hr>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body" >
+                <div class="container">
+                  <div class="form-group row">
+                    <div class="col-lg-5">
+                      <img src="images/our-vision.png" alt="User Avatar"  class="order-img">
+                    </div>
+                    <div class="col-lg-7">
+                      <div class="form-group row pt-2 pl-5 pr-5">
+                        <p class="Request-sent">
+                        You have no reports generated
+                        </p>
+                      </div>
+                      <div class="form-group row pr-5 pl-5">
+                        <p class="Lorem-ipsum-dolor-si">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore 
+                        Ut enim ad minim veniam, quis nostrud exercitation 
+                        </p>
+                      </div>
+                      <div class="form-group row pr-5 pl-5">
+                        <a href="/order"><button type="button" class="btn btn-primary">+ Add Health Check</button></a>
+                        <a class="pl-5"></a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+              <!-- /.card-body -->
             </div>
+            <!-- /.card -->
           </div>
-          <div class="col-lg-2"></div>
-          <div class="col-lg-4">
-            <div class="p-xl-5 pt-xl-5">
-              <a href="#"><img src="images/png/facebook.png" alt="User Avatar"  class="icon-shape"></a>
-              <a href="#"><img src="images/png/twitter.png" alt="User Avatar"  class="icon-shape"></a>
-              <a href="#"><img src="images/png/033-google-plus.png" alt="User Avatar"  class="icon-shape"></a>
-              <a href="#"><img src="images/png/005-whatsapp.png" alt="User Avatar"  class="icon-shape"></a>
-              <a href="#"><img src="images/png/027-linkedin.png" alt="User Avatar"  class="icon-shape"></a>
-              <a href="instagram.com"><img src="images/png/029-instagram.png" alt="User Avatar"  class="icon-shape"></a>
-            </div>
-          </div>
+          <!-- /.col -->
         </div>
+        <!-- /.row -->
       </div>
-    </div>
-    <div class="container">
-      <div class="row">
-       <div class="col-lg-12">
-        <div class="box-item">
-          <p class="body-text-8 pl-5 pt-5">General Settings</p>
-          <hr>
-          <div class="pl-5 pt-3">
-            <p class="body-text-4">Change Password</p>
-            <p class="amount">Two factor verification</p>
-            <p class="Lorem-ipsum-dolor-si">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore 
-            Ut enim ad minim veniam, quis nostrud exercitation 
-            </p>
-            <button type="button" data-toggle="modal" data-target="#requestModal" class="btn btn-primary" style=" width: 192px;">Proceed</button>
-            <hr>
-          </div>
-        </div>
-       </div>
+      <!-- /.container-fluid -->
+    </section>
+    <section class="content pt-5">
+      <div class="container-fluid">
+        
       </div>
-    </div>
+    </section>
   </div>
-  
+
+
 @endsection
 
 @section('scripts')
@@ -694,6 +746,7 @@
   <script src="{{ mix('js/vendor.js') }}"></script>
   <script src="{{ mix('js/app.js') }}"></script>
 @endif
+
 <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
 <script defer src="{{ mix('js/app.js') }}"></script>
 @endsection

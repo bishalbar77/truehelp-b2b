@@ -25,15 +25,16 @@ class EmployeeController extends Controller
             return redirect()->route('login');
         }
         $api_token = session()->get('api_token');
-        // $response = Http::withToken('api_token')->post('https://api.gettruehelp.com/api/get-candidates');
         $response = Http::withHeaders([
-                            // 'Accept' => 'application/json',
                             'Authorization' => "Bearer ".$api_token
                         ])->get('https://api.gettruehelp.com/api/get-candidates');
         $contents = $response->getBody();
         $data = json_decode($contents);
         $employees = $data->response->data;
-
+        if($employees == "Trying to get property 'id' of non-object")
+        {
+            $employees=NULL;
+        }
         $device_id = "00000000-89ABCDEF-01234567-89ABCDEH";
         $source = "B2B";
         $response = Http::post('https://api.gettruehelp.com/api/employee-types', [
@@ -130,17 +131,37 @@ class EmployeeController extends Controller
         }
     }
 
-    public function verify($id)
-    {
-        $user = Employee::find($id);
-        return view('employees.verify')->with([
-            'user' =>$user]
-        );
-    }
 
     public function profile()
     {
         return view('employees.profile');
+    }
+
+    public function company()
+    {
+        $name = session()->get('first_name');
+        
+        if(empty($name)){
+            return redirect()->route('login');
+        }
+        $api_token = session()->get('api_token');
+
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer ".$api_token
+        ])->get('https://api.gettruehelp.com/api/account-info');
+
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        $account = $data->response->data->employer;
+        $preferences = $data->response->data->prefs;
+        if($account == "Trying to get property 'id' of non-object")
+        {
+            $account=NULL;
+        }
+        return view('company.profile')->with([
+            'account' => $account,
+            'preferences' => $preferences
+        ]);
     }
 
     public function search()

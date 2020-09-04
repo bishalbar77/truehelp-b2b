@@ -181,6 +181,14 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="/healthcheck" class="nav-link">
+                  <i class="nav-icon fa fa-angle-double-right"></i>
+                  <p class="nav-menu">
+                    Dashboard
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="/order" class="nav-link">
                   <i class="nav-icon fa fa-angle-double-right"></i>
                   <p class="nav-menu">
@@ -225,7 +233,7 @@
           </li>
           <li class="nav-header nav-menu-tag">SETTINGS</li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/company" class="nav-link">
               <i class="nav-icon fa fa-cog"></i>
               <p class="nav-menu">Account</p>
             </a>
@@ -352,6 +360,7 @@
                         </thead>
                         <?php $sl=1 ?>
                         <tbody class="t-body">
+                        @if(isset($employees))
                           @foreach($employees as $employee)
                           @if($sl>4)@continue;@endif
                             <tr>
@@ -377,6 +386,7 @@
                             </tr>
                           <?php $sl++ ?>
                           @endforeach
+                        @endif
                         </tbody>
                     </table>
               </div>

@@ -60,7 +60,10 @@ class HomeController extends Controller
         $contents = $response->getBody();
         $data = json_decode($contents);
         $employees = $data->response->data;
-
+        if($employees == "Trying to get property 'id' of non-object")
+        {
+            $employees=NULL;
+        }
         return view('home')->with([
             'registered_employees' => $registered_employees,
             'verified_employees' => $verified_employees,

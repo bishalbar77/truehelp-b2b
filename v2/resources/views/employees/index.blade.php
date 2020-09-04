@@ -477,8 +477,8 @@
             </div>
         </form>
     </div>
-      </div>
-    </div>
+  </div>
+</div>
   </div>
 </div>
   <div class="modal fade" id="bulkModal" tabindex="-1" role="dialog" aria-labelledby="bulkModalLabel" aria-hidden="true">
@@ -735,6 +735,7 @@
                             </tr>
                         </thead>
                         <tbody class="t-body">
+                        @if(isset($employees))
                           @foreach($employees as $employee)
                           
                             <tr>
@@ -760,6 +761,7 @@
                             </tr>
                           
                           @endforeach
+                        @endif
                         </tbody>
                     </table>
               </div>

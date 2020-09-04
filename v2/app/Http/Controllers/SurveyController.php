@@ -29,6 +29,11 @@ class SurveyController extends Controller
 
         $data = json_decode($contents);
         $orders = $data->response->data;
+        if($orders == "Trying to get property 'id' of non-object")
+        {
+            $orders=NULL;
+        }
+        // dd($orders);
         return view('health.index')->with([
             'orders' => $orders,
         ]);
@@ -55,5 +60,10 @@ class SurveyController extends Controller
             'survey_answers' => $survey_answers,
         ]);
 
+    }
+
+    public function healthcheck()
+    {
+        return view('health.dashboard');
     }
 }
