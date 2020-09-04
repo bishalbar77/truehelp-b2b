@@ -554,12 +554,12 @@
                         @if($orders!="")
                           @foreach($orders as $order)
                             <tr>
-                                <td>{{ $order->surve_type }}</td>
+                                <td>{{ $order->survey_type }}</td>
                                 <td>{{ $order->employee_id }}</td>
                                 <td>{{ $order->survey_start }}</td>
                                 <td>{{ $order->survey_end }}</td>
                                 <td>
-                                <a href="{{ route('checksurvey', $order->id )}}" class="pl-1" type="submit">Check ></a>
+                                {{ $order->survey_status }}<a href="{{ route('checksurvey', $order->id )}}" class="float-right" type="submit">Check ></a>
                                 </td>
                             </tr>
                           @endforeach
