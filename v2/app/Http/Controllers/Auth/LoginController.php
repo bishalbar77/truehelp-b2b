@@ -74,6 +74,7 @@ class LoginController extends Controller
         }
         session()->put('first_name', $data->response->data->first_name);
         session()->put('api_token', $data->response->data->api_token);
+        session()->put('mobile', $data->response->data->mobile);
         return redirect()->route('home');
     }
 

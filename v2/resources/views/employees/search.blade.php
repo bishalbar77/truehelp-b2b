@@ -573,7 +573,7 @@
           </li>
           <li class="nav-header nav-menu-tag">SETTINGS</li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/company" class="nav-link">
               <i class="nav-icon fa fa-cog"></i>
               <p class="nav-menu">Account</p>
             </a>

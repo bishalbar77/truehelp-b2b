@@ -454,7 +454,7 @@
       <a class="pl-5"></a>
     </ul>
   </nav>
-  <!-- /.navbar -->
+ <!-- /.navbar -->
   <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="requestModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -466,24 +466,24 @@
         </div>
         <div class="modal-body">
         <div class="signup-form">
-        <form action="{{ route('employees.store') }}" method="post">
+        <form action="{{ url('/change_password') }}" method="post">
         @csrf
           <div class="form-group row">
             <div class="col-lg-12">
               <label class="form-label-text">Current Password</label>
-              <input type="text" class="form-control" name="password" required="required">
+              <input type="text" class="form-control" name="old_password" required="required">
             </div> 	
           </div>
           <div class="form-group row">
             <div class="col-lg-12">
               <label class="form-label-text">New Password</label>
-              <input type="text" class="form-control" name="password" required="required">
+              <input type="text" class="form-control" name="new_password" required="required">
             </div> 	
           </div>
           <div class="form-group row">
             <div class="col-lg-12">
               <label class="form-label-text">Confirm Password</label>
-              <input type="text" class="form-control" name="password" required="required">
+              <input type="text" class="form-control" name="confirm_password" required="required">
             </div> 	
           </div>
             <div class="form-group row"><a class="p-2"></a></div>
@@ -598,7 +598,7 @@
           </li>
           <li class="nav-header nav-menu-tag">SETTINGS</li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/company" class="nav-link">
               <i class="nav-icon fa fa-cog"></i>
               <p class="nav-menu">Account</p>
             </a>
@@ -629,6 +629,9 @@
   <div class="content-wrapper">
     <!-- Main content -->
     <div class="card-layout">
+      @if(Session::has('message'))
+        <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+        @endif 
       <div class="container">
         <div class="form-group row">
           <div class="col-lg-6">
@@ -640,7 +643,7 @@
                 <div class="col-lg-9 pt-1 pl-5">
                   <p class="Name">{{ session()->get('first_name') }}</p>
                   <p class="bottom-text">Admin</p>
-                  <p class="bottom-text">Ph no: 9996663331</p>             
+                  <p class="bottom-text">Ph no: {{ session()->get('mobile') }}</p>             
                   <p class="Verified-user pt-2"><i class="fa fa-check-circle fa-lg pr-2" aria-hidden="true"></i></i>Verified</p>				
                 </div>
               </div>

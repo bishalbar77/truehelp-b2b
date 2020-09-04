@@ -501,7 +501,7 @@
           </li>
           <li class="nav-header nav-menu-tag">SETTINGS</li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/company" class="nav-link">
               <i class="nav-icon fa fa-cog"></i>
               <p class="nav-menu">Account</p>
             </a>
@@ -554,7 +554,7 @@
                         @if($orders!="")
                           @foreach($orders as $order)
                             <tr>
-                                <td>{{ $order->surve_type }}</td>
+                                <td>{{ $order->survey_type }}</td>
                                 <td>{{ $order->employee_id }}</td>
                                 <td>{{ $order->survey_start }}</td>
                                 <td>{{ $order->survey_end }}</td>

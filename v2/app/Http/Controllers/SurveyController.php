@@ -33,7 +33,6 @@ class SurveyController extends Controller
         {
             $orders=NULL;
         }
-        // dd($orders);
         return view('health.index')->with([
             'orders' => $orders,
         ]);

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
+| 
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
@@ -41,3 +41,4 @@ Route::get('/search', 'EmployeeController@index')->name('search');
 Route::get('/otp', 'Auth\LoginController@loginotp')->name('loginotp');
 Route::post('/sendotp', 'Auth\LoginController@sendotp')->name('sendotp');
 Route::post('/checkotp', 'Auth\LoginController@checkotp')->name('checkotp');
+Route::post('/change_password', 'HomeController@change_password');

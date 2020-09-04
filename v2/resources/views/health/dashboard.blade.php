@@ -504,14 +504,14 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="/search" class="nav-link">
               <i class="nav-icon fa fa-user-circle-o"></i>
               <p class="nav-menu">
                 Search Candidate
               </p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="#" class="nav-link active">
               <i class="nav-icon fa fa-list-alt"></i>
@@ -530,14 +530,14 @@
                   </p>
                 </a>
               </li>
-              <li class="nav-item">
+             <!--  <li class="nav-item">
                 <a href="/order" class="nav-link">
                   <i class="nav-icon fa fa-angle-double-right"></i>
                   <p class="nav-menu">
                     Orders
                   </p>
                 </a>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <a href="/order" class="nav-link">
                   <i class="nav-icon fa fa-angle-double-right"></i>
@@ -556,7 +556,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-header nav-menu-tag">SUPPORT</li>
+          <!-- <li class="nav-header nav-menu-tag">SUPPORT</li>
           <li class="nav-item">
             <a href="pages/calendar.html" class="nav-link">
               <i class="nav-icon far fa-calendar-alt"></i>
@@ -572,7 +572,7 @@
                 Contact us
               </p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-header nav-menu-tag">SETTINGS</li>
           <li class="nav-item">
             <a href="/company" class="nav-link">
@@ -580,12 +580,12 @@
               <p class="nav-menu">Account</p>
             </a>
           </li>
-          <li class="nav-item">
+         <!--  <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-moon-o"></i>
               <p class="nav-menu">Dark Mode</p>
             </a>
-          </li>
+          </li> -->
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
           </form>
