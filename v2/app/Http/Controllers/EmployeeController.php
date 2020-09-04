@@ -93,9 +93,11 @@ class EmployeeController extends Controller
         ]);
         $contents = $response->getBody();
         $data = json_decode($contents);
-        dd($data);
-
-        return redirect()->route('employees.index');
+        $message = $data->response->message;
+        // dd($data);
+        Session::flash('message', $message);
+        return redirect('/employees') ;
+        // return redirect()->route('employees.index');
     }
 
     public function import(Request $request)

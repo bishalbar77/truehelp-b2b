@@ -670,7 +670,13 @@
         <div class="row">
           <div class="col-12">
             <!-- /.card -->
-
+            @if (session('message'))
+            <div class="Rectangle-Copy-6">
+                <div class="alert alert-success" role="alert">
+                    {{ session('message') }}
+                </div>
+            </div>
+            @endif
             @if (session('status'))
             <div class="Rectangle-Copy-6">
                 <div class="alert alert-success" role="alert">
