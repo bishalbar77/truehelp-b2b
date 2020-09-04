@@ -60,6 +60,7 @@ class HomeController extends Controller
         $contents = $response->getBody();
         $data = json_decode($contents);
         $employees = $data->response->data;
+        $employees = array_reverse($employees);
         if($employees == "Trying to get property 'id' of non-object")
         {
             $employees=NULL;

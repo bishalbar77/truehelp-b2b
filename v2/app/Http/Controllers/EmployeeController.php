@@ -31,6 +31,7 @@ class EmployeeController extends Controller
         $contents = $response->getBody();
         $data = json_decode($contents);
         $employees = $data->response->data;
+        $employees = array_reverse($employees);
         // dd($employees);
         if($employees == "Trying to get property 'id' of non-object")
         {
