@@ -754,7 +754,7 @@
                                 <a href="{{ route('verify', 1 )}}" class="pl-3 float-right pr-4 " type="submit"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
                                 @else
                                 <span class="UNVERIFIED">Unverified</span>
-                                <a href="{{ route('verify', 1 )}}" type="submit" class="Verify- float-right">								
+                                <a href="{{ route('verify', $employee->employee_id )}}" type="submit" class="Verify- float-right">								
                                 Verify ></a>
                                 @endif
                                 </td>

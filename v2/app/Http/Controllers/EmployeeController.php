@@ -31,19 +31,19 @@ class EmployeeController extends Controller
         $contents = $response->getBody();
         $data = json_decode($contents);
         $employees = $data->response->data;
+        // dd($employees);
         if($employees == "Trying to get property 'id' of non-object")
         {
             $employees=NULL;
         }
+
         $device_id = "00000000-89ABCDEF-01234567-89ABCDEH";
         $source = "B2B";
         $response = Http::post('https://api.gettruehelp.com/api/employee-types', [
             'device_id' => $device_id,
             'source' => $source,
         ]);
-
         $contents = $response->getBody();
-
         $data = json_decode($contents);
         $emp_type = $data->response->data;
         return view('employees.index', compact('employees','emp_type'));
@@ -93,6 +93,7 @@ class EmployeeController extends Controller
         ]);
         $contents = $response->getBody();
         $data = json_decode($contents);
+        dd($data);
 
         return redirect()->route('employees.index');
     }
@@ -131,6 +132,30 @@ class EmployeeController extends Controller
         }
     }
 
+    public function verify($id)
+    {
+        $name = session()->get('first_name');
+        if(empty($name)){
+            return redirect()->route('login');
+        }
+        $api_token = session()->get('api_token');
+        $response = Http::withHeaders([
+                            'Authorization' => "Bearer ".$api_token
+                        ])->get('https://api.gettruehelp.com/api/employee-profile/'.$id);
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        $user = $data->response->data->employee;
+        $user_docs = $data->response->data->user_docs;
+        $verification_types = $data->response->data->verification_types;
+        $employee_lookup_histories = $data->response->data->employee_lookup_histories;
+
+        return view('employees.verify')->with([
+            'user' =>$user,
+            'user_docs' => $user_docs,
+            'verification_types' => $verification_types,
+            'employee_lookup_histories' => $employee_lookup_histories
+        ]);
+    }
 
     public function profile()
     {
