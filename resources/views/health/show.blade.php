@@ -309,7 +309,7 @@
       </li>
       <li>
         <div class="pl-4">
-          <img src="dist/img/user1-128x128.jpg" alt="User Avatar"  class="Oval img-circle">
+          <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="Oval img-circle">
         </div>
       </li>
       <li class="pl-2 pt-2">
@@ -321,120 +321,14 @@
     </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto pl-5">
-      <button type="button" class="btn btn-primary">Order Verification</button>
+      <!-- <button type="button" class="btn btn-primary">Order Verification</button> -->
       <a class="pl-5"></a>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+ Add Candidate</button>
+      <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+ Add Candidate</button> -->
       <a class="pl-5"></a>
     </ul>
   </nav>
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar elevation-4 side-bar">
-    <!-- Brand Logo -->
-    <a href="/" class="brand-link">
-      <img src="images/Logo-07.png" alt="TrueHelp Logo" class="brand-image">
-      <span class="brand-text font-weight-light pl-5 ls-5"><img src="images/truehelp-01.png" alt="TrueHelp Logo" class="brand-image"></span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-header nav-menu-tag">MENU</li>
-          <li class="nav-item">
-            <a href="/home" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p class="nav-menu">
-                Dashboard
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/employees" class="nav-link">
-              <i class="nav-icon fa fa-user"></i>
-              <p class="nav-menu">
-                My Candidate
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/search" class="nav-link">
-              <i class="nav-icon fa fa-user-circle-o"></i>
-              <p class="nav-menu">
-                Search Candidate
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/order" class="nav-link active">
-              <i class="nav-icon fa fa-list-alt"></i>
-              <p class="nav-menu">
-                Orders
-                <span class="right"><i class="fa fa-exclamation-circle"></i></span>
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fa fa-bell-o"></i>
-              <p class="nav-menu">
-                Notifications
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/profile" class="nav-link">
-              <i class="nav-icon fa fa-address-card-o"></i>
-              <p class="nav-menu">
-                Profile
-              </p>
-            </a>
-          </li>
-          <li class="nav-header nav-menu-tag">SUPPORT</li>
-          <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
-              <i class="nav-icon far fa-calendar-alt"></i>
-              <p class="nav-menu">
-                Need help?
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
-                <i class="nav-icon far fa-envelope"></i>
-                <p class="nav-menu">
-                Contact us
-              </p>
-            </a>
-          </li>
-          <li class="nav-header nav-menu-tag">SETTINGS</li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-cog"></i>
-              <p class="nav-menu">Account</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-moon-o"></i>
-              <p class="nav-menu">Dark Mode</p>
-            </a>
-          </li>
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-          </form>
-          <li class="nav-item">
-            <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-              <i class="nav-icon fa fa-sign-out"></i>
-              <p class="nav-menu">Logout</p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
+    <aside class="main-sidebar elevation-4 side-bar">
+    @include('layouts.sidebar')
   </aside>
   <div class="content-wrapper">
     <section class="content pt-5">
@@ -445,26 +339,56 @@
 
             <div class="Rectangle-Copy-6 pl-4 t-head">
               <div class="pt-4 pl-4">
-                <h3  class=" My-employees">Survey Response</h3>
+                <h3  class=" My-employees">Survey Details</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body" >
-                    <table class="table" id="datatable">
-                      @if(isset($survey_answers))
-                      @foreach($survey_answers as $survey)
-                        <thead class="pt-2">
-                            <tr>
-                                <th>Q. {{ $survey->question_name }}</th>
-                            </tr>
-                        </thead>
-                        <tbody class="t-body">
-                        <tr>
-                          <td>A. {{ $survey->question_answer }}</td>
-                        </tr>
-                        </tbody>
-                      @endforeach
+                <div class="table-responsive">
+                  <table class="table table-hover mb-0">
+                    <tbody>
+                      <tr>
+                        <th>Employer</th>
+                        <td>{{ $surveys->b2b_company_name.' -- '.$surveys->b2b_brand_name }}</td>
+                      </tr>
+                      <tr>
+                        <th>Employee</th>
+                        <td>{{ $surveys->first_name.' '.$surveys->middle_name.' '.$surveys->last_name }}</td>
+                      </tr>
+                      <tr>
+                        <th>Survey Type</th>
+                        <td>{{ $surveys->survey_type }}</td>
+                      </tr>
+                      <tr>
+                        <th>Start</th>
+                        <td>{{ $surveys->survey_start }}</td>
+                      </tr>
+                      <tr>
+                        <th>End</th>
+                        <td>{{ $surveys->survey_end }}</td>
+                      </tr>
+                      <tr>
+                        <th>Conclusion</th>
+                        <td>{{ $surveys->severity ?? 'NOT DONE' }}</td>
+                      </tr>
+                      <tr>
+                        <th>Created At</th>
+                        <td>{{ $surveys->created_at }}</td>
+                      </tr>
+                      <tr>
+                        <th>Status</th>
+                        <td>{{ $surveys->survey_status }}</td>
+                      </tr>
+                      @if($answers)
+                        @foreach($answers as $answer)
+                          <tr>
+                            <th>{{ $answer->question_answer }}</th>
+                            <td>{{ $answer->question }}</td>
+                          </tr>
+                        @endforeach
                       @endif
-                    </table>
+                    </tbody>
+                  </table>
+                  </div>
               </div>
               <!-- /.card-body -->
             </div>
@@ -478,8 +402,6 @@
     </section>
     <!-- /.content -->
   </div>
-  
 @endsection
-
 @section('scripts')
 @endsection

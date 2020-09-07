@@ -309,7 +309,7 @@
       </li>
       <li>
         <div class="pl-4">
-          <img src="dist/img/user1-128x128.jpg" alt="User Avatar"  class="Oval img-circle">
+          <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="Oval img-circle">
         </div>
       </li>
       <li class="pl-2 pt-2">
@@ -320,115 +320,14 @@
       </li>
     </ul>
     <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto pl-5">
+      <a class="pl-5"></a>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+ Add Survey</button>
+      <a class="pl-5"></a>
+    </ul>
   </nav>
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar elevation-4 side-bar">
-    <!-- Brand Logo -->
-    <a href="/" class="brand-link">
-      <img src="images/Logo-07.png" alt="TrueHelp Logo" class="brand-image">
-      <span class="brand-text font-weight-light pl-5 ls-5"><img src="images/truehelp-01.png" alt="TrueHelp Logo" class="brand-image"></span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-header nav-menu-tag">MENU</li>
-          <li class="nav-item">
-            <a href="/home" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p class="nav-menu">
-                Dashboard
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/employees" class="nav-link">
-              <i class="nav-icon fa fa-user"></i>
-              <p class="nav-menu">
-                My Candidate
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/search" class="nav-link">
-              <i class="nav-icon fa fa-user-circle-o"></i>
-              <p class="nav-menu">
-                Search Candidate
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/order" class="nav-link active">
-              <i class="nav-icon fa fa-list-alt"></i>
-              <p class="nav-menu">
-                Orders
-                <span class="right"><i class="fa fa-exclamation-circle"></i></span>
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fa fa-bell-o"></i>
-              <p class="nav-menu">
-                Notifications
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/profile" class="nav-link">
-              <i class="nav-icon fa fa-address-card-o"></i>
-              <p class="nav-menu">
-                Profile
-              </p>
-            </a>
-          </li>
-          <li class="nav-header nav-menu-tag">SUPPORT</li>
-          <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
-              <i class="nav-icon far fa-calendar-alt"></i>
-              <p class="nav-menu">
-                Need help?
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
-                <i class="nav-icon far fa-envelope"></i>
-                <p class="nav-menu">
-                Contact us
-              </p>
-            </a>
-          </li>
-          <li class="nav-header nav-menu-tag">SETTINGS</li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-cog"></i>
-              <p class="nav-menu">Account</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-moon-o"></i>
-              <p class="nav-menu">Dark Mode</p>
-            </a>
-          </li>
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-          </form>
-          <li class="nav-item">
-            <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-              <i class="nav-icon fa fa-sign-out"></i>
-              <p class="nav-menu">Logout</p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
+    <aside class="main-sidebar elevation-4 side-bar">
+    @include('layouts.sidebar')
   </aside>
   <div class="content-wrapper">
     <section class="content pt-5">
@@ -447,21 +346,29 @@
                         <thead>
                             <tr>
                                 <th>Survey Type</th>
-                                <th>Candidate ID</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
+                                <th>Candidate</th>
+                                <th>Severty</th>
+                                <th>Survey Start</th>
+                                <th>Survey End</th>
+                                <th>Create At</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="t-body">
                         @foreach($orders as $order)
                             <tr>
-                                <td>{{ $order->surve_type }}</td>
-                                <td>{{ $order->employee_id }}</td>
+                                <td>{{ str_replace('_', ' ', $order->survey_type) }}</td>
+                                <td>{{ $order->first_name.' '.$order->middle_name.' '.$order->last_name }}</td>
+                                <td>{{ $order->severity ?? 'NOT DONE' }}</td>
                                 <td>{{ $order->survey_start }}</td>
                                 <td>{{ $order->survey_end }}</td>
+                                <td>{{ date('Y-m-d H:i:s', strtotime($order->created_at)) }}</td>
+                                <td>{{ $order->survey_status }}</td>
                                 <td>
-                                <a href="{{ route('checksurvey', $order->id )}}" class="pl-1" type="submit">Check ></a>
+                                  <a href="{{ url('surveys/details/'.md5($order->id)) }}" class="pl-1" type="submit">View Details ></a>
+                                  |
+                                  <a href="https://www.gettruehelp.com/new/healthcheck/?eid={{ md5($order->employee_id) }}" class="pl-1" type="submit" target="-_blank">View Survey ></a>
                                 </td>
                             </tr>
                           @endforeach
@@ -480,6 +387,39 @@
     </section>
     <!-- /.content -->
   </div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <div class="Add-Employees pt-3" id="exampleModalLabel">Add Survey</div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <div class="signup-form">
+               <form action="https://enterprise.gettruehelp.com/v2/public/survey/add" method="post">
+                  @csrf
+                  <div class="form-group row">
+                     <div class="col-lg-12">
+                        <label class="form-label-text">Select Candidate</label>
+                        <select class="form-control" name="employee_id" required="required">
+                          @foreach($orders as $order)
+                            <option value="{{ $order->employee_id }}">{{ $order->first_name.' '.$order->middle_name.' '.$order->last_name }}</option>
+                          @endforeach
+                        </select>
+                     </div>
+                  </div>
+                  <div class="form-group row float-right">
+                     <button type="submit" class="btn-warning button-proceed Proceed">Submit</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
   
 @endsection
 

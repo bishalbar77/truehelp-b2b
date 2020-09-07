@@ -24,6 +24,7 @@
 }
 .card-layout {
   width: 100%;
+  height: 31%;
   background-color: #1e2933;
 }
 .card-2nd {
@@ -439,7 +440,7 @@
       </li>
       <li>
         <div class="pl-4">
-          <img src="{{ ('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="Oval img-circle">
+          <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="Oval img-circle">
         </div>
       </li>
       <li class="pl-2 pt-2">
@@ -454,50 +455,34 @@
       <a class="pl-5"></a>
     </ul>
   </nav>
- <!-- /.navbar -->
+  <!-- /.navbar -->
   <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="requestModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
-        <div class="modal-header">
-        <div class="Add-Employees pt-3" id="exampleModalLabel">Change Password</div>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
         <div class="modal-body">
-        <div class="signup-form">
-        <form action="{{ url('/change-password') }}" method="post">
-        @csrf
-          <div class="form-group row">
-            <div class="col-lg-12">
-              <label class="form-label-text">Current Password</label>
-              <input type="Password" class="form-control" name="old_password" required="required">
-            </div>  
-          </div>
-          <div class="form-group row">
-            <div class="col-lg-12">
-              <label class="form-label-text">New Password</label>
-              <input type="Password" class="form-control" name="new_password" required="required">
-            </div>  
-          </div>
-          <div class="form-group row">
-            <div class="col-lg-12">
-              <label class="form-label-text">Confirm Password</label>
-              <input type="Password" class="form-control" name="confirm_password" required="required">
-            </div>  
-          </div>
-            <div class="form-group row"><a class="p-2"></a></div>
-        <div class="form-group row float-right">
-                <button type="submit" class="btn-warning button-proceed Proceed">Proceed</button>
+          <div class="signup-form">
+            <div class="form-group row pl-5">
+              <img src="images/change.jpg" alt="User Avatar"  class="request-img">
             </div>
-        </form>
-    </div>
+            <div class="form-group row pt-2 pl-5 pr-5">
+              <p class="Request-sent" align="center">
+              Request has been sent successfully
+              </p>
+            </div>
+            <div class="form-group row pr-5 pl-5">
+              <p class="Lorem-ipsum-dolor-si">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+              sed do eiusmod tempor incididunt ut labore et dolore 
+              Ut enim ad minim veniam, quis nostrud exercitation 
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar elevation-4 side-bar">
+    <aside class="main-sidebar elevation-4 side-bar">
     @include('layouts.sidebar')
   </aside>
 
@@ -505,22 +490,19 @@
   <div class="content-wrapper">
     <!-- Main content -->
     <div class="card-layout">
-      @if(Session::has('message'))
-        <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
-        @endif 
       <div class="container">
         <div class="form-group row">
           <div class="col-lg-6">
             <div class="p-xl-5 pt-xl-5">
               <div class="form-group row">
                 <div class="col-lg-3">
-                  <img src="{{ ('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="img-circle Mask">
+                  <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="img-circle Mask">
                 </div>
                 <div class="col-lg-9 pt-1 pl-5">
                   <p class="Name">{{ session()->get('first_name') }}</p>
                   <p class="bottom-text">Admin</p>
-                  <p class="bottom-text">Ph no: {{ session()->get('mobile') }}</p>             
-                  <p class="Verified-user pt-2"><i class="fa fa-check-circle fa-lg pr-2" aria-hidden="true"></i></i>Verified</p>        
+                  <p class="bottom-text">Ph no: 9996663331</p>             
+                  <p class="Verified-user pt-2"><i class="fa fa-check-circle fa-lg pr-2" aria-hidden="true"></i></i>Verified</p>				
                 </div>
               </div>
             </div>
@@ -528,18 +510,60 @@
           <div class="col-lg-2"></div>
           <div class="col-lg-4">
             <div class="p-xl-5 pt-xl-5">
-              <a href="#"><img src="{{ ('images/png/facebook.png') }}" alt="User Avatar"  class="icon-shape"></a>
-              <a href="#"><img src="{{ ('images/png/twitter.png') }}" alt="User Avatar"  class="icon-shape"></a>
-              <a href="#"><img src="{{ ('images/png/033-google-plus.png') }}" alt="User Avatar"  class="icon-shape"></a>
-              <a href="#"><img src="{{ ('images/png/005-whatsapp.png') }}" alt="User Avatar"  class="icon-shape"></a>
-              <a href="#"><img src="{{ ('images/png/027-linkedin.png') }}" alt="User Avatar"  class="icon-shape"></a>
-              <a href="instagram.com"><img src="{{ ('images/png/029-instagram.png') }}" alt="User Avatar"  class="icon-shape"></a>
+              <a href="#"><img src="images/png/facebook.png" alt="User Avatar"  class="icon-shape"></a>
+              <a href="#"><img src="images/png/twitter.png" alt="User Avatar"  class="icon-shape"></a>
+              <a href="#"><img src="images/png/033-google-plus.png" alt="User Avatar"  class="icon-shape"></a>
+              <a href="#"><img src="images/png/005-whatsapp.png" alt="User Avatar"  class="icon-shape"></a>
+              <a href="#"><img src="images/png/027-linkedin.png" alt="User Avatar"  class="icon-shape"></a>
+              <a href="instagram.com"><img src="images/png/029-instagram.png" alt="User Avatar"  class="icon-shape"></a>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="box-item">
+            <div class="form-group row pt-5 pl-5">
+              <div class="col-lg-6">
+              <p class="body-text-4">Department</p>
+              <p class="body-text-sm-4">Design and Development</p>
+              </div>
+              <div class="col-lg-6">
+              <p class="body-text-4">Age</p>
+              <p class="body-text-sm-4">24 years</p>
+              </div>
+            </div>
+            <div class="form-group row  pl-5">
+              <div class="col-lg-6">
+              <p class="body-text-4">Join Date</p>
+              <p class="body-text-sm-4">24 months</p>
+              </div>
+              <div class="col-lg-6">
+              <p class="body-text-4">Salary</p>
+              <p class="body-text-sm-4">10,000K+</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="box-item">
+            <div class="form-group row pt-5 pl-5">
+              <div class="col-lg-6">
+                <p class="body-text-4">Documents</p>
+              </div>
+            </div>
+            <div class="form-group row pl-5 pb-3">
+              <div class="col-lg-12">
+              <img src="images/plus-sign-icon-31.png" alt="User Avatar"  class="Add">
+              <img src="images/aadhar.png" alt="User Avatar"  class="aadhar">
+              <a class="p-2">&nbsp;</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="row">
        <div class="col-lg-12">
         <div class="box-item">
@@ -553,7 +577,7 @@
             sed do eiusmod tempor incididunt ut labore et dolore 
             Ut enim ad minim veniam, quis nostrud exercitation 
             </p>
-            <button type="button" data-toggle="modal" data-target="#requestModal" class="btn btn-primary" style=" width: 192px;">Proceed</button>
+            <button type="button" data-toggle="modal" data-target="#requestModal" class="btn btn-primary" style=" width: 192px;">Request</button>
             <hr>
           </div>
         </div>
@@ -561,7 +585,6 @@
       </div>
     </div>
   </div>
-  
 @endsection
 
 @section('scripts')

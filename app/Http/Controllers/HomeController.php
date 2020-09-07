@@ -69,4 +69,20 @@ class HomeController extends Controller
             'employees' => $employees,
         ]);
     }
+
+    public function change_password(Request $request){
+        $api_token = session()->get('api_token');
+        $response = Http::withHeaders([
+                            'Authorization' => "Bearer ".$api_token
+                        ])->post('https://api.gettruehelp.com/api/change-password', [
+                            'old_password' => $request->old_password,
+                            'new_password' => $request->new_password,
+                            'confirm_password' => $request->confirm_password
+                        ]);
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        $message = $data->response->message;
+        Session::flash('message', $message);
+        return redirect('/profile') ;
+    }
 }

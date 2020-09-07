@@ -34,7 +34,7 @@ class SurveyController extends Controller
         ]);
     }
 
-    public function checksurvey($id)
+    public function survey_details($id)
     {
         $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
         $api_token = session()->get('api_token');
@@ -48,12 +48,29 @@ class SurveyController extends Controller
         $contents = $response->getBody();
 
         $data = json_decode($contents);
-        $survey = ''?$data->response->data->survey:'';
-        $survey_answers = ''?$data->response->data->survey_answers:NULL;
-        return view('health.showhealthcheck')->with([
-            'survey' => $survey,
-            'survey_answers' => $survey_answers,
+
+        $surveys = $data->response->data->survey ?? '';
+
+        $answers = $data->response->data->survey_answers ?? '';
+
+        return view('health.show')->with([
+            'surveys' => $surveys,
+            'answers' => $answers,
         ]);
 
+    }
+
+    public function store(Request $request)
+    {
+        $response = Http::post('https://api.gettruehelp.com/api/create-survey', [
+            'employee_id' => $request->employee_id
+        ]);
+        
+        return redirect('surveys/reports')->with('success', 'Survey Created Successfully!');
+    }
+
+    public function dashboard()
+    {
+        return view('health.dashboard');
     }
 }

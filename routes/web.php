@@ -20,12 +20,14 @@ Route::get('/login', 'Auth\LoginController@login')->name('login');
 Route::post('/login', 'Auth\LoginController@loginProcess');
 Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('/register', 'Auth\RegisterController@register');
-Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
 // Home Routes
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/order', 'SurveyController@getsurvey')->name('getsurvey');
-Route::get('/checksurvey={order}', 'SurveyController@checksurvey')->name('checksurvey');
+Route::get('/surveys/dashboard', 'SurveyController@dashboard')->name('survey-dashboard');
+Route::get('/surveys/reports', 'SurveyController@getsurvey')->name('getsurvey');
+Route::get('/surveys/details/{id}', 'SurveyController@survey_details')->name('surveys-details');
 Route::resource('employees', 'EmployeeController');
 Route::get('/students', 'StudentController@index')->name('students.index');
 Route::post('/students/store', 'StudentController@store')->name('students.store');
@@ -39,3 +41,9 @@ Route::get('/search', 'EmployeeController@index')->name('search');
 Route::get('/otp', 'Auth\LoginController@loginotp')->name('loginotp');
 Route::post('/sendotp', 'Auth\LoginController@sendotp')->name('sendotp');
 Route::post('/checkotp', 'Auth\LoginController@checkotp')->name('checkotp');
+Route::get('/accounts', 'EmployeeController@accounts')->name('accounts');
+
+Route::post('survey/add', 'SurveyController@store')->name('survey.add');
+
+Route::get('/employees/details/{id}', 'EmployeeController@employees_details')->name('employees-details');
+Route::post('/change-password', 'HomeController@change_password');

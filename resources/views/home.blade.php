@@ -3,8 +3,8 @@
 {{-- Styles Section --}}
 @section('styles')
 <title>TrueHelp | Dashboard</title>
-<link rel="stylesheet" href="{{ mix('css/app.css') }}" />
-<script defer src="{{ mix('js/app.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('css/app.css') }}" />
+<script defer src="{{ asset('js/app.js') }}"></script>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 <style>
 .Oval {
@@ -118,7 +118,7 @@
       </li>
       <li>
         <div class="pl-4">
-          <img src="dist/img/user1-128x128.jpg" alt="User Avatar"  class="Oval img-circle">
+          <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="Oval img-circle">
         </div>
       </li>
       <li class="pl-2 pt-2">
@@ -131,114 +131,8 @@
   </nav>
   <!-- /.navbar -->
 
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar elevation-4 side-bar">
-    <!-- Brand Logo -->
-    <a href="/" class="brand-link">
-      <img src="images/Logo-07.png" alt="TrueHelp Logo" class="brand-image">
-      <span class="brand-text font-weight-light pl-5 ls-5"><img src="images/truehelp-01.png" alt="TrueHelp Logo" class="brand-image"></span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-header nav-menu-tag">MENU</li>
-          <li class="nav-item">
-            <a href="/home" class="nav-link active">
-              <i class="nav-icon fas fa-th"></i>
-              <p class="nav-menu">
-                Dashboard
-                <span class="right"><i class="fa fa-exclamation-circle"></i></span>
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/employees" class="nav-link">
-              <i class="nav-icon fa fa-user"></i>
-              <p class="nav-menu">
-                My Candidate
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/search" class="nav-link">
-              <i class="nav-icon fa fa-user-circle-o"></i>
-              <p class="nav-menu">
-                Search Candidate
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/order" class="nav-link">
-              <i class="nav-icon fa fa-list-alt"></i>
-              <p class="nav-menu">
-                Orders
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fa fa-bell-o"></i>
-              <p class="nav-menu">
-                Notifications
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/profile" class="nav-link">
-              <i class="nav-icon fa fa-address-card-o"></i>
-              <p class="nav-menu">
-                Profile
-              </p>
-            </a>
-          </li>
-          <li class="nav-header nav-menu-tag">SUPPORT</li>
-          <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
-              <i class="nav-icon far fa-calendar-alt"></i>
-              <p class="nav-menu">
-                Need help?
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
-                <i class="nav-icon far fa-envelope"></i>
-                <p class="nav-menu">
-                Contact us
-              </p>
-            </a>
-          </li>
-          <li class="nav-header nav-menu-tag">SETTINGS</li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-cog"></i>
-              <p class="nav-menu">Account</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-moon-o"></i>
-              <p class="nav-menu">Dark Mode</p>
-            </a>
-          </li>
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-          </form>
-          <li class="nav-item">
-            <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-              <i class="nav-icon fa fa-sign-out"></i>
-              <p class="nav-menu">Logout</p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
+    <aside class="main-sidebar elevation-4 side-bar">
+    @include('layouts.sidebar')
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
@@ -326,7 +220,7 @@
             <div class="Rectangle-Copy-6 pl-4 t-head">
               <div class="pt-4 pl-4 pb-2 pr-5">
                 <h3  class=" My-employees">Recent Reports</h3>
-                <a href="/employees" class="table-side-tag float-right">SEE ALL</a>
+                <a href="{{ url('employees') }}" class="table-side-tag float-right">SEE ALL</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body" >
@@ -335,36 +229,29 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Designation</th>
-                                <th>Verification</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <?php $sl=1 ?>
                         <tbody class="t-body">
                           @foreach($employees as $employee)
-                          @if($sl>4)@continue;@endif
-                            <tr>
-                                <td>{{ $employee->first_name }} {{ $employee->last_name }}</td>
+                            @if($sl>4)@continue;@endif
+                              <tr>
+                                  <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
                                 <td>{{ $employee->type }}</td>
+                                <td>{{ $employee->emp_email ?? '' }}</td>
+                                <td>{{ $employee->mobile }}</td>
+                                <td>{{ $employee->emp_status == 'I' ? 'In-Active' : 'Active' }}</td>
                                 <td>
-                                @if( $employee->verified=="I")
-                                Police Verification, & more
-                                @else
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-
-                                @endif
+                                  <a href="{{ url('employees/details/'.$employee->employee_id) }}" type="submit">
+                                    View Details <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                  </a>
                                 </td>
-                                <td>
-                                @if( $employee->type=="I")
-                                <span class="VERIFIED">Verified</span>
-                                <a href="{{ route('verify', 1 )}}" class="pl-3 float-right pr-4 " type="submit"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                                @else
-                                <span class="UNVERIFIED">Unverified</span>
-                                <a href="{{ route('verify', 1 )}}" type="submit" class="Verify- float-right">								
-                                Verify ></a>
-                                @endif
-                                </td>
-                            </tr>
-                          <?php $sl++ ?>
+                              </tr>
+                            <?php $sl++ ?>
                           @endforeach
                         </tbody>
                     </table>

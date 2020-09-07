@@ -2,7 +2,7 @@
 @extends('layouts.default')
 {{-- Styles Section --}}
 @section('styles')
-<title>TrueHelp | My Candidate</title>
+<title>TrueHelp | Accounts</title>
 <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
 <script defer src="{{ mix('js/app.js') }}"></script>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
@@ -24,6 +24,7 @@
 }
 .card-layout {
   width: 100%;
+  height: 100%;
   background-color: #1e2933;
 }
 .card-2nd {
@@ -39,7 +40,6 @@
 }
 .Name {
   width: 100%;
-  height: 24px;
   font-family: Montserrat;
   font-size: 26px;
   font-weight: 500;
@@ -51,7 +51,6 @@
   color: #ffffff;
 }
 .bottom-text {
-  height: 10px;
   font-family: Montserrat;
   font-size: 15px;
   font-weight: 500;
@@ -86,6 +85,18 @@
   text-align: left;
   color: green;
 }
+.web {
+  height: 0px;
+  font-family: Montserrat;
+  font-size: 11px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: lightblue;
+}
 .icon-shape {
   width: 22px;
   height: 22px;
@@ -93,6 +104,7 @@
 }
 .box-item {
   width: 100%;
+  height: 100%;
   border-radius: 10px;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.14);
   background-color: #ffffff;
@@ -439,7 +451,7 @@
       </li>
       <li>
         <div class="pl-4">
-          <img src="{{ ('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="Oval img-circle">
+          <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="Oval img-circle">
         </div>
       </li>
       <li class="pl-2 pt-2">
@@ -450,48 +462,32 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto pl-5">
-      <!-- <button type="button" class="btn btn-primary">Order Verification</button> -->
+      <a href="/order"><button type="button" class="btn btn-primary">Order Verification</button></a>
       <a class="pl-5"></a>
     </ul>
   </nav>
- <!-- /.navbar -->
+  <!-- /.navbar -->
   <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="requestModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
-        <div class="modal-header">
-        <div class="Add-Employees pt-3" id="exampleModalLabel">Change Password</div>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
         <div class="modal-body">
-        <div class="signup-form">
-        <form action="{{ url('/change-password') }}" method="post">
-        @csrf
-          <div class="form-group row">
-            <div class="col-lg-12">
-              <label class="form-label-text">Current Password</label>
-              <input type="Password" class="form-control" name="old_password" required="required">
-            </div>  
-          </div>
-          <div class="form-group row">
-            <div class="col-lg-12">
-              <label class="form-label-text">New Password</label>
-              <input type="Password" class="form-control" name="new_password" required="required">
-            </div>  
-          </div>
-          <div class="form-group row">
-            <div class="col-lg-12">
-              <label class="form-label-text">Confirm Password</label>
-              <input type="Password" class="form-control" name="confirm_password" required="required">
-            </div>  
-          </div>
-            <div class="form-group row"><a class="p-2"></a></div>
-        <div class="form-group row float-right">
-                <button type="submit" class="btn-warning button-proceed Proceed">Proceed</button>
+          <div class="signup-form">
+            <div class="form-group row pl-5">
+              <img src="images/change.jpg" alt="User Avatar"  class="request-img">
             </div>
-        </form>
-    </div>
+            <div class="form-group row pt-2 pl-5 pr-5">
+              <p class="Request-sent" align="center">
+              Request has been sent successfully
+              </p>
+            </div>
+            <div class="form-group row pr-5 pl-5">
+              <p class="Lorem-ipsum-dolor-si">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+              sed do eiusmod tempor incididunt ut labore et dolore 
+              Ut enim ad minim veniam, quis nostrud exercitation 
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -505,35 +501,35 @@
   <div class="content-wrapper">
     <!-- Main content -->
     <div class="card-layout">
-      @if(Session::has('message'))
-        <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
-        @endif 
       <div class="container">
         <div class="form-group row">
           <div class="col-lg-6">
             <div class="p-xl-5 pt-xl-5">
               <div class="form-group row">
                 <div class="col-lg-3">
-                  <img src="{{ ('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="img-circle Mask">
+                  <img src="{{ asset('dist/img/avatar5.png') }}" alt="User Avatar"  class="img-circle Mask">
                 </div>
                 <div class="col-lg-9 pt-1 pl-5">
-                  <p class="Name">{{ session()->get('first_name') }}</p>
-                  <p class="bottom-text">Admin</p>
-                  <p class="bottom-text">Ph no: {{ session()->get('mobile') }}</p>             
-                  <p class="Verified-user pt-2"><i class="fa fa-check-circle fa-lg pr-2" aria-hidden="true"></i></i>Verified</p>        
+                  <p class="Name">{{ $account->b2b_company_name }}</p>
+                  <p class="bottom-text">{{ $account->email }}</p>
+                  <p class="bottom-text">Ph no: {{ $account->mobile }}</p>             
+                  <p class="Verified-user pt-2"><i class="fa fa-check-circle fa-lg pr-2" aria-hidden="true"></i></i>Verified</p>				
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-lg-2"></div>
-          <div class="col-lg-4">
+          <div class="col-lg-6">
             <div class="p-xl-5 pt-xl-5">
-              <a href="#"><img src="{{ ('images/png/facebook.png') }}" alt="User Avatar"  class="icon-shape"></a>
-              <a href="#"><img src="{{ ('images/png/twitter.png') }}" alt="User Avatar"  class="icon-shape"></a>
-              <a href="#"><img src="{{ ('images/png/033-google-plus.png') }}" alt="User Avatar"  class="icon-shape"></a>
-              <a href="#"><img src="{{ ('images/png/005-whatsapp.png') }}" alt="User Avatar"  class="icon-shape"></a>
-              <a href="#"><img src="{{ ('images/png/027-linkedin.png') }}" alt="User Avatar"  class="icon-shape"></a>
-              <a href="instagram.com"><img src="{{ ('images/png/029-instagram.png') }}" alt="User Avatar"  class="icon-shape"></a>
+              <div class="form-group row">
+                <div class="col-lg-3">
+                </div>
+                <div class="col-lg-9 pt-1 pl-5">
+                  <p class="Name">{{ $account->b2b_brand_name }}</p>
+                  <p class="bottom-text">GST No: {{ $account->b2b_gst_no }}</p>
+                  <p class="bottom-text">PAN No: {{ $account->b2b_pan_no }}</p>             
+                  <a href="{{ $account->b2b_website }}" target="_blank"><p class="web pt-2"><i class="fa fa-internet-explorer fa-lg pr-2" aria-hidden="true"></i>{{ $account->b2b_website }}</p></a>				
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -543,25 +539,20 @@
       <div class="row">
        <div class="col-lg-12">
         <div class="box-item">
-          <p class="body-text-8 pl-5 pt-5">General Settings</p>
-          <hr>
+          <p class="body-text-4 pl-5 pt-5">Preferences</p>
           <div class="pl-5 pt-3">
-            <p class="body-text-4">Change Password</p>
-            <p class="amount">Two factor verification</p>
             <p class="Lorem-ipsum-dolor-si">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore 
-            Ut enim ad minim veniam, quis nostrud exercitation 
+            <label><input type="checkbox" checked="checked" onclick="return false;"><a class="pl-2">SMS</a></label><br>
+            <label><input type="checkbox" checked="checked" onclick="return false;"><a class="pl-2">WhatsApp</a></label><br>
+            <label><input type="checkbox" checked="checked" onclick="return false;"><a class="pl-2">Phone</a></label><br>
+            <label>Timezone : {{ $preferences->time_zone}}</label>
             </p>
-            <button type="button" data-toggle="modal" data-target="#requestModal" class="btn btn-primary" style=" width: 192px;">Proceed</button>
-            <hr>
           </div>
         </div>
        </div>
       </div>
     </div>
   </div>
-  
 @endsection
 
 @section('scripts')

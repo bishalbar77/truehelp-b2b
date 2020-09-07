@@ -309,7 +309,7 @@
       </li>
       <li>
         <div class="pl-4">
-          <img src="dist/img/user1-128x128.jpg" alt="User Avatar"  class="Oval img-circle">
+          <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="Oval img-circle">
         </div>
       </li>
       <li class="pl-2 pt-2">
@@ -490,114 +490,8 @@
     </div>
   </div>
 </div>
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar elevation-4 side-bar">
-    <!-- Brand Logo -->
-    <a href="/" class="brand-link">
-      <img src="images/Logo-07.png" alt="TrueHelp Logo" class="brand-image">
-      <span class="brand-text font-weight-light pl-5 ls-5"><img src="images/truehelp-01.png" alt="TrueHelp Logo" class="brand-image"></span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-               <li class="nav-header nav-menu-tag">MENU</li>
-               <li class="nav-item">
-                 <a href="/home" class="nav-link">
-                   <i class="nav-icon fas fa-th"></i>
-                   <p class="nav-menu">
-                     Dashboard
-                   </p>
-                 </a>
-               </li>
-               <li class="nav-item">
-                 <a href="/employees" class="nav-link active">
-                   <i class="nav-icon fa fa-user"></i>
-                   <p class="nav-menu">
-                     My Candidate
-                     <span class="right"><i class="fa fa-exclamation-circle"></i></span>
-                   </p>
-                 </a>
-               </li>
-               <li class="nav-item">
-                 <a href="pages/widgets.html" class="nav-link">
-                   <i class="nav-icon fa fa-user-circle-o"></i>
-                   <p class="nav-menu">
-                     Search Candidate
-                   </p>
-                 </a>
-               </li>
-               <li class="nav-item">
-                 <a href="/order" class="nav-link">
-                   <i class="nav-icon fa fa-list-alt"></i>
-                   <p class="nav-menu">
-                     Orders
-                   </p>
-                 </a>
-               </li>
-          <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fa fa-bell-o"></i>
-              <p class="nav-menu">
-                Notifications
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fa fa-address-card-o"></i>
-              <p class="nav-menu">
-                Profile
-              </p>
-            </a>
-          </li>
-          <li class="nav-header nav-menu-tag">SUPPORT</li>
-          <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
-              <i class="nav-icon far fa-calendar-alt"></i>
-              <p class="nav-menu">
-                Need help?
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
-                <i class="nav-icon far fa-envelope"></i>
-                <p class="nav-menu">
-                Contact us
-              </p>
-            </a>
-          </li>
-          <li class="nav-header nav-menu-tag">SETTINGS</li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-cog"></i>
-              <p class="nav-menu">Account</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-moon-o"></i>
-              <p class="nav-menu">Dark Mode</p>
-            </a>
-          </li>
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form>
-          <li class="nav-item">
-            <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-              <i class="nav-icon fa fa-sign-out"></i>
-              <p class="nav-menu">Logout</p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
+    <aside class="main-sidebar elevation-4 side-bar">
+    @include('layouts.sidebar')
   </aside>
   <div class="content-wrapper">
 

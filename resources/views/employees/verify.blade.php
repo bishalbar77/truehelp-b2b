@@ -2,7 +2,7 @@
 @extends('layouts.default')
 {{-- Styles Section --}}
 @section('styles')
-<title>TrueHelp | My Candidate</title>
+<title>TrueHelp | Candidate Details</title>
 <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
 <script defer src="{{ mix('js/app.js') }}"></script>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
@@ -115,6 +115,17 @@
   font-family: Montserrat;
   font-size: 1rem;
   font-weight: 900;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--black);
+}
+.body-text-2 {
+  height: 18%;
+  font-family: Montserrat;
+  font-size: 1rem;
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -440,7 +451,7 @@
       </li>
       <li>
         <div class="pl-4">
-          <img src="dist/img/user1-128x128.jpg" alt="User Avatar"  class="Oval img-circle">
+          <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="Oval img-circle">
         </div>
       </li>
       <li class="pl-2 pt-2">
@@ -626,7 +637,7 @@
         <div class="modal-body">
           <div class="signup-form">
             <div class="form-group row pl-5">
-              <img src="images/request.jpg" alt="User Avatar"  class="request-img">
+              <img src="{{ asset('images/request.jpg') }}" alt="User Avatar"  class="request-img">
             </div>
             <div class="form-group row pt-2 pl-5 pr-5">
               <p class="Request-sent" align="center">
@@ -647,112 +658,7 @@
   </div>
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar elevation-4 side-bar">
-    <!-- Brand Logo -->
-    <a href="/" class="brand-link">
-      <img src="images/Logo-07.png" alt="TrueHelp Logo" class="brand-image">
-      <span class="brand-text font-weight-light pl-5 ls-5"><img src="images/truehelp-01.png" alt="TrueHelp Logo" class="brand-image"></span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-header nav-menu-tag">MENU</li>
-          <li class="nav-item">
-            <a href="/home" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p class="nav-menu">
-                Dashboard
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/employees" class="nav-link active">
-              <i class="nav-icon fa fa-user"></i>
-              <p class="nav-menu">
-                My Candidate
-                <span class="right"><i class="fa fa-exclamation-circle"></i></span>
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/search" class="nav-link">
-              <i class="nav-icon fa fa-user-circle-o"></i>
-              <p class="nav-menu">
-                Search Candidate
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/order" class="nav-link">
-              <i class="nav-icon fa fa-list-alt"></i>
-              <p class="nav-menu">
-                Orders
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fa fa-bell-o"></i>
-              <p class="nav-menu">
-                Notifications
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/profile" class="nav-link">
-              <i class="nav-icon fa fa-address-card-o"></i>
-              <p class="nav-menu">
-                Profile
-              </p>
-            </a>
-          </li>
-          <li class="nav-header nav-menu-tag">SUPPORT</li>
-          <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
-              <i class="nav-icon far fa-calendar-alt"></i>
-              <p class="nav-menu">
-                Need help?
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
-                <i class="nav-icon far fa-envelope"></i>
-                <p class="nav-menu">
-                Contact us
-              </p>
-            </a>
-          </li>
-          <li class="nav-header nav-menu-tag">SETTINGS</li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-cog"></i>
-              <p class="nav-menu">Account</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-moon-o"></i>
-              <p class="nav-menu">Dark Mode</p>
-            </a>
-          </li>
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-          </form>
-          <li class="nav-item">
-            <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-              <i class="nav-icon fa fa-sign-out"></i>
-              <p class="nav-menu">Logout</p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
+    @include('layouts.sidebar')
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
@@ -765,17 +671,13 @@
           <div class="p-xl-5 pt-xl-5">
             <div class="form-group row">
               <div class="col-lg-3">
-                <img src="dist/img/user1-128x128.jpg" alt="User Avatar"  class="img-circle Mask">
+                <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="img-circle Mask">
               </div>
               <div class="col-lg-9 pt-1 pl-5">
                 <p class="Name">{{ $user->first_name }} {{ $user->last_name }}</p>
-                <p class="bottom-text">{{ $user->user_type }}</p>
-                <p class="bottom-text">Ph no: {{ $user->mobile }}</p>
-                @if( $user->is_active==1)                
-                <p class="Verified-user pt-2"><i class="fa fa-check-circle fa-lg pr-2" aria-hidden="true"></i></i>Verified</p>				
-                @else
-                <p class="Unverified pt-2"><i class="fa fa-window-close fa-lg pr-2"></i>Unverified</p>
-                @endif
+                <p class="bottom-text">{{ $user->type }}</p>
+                <p class="bottom-text">Ph no: {{ $user->mobile }}</p>  
+                <p class="Verified-user pt-2"><i class="fa fa-check-circle fa-lg pr-2" aria-hidden="true"></i></i>Verified</p>
               </div>
             </div>
           </div>
@@ -783,12 +685,12 @@
         <div class="col-lg-2"></div>
         <div class="col-lg-4">
           <div class="p-xl-5 pt-xl-5">
-            <a href="#"><img src="images/png/facebook.png" alt="User Avatar"  class="icon-shape"></a>
-            <a href="#"><img src="images/png/twitter.png" alt="User Avatar"  class="icon-shape"></a>
-            <a href="#"><img src="images/png/033-google-plus.png" alt="User Avatar"  class="icon-shape"></a>
-            <a href="#"><img src="images/png/005-whatsapp.png" alt="User Avatar"  class="icon-shape"></a>
-            <a href="#"><img src="images/png/027-linkedin.png" alt="User Avatar"  class="icon-shape"></a>
-            <a href="instagram.com"><img src="images/png/029-instagram.png" alt="User Avatar"  class="icon-shape"></a>
+            <a href="#"><img src="{{ asset('images/png/facebook.png') }}" alt="User Avatar"  class="icon-shape"></a>
+            <a href="#"><img src="{{ asset('images/png/twitter.png') }}" alt="User Avatar"  class="icon-shape"></a>
+            <a href="#"><img src="{{ asset('images/png/033-google-plus.png') }}" alt="User Avatar"  class="icon-shape"></a>
+            <a href="#"><img src="{{ asset('images/png/005-whatsapp.png') }}" alt="User Avatar"  class="icon-shape"></a>
+            <a href="#"><img src="{{ asset('images/png/027-linkedin.png') }}" alt="User Avatar"  class="icon-shape"></a>
+            <a href="#"><img src="{{ asset('images/png/029-instagram.png') }}" alt="User Avatar"  class="icon-shape"></a>
           </div>
         </div>
       </div>
@@ -801,21 +703,21 @@
             <div class="form-group row pt-5 pl-5">
               <div class="col-lg-6">
               <p class="body-text-4">Department</p>
-              <p class="body-text-sm-4">Design and Development</p>
+              <p class="body-text-sm-4">{{ $user->type }}</p>
               </div>
               <div class="col-lg-6">
               <p class="body-text-4">Age</p>
-              <p class="body-text-sm-4">24 years</p>
+              <p class="body-text-sm-4">{{\Carbon\Carbon::parse($user->dob)->diff(\Carbon\Carbon::now())->format('%y years')}}</p>
               </div>
             </div>
             <div class="form-group row  pl-5">
               <div class="col-lg-6">
               <p class="body-text-4">Join Date</p>
-              <p class="body-text-sm-4">24 months</p>
+              <p class="body-text-sm-4">{{\Carbon\Carbon::parse($user->employment_start)->diff(\Carbon\Carbon::now())->format('%y years & %m months')}}</p>
               </div>
               <div class="col-lg-6">
               <p class="body-text-4">Salary</p>
-              <p class="body-text-sm-4">10,000K+</p>
+              <p class="body-text-sm-4">{{ $user->salary }}</p>
               </div>
             </div>
           </div>
@@ -829,8 +731,14 @@
             </div>
             <div class="form-group row pl-5 pb-3">
               <div class="col-lg-12">
-              <img src="images/plus-sign-icon-31.png" alt="User Avatar"  class="Add">
-              <img src="images/aadhar.png" alt="User Avatar"  class="aadhar">
+              <img src="{{ asset('images/plus-sign-icon-31.png') }}" alt="User Avatar"  class="Add">
+              @if(isset($user_docs) && !empty($user_docs))
+                @foreach($user_docs as $user_doc)
+                  <a href="{{ $user_doc->doc_url }}" target="_blank">
+                    <img src="{{ asset('images/aadhar.png') }}" alt="User Avatar"  class="aadhar">
+                  </a>
+                @endforeach
+              @endif
               <a class="p-2">&nbsp;</a>
               </div>
             </div>
@@ -840,33 +748,48 @@
       <div class="row">
        <div class="col-lg-12">
         <div class="box-item">
-          <p class="body-text-8 pl-5 pt-5">Verifcation Plans</p>
+          <p class="body-text-4 pl-5 pt-5">Employee Work History</p>
           <hr>
+          @foreach($employee_lookup_histories as $history)
           <div class="pl-5 pt-3">
-            <p class="body-text-4">Aadhar Verification</p>
-            <p class="amount">Rs. 300</p>
-            <p class="Lorem-ipsum-dolor-si">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore 
-            Ut enim ad minim veniam, quis nostrud exercitation 
-            </p>
-            <a  href="{{ route('employees.changestatus', $user->id )}}" ><button class="btn btn-primary" style=" width: 192px;">Verify</button></a>
-            <hr>
+            <table class="body-text-2">
+            <tr>
+            <td width="200px">Name</td>
+            <td>{{ $history->first_name }} {{ $history->last_name }}</td>
+            </tr>
+            <tr>
+            <td>Position</td>
+            <td>{{ $history->employee_type}}</td>
+            </tr>
+            <tr>
+            <td>Document Verified</td>
+            <td>{{ $history->document_type}}</td>
+            </tr>
+            </table>
+            <br><br>
           </div>
-          <div class="pl-5 pt-3">
-            <p class="body-text-4">Police Verification</p>
-            <p class="amount">Rs. 300</p>
-            <p class="Lorem-ipsum-dolor-si">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore 
-            Ut enim ad minim veniam, quis nostrud exercitation 
-            </p>
-            <button type="button" data-toggle="modal" data-target="#requestModal" class="btn btn-primary" style=" width: 192px;">Request</button>
-            <hr>
-          </div>
+          @endforeach
         </div>
        </div>
       </div>
+      <div class="row">
+       <div class="col-lg-12">
+        <div class="box-item">
+          <p class="body-text-8 pl-5 pt-5">Verifcation Plans</p>
+          <hr>
+          @if(isset($verification_types))
+            @foreach($verification_types as $vtype)
+              <div class="pl-5">
+                <p class="body-text-4">{{ $vtype->name}}</p>
+                <p class="amount">Rs. {{ $vtype->amount}}</p>
+                <p class="Lorem-ipsum-dolor-si">{{ $vtype->description}}</p>
+              </div>
+            @endforeach
+          @endif
+        </div>
+       </div>
+      </div>
+
     </div>
   </div>
 @endsection

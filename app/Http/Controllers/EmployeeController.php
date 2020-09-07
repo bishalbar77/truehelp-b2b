@@ -16,8 +16,7 @@ use Illuminate\Support\Facades\Session;
 
 
 class EmployeeController extends Controller
-{
-    
+{   
     public function index()
     {
         $name = session()->get('first_name');
@@ -92,8 +91,11 @@ class EmployeeController extends Controller
         ]);
         $contents = $response->getBody();
         $data = json_decode($contents);
-
-        return redirect()->route('employees.index');
+        $message = $data->response->message;
+        // dd($data);
+        Session::flash('message', $message);
+        return redirect('/employees') ;
+        // return redirect()->route('employees.index');
     }
 
     public function import(Request $request)
@@ -138,6 +140,31 @@ class EmployeeController extends Controller
         );
     }
 
+    public function employees_details($id)
+    {
+        $name = session()->get('first_name');
+        if(empty($name)){
+            return redirect()->route('login');
+        }
+        $api_token = session()->get('api_token');
+        $response = Http::withHeaders([
+                            'Authorization' => "Bearer ".$api_token
+                        ])->get('https://api.gettruehelp.com/api/employee-profile/'.$id);
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        $user = $data->response->data->employee;
+        $user_docs = $data->response->data->user_docs;
+        $verification_types = $data->response->data->verification_types;
+        $employee_lookup_histories = $data->response->data->employee_lookup_histories;
+
+        return view('employees.verify')->with([
+            'user' =>$user,
+            'user_docs' => $user_docs,
+            'verification_types' => $verification_types,
+            'employee_lookup_histories' => $employee_lookup_histories
+        ]);
+    }
+
     public function profile()
     {
         return view('employees.profile');
@@ -146,5 +173,32 @@ class EmployeeController extends Controller
     public function search()
     {
         return view('employees.search');
+    }
+
+    public function accounts()
+    {
+        $name = session()->get('first_name');
+        
+        if(empty($name)){
+            return redirect()->route('login');
+        }
+        $api_token = session()->get('api_token');
+
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer ".$api_token
+        ])->get('https://api.gettruehelp.com/api/account-info');
+
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        $account = $data->response->data->employer;
+        $preferences = $data->response->data->prefs;
+        if($account == "Trying to get property 'id' of non-object")
+        {
+            $account=NULL;
+        }
+        return view('accounts.profile')->with([
+            'account' => $account,
+            'preferences' => $preferences
+        ]);
     }
 }

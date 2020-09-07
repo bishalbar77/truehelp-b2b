@@ -22,7 +22,7 @@
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="https://enterprise.gettruehelp.com/v2/public/css/app.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -173,7 +173,7 @@ body {
                 <img src="images/Logo-07.png" class="img-fluid rounded mx-auto d-block" alt="black-logo" height="54px" width="70px">
               </a>
             <h4 class="card-title text-center">Login to Account</h4>
-            <form method="POST" class="form-signin" action="{{ route('login')}}">
+            <form method="POST" class="form-signin" action="https://enterprise.gettruehelp.com/v2/public/login">
                         @csrf
               <div class="form-label-group">
               <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required>
