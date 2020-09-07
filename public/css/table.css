@@ -1,0 +1,268 @@
+.signup-form{
+  width: 95%;
+  margin: 30px auto;
+  background-color: var(--black);
+}
+.signup-form form{
+  color: #000000;
+    margin-bottom: 15px;
+      background: #fff;
+      padding: 30px;
+  }
+.signup-form h2 {
+  color: #333;
+  font-weight: bold;
+      margin-top: 0;
+  }
+  .signup-form hr {
+      margin: 0 -30px 20px;
+  }    
+.signup-form .form-group{
+  margin-bottom: 20px;
+}
+
+.signup-form .row div:first-child{
+  padding-right: 10px;
+}
+.signup-form .row div:last-child{
+  padding-left: 10px;
+}
+  .signup-form .hint-text {
+  padding-bottom: 15px;
+  text-align: center;
+  }
+  .modal-lg {
+  max-width: 80%;
+  }
+.My-employees {
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--black);
+}
+.t-head {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--black);
+  overflow-x:auto;
+}
+.t-body {
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #85899a;
+  overflow-x:auto;
+}
+.Rectangle-Copy-6 {
+  border-radius: 15px;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.14);
+  background-color: #ffffff;
+}
+.nav-menu {
+  height: 25px;
+  font-family: Helvetica;
+  font-size: 14.3px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  color: #ffffff;
+}
+.nav-menu-tag {
+  font-family: Helvetica;
+  font-size: 11.8px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.67;
+  letter-spacing: 1.23px;
+  color: #9ba4b0;
+}
+.side-bar {
+  background-color: #1e2933;
+}
+.Add-Employees {
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #352641;
+}
+.form-label-text {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+}
+.button-proceed {
+  width: 270px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: #fecf3a;
+}
+.Proceed {
+  font-family: Montserrat;
+  font-size: 13px;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-align: center;
+  color: var(--black);
+}
+.check-box-unselected {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #999999;
+}
+.check-box-selected {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #352641;
+}
+.Employee-currently-w {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: bold;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+}
+.upload-pink {
+  width: 180px;
+  height: 90px;
+  opacity: 0.1;
+  border-radius: 10px;
+  background-color: #bd10e0;
+}
+.upload-blue {
+  width: 180px;
+  height: 90px;
+  opacity: 0.1;
+  border-radius: 10px;
+  background-color: #3da8fe;
+}
+.Download-the-Excel-s {
+  width: 526px;
+  height: 25px;
+  font-family: Montserrat;
+  font-size: 19px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--black);
+}
+.Lorem-ipsum-dolor-si {
+  height: 66px;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #b6b8c3;
+}
+.Download-Template {
+  height: 20px;
+  font-family: Montserrat;
+  font-size: 14.8px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #167aff;
+}
+.VERIFIED {
+  width: 78px;
+  height: 19px;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #07901a;
+}
+.Verify- {
+  width: 68px;
+  height: 22px;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #167aff;
+}
+.UNVERIFIED {
+  width: 104px;
+  height: 19px;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #9295a5;
+}
+.Path-107 {
+  width: 6px;
+  height: 13px;
+  border: solid 1px #171819;
+}
+.Upload-Employee-Pic {
+  width: 113px;
+  height: 13px;
+  font-family: Montserrat;
+  font-size: 10px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.21px;
+  text-align: center;
+  color: var(--black);
+}
