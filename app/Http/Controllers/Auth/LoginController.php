@@ -23,13 +23,13 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    // use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
+    // *
+    //  * Where to redirect users after login.
+    //  *
+    //  * @var string
+     
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
@@ -37,10 +37,10 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('guest')->except('logout');
+    // }
 
     public function login()
     {
@@ -54,6 +54,7 @@ class LoginController extends Controller
 
     public function loginProcess(Request $request)
     {
+        // dd($request);
         $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
         $email = $request->email;
         $password = $request->password;   

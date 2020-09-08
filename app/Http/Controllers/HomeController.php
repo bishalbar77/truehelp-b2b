@@ -47,10 +47,24 @@ class HomeController extends Controller
 
         $data = json_decode($contents);
 
-        $registered_employees = $data->response->data->registered_employees;
-        $verified_employees = $data->response->data->verified_employees;
-        $pending_verifications = $data->response->data->pending_verifications;
-        $red_cases = $data->response->data->red_cases;   
+        if(isset($data->response)) {
+            if($data->response->status == 200) {
+                $registered_employees = $data->response->data->registered_employees;
+                $verified_employees = $data->response->data->verified_employees;
+                $pending_verifications = $data->response->data->pending_verifications;
+                $red_cases = $data->response->data->red_cases; 
+            } else {
+                $registered_employees = '0';
+                $verified_employees = '0';
+                $pending_verifications = '0';
+                $red_cases = '0';
+            }
+        } else {
+            $registered_employees = '0';
+            $verified_employees = '0';
+            $pending_verifications = '0';
+            $red_cases = '0';
+        }
 
         $api_token = session()->get('api_token');
         $response = Http::withHeaders([
@@ -59,7 +73,17 @@ class HomeController extends Controller
                         ])->get('https://api.gettruehelp.com/api/get-candidates');
         $contents = $response->getBody();
         $data = json_decode($contents);
-        $employees = $data->response->data;
+
+        if(isset($data->response)){
+            if($data->response->status != 200){
+                $employees = NULL;
+            } else {
+                $employees = $data->response->data;
+            }
+        } else {
+            $employees = NULL;
+        }
+        
 
         return view('home')->with([
             'registered_employees' => $registered_employees,

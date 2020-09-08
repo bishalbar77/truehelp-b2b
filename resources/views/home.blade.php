@@ -216,7 +216,7 @@
         <div class="row">
           <div class="col-12">
             <!-- /.card -->
-
+          @if($employees!=NULL)
             <div class="Rectangle-Copy-6 pl-4 t-head">
               <div class="pt-4 pl-4 pb-2 pr-5">
                 <h3  class=" My-employees">Recent Reports</h3>
@@ -237,6 +237,7 @@
                         </thead>
                         <?php $sl=1 ?>
                         <tbody class="t-body">
+                          
                           @foreach($employees as $employee)
                             @if($sl>4)@continue;@endif
                               <tr>
@@ -258,6 +259,7 @@
               </div>
               <!-- /.card-body -->
             </div>
+            @endif
             <!-- /.card -->
           </div>
           <!-- /.col -->

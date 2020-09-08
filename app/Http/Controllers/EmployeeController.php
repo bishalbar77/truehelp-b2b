@@ -31,7 +31,21 @@ class EmployeeController extends Controller
                         ])->get('https://api.gettruehelp.com/api/get-candidates');
         $contents = $response->getBody();
         $data = json_decode($contents);
-        $employees = $data->response->data;
+
+        if(isset($data->response)) {
+            if($data->response->status != 200){
+                $employees = NULL;
+            } else {
+                $employees = $data->response->data;
+            }
+        } else {
+            $employees = NULL;
+        }
+
+
+        if(is_array($employees))
+            // dd("ddddddd");
+        $employees = array_reverse($employees);    
 
         $device_id = "00000000-89ABCDEF-01234567-89ABCDEH";
         $source = "B2B";
@@ -49,6 +63,7 @@ class EmployeeController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
         $api_token = session()->get('api_token');
         $co_relation = $request->co_relation;
         $parent_email = $request->parent_email;
@@ -167,7 +182,29 @@ class EmployeeController extends Controller
 
     public function profile()
     {
-        return view('employees.profile');
+        $name = session()->get('first_name');
+        
+        if(empty($name)){
+            return redirect()->route('login');
+        }
+        $api_token = session()->get('api_token');
+
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer ".$api_token
+        ])->get('https://api.gettruehelp.com/api/account-info');
+
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        $account = $data->response->data->employer;
+        $preferences = $data->response->data->prefs;
+        if($account == "Trying to get property 'id' of non-object")
+        {
+            $account=NULL;
+        }
+        return view('employees.profile')->with([
+            'account' => $account,
+            'preferences' => $preferences
+        ]);
     }
 
     public function search()

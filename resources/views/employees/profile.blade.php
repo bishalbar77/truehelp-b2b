@@ -26,6 +26,10 @@
   width: 100%;
   background-color: #1e2933;
 }
+.card-layout-2 {
+  width: 100%;
+  background-color: #FFFFFF;
+}
 .card-2nd {
   width: 45%;
   height: 276px;
@@ -50,6 +54,32 @@
   text-align: left;
   color: #ffffff;
 }
+.Name-dark {
+  width: 100%;
+  height: 20%;
+  font-family: Montserrat;
+  font-size: 26px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000000;
+}
+.Name-dark-2 {
+  width: 100%;
+  height: 45%;
+  font-family: Montserrat;
+  font-size: 26px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000000;
+}
 .bottom-text {
   height: 10px;
   font-family: Montserrat;
@@ -61,6 +91,18 @@
   letter-spacing: normal;
   text-align: left;
   color: #dadada;
+}
+.bottom-text-dark {
+  height: 10px;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #black;
 }
 .Unverified {
   height: 0px;
@@ -93,6 +135,7 @@
 }
 .box-item {
   width: 100%;
+  height: 100%;
   border-radius: 10px;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.14);
   background-color: #ffffff;
@@ -541,6 +584,66 @@
     </div>
     <div class="container">
       <div class="row">
+        <div class="col-lg-12">
+          <div class="box-item">
+            <div class="form-group row">
+              <div class="col-lg-6">
+                <div class="p-xl-5 pt-xl-5">
+                  <div class="form-group row">
+                    <div class="col-lg-3">
+                      <img src="{{ asset('dist/img/avatar5.png') }}" alt="User Avatar"  class="img-circle Mask">
+                    </div>
+                    <div class="col-lg-9 pt-1 pl-5">
+                      <p class="Name-dark-2">{{ $account->b2b_company_name }}</p>
+                      <p class="bottom-text-dark">{{ $account->email }}</p>
+                      <p class="bottom-text-dark">Ph no: {{ $account->mobile }}</p>             
+                      <p class="Verified-user pt-2"><i class="fa fa-check-circle fa-lg pr-2" aria-hidden="true"></i></i>Verified</p>        
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="p-xl-5 pt-xl-5">
+                  <div class="form-group row">
+                    <div class="col-lg-3">
+                    </div>
+                    <div class="col-lg-9 pt-1 pl-5">
+                      <p class="Name-dark">{{ $account->b2b_brand_name }}</p>
+                      <p class="bottom-text-dark">GST No: {{ $account->b2b_gst_no }}</p>
+                      <p class="bottom-text-dark">PAN No: {{ $account->b2b_pan_no }}</p>             
+                      <a href="{{ $account->b2b_website }}" target="_blank"><p class="web pt-2"><i class="fa fa-internet-explorer fa-lg pr-2" aria-hidden="true"></i>{{ $account->b2b_website }}</p></a>        
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+      <div class="row">
+       <div class="col-lg-12">
+        <div class="box-item">
+          <p class="body-text-4 pl-5 pt-5">Preferences</p>
+          <div class="pl-5 pt-3">
+            <p class="Lorem-ipsum-dolor-si">
+            <label><input type="checkbox" checked="checked" onclick="return false;"><a class="pl-2">SMS</a></label><br>
+            <label><input type="checkbox" checked="checked" onclick="return false;"><a class="pl-2">WhatsApp</a></label><br>
+            <label><input type="checkbox" checked="checked" onclick="return false;"><a class="pl-2">Phone</a></label><br>
+            <label>Timezone : {{ $preferences->time_zone}}</label>
+            </p>
+          </div>
+        </div>
+       </div>
+      </div>
+    </div>
+    <div class="container">
+    <br><br></div>
+    <div class="container">
+      <div class="row">
        <div class="col-lg-12">
         <div class="box-item">
           <p class="body-text-8 pl-5 pt-5">General Settings</p>
@@ -554,7 +657,6 @@
             Ut enim ad minim veniam, quis nostrud exercitation 
             </p>
             <button type="button" data-toggle="modal" data-target="#requestModal" class="btn btn-primary" style=" width: 192px;">Proceed</button>
-            <hr>
           </div>
         </div>
        </div>

@@ -13,7 +13,7 @@
           <li class="nav-header nav-menu-tag">MENU</li>
           <li class="nav-item">
             <a href="{{ url('home') }}" class="nav-link {{ Request::is('/') || Request::is('home') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fa fa-th"></i>
               <p class="nav-menu">
                 Dashboard
               </p>
@@ -49,7 +49,7 @@
               <i class="nav-icon fa fa-list-alt"></i>
               <p class="nav-menu">
                 Health Check
-                <i class="right fas fa-angle-left"></i>
+                <i class="right fa fa-angle-right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -80,14 +80,14 @@
               </p>
             </a>
           </li> -->
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="{{ url('profile') }}" class="nav-link {{ Request::is('profile')  ? 'active' : '' }}">
               <i class="nav-icon fa fa-address-card-o"></i>
               <p class="nav-menu">
                 Profile
               </p>
             </a>
-          </li>
+          </li> -->
           <!-- <li class="nav-header nav-menu-tag">SUPPORT</li>
           <li class="nav-item">
             <a href="pages/calendar.html" class="nav-link">
@@ -107,9 +107,9 @@
           </li> -->
           <li class="nav-header nav-menu-tag">SETTINGS</li>
           <li class="nav-item">
-            <a href="{{ url('accounts') }}" class="nav-link {{ Request::is('accounts')  ? 'active' : '' }}">
+            <a href="{{ url('profile') }}" class="nav-link {{ Request::is('profile')  ? 'active' : '' }}">
               <i class="nav-icon fa fa-cog"></i>
-              <p class="nav-menu">Account</p>
+              <p class="nav-menu">Preferences</p>
             </a>
           </li>
           <!-- <li class="nav-item">
@@ -118,7 +118,7 @@
               <p class="nav-menu">Dark Mode</p>
             </a>
           </li> -->
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+          <form id="logout-form" action="https://enterprise.gettruehelp.com/v2/public/logout" style="display: none;">
             @csrf
           </form>
           <li class="nav-item">

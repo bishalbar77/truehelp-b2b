@@ -347,31 +347,33 @@
                             <tr>
                                 <th>Survey Type</th>
                                 <th>Candidate</th>
-                                <th>Severty</th>
+                                <th>Severity</th>
                                 <th>Survey Start</th>
                                 <th>Survey End</th>
-                                <th>Create At</th>
+                                <th>Created On</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="t-body">
-                        @foreach($orders as $order)
-                            <tr>
-                                <td>{{ str_replace('_', ' ', $order->survey_type) }}</td>
-                                <td>{{ $order->first_name.' '.$order->middle_name.' '.$order->last_name }}</td>
-                                <td>{{ $order->severity ?? 'NOT DONE' }}</td>
-                                <td>{{ $order->survey_start }}</td>
-                                <td>{{ $order->survey_end }}</td>
-                                <td>{{ date('Y-m-d H:i:s', strtotime($order->created_at)) }}</td>
-                                <td>{{ $order->survey_status }}</td>
-                                <td>
-                                  <a href="{{ url('surveys/details/'.md5($order->id)) }}" class="pl-1" type="submit">View Details ></a>
-                                  |
-                                  <a href="https://www.gettruehelp.com/new/healthcheck/?eid={{ md5($order->employee_id) }}" class="pl-1" type="submit" target="-_blank">View Survey ></a>
-                                </td>
-                            </tr>
-                          @endforeach
+                          @if($orders!=NULL)
+                            @foreach($orders as $order)
+                                <tr>
+                                    <td>{{ str_replace('_', ' ', $order->survey_type) }}</td>
+                                    <td>{{ $order->first_name.' '.$order->middle_name.' '.$order->last_name }}</td>
+                                    <td>{{ $order->severity ?? 'NOT DONE' }}</td>
+                                    <td>{{ $order->survey_start }}</td>
+                                    <td>{{ $order->survey_end }}</td>
+                                    <td>{{ date('Y-m-d H:i:s', strtotime($order->created_at)) }}</td>
+                                    <td>{{ $order->survey_status }}</td>
+                                    <td>
+                                      <a href="{{ url('surveys/details/'.md5($order->id)) }}" class="pl-1" type="submit">View Details ></a>
+                                      |
+                                      <a href="https://www.gettruehelp.com/new/healthcheck/?eid={{ md5($order->employee_id) }}" class="pl-1" type="submit" target="-_blank">View Survey ></a>
+                                    </td>
+                                </tr>
+                              @endforeach
+                          @endif
                         </tbody>
                     </table>
               </div>
@@ -405,7 +407,7 @@
                      <div class="col-lg-12">
                         <label class="form-label-text">Select Candidate</label>
                         <select class="form-control" name="employee_id" required="required">
-                          @foreach($orders as $order)
+                          @foreach($employees as $order)
                             <option value="{{ $order->employee_id }}">{{ $order->first_name.' '.$order->middle_name.' '.$order->last_name }}</option>
                           @endforeach
                         </select>

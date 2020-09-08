@@ -371,7 +371,7 @@
                         <td>{{ $surveys->severity ?? 'NOT DONE' }}</td>
                       </tr>
                       <tr>
-                        <th>Created At</th>
+                        <th>Created On</th>
                         <td>{{ $surveys->created_at }}</td>
                       </tr>
                       <tr>
@@ -382,7 +382,7 @@
                         @foreach($answers as $answer)
                           <tr>
                             <th>{{ $answer->question_answer }}</th>
-                            <td>{{ $answer->question }}</td>
+                            <td>{{ $answer->text ?? '' }}</td>
                           </tr>
                         @endforeach
                       @endif

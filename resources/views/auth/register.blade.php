@@ -224,7 +224,7 @@ body {
 
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign up</button>
               <hr class="my-4">
-              <a href="/login" class="btn btn-lg btn btn-danger btn-block text-uppercase"><i class="fab fa-new-f mr-2"></i>Already have an account!</a>
+              <a href="https://enterprise.gettruehelp.com/v2/public/login" class="btn btn-lg btn btn-danger btn-block text-uppercase"><i class="fab fa-new-f mr-2"></i>Already have an account!</a>
             </form>
           </div>
         </div>

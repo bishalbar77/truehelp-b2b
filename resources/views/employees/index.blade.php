@@ -613,6 +613,7 @@
                             </tr>
                         </thead>
                         <tbody class="t-body">
+                          @if($employees!=NULL)
                           @foreach($employees as $employee)
                           
                             <tr>
@@ -629,6 +630,7 @@
                             </tr>
                           
                           @endforeach
+                          @endif
                         </tbody>
                     </table>
               </div>

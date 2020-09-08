@@ -202,9 +202,9 @@ body {
                 <label class="custom-control-label" for="customCheck1">Remember password</label>
               </div>
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
-              <hr class="my-4">
-              <a href="/register" class="btn btn-lg btn btn-success btn-block text-uppercase"><i class="fab fa-new-f mr-2"></i> Create New Account</a>
-              <a href="/otp" class="btn btn-lg btn btn-danger btn-block text-uppercase"><i class="fab fa-new-f mr-2"></i> Sign in by Phone number</a>
+              <!-- <hr class="my-4"> -->
+              <!-- <a href="https://enterprise.gettruehelp.com/v2/public/register" class="btn btn-lg btn btn-success btn-block text-uppercase"><i class="fab fa-new-f mr-2"></i> Create New Account</a> -->
+              <!-- <a href="https://enterprise.gettruehelp.com/v2/public/otp" class="btn btn-lg btn btn-danger btn-block text-uppercase"><i class="fab fa-new-f mr-2"></i> Sign in by Phone number</a> -->
             </form>
           </div>
         </div>
