@@ -9,24 +9,14 @@
     <link rel="stylesheet" href="https://enterprise.gettruehelp.com/v2/public/css/app.css" />
     <script defer src="https://enterprise.gettruehelp.com/v2/public/employeesjs/app.js"></script>
     <link rel="stylesheet" href="https://enterprise.gettruehelp.com/v2/public/plugins/fontawesome-free/css/all.min.css">
-    <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Tempusdominus Bbootstrap 4 -->
     <link rel="stylesheet" href="https://enterprise.gettruehelp.com/v2/public/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- iCheck -->
     <link rel="stylesheet" href="https://enterprise.gettruehelp.com/v2/public/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- JQVMap -->
     <link rel="stylesheet" href="https://enterprise.gettruehelp.com/v2/public/plugins/jqvmap/jqvmap.min.css">
-    <!-- Theme style -->
     <link rel="stylesheet" href="https://enterprise.gettruehelp.com/v2/public/dist/css/adminlte.min.css">
-    <!-- overlayScrollbars -->
     <link rel="stylesheet" href="https://enterprise.gettruehelp.com/v2/public/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <!-- Daterange picker -->
     <link rel="stylesheet" href="https://enterprise.gettruehelp.com/v2/public/plugins/daterangepicker/daterangepicker.css">
-    <!-- summernote -->
     <link rel="stylesheet" href="https://enterprise.gettruehelp.com/v2/public/plugins/summernote/summernote-bs4.css">
-    <!-- datatables -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
@@ -60,7 +50,38 @@
         @yield('scripts')
 
         @yield('javascripts')
-
+        <script>
+            function filterGlobal () {
+            $('#datatable').DataTable().search(
+                $('#global_filter').val(),
+            
+            ).draw();
+            }
+            
+            function filterColumn ( i ) {
+                $('#datatable').DataTable().column( i ).search(
+                    $('#col'+i+'_filter').val()
+                ).draw();
+            }
+            
+            $(document).ready(function() {
+                $('#datatable').DataTable({
+                    sDom: 'lrtip',
+                    "ordering": false,
+                    });
+                
+                $('input.global_filter').on( 'keyup click', function () {
+                    filterGlobal();
+                } );
+            
+                $('input.column_filter').on( 'keyup click', function () {
+                    filterColumn( $(this).parents('div').attr('data-column') );
+                } );
+            } );
+            $('select.column_filter').on('change', function () {
+                filterColumn( $(this).parents('div').attr('data-column') );
+            } );
+        </script>
         <script src="https://enterprise.gettruehelp.com/v2/public/plugins/jquery/jquery.min.js"></script>
         <!-- jQuery UI 1.11.4 -->
         <script src="https://enterprise.gettruehelp.com/v2/public/plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -91,8 +112,11 @@
         <script src="https://enterprise.gettruehelp.com/v2/public/dist/js/adminlte.js"></script>
         <script src="https://enterprise.gettruehelp.com/v2/public/dist/js/pages/dashboard.js"></script>
         <script src="https://enterprise.gettruehelp.com/v2/public/dist/js/demo.js"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </body>
 </html>
