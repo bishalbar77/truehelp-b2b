@@ -364,13 +364,17 @@
             <label class="form-label-text">Email:</label>
             <input type="email" class="form-control" name="email">
             </div>
+            <div class="col-lg-4">
+              <label class="form-label-text">Country Code</label>
+              <input type="number" class="form-control" name="country_code" value="91">
+              </div>
               <div class="col-lg-4">
               <label class="form-label-text">Mobile</label>
               <input type="phone" class="form-control" name="mobile" required="required">
               </div>
               <div class="col-lg-4">
               <label class="form-label-text">Student Code</label>
-              <input type="number" class="form-control" name="student_code">
+              <input type="text" class="form-control" name="student_code">
               </div>
               </div>
                   <div class="form-group row">
