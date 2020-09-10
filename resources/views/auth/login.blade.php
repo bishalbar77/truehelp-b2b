@@ -173,7 +173,7 @@ body {
                 <img src="images/Logo-07.png" class="img-fluid rounded mx-auto d-block" alt="black-logo" height="54px" width="70px">
               </a>
             <h4 class="card-title text-center">Login to Account</h4>
-            <form method="POST" class="form-signin" action="https://enterprise.gettruehelp.com/v2/public/login">
+            <form method="POST" class="form-signin" action="/login">
                         @csrf
               <div class="form-label-group">
               <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required>

@@ -51,37 +51,34 @@
 
         @yield('javascripts')
         <script>
-            function filterGlobal () {
-            $('#datatable').DataTable().search(
-                $('#global_filter').val(),
-            
-            ).draw();
-            }
-            
-            function filterColumn ( i ) {
-                $('#datatable').DataTable().column( i ).search(
-                    $('#col'+i+'_filter').val()
-                ).draw();
-            }
-            
-            $(document).ready(function() {
-                $('#datatable').DataTable({
-                    sDom: 'lrtip',
-                    "ordering": false,
-                    });
-                
-                $('input.global_filter').on( 'keyup click', function () {
-                    filterGlobal();
-                } );
-            
-                $('input.column_filter').on( 'keyup click', function () {
-                    filterColumn( $(this).parents('div').attr('data-column') );
-                } );
-            } );
-            $('select.column_filter').on('change', function () {
-                filterColumn( $(this).parents('div').attr('data-column') );
-            } );
-        </script>
+		 function filterGlobal () {
+		$('#datatable').DataTable().search(
+			$('#global_filter').val(),
+		
+		).draw();
+		}
+		
+		function filterColumn ( i ) {
+			$('#datatable').DataTable().column( i ).search(
+				$('#col'+i+'_filter').val()
+			).draw();
+		}
+		
+		$(document).ready(function() {
+			$('#datatable').DataTable();
+			
+			$('input.global_filter').on( 'keyup click', function () {
+				filterGlobal();
+			} );
+		
+			$('input.column_filter').on( 'keyup click', function () {
+				filterColumn( $(this).parents('div').attr('data-column') );
+			} );
+		} );
+        $('select.column_filter').on('change', function () {
+            filterColumn( $(this).parents('div').attr('data-column') );
+        } );
+		</script>
         <script src="https://enterprise.gettruehelp.com/v2/public/plugins/jquery/jquery.min.js"></script>
         <!-- jQuery UI 1.11.4 -->
         <script src="https://enterprise.gettruehelp.com/v2/public/plugins/jquery-ui/jquery-ui.min.js"></script>
