@@ -5,6 +5,13 @@
 <title>TrueHelp | Dashboard</title>
 <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
 <script defer src="{{ mix('js/app.js') }}"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="css/montserratfont.css">
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 <style>
 .Oval {
@@ -22,363 +29,176 @@
   letter-spacing: normal;
   color: #121212;
 }
-.My-employees {
-  font-family: Montserrat;
-  font-size: 18px;
-  font-weight: 800;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: var(--black);
-}
-.t-head {
-  font-family: Montserrat;
-  font-size: 16px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: var(--black);
-  overflow-x:auto;
-}
-.t-body {
-  font-family: Montserrat;
-  font-size: 15px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #85899a;
-  overflow-x:auto;
-}
-.Rectangle-Copy-6 {
-  border-radius: 15px;
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.14);
-  background-color: #ffffff;
-}
-.nav-menu {
-  height: 25px;
-  font-family: Helvetica;
-  font-size: 14.3px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.43;
-  letter-spacing: normal;
-  color: #ffffff;
-}
-.table-side-tag {
-  font-family: Montserrat;
-  font-size: 16px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #167aff;
-}
-.order-img {
-  width: 346px;
-  height: 242px;
-}
-.Request-sent {
-  width:100%;
-  font-family: Montserrat;
-  font-size: 19px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: var(--black);
-}
-.Lorem-ipsum-dolor-si {
-  height: 66px;
-  font-family: Montserrat;
-  font-size: 16px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #b6b8c3;
-}
-.signup-form{
-  width: 95%;
-  margin: 30px auto;
-  background-color: var(--black);
-}
-.signup-form form{
-  color: #000000;
-    margin-bottom: 15px;
-      background: #fff;
-      padding: 30px;
+.topnav {
+    background-color:  rgb(235 237 235);
+    overflow: hidden;
   }
-.signup-form h2 {
-  color: #333;
-  font-weight: bold;
-      margin-top: 0;
+
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    border-bottom: 3px solid transparent;
   }
-  .signup-form hr {
-      margin: 0 -30px 20px;
-  }    
-.signup-form .form-group{
-  margin-bottom: 20px;
+
+
+
+  .topnav a.active {
+    border-bottom: 3px solid blue;
+    color:blue;
+  }
+
+  /*donut*/
+
+
+
+  @keyframes donut-chart-fill {
+    to { stroke-dasharray: 0 100; }
+  }
+
+
+
+
+  .svg-item {
+    width: 200px;
+    height: 200px;
+    font-size: 16px;
+  }
+  .donut-ring {
+    stroke: #EBEBEB;
+  }
+
+  .donut-segment {
+    animation: donut-chart-fill 1s reverse ease-in;
+    transform-origin: center;
+    stroke: rgb(224 7 25);
+  }
+
+  .donut-text {
+    font-family: Arial, Helvetica, sans-serif;
+    fill: black;
+  }
+
+  .donut-label {
+    font-size: 0.28em;
+    font-weight: 700;
+    line-height: 1;
+    fill: black;
+    transform: translateY(0.25em);    
+  }
+
+  .donut-percent {
+    font-size: 0.5em;
+    fill: black;
+    line-height: 1;
+    transform: translateY(0.5em);
+  }
+  
+body{
+  font-family: Montserrat;
 }
 
-.signup-form .row div:first-child{
-  padding-right: 10px;
-}
-.signup-form .row div:last-child{
-  padding-left: 10px;
-}
-  .signup-form .hint-text {
-  padding-bottom: 15px;
-  text-align: center;
-  }
-  .modal-lg {
-  max-width: 80%;
-  }
-.My-employees {
-  font-family: Montserrat;
-  font-size: 18px;
-  font-weight: 800;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: var(--black);
-}
-.t-head {
-  font-family: Montserrat;
-  font-size: 16px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: var(--black);
-  overflow-x:auto;
-}
-.t-body {
-  font-family: Montserrat;
-  font-size: 15px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #85899a;
-  overflow-x:auto;
-}
-.Rectangle-Copy-6 {
-  border-radius: 15px;
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.14);
-  background-color: #ffffff;
-}
-.nav-menu {
-  height: 25px;
-  font-family: Helvetica;
-  font-size: 14.3px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.43;
-  letter-spacing: normal;
-  color: #ffffff;
-}
-.nav-menu-tag {
-  font-family: Helvetica;
-  font-size: 11.8px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.67;
-  letter-spacing: 1.23px;
-  color: #9ba4b0;
-}
-.side-bar {
-  background-color: #1e2933;
-}
-.Add-Employees {
-  font-family: Montserrat;
-  font-size: 20px;
+/*
+responsive*/
+
+    @media screen and (min-width: 601px) {
+      .verbar {
+        font-size: 7px;
+        /*font-size: 120%;*/  
+      }
+
+      .ver5 {
+        font-size: 17px;
+        /*font-size: 120%;*/  
+      }
+    .ver4{
+      font-size: 18px;
+    }
+      .ver3{
+      font-size: 150%;
+    }
+   .sizing{
+    width: 50%  }
+    }
+    @media screen and (max-width: 600px) {
+      .ver5 {
+        font-size: 14px;
+      }
+      .ver3{
+        font-size: 20px;
+      }
+      .sizing{
+        width: 100%;
+      }
+    .ver2{
+      font-size: 15px;
+    }
+    .ver4{
+      font-size: 15px;
+    }
+    
+    }
+    
+    
+
+.ver3,.ver4,.ver5,.verbar{
   font-weight: 700;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #352641;
 }
-.form-label-text {
-  font-family: Montserrat;
-  font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #000000;
-}
-.button-proceed {
-  width: 270px;
-  height: 40px;
-  border-radius: 8px;
-  background-color: #fecf3a;
-}
-.Proceed {
-  font-family: Montserrat;
-  font-size: 13px;
-  font-weight: 700;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 1px;
-  text-align: center;
-  color: var(--black);
-}
-.check-box-unselected {
-  font-family: Montserrat;
-  font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 1px;
-  text-align: center;
-  color: #999999;
-}
-.check-box-selected {
-  font-family: Montserrat;
-  font-size: 14px;
+.pro-wgt{
   font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 1px;
-  text-align: center;
-  color: #352641;
 }
-.Employee-currently-w {
-  font-family: Montserrat;
-  font-size: 14px;
-  font-weight: 800;
-  font-stretch: normal;
-  font-style: bold;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #000000;
+
+.wi{
+  color: rgb(253 253 253);
 }
-.upload-pink {
-  width: 180px;
-  height: 90px;
-  border-radius: 10px;
-  background-color: #ffe9f6;
+
+
+
+
+.bl{
+  color: rgb( 19 20 21);
+
 }
-.upload-blue {
-  width: 180px;
-  height: 90px;
-  border-radius: 10px;
-  background-color: #e9f6fe;
+
+.shade-bl{
+  color:rgb(153 153 153);
+
 }
-.Download-the-Excel-s {
-  width: 526px;
-  height: 25px;
-  font-family: Montserrat;
-  font-size: 19px;
+
+.gr{
+  color: rgb( 12 175 82);
+
+}
+
+.re{
+  color: rgb(235 75 75);
+}
+.full-bl{
+  color:rgb(0 0 0);
+}
+
+.medium-bl{
+  color: rgb(76 77 76);
+}
+
+.blu{
+  color: rgb(0 122 255);
+}
+
+.ver2{
+  font-family: 'Montserrat'; color: rgb(255 255 255);
+}
+.wgt-600{
   font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: var(--black);
 }
-.Lorem-ipsum-dolor-si {
-  height: 66px;
-  font-family: Montserrat;
-  font-size: 16px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #b6b8c3;
-}
-.Download-Template {
-  height: 20px;
-  font-family: Montserrat;
-  font-size: 14.8px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #167aff;
-}
-.VERIFIED {
-  width: 78px;
-  height: 19px;
-  font-family: Montserrat;
-  font-size: 15px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #07901a;
-}
-.Verify- {
-  width: 68px;
-  height: 22px;
-  font-family: Montserrat;
-  font-size: 15px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #167aff;
-}
-.UNVERIFIED {
-  width: 104px;
-  height: 19px;
-  font-family: Montserrat;
-  font-size: 15px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #9295a5;
-}
-.Path-107 {
-  width: 6px;
-  height: 13px;
-  border: solid 1px #171819;
-}
-.Upload-Employee-Pic {
-  height: 13px;
-  font-family: Montserrat;
-  font-size: 11px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  text-align: center;
-  /* position: absolute; */
-  position: relative;
-  color: Black;
-  z-index: 5;
-}
-.custom-file-input {
-  color: transparent;
-}
-.custom-file-input::-webkit-file-upload-button {
-  visibility: hidden;
-}
+
+/*responsive*/
+
 </style>
 @endsection
 
@@ -387,7 +207,7 @@
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
       </li>
       <li>
         <div class="pl-4">
@@ -477,143 +297,230 @@
   <aside class="main-sidebar elevation-4 side-bar">
     @include('layouts.sidebar')
   </aside>
-
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
+    <div class="container my-4  col-lg-12">
+      <a href=""> <h5 class="ver5 blu"><span><i class="fa fa-angle-left blu">&nbsp</i>
+      </span>Survey Template</h5></a>
+      <div class="d-sm-flex justify-content-between"><h3 class="font-weight-bold ">Health Report<br> <span class="medium-bl ver5">June 16, 2020</span></h3>
+      <button class="btn font-weight-bold dropdown-toggle mr-4" type="button" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="false" style="height: 50px; background-color: rgb(235 237 235);">Survey Actions &nbsp</button>
+      <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">Action 1</a>
+      <a class="dropdown-item" href="#">Action 2</a>
+      <a class="dropdown-item" href="#">Action 3</a>
+      </div>
+      </div>
+    </div> 
+    <div class="container my-4 col-lg-12">
+      <section class="p-4 z-depth-1">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-3 col-sm-6 mb-4 text-center">
+            <h2 class="font-weight-bold "><sup><i class="fa fa-chart-bar shade-bl">&nbsp</i></sup><span>96</span>%</h2>
+            <p class="ver5 shade-bl">Responses Received</p>
+          </div>
+          <div class="col-md-3 col-sm-6 mb-4 text-center">
+            <h2 class="font-weight-bold "><sup><i class="fa fa-check-square shade-bl">&nbsp</i></sup><span>72</span>%</h2>
+            <p class="ver5 shade-bl">Arrivals Verified</p>
+          </div>
+          <div class="col-md-3 col-sm-6 mb-4 text-center">
+            <h2 class="font-weight-bold "><sup><i class="fa fa-exclamation-triangle shade-bl">&nbsp</i></sup>12</h2>
+            <p class="ver5 shade-bl">Students Denied</p>
+          </div>
+          <div class="col-md-3 col-sm-6 mb-4 text-center">
+            <h2 class="font-weight-bold "><sup><i class="fa fa-clock shade-bl">&nbsp</i></sup>31</h2>
+            <p class="ver5 shade-bl">Responses Needed</p>
+          </div>
+        </div>
+      </section>
     </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info" style="border-radius: 12px;">
-              <div class="inner">
-                <h3>0</h3>
-
-                <p>Registered Employees</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-arrow-circle-up"></i>
-              </div>
-              <a href="#" class="small-box-footer">Get Started <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success" style="border-radius: 12px;">
-              <div class="inner">
-                <h3>0<sup style="font-size: 20px"></sup></h3>
-
-                <p>Pending Verification</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-arrow-circle-up"></i>
-              </div>
-              <a href="#" class="small-box-footer">Get Started <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning" style="border-radius: 12px;">
-              <div class="inner">
-                <h3>0</h3>
-
-                <p>Verified Users</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-arrow-circle-down"></i>
-              </div>
-              <a href="#" class="small-box-footer">Get Started <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger" style="border-radius: 12px;">
-              <div class="inner">
-                <h3>0</h3>
-
-                <p>Red Cases</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-arrow-circle-down"></i>
-              </div>
-              <a href="#" class="small-box-footer">Get Started <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-        </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
+    <!-- contents -->
+    <div class="container col-lg-12">
+    <div class="topnav">
+    <a  class="font-weight-bold hover" id="res" onclick="res()" >Responses</a>
+    <a   class="font-weight-bold hover active" id="anal" onclick="anal()" >Anaysis</a>
+    </div>
+    <div id="content" class="my-4">
+    <section style="margin-left: 30px">
+    <div class="row d-flex    col-lg-12 justify-content-center " >
+    <div class=" col-lg-6 col-sm-12 col-md-12 mb-4 " >
+    <!--Section: Content-->
+    <div class="container col-lg-12" style="background-color: rgb(235 237 235)">
+    <div class="row pr-lg-5"  >
+    <div class="col-md-4 ">
+    <center>
+    <div class="svg-item ">
+    <svg width="100%" height="100%" viewBox="0 0 40 40" class="donut">
+    <circle class="donut-hole" cx="20" cy="20" r="15.91549430918954" fill="#fff"></circle>
+    <circle class="donut-ring" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="1.5"></circle>
+    <circle class="donut-segment" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="1.5" stroke-dasharray="3 97" stroke-dashoffset="25"></circle>
+    <g class="donut-text">
+    <text y="30%" transform="translate(0, 2)">
+    <tspan x="50%" text-anchor="middle" class="donut-percent verbar">3 </tspan>   
+    <tspan y="50%" x="50%" text-anchor="middle" class="" style="font-size: 4px">New Covid-19 </tspan>   
+    <tspan y="65%" x="50%" text-anchor="middle" class="" style="font-size: 4px ">Reports </tspan>   
+    </text>
+    </g>
+    </svg>
+    </div>
+    </center>
+    </div>
+    <div class="col-md-8 d-flex my-4">
+    <div>
+    <section style="margin-left: 10px">
+    <h5 class="ver5"><div class="d-flex align-items-stretch ">
+    <div class="w-100 medium-bl " >New COVID-19 Reports</span>
+    </div>
+    <div class="flex-grow-1 fl " ><i class="fa fa-arrow-circle-up" style="color:purple">2</i></div>
+    </div></h5>
+    <p  class="medium-bl ">Represents the number of students whose survey responses indicated an affirmitave
+    response to the question "have you been diagonses with COVID-19 in the past 14 days?" for the first time</p>
+    <a href=""> <h5 class="ver5 blu">View Responses</h5></a>
     </section>
-    <section class="content pt-5">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <!-- /.card -->
-
-            <div class="Rectangle-Copy-6 pl-4 t-head">
-              <div class="pt-4 pl-4 pb-2 pr-5">
-                <h3  class=" My-employees">Recent Reports</h3>
-                <hr>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body" >
-                <div class="container">
-                  <div class="form-group row">
-                    <div class="col-lg-5">
-                      <img src="{{ asset('images/our-vision.png') }}" alt="User Avatar"  class="order-img">
-                    </div>
-                    <div class="col-lg-7">
-                      <div class="form-group row pt-2 pl-5 pr-5">
-                        <p class="Request-sent">
-                        You have no reports generated
-                        </p>
-                      </div>
-                      <div class="form-group row pr-5 pl-5">
-                        <p class="Lorem-ipsum-dolor-si">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore 
-                        Ut enim ad minim veniam, quis nostrud exercitation 
-                        </p>
-                      </div>
-                      <div class="form-group row pr-5 pl-5">
-                        <a href="javascript::void(0)"><button type="button" class="btn btn-primary">+ Add Health Check</button></a>
-                        <a class="pl-5"></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.container-fluid -->
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class=" col-lg-6 col-sm-12 col-md-12 mb-4 " >
+    <!--Section: Content-->
+    <div class="container col-lg-12" style="background-color: rgb(235 237 235)">
+    <div class="row pr-lg-5"  >
+    <div class="col-md-4  ">
+    <center>
+    <div class="svg-item ">
+    <svg width="100%" height="100%" viewBox="0 0 40 40" class="donut">
+    <circle class="donut-hole" cx="20" cy="20" r="15.91549430918954" fill="#fff"></circle>
+    <circle class="donut-ring" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="1.5"></circle>
+    <circle class="donut-segment" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="1.5" stroke-dasharray="12 88" stroke-dashoffset="25"></circle>
+    <g class="donut-text">
+    <text y="30%" transform="translate(0, 2)">
+    <tspan x="50%" text-anchor="middle" class="donut-percent verbar">12 </tspan>   
+    <tspan y="50%" x="55%" text-anchor="middle" class=" " style="font-size: 4px">Fevers at</tspan>   
+    <tspan y="65%" x="50%" text-anchor="middle" class=" " style="font-size: 4px ">Dropoff </tspan>   
+    </text>
+    </g>
+    </svg>
+    </div>
+    </center>
+    </div>
+    <div class="col-md-8 d-flex my-4 ">
+    <div>
+    <section style="margin-left: 10px">
+    <h5 class="ver5"><div class="d-flex align-items-stretch ">
+    <div class="w-100 medium-bl ">Students Rejected from Entry</span>
+    </div>
+    <div class="flex-grow-1 fl "><i class="fa fa-arrow-circle-down" style="color:purple">7</i></div>
+    </div></h5>
+    <p  class="medium-bl">The number of students whose assessments did not indicate any symptoms or fever, but was measured to have a fever during drofoff verifiction.</p>
+    <br>
+    <a href=""> <h5 class="ver5 blu">View Responses</h5></a>
     </section>
-    <section class="content pt-5">
-      <div class="container-fluid">
-        
-      </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
     </section>
+    <div class="container col-lg-12">
+    <div class="row pr-lg-5"  >
+    <div class="col-md-5  ">
+    <center>
+    <div class="svg-item my-5" style="margin-right: 50px" >
+    <svg width="130%" height="130%" viewBox="0 0 40 40" class="donut " >
+    <circle class="donut-hole" cx="20" cy="20" r="15.91549430918954" fill="#fff"></circle>
+    <circle class="donut-ring" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="1.5"></circle>
+    <circle class="donut-segment" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="1.5" stroke-dasharray="31 69" stroke-dashoffset="25"></circle>
+    <g class="donut-text">
+    <text y="30%" transform="translate(0, 2)">
+    <tspan x="50%" text-anchor="middle" class="donut-percent verbar">31 </tspan>   
+    <tspan y="50%" x="50%" text-anchor="middle" class=" " style="font-size: 3px; ">Students Reported </tspan>   
+    <tspan y="65%" x="50%" text-anchor="middle" class="" style="font-size: 3px ">Symptoms </tspan>   
+    </text>
+    </g>
+    </svg>
+    </div>
+    </div>
+    </center>
+    <div class="col-md-7 d-flex ">
+    <div class="container" width="100%">
+    <div class="d-sm-flex justify-content-between"><h5 class="font-weight-bold ">System Provelance</span></h5>
+    <a href=""> <h6 class="ver5 blu">View Data</h6></a>
+    </div>
+    <canvas id="barChart" class="sizing" height="200px"  ></canvas>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
   </div>
-
 
 @endsection
 
 @section('scripts')
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+<script type="text/javascript">
+ //bar
+ var ctxB = document.getElementById("barChart").getContext('2d');
+ var myBarChart = new Chart(ctxB, {
+  label:'dfjsdk',
+
+  type: 'bar',
+  data: {
+    labels: ["Cough", "Fever", "Chills", "Headache", "Sore Throat", "Aches","No Tast"],
+    datasets: [{
+
+      data: [12, 19, 3, 5, 4, 7,14],
+      label : 'System Provelance',
+      backgroundColor: [
+      'rgb(12 23 235)',
+      'rgb(12 23 235)',
+      'rgb(12 23 235)',
+      'rgb(12 23 235)',
+      'rgb(12 23 235)',
+      'rgb(12 23 235)',
+      'rgb(12 23 235)'
+      ],
+
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  }
+});
+</script>
+<script type="text/javascript">
+   function res(){
+
+
+     // document.getElementById("content").innerHTML = "";
+     document.getElementById("res").classList.add("active");
+
+     document.getElementById("anal").classList.remove("active");
+   }
+
+   function anal(){
+
+     // document.getElementById("content").innerHTML = "";
+     document.getElementById("anal").classList.add("active");
+
+     document.getElementById("res").classList.remove("active");
+   }
+ </script>
 <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
 @if (app()->isLocal())
   <script src="{{ asset('js/app.js') }}"></script>

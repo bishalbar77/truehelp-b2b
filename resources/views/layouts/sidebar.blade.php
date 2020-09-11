@@ -28,22 +28,14 @@
               </p>
             </a>
           </li>
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <a href="{{ url('search') }}" class="nav-link {{ Request::is('search')  ? 'active' : '' }}">
               <i class="nav-icon fa fa-user-circle-o"></i>
               <p class="nav-menu">
                 Search Candidate
               </p>
             </a>
-          </li> -->
-          <!-- <li class="nav-item">
-            <a href="{{ url('surveys') }}" class="nav-link {{ Request::is('surveys')  ? 'active' : '' }}">
-              <i class="nav-icon fa fa-list-alt"></i>
-              <p class="nav-menu">
-                Health Check
-              </p>
-            </a>
-          </li> -->
+          </li>
           <li class="nav-item {{ Request::is('surveys/dashboard') || Request::is('surveys/reports') || Request::is('surveys/details/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link {{ Request::is('surveys/dashboard') || Request::is('surveys/reports') ? 'active' : '' }}">
               <i class="nav-icon fa fa-list-alt"></i>
@@ -54,7 +46,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ url('surveys/dashboard') }}" class="nav-link {{ Request::is('surveys/dashboard')  ? 'active' : '' }}">
+                <a href="{{ url('/dashboard') }}" class="nav-link {{ Request::is('/dashboard')  ? 'active' : '' }}">
                   <i class="nav-icon fa fa-angle-double-right"></i>
                   <p class="nav-menu">
                     Dashboard
@@ -71,6 +63,14 @@
                 </a>
               </li>
             </ul>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('notifications') }}" class="nav-link {{ Request::is('notifications')  ? 'active' : '' }}">
+              <i class="nav-icon fa fa-bell"></i>
+              <p class="nav-menu">
+                Notifications
+              </p>
+            </a>
           </li>
           <!-- <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
