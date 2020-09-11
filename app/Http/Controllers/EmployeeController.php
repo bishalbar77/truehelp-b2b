@@ -74,6 +74,7 @@ class EmployeeController extends Controller
         $parent_dob = $request->parent_dob;
         $parent_gender = $request->parent_gender;
         $email = $request->email;
+        $email = $request->country_code;
         $mobile = $request->mobile;
         $first_name = $request->first_name;
         $middle_name = $request->middle_name;
@@ -94,6 +95,7 @@ class EmployeeController extends Controller
             'parent_dob' => $parent_dob,
             'parent_gender' => $parent_gender,
             'email' => $email,
+            'country_code' => $country_code,
             'mobile' => $mobile,
             'first_name' =>$first_name,
             'middle_name' => $middle_name,
