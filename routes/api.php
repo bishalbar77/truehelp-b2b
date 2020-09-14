@@ -14,12 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/api/v1/employees', 'EmployeeController@employees')->name('api.employees.index');
+Route::get('/api/v1/survey', 'SurveyController@api')->name('api.survey.index');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
  });
-Route::get('api/employees', 'API\EmployeeApiController@users')->name('api.users.index');
- Route::post('login', 'API\PassportController@login');
- Route::post('register', 'API\PassportController@register');
  Route::group(['middleware' => 'auth:api'], function(){
  Route::post('get-details', 'API\PassportController@getDetails');
  });

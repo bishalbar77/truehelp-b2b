@@ -305,6 +305,20 @@
   letter-spacing: normal;
   color: #352641;
 }
+table.dataTable thead th {
+  border-bottom: none !important;
+}
+table.dataTable.no-footer {
+  border-bottom: none !important;
+}
+.dataTables_wrapper .dataTables_length label {
+    font-weight: bolder !important;
+    text-align: right !important;
+    white-space: nowrap !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+    font-weight: bolder !important;
+}
 </style>
 @endsection
 

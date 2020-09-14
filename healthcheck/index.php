@@ -141,7 +141,7 @@
       <?php foreach ($response->response->data->old_survey as $key => $value): ?>
          <?php
             if($value->severity == 'GREEN'){
-               $color = '#4B9302';
+               $color = '#11cb09';
             } elseif($value->severity == 'RED'){
                $color = '#FC1102';
             } elseif($value->severity == 'YELLOW'){
@@ -152,13 +152,13 @@
             if($key != 0):
          ?>
             <div class="container">
-               <div class="my-3 py-2 z-depth-1" style="background-color: <?php echo $color; ?>; border-radius: 20px;">
+               <div class="my-3 py-2 z-depth-1" style="background-color: rgb(253 253 253); border-radius: 20px;">
                   <section class="px-md-3 mx-md-3 text-lg-left dark-grey-text name-box">
                      <section class="at-a-glance-margin">
                         <div class="col-md-12 mb-md-0">
                            <h5 class="ver5">
                               <div class="d-flex align-items-stretch">
-                                 <div class="w-100 ver4 shade-bl" style="color: #fff;">
+                                 <div class="w-100 ver4 shade-bl" style="color: <?php echo $color; ?>">
                                     <?php if($value->survey_end == ''): ?>
                                        Not Done
                                     <?php else: ?>
