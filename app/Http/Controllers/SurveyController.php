@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Crypt;
 
 class SurveyController extends Controller
 {
+    protected $API = "https://api.gettruehelp.com/api/";
+
     public function getsurvey()
     {
         $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
@@ -21,7 +23,7 @@ class SurveyController extends Controller
         $response = Http::withHeaders([
                             'Accept' => 'application/json',
                             'Authorization' => "Bearer ".$api_token
-                        ])->post('https://api.gettruehelp.com/api/get-survey', [
+                        ])->post($this->API.'get-survey', [
                             'api_key' => $apiKeys,
                         ]);
         
@@ -47,7 +49,7 @@ class SurveyController extends Controller
         $response = Http::withHeaders([
                             // 'Accept' => 'application/json',
                             'Authorization' => "Bearer ".$api_token
-                        ])->get('https://api.gettruehelp.com/api/get-candidates');
+                        ])->get($this->API.'get-candidates');
         $contents = $response->getBody();
         $data = json_decode($contents);
         $employees = $data->response->data;
@@ -66,7 +68,7 @@ class SurveyController extends Controller
         $response = Http::withHeaders([
                             'Accept' => 'application/json',
                             'Authorization' => "Bearer ".$api_token
-                        ])->post('https://api.gettruehelp.com/api/get-survey-data/'.$id, [
+                        ])->post($this->API.'get-survey-data/'.$id, [
                             'api_key' => $apiKeys,
                         ]);
         
@@ -89,7 +91,7 @@ class SurveyController extends Controller
     public function store(Request $request)
     {
         // dd($request);
-        $response = Http::post('https://api.gettruehelp.com/api/create-survey', [
+        $response = Http::post($this->API.'create-survey', [
             'employee_id' => $request->employee_id
         ]);
         
@@ -98,8 +100,33 @@ class SurveyController extends Controller
     }
 
     public function dashboard()
-    {
-        return view('health.dashboard');
+    {   
+        $name = session()->get('first_name');
+        if(empty($name)){
+            return redirect()->route('login');
+        }
+        $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
+        $api_token = session()->get('api_token');
+
+        // dd($api_token);
+        
+        $response = Http::withHeaders([
+                            'Accept' => 'application/json',
+                            'Authorization' => "Bearer ".$api_token
+                        ])->post($this->API.'healthcheck-dashboard', [
+                            'api_key' => $apiKeys,
+                        ]);
+
+        $contents = $response->getBody();
+
+        $data = json_decode($contents);
+
+        $data = $data->response->data;
+        $covid_up=($data->covid_increase>=0)?'up':'down';
+        $fever_up=($data->fever_increase>=0)?'up':'down';
+        // dd($data->fever_increase);
+        // dd($data);
+        return view('health.dashboard')->with(['data'=>$data, 'covid_up'=>$covid_up, 'fever_up' => $fever_up]);
     }
 
     public function api()

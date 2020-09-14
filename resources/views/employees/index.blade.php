@@ -366,7 +366,8 @@
             </div>
             <div class="col-lg-4">
               <label class="form-label-text">Country Code</label>
-              <input type="number" class="form-control" name="country_code" value="91">
+              @include('employees.country_code')
+              <!-- <input type="number" class="form-control" name="country_code" value="91"> -->
               </div>
               <div class="col-lg-4">
               <label class="form-label-text">Mobile</label>
@@ -550,7 +551,13 @@
         <div class="row">
           <div class="col-12">
             <!-- /.card -->
-
+            @if (session('message'))
+            <div class="Rectangle-Copy-6">
+                <div class="alert alert-success" role="alert">
+                    {{ session('message') }}
+                </div>
+            </div>
+            @endif
             @if (session('status'))
             <div class="Rectangle-Copy-6">
                 <div class="alert alert-success" role="alert">
