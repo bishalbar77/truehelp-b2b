@@ -228,76 +228,11 @@ responsive*/
       <a class="pl-5"></a>
     </ul>
   </nav>
-  <!-- /.navbar -->
-  <div class="modal fade" id="bulkModal" tabindex="-1" role="dialog" aria-labelledby="bulkModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-        <div class="Add-Employees pt-3" id="exampleModalLabel">Add Visitor</div>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-        <div class="signup-form">
-        <form action="{{ route('employees.store') }}" method="post">
-        @csrf
-          <div class="form-group row">
-            <div class="col-lg-6">
-              <label class="form-label-text">First Name</label>
-              <input type="text" class="form-control" name="first_name" required="required">
-            </div>
-            <div class="col-lg-6">
-            <label class="form-label-text">Last Name:</label>
-            <input type="text" class="form-control" name="last_name" required="required">
-            </div>  	
-            </div>
-            <div class="form-group row">
-            <div class="col-lg-6">
-            <label class="form-label-text">Email:</label>
-            <input type="email" class="form-control" name="email">
-            </div>
-            <div class="col-lg-6">
-            <label class="form-label-text">Mobile</label>
-            <input type="phone" class="form-control" name="mobile" required="required">
-            </div>
-            </div>
-            <div class="form-group row">
-            <div class="col-lg-6">
-            <label class="form-label-text">DOB:</label>
-            <input type="date" class="form-control" name="dob">
-            </div>
-            <div class="col-lg-6">
-            <label class="form-label-text">Gender</label>
-            <select name="ge" class="form-control" id="parent_gender" >
-                <option value="">Select Gender</option>
-                <option value="M">M</option>
-                <option value="F">F</option>
-                <option value="Others">Other</option>
-            </select>
-            </div>
-            </div>
-            <div class="form-group row">
-            <div class="col-lg-12">
-            &nbsp;<label class="form-label-text">Address</label>
-            &nbsp;<input type="phone" class="form-control" name="mobile" required="required">
-            </div>
-            </div>
-            <div class="form-group row"><a class="p-2"></a></div>
-        <div class="form-group row float-right">
-                <button type="submit" class="btn-warning button-proceed Proceed">Proceed</button>
-            </div>
-        </form>
-    </div>
-        </div>
-      </div>
-    </div>
-  </div>
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar elevation-4 side-bar">
     @include('layouts.sidebar')
   </aside>
-  <div class="content-wrapper">
+  <div class="content-wrapper" style="margin-top: 0; padding-top: 0;">
     <div class="container my-4  col-lg-12">
       <!-- <a href=""> <h5 class="ver5 blu"><span><i class="fa fa-angle-left blu">&nbsp</i> -->
       <!-- </span>Survey Template</h5></a> -->
@@ -344,13 +279,13 @@ responsive*/
     <div class="row d-flex    col-lg-12 justify-content-center " >
     <div class=" col-lg-6 col-sm-12 col-md-12 mb-4 " >
     <!--Section: Content-->
-    <div class="container col-lg-12" style="background-color: rgb(235 237 235)">
+    <div class="container col-lg-12" style="background-color: #fff">
     <div class="row pr-lg-5"  >
     <div class="col-md-4 ">
     <center>
     <div class="svg-item ">
     <svg width="100%" height="100%" viewBox="0 0 40 40" class="donut">
-    <circle class="donut-hole" cx="20" cy="20" r="15.91549430918954" fill="#fff"></circle>
+    <circle class="donut-hole" cx="20" cy="20" r="15.91549430918954" fill="rgb(235 237 235)"></circle>
     <circle class="donut-ring" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="1.5"></circle>
    <!--  <circle class="donut-segment" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="1.5" stroke-dasharray="3 97" stroke-dashoffset="25"></circle> -->
     <g class="donut-text">
@@ -366,7 +301,7 @@ responsive*/
     </div>
     <div class="col-md-8 d-flex my-4">
     <div>
-    <section style="margin-left: 10px">
+    <section style="margin-left: 17px">
     <h5 class="ver5"><div class="d-flex align-items-stretch ">
     <div class="w-100 medium-bl " >New COVID-19 Reports</span>
     </div>
@@ -383,13 +318,13 @@ responsive*/
     </div>
     <div class=" col-lg-6 col-sm-12 col-md-12 mb-4 " >
     <!--Section: Content-->
-    <div class="container col-lg-12" style="background-color: rgb(235 237 235)">
+    <div class="container col-lg-12" style="background-color: #fff">
     <div class="row pr-lg-5"  >
     <div class="col-md-4  ">
     <center>
     <div class="svg-item ">
     <svg width="100%" height="100%" viewBox="0 0 40 40" class="donut">
-    <circle class="donut-hole" cx="20" cy="20" r="15.91549430918954" fill="#fff"></circle>
+    <circle class="donut-hole" cx="20" cy="20" r="15.91549430918954" fill="rgb(235 237 235)"></circle>
     <circle class="donut-ring" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="1.5"></circle>
     <!-- <circle class="donut-segment" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="1.5" stroke-dasharray="12 88" stroke-dashoffset="25"></circle> -->
     <g class="donut-text">
@@ -405,7 +340,7 @@ responsive*/
     </div>
     <div class="col-md-8 d-flex my-4 ">
     <div>
-    <section style="margin-left: 10px">
+    <section style="margin-left: 17px">
     <h5 class="ver5"><div class="d-flex align-items-stretch ">
     <div class="w-100 medium-bl ">Students Rejected from Entry</span>
     </div>
@@ -428,8 +363,8 @@ responsive*/
     <center>
     <div class="svg-item my-5" style="margin-right: 50px" >
     <svg width="130%" height="130%" viewBox="0 0 40 40" class="donut " >
-    <circle class="donut-hole" cx="20" cy="20" r="15.91549430918954" fill="#fff"></circle>
-    <circle class="donut-ring" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="1.5"></circle>
+    <circle class="donut-hole" cx="20" cy="20" r="15.91549430918954" fill="rgb(235 237 235)"></circle>
+    <circle class="donut-ring" cx="20" cy="20" r="15.91549430918954" fill="#fff" stroke-width="1.5"></circle>
     <!-- <circle class="donut-segment" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="1.5" stroke-dasharray="31 69" stroke-dashoffset="25"></circle> -->
     <g class="donut-text">
     <text y="30%" transform="translate(0, 2)">
