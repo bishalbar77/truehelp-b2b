@@ -36,7 +36,7 @@
       <title>TrueHelp</title>
       <style type="text/css">
          .blu {
-            color: rgb(29 0 255) !important;
+            color: #338bea !important;
          }
       </style>
    </head>
@@ -84,12 +84,10 @@
       </nav>
       <!--Navbar end-->
       <div class="container my-4">
-         <h3 class="font-weight-bold blu">Hey 
-            <?php echo $response->response->data->employees->first_name ?? '' ?> 
-            <?php echo $response->response->data->employees->middle_name ?? '' ?> 
-            <?php echo $response->response->data->employees->last_name ?? '' ?> 
+         <h3 class="font-weight-bold blu">Hello
+            <?php echo $response->response->data->employees->first_name ?? '' ?>,
          </h3>
-         <h5 class="ver5">
+         <h5 class="ver5" style="font-weight: 500;">
             <?php if($response->response->data->survey->survey_end == ''): ?>
                <span class="shade-bl">Screenings available for</span> 
             <?php else: ?>
@@ -97,6 +95,7 @@
             <?php endif; ?>
             <?php echo $response->response->data->employers->b2b_company_name ?? '' ?> ( 
             <?php echo $response->response->data->employers->b2b_brand_name ?? '' ?> )
+               
          </h5>
       </div>
 
@@ -127,7 +126,11 @@
       <?php else : ?>
          <div class="container  my-4">
          <hr>
+         <?php if($response->response->data->survey->severity == 'RED'): ?>
+            <h5 class="ver5"><span class="medium-bl">Contact to your admin before coming.</h5>
+         <?php else: ?>
          <h5 class="ver5"><span class="medium-bl">You are approved to come today..</h5>
+         <?php endif; ?>
          <hr>
          <center>
             <h5 class="medium-bl ver5" >Please present this barcode or your ID arrival</h5>
@@ -141,24 +144,28 @@
       <?php foreach ($response->response->data->old_survey as $key => $value): ?>
          <?php
             if($value->severity == 'GREEN'){
-               $color = '#4B9302';
+               $color = '#11cb09';
+               $border = 'border border-success';
             } elseif($value->severity == 'RED'){
                $color = '#FC1102';
+               $border = 'border border-danger';
             } elseif($value->severity == 'YELLOW'){
                $color = '#FFE000';
+               $border = 'border border-warning';
             } else {
                $color = '#5d5c5a85';
+               $border = 'border';
             }
             if($key != 0):
          ?>
             <div class="container">
-               <div class="my-3 py-2 z-depth-1" style="background-color: <?php echo $color; ?>; border-radius: 20px;">
+               <div class="my-3 py-2 z-depth-1 <?php echo $border; ?>" style="background-color: rgb(253 253 253); border-radius: 20px;">
                   <section class="px-md-3 mx-md-3 text-lg-left dark-grey-text name-box">
                      <section class="at-a-glance-margin">
                         <div class="col-md-12 mb-md-0">
                            <h5 class="ver5">
                               <div class="d-flex align-items-stretch">
-                                 <div class="w-100 ver4 shade-bl" style="color: #fff;">
+                                 <div class="w-100 ver4 shade-bl" style="color: <?php echo $color; ?>">
                                     <?php if($value->survey_end == ''): ?>
                                        Not Done
                                     <?php else: ?>
