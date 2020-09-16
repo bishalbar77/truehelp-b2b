@@ -17,13 +17,17 @@ use Illuminate\Support\Facades\Session;
 
 class EmployeeController extends Controller
 {   
+
+    // protected $API = "http://127.0.0.1:8001/api/";
+    protected $API = "https://api.gettruehelp.com/api/";
+
     public function index()
     {
         $api_token = session()->get('api_token');
         $response = Http::withHeaders([
                             // 'Accept' => 'application/json',
                             'Authorization' => "Bearer ".$api_token
-                        ])->get('https://api.gettruehelp.com/api/get-candidates');
+                        ])->get($this->API.'get-candidates');
         $contents = $response->getBody();
         $data = json_decode($contents);
 
@@ -43,7 +47,7 @@ class EmployeeController extends Controller
 
         $device_id = "00000000-89ABCDEF-01234567-89ABCDEH";
         $source = "B2B";
-        $response = Http::post('https://api.gettruehelp.com/api/employee-types', [
+        $response = Http::post($this->API.'employee-types', [
             'device_id' => $device_id,
             'source' => $source,
         ]);
@@ -79,7 +83,7 @@ class EmployeeController extends Controller
         $source_name = "B2B";
         $employee_types_id = $request->emp_type;
         $response = Http::withHeaders(['Authorization' => "Bearer ".$api_token])
-            ->post('https://api.gettruehelp.com/api/register-students', [
+            ->post($this->API.'register-students', [
             'co_relation' => $co_relation,
             'parent_email' => $parent_email,
             'parent_mobile' => $parent_mobile,
@@ -160,7 +164,7 @@ class EmployeeController extends Controller
         $api_token = session()->get('api_token');
         $response = Http::withHeaders([
                             'Authorization' => "Bearer ".$api_token
-                        ])->get('https://api.gettruehelp.com/api/employee-profile/'.$id);
+                        ])->get($this->API.'employee-profile/'.$id);
         $contents = $response->getBody();
         $data = json_decode($contents);
         $user = $data->response->data->employee;
@@ -187,7 +191,7 @@ class EmployeeController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => "Bearer ".$api_token
-        ])->get('https://api.gettruehelp.com/api/account-info');
+        ])->get($this->API.'account-info');
 
         $contents = $response->getBody();
         $data = json_decode($contents);
@@ -229,7 +233,7 @@ class EmployeeController extends Controller
 
         $device_id = "00000000-89ABCDEF-01234567-89ABCDEH";
         $source = "B2B";
-        $response = Http::post('https://api.gettruehelp.com/api/employee-types', [
+        $response = Http::post($this->API.'employee-types', [
             'device_id' => $device_id,
             'source' => $source,
         ]);
@@ -237,6 +241,8 @@ class EmployeeController extends Controller
         $contents = $response->getBody();
 
         $data = json_decode($contents);
+
+        // dd($data);
         $emp_type = $data->response->data;
         return view('employees.search', compact('emp_type'));
 
@@ -253,7 +259,7 @@ class EmployeeController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => "Bearer ".$api_token
-        ])->get('https://api.gettruehelp.com/api/account-info');
+        ])->get($this->API.'account-info');
 
         $contents = $response->getBody();
         $data = json_decode($contents);
@@ -271,7 +277,24 @@ class EmployeeController extends Controller
 
     public function notifications()
     {
-        return view('pages.notifications');
+        $name = session()->get('first_name');
+        if(empty($name)){
+            return redirect()->route('login');
+        }
+        $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
+        $api_token = session()->get('api_token');
+        // dd($api_token);
+        $response = Http::withHeaders([
+                            'Authorization' => "Bearer ".$api_token
+                        ])->post($this->API.'notification',[
+                            'api_key' => $apiKeys
+                        ]);
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        // dd($data);
+        $nf_message = $data->response->data->messages;
+        return view('pages.notifications')->with('nf_message', $nf_message);
+        // return view('pages.notifications');
     }
 
     public function employees()
@@ -280,7 +303,7 @@ class EmployeeController extends Controller
         $response = Http::withHeaders([
                             // 'Accept' => 'application/json',
                             'Authorization' => "Bearer ".$api_token
-                        ])->get('https://api.gettruehelp.com/api/get-candidates');
+                        ])->get($this->API.'get-candidates');
         $contents = $response->getBody();
         $data = json_decode($contents);
         $employees = $data->response;
