@@ -25,7 +25,7 @@
   }
   .signup-form hr {
       margin: 0 -30px 20px;
-  }    
+  }
 .signup-form .form-group{
   margin-bottom: 20px;
 }
@@ -277,9 +277,6 @@
 .custom-file-input {
   color: transparent;
 }
-.custom-file-input::-webkit-file-upload-button {
-  visibility: hidden;
-}
 .Oval {
   width: 40px;
   height: 40px;
@@ -295,24 +292,6 @@
   letter-spacing: normal;
   color: #121212;
 }
-table.dataTable thead th {
-  border-bottom: none !important;
-}
-table.dataTable.no-footer {
-  border-bottom: none !important;
-}
-.dataTables_wrapper .dataTables_length label {
-    font-weight: bolder !important;
-    text-align: right !important;
-    white-space: nowrap !important;
-}
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
-    font-weight: bolder;
-    
-}
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-  font-weight: bolder !important;
-}
 </style>
 @endsection
 
@@ -323,7 +302,7 @@ table.dataTable.no-footer {
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li>
         <div class="pl-4">
@@ -358,59 +337,46 @@ table.dataTable.no-footer {
               <div class="pt-4 pl-4">
                 <h3  class=" My-employees">Health Check Reports</h3>
               </div>
-              <div class="card-body">
-                <form id="clear">
-                  <div class="row">              
-                    <div class="col-lg-4 mb-lg-0 mb-6">
-                      <div class="form-group" id="filter_col1" data-column="1">
-                        <label class="search-text">Candidate Name</label>
-                        <input type="text" name="Name" class="form-control form-control-sm column_filter" id="col1_filter" placeholder="Name">
-                      </div>
-                    </div>
-                    <div class="col-lg-4 mb-lg-0 mb-6">
-                      <div class="form-group" id="filter_col2" data-column="2">
-                        <label class="search-text">Severty</label>
-                        <select type="text" class="form-control form-control-sm column_filter" id="col2_filter">
-                          <option value="">Select Type</option>
-                          <option>RED</option>
-                          <option>GREEN</option>
-                          </select>
-                      </div>
-                    </div> 
-                    <div class="col-lg-4 mb-lg-0 mb-6">
-                      <div class="form-group" id="filter_col6" data-column="6">
-                        <label class="search-text">Status</label>
-                        <select type="text" class="form-control form-control-sm column_filter" id="col6_filter">
-                          <option value="">Select Status Type</option>
-                          <option>COMPLETE</option>
-                          <option>DRAFT</option>
-                          </select>
-                      </div>
-                    </div> 
-                  </div>
-                </form>
-              </div>
+              <!-- /.card-header -->
               <div class="card-body" >
                 <table id="datatable" class="table">
                   <thead>
                     <tr>
                         <th>Survey Type</th>
                         <th>Candidate</th>
-                        <th width="50px">Severty</th>
-                        <th width="130px">Survey Start</th>
-                        <th width="130px">Survey End</th>
+                        <th>Severty</th>
+                        <th>Survey Start</th>
+                        <th>Survey End</th>
                         <th>Create At</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
                   </thead>
                   <tbody class="t-body">
+                  @if($orders!=NULL)
+                  @foreach($orders as $order)
+                    <tr>
+                        <td>{{ str_replace('_', ' ', $order->survey_type) }}</td>
+                        <td>{{ $order->first_name.' '.$order->middle_name.' '.$order->last_name }}</td>
+                        <td>{{ $order->severity ?? 'NOT DONE' }}</td>
+                        <td>{{ $order->survey_start }}</td>
+                        <td>{{ $order->survey_end }}</td>
+                        <td>{{ date('Y-m-d H:i:s', strtotime($order->created_at)) }}</td>
+                        <td>{{ $order->survey_status }}</td>
+                        <td>
+                          <a href="{{ url('surveys/details/'.md5($order->id)) }}" class="pl-1" type="submit">View Details ></a>
+                          |
+                          <a href="https://www.gettruehelp.com/new/healthcheck/?eid={{ md5($order->employee_id) }}" class="pl-1" type="submit" target="-_blank">View Survey ></a>
+                        </td>
+                    </tr>
+                  @endforeach
+                  @endif
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
             </div>
-            <br>
+            <!-- /.card -->
           </div>
           <!-- /.col -->
         </div>
@@ -420,6 +386,7 @@ table.dataTable.no-footer {
     </section>
     <!-- /.content -->
   </div>
+
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -454,39 +421,11 @@ table.dataTable.no-footer {
       </div>
    </div>
 </div>
-  
+
 @endsection
 
 @section('scripts')
-<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function() {
-          $('#datatable').DataTable( {
-              "ordering": false,
-              "info":     false,
-              "dom": 'lrtip',
-              "ajax": "{{ route('api.survey.index') }}",
-              "columns": [
-                  { "data": "survey_type" },
-                  {
-                    "data": null,
-                    "render": function(data, type, full, meta){
-                        return full["first_name"] + " " + full["last_name"];
-                    }
-                  },
-                  { "data": "severity" },
-                  { "data": "survey_start" },
-                  { "data": "survey_end" },
-                  { "data": "created_at" },
-                  { "data": "survey_status" },
-                  {
-                      "mData": null,
-                      "bSortable": false,
-                      "mRender": function (o) { return '<a type="submit" href={{ url('surveys/details/'.md5('+o.id+')) }}>' + 'View Details <i class="fa fa-angle-right" aria-hidden="true"></i>' + '</a>' + '<a href=https://www.gettruehelp.com/new/healthcheck/?eid={{ md5('+o.employer_id+') }} type="submit" target="_blank">' + 'View Survey <i class="fa fa-angle-right" aria-hidden="true"></i>' + '</a>'; }
-                  }
-              ]
-          } );
-      } );
-    </script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 @endsection
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
