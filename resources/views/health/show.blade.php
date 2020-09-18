@@ -345,6 +345,7 @@
               <div class="card-body" >
                 <div class="table-responsive">
                   <table class="table table-hover mb-0">
+                  @if(isset($surveys))
                     <tbody>
                       <tr>
                         <th>Employer</th>
@@ -387,6 +388,7 @@
                         @endforeach
                       @endif
                     </tbody>
+                  @endif
                   </table>
                   </div>
               </div>
@@ -400,6 +402,7 @@
       </div>
       <!-- /.container-fluid -->
     </section>
+    <a class="p-2"></a>
     <!-- /.content -->
   </div>
 @endsection

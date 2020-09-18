@@ -27,12 +27,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $name = session()->get('first_name');
-        
-        if(empty($name)){
-            return redirect()->route('login');
-        }
-
         $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
         $api_token = session()->get('api_token');
 

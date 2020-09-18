@@ -19,7 +19,6 @@ class SurveyController extends Controller
     {
         $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
         $api_token = session()->get('api_token');
-        // dd($api_token);
         $response = Http::withHeaders([
                             'Accept' => 'application/json',
                             'Authorization' => "Bearer ".$api_token
@@ -61,8 +60,7 @@ class SurveyController extends Controller
     }
 
     public function survey_details($id)
-    {
-        // dd($id);
+    {   
         $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
         $api_token = session()->get('api_token');
         $response = Http::withHeaders([
@@ -76,11 +74,9 @@ class SurveyController extends Controller
 
         $data = json_decode($contents);
 
-        // dd($data);
+        $surveys = $data->response->data->survey ?? NULL;
 
-        $surveys = $data->response->data->survey ?? '';
-
-        $answers = $data->response->data->survey_answers ?? '';
+        $answers = $data->response->data->survey_answers ?? NULL;
         return view('health.show')->with([
             'surveys' => $surveys,
             'answers' => $answers,
@@ -90,26 +86,17 @@ class SurveyController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request);
         $response = Http::post($this->API.'create-survey', [
             'employee_id' => $request->employee_id
         ]);
         
-        // dd($response);
         return redirect('surveys/reports')->with('success', 'Survey Created Successfully!');
     }
 
     public function dashboard()
     {   
-        $name = session()->get('first_name');
-        if(empty($name)){
-            return redirect()->route('login');
-        }
         $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
         $api_token = session()->get('api_token');
-
-        // dd($api_token);
-        
         $response = Http::withHeaders([
                             'Accept' => 'application/json',
                             'Authorization' => "Bearer ".$api_token
@@ -120,13 +107,14 @@ class SurveyController extends Controller
         $contents = $response->getBody();
 
         $data = json_decode($contents);
+        if(isset($data->response))
+        {
+            $data = $data->response->data;
+            $covid_up=($data->covid_increase>=0)?'up':'down';
+            $fever_up=($data->fever_increase>=0)?'up':'down';
+            return view('health.dashboard')->with(['data'=>$data, 'covid_up'=>$covid_up, 'fever_up' => $fever_up]);
+        }
 
-        $data = $data->response->data;
-        $covid_up=($data->covid_increase>=0)?'up':'down';
-        $fever_up=($data->fever_increase>=0)?'up':'down';
-        // dd($data->fever_increase);
-        // dd($data);
-        return view('health.dashboard')->with(['data'=>$data, 'covid_up'=>$covid_up, 'fever_up' => $fever_up]);
     }
 
     public function api()

@@ -458,6 +458,7 @@ table.dataTable.no-footer {
 @endsection
 
 @section('scripts')
+
 <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script>
@@ -483,10 +484,14 @@ table.dataTable.no-footer {
                   {
                       "mData": null,
                       "bSortable": false,
-                      "mRender": function (o) { return '<a type="submit" href={{ url('surveys/details/'.md5('+o.id+')) }}>' + 'View Details <i class="fa fa-angle-right" aria-hidden="true"></i>' + '</a>' + '<a href=https://www.gettruehelp.com/new/healthcheck/?eid={{ md5('+o.employer_id+') }} type="submit" target="_blank">' + 'View Survey <i class="fa fa-angle-right" aria-hidden="true"></i>' + '</a>'; }
+                      "mRender": function (o) 
+                      {
+                        return '<a type="submit" href=/surveys/details/{{md5('+o.id+')}}>' + 'View Details <i class="fa fa-angle-right" aria-hidden="true"></i>' + '</a>' + '<a href=https://www.gettruehelp.com/new/healthcheck/?eid={{md5('o.employer_id')}} type="submit" target="_blank">' + 'View Survey <i class="fa fa-angle-right" aria-hidden="true"></i></a>'; 
+                      }
                   }
               ]
           } );
       } );
     </script>
+    
 @endsection

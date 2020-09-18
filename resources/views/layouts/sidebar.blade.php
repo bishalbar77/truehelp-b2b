@@ -118,7 +118,7 @@
               <p class="nav-menu">Dark Mode</p>
             </a>
           </li> -->
-          <form id="logout-form" action="https://enterprise.gettruehelp.com/v2/public/logout" style="display: none;">
+          <form id="logout-form" action="/logout" style="display: none;">
             @csrf
           </form>
           <li class="nav-item">

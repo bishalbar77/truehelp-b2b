@@ -81,8 +81,7 @@
   color: #167aff;
 }
 .order-img {
-  width: 346px;
-  height: 242px;
+  width: 90%;
 }
 .Request-sent {
   width:100%;
@@ -114,7 +113,7 @@
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
       </li>
       <li>
         <div class="pl-4">
@@ -156,9 +155,9 @@
                 <p>Registered Employess</p>
               </div>
               <div class="icon">
-                <i class="fas fa-arrow-circle-up"></i>
+                <i class="fa fa-arrow-circle-up"></i>
               </div>
-              <a href="#" class="small-box-footer">Get Started <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer">Get Started <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -171,9 +170,9 @@
                 <p>Pending Verification</p>
               </div>
               <div class="icon">
-                <i class="fas fa-arrow-circle-up"></i>
+                <i class="fa fa-arrow-circle-up"></i>
               </div>
-              <a href="#" class="small-box-footer">Get Started <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer">Get Started <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -186,9 +185,9 @@
                 <p>Verified Users</p>
               </div>
               <div class="icon">
-                <i class="fas fa-arrow-circle-down"></i>
+                <i class="fa fa-arrow-circle-down"></i>
               </div>
-              <a href="#" class="small-box-footer">Get Started <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer">Get Started <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -201,9 +200,9 @@
                 <p>Red Cases</p>
               </div>
               <div class="icon">
-                <i class="fas fa-arrow-circle-down"></i>
+                <i class="fa fa-arrow-circle-down"></i>
               </div>
-              <a href="#" class="small-box-footer">Get Started <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer">Get Started <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -211,12 +210,12 @@
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
+    @if($employees!=NULL)
     <section class="content pt-5">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
             <!-- /.card -->
-          @if($employees!=NULL)
             <div class="Rectangle-Copy-6 pl-4 t-head">
               <div class="pt-4 pl-4 pb-2 pr-5">
                 <h3  class=" My-employees">Recent Reports</h3>
@@ -259,7 +258,6 @@
               </div>
               <!-- /.card-body -->
             </div>
-            @endif
             <!-- /.card -->
           </div>
           <!-- /.col -->
@@ -268,6 +266,8 @@
       </div>
       <!-- /.container-fluid -->
     </section>
+    @endif
+    @if($employees==NULL)
     <section class="content pt-5">
       <div class="container-fluid">
         <div class="row">
@@ -276,7 +276,7 @@
 
             <div class="Rectangle-Copy-6 pl-4 t-head">
               <div class="pt-4 pl-4 pb-2 pr-5">
-                <h3  class=" My-employees">Your Orders</h3>
+                <h3  class=" My-employees">Recent Reports</h3>
                 <hr>
               </div>
               <!-- /.card-header -->
@@ -284,22 +284,22 @@
                 <div class="container">
                   <div class="form-group row">
                     <div class="col-lg-5">
-                      <img src="images/request.jpg" alt="User Avatar"  class="order-img">
+                      <img src="images/change.jpg" alt="User Avatar"  class="order-img">
                     </div>
-                    <div class="col-lg-7">
-                      <div class="form-group row pt-2 pl-5 pr-5">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-6">
+                      <div class="form-group row pt-2 pr-1">
                         <p class="Request-sent">
-                        Request has been sent successfully
+                        You have no reports generated
                         </p>
                       </div>
-                      <div class="form-group row pr-5 pl-5">
+                      <div class="form-group row pr-1">
                         <p class="Lorem-ipsum-dolor-si">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore 
-                        Ut enim ad minim veniam, quis nostrud exercitation 
+                        sed do eiusmod tempor.
                         </p>
                       </div>
-                      <div class="form-group row pr-5 pl-5">
+                      <div class="form-group row pr-1">
                         <a href="/employees"><button type="button" class="btn btn-primary">+ Add Candidate</button></a>
                         <a class="pl-5"></a>
                       </div>
@@ -317,10 +317,55 @@
       </div>
       <!-- /.container-fluid -->
     </section>
+    @endif
     <section class="content pt-5">
       <div class="container-fluid">
-        
+      <div class="row">
+          <div class="col-12">
+            <!-- /.card -->
+
+            <div class="Rectangle-Copy-6 pl-4 t-head">
+              <div class="pt-4 pl-4 pb-2 pr-5">
+                <h3  class=" My-employees">Your Orders</h3>
+                <hr>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body" >
+                <div class="container">
+                  <div class="form-group row">
+                    <div class="col-lg-5">
+                      <img src="images/request.jpg" alt="User Avatar"  class="order-img">
+                    </div>
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-6">
+                      <div class="form-group row pt-2 pr-1">
+                        <p class="Request-sent">
+                        Request has been sent successfully
+                        </p>
+                      </div>
+                      <div class="form-group row pr-1">
+                        <p class="Lorem-ipsum-dolor-si">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor.
+                        </p>
+                      </div>
+                      <div class="form-group row pr-1">
+                        <a href="/employees"><button type="button" class="btn btn-primary">+ Add Candidate</button></a>
+                        <a class="pl-5"></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
       </div>
+      </div>
+      <a class="p-2"></a>
     </section>
   </div>
 
