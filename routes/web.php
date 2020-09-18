@@ -46,3 +46,5 @@ Route::post('survey/add', 'SurveyController@store')->name('survey.add');
 Route::get('/employees/details/{id}', 'EmployeeController@employees_details')->name('employees-details');
 Route::post('/change-password', 'HomeController@change_password');
 Route::get('/notifications','EmployeeController@notifications')->name('notifications');
+Route::get('/seenNotification/{id}','EmployeeController@seenNotification')->name('seenNotification');
+

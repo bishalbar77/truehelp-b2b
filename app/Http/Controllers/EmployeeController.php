@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Session;
 class EmployeeController extends Controller
 {   
 
-    // protected $API = "http://127.0.0.1:8001/api/";
-    protected $API = "https://api.gettruehelp.com/api/";
+    protected $API = "http://127.0.0.1:8001/api/";
+    // protected $API = "https://api.gettruehelp.com/api/";
 
     public function index()
     {
@@ -308,5 +308,24 @@ class EmployeeController extends Controller
         $data = json_decode($contents);
         $employees = $data->response;
         return json_encode($employees);
+    }
+
+    public function seenNotification($id){
+        $name = session()->get('first_name');
+        if(empty($name)){
+            return redirect()->route('login');
+        }
+        $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
+        $api_token = session()->get('api_token');
+        $response = Http::withHeaders([
+                            'Authorization' => "Bearer ".$api_token
+                        ])->post($this->API.'seenNotification',[
+                            'api_key' => $apiKeys,
+                            'id' => $id
+                        ]);
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+
+        return redirect('surveys/reports') ;
     }
 }

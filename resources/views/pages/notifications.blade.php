@@ -186,14 +186,14 @@ font-weight: 600;
     <div class="card-new my-3 rad shadow ">
       <div class="card-body">
 
-
+        <a href="{{ url('seenNotification/'.$message->id) }}">
         <h5 class="ver5"><div class="d-flex align-items-stretch ">
-          <div class="w-100 full-bl wgt-600"><i class="fa fa-user-circle"> &nbsp</i>{{$message->nf_message}}</div>
+          <div href="{{ url('seenNotification/'.$message->id) }}" class="w-100 full-bl wgt-600"><i class="fa fa-user-circle"> &nbsp</i>{{$message->nf_message}}</div>
+          {{$message->date}}
+          <!-- surveys/reports --><!-- 
+          <a href="url('seenNotification/'.$message->id) " class="full-bl">  <div class="flex-grow-1 "><i class="fa fa-angle-right"></i></div></a> -->
 
-
-          <a href="{{ url('surveys/reports') }}" class="full-bl">  <div class="flex-grow-1 "><i class="fa fa-angle-right"></i></div></a>
-
-        </div></h5>
+        </div></h5></a>
 
       </div>
     </div>
