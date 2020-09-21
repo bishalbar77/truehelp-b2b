@@ -151,9 +151,9 @@
       </li>
     </ul>
 
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ml-auto" id="navbar">
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown navbar-collapse collapse" style="float: none;display: inline-block;">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell fa-icon-lg text-primary"></i>
           <span class="badge badge-primary navbar-badge">{{$count}}</span>
@@ -161,7 +161,9 @@
         <div class="dropdown-menu card-box dropdown-menu-lg dropdown-menu-right">
         <div class="notification-top text-center p-2"><h3>{{$count}} New</h3><p class="opacity-75">App Notifications</p></div>
           <div class="dropdown-divider"></div>
+          <?php $n=1 ?>
           @foreach ($nf_message as $message)
+          @if($n++>4)@continue;@endif
           <a href="{{ url('seenNotification/'.$message->id) }}" class="dropdown-item">
             <i class="fa fa-users mr-2"></i> {{$message->nf_message}}
           </a>
