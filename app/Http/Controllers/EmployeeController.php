@@ -17,13 +17,17 @@ use Illuminate\Support\Facades\Session;
 
 class EmployeeController extends Controller
 {   
+
+    // protected $API = "http://127.0.0.1:8001/api/";
+    protected $API = "https://api.gettruehelp.com/api/";
+
     public function index()
     {
         $api_token = session()->get('api_token');
         $response = Http::withHeaders([
                             // 'Accept' => 'application/json',
                             'Authorization' => "Bearer ".$api_token
-                        ])->get('https://api.gettruehelp.com/api/get-candidates');
+                        ])->get($this->API.'get-candidates');
         $contents = $response->getBody();
         $data = json_decode($contents);
 
@@ -43,7 +47,7 @@ class EmployeeController extends Controller
 
         $device_id = "00000000-89ABCDEF-01234567-89ABCDEH";
         $source = "B2B";
-        $response = Http::post('https://api.gettruehelp.com/api/employee-types', [
+        $response = Http::post($this->API.'employee-types', [
             'device_id' => $device_id,
             'source' => $source,
         ]);
@@ -79,7 +83,7 @@ class EmployeeController extends Controller
         $source_name = "B2B";
         $employee_types_id = $request->emp_type;
         $response = Http::withHeaders(['Authorization' => "Bearer ".$api_token])
-            ->post('https://api.gettruehelp.com/api/register-students', [
+            ->post($this->API.'register-students', [
             'co_relation' => $co_relation,
             'parent_email' => $parent_email,
             'parent_mobile' => $parent_mobile,
@@ -155,7 +159,7 @@ class EmployeeController extends Controller
         $api_token = session()->get('api_token');
         $response = Http::withHeaders([
                             'Authorization' => "Bearer ".$api_token
-                        ])->get('https://api.gettruehelp.com/api/employee-profile/'.$id);
+                        ])->get($this->API.'employee-profile/'.$id);
         $contents = $response->getBody();
         $data = json_decode($contents);
         $user = $data->response->data->employee;
@@ -177,7 +181,7 @@ class EmployeeController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => "Bearer ".$api_token
-        ])->get('https://api.gettruehelp.com/api/account-info');
+        ])->get($this->API.'account-info');
 
         $contents = $response->getBody();
         $data = json_decode($contents);
@@ -198,7 +202,7 @@ class EmployeeController extends Controller
         $api_token = session()->get('api_token');
         $device_id = "00000000-89ABCDEF-01234567-89ABCDEH";
         $source = "B2B";
-        $response = Http::post('https://api.gettruehelp.com/api/employee-types', [
+        $response = Http::post($this->API.'employee-types', [
             'device_id' => $device_id,
             'source' => $source,
         ]);
@@ -206,6 +210,8 @@ class EmployeeController extends Controller
         $contents = $response->getBody();
 
         $data = json_decode($contents);
+
+        // dd($data);
         $emp_type = $data->response->data;
         return view('employees.search', compact('emp_type'));
 
@@ -217,7 +223,7 @@ class EmployeeController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => "Bearer ".$api_token
-        ])->get('https://api.gettruehelp.com/api/account-info');
+        ])->get($this->API.'account-info');
 
         $contents = $response->getBody();
         $data = json_decode($contents);
@@ -235,7 +241,17 @@ class EmployeeController extends Controller
 
     public function notifications()
     {
-        return view('pages.notifications');
+        $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
+        $api_token = session()->get('api_token');
+        $response = Http::withHeaders([
+                            'Authorization' => "Bearer ".$api_token
+                        ])->post($this->API.'notification',[
+                            'api_key' => $apiKeys
+                        ]);
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        $nf_message = $data->response->data->messages;
+        return view('pages.notifications')->with('nf_message', $nf_message);
     }
 
     public function employees()
@@ -243,10 +259,26 @@ class EmployeeController extends Controller
         $api_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYTZiNWRkYzExODI0ZmYxY2ZhYTY4MDFkZTE0MDA4NGZiMDRiZGM5NjAwMzY5YWUyMDdiNmNjYzk4MmU4ODdiZGJmYTJhZjQwZGRlZTA2YmEiLCJpYXQiOjE1OTk3MjI3MDYsIm5iZiI6MTU5OTcyMjcwNiwiZXhwIjoxNjMxMjU4NzA2LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.tzRW8mXQ_XrfzcPEig8jpChf99ywjeHcKpz_P5k7fK4TfgrvRYbx8eLzGgnnsjODZHDTxeqUZSGkSNlzK7CgAyjdRYtBpt6-XtH9vbwIK2Ks50vSVrk2xwSnlAUmf7fd_YhOdqfkzCuxPArqOBm8ls4Npw6bbqbkSE0AOHXYCUEkur4saTPKfeZphAqQ63cdwh-Y0luYnT7PpFgJjjpLfoUM51hOGL1oR4UzPkIT0CtXbtSnonuZbCkN1ZjeUWKB3f14vJxmoqB7B7UGuVI4NdO4WyuGv6E8o_tRse6aKUR6q4O0dXCwIQHCVlP7qzs4_zsezlcE5gi5k9yBsoOEUKdPOZbyUU5xVxmz0dh4V2AbkcdTt9_xZDYDfny5uTdQP154lLwDFlvF7XGTJVIkSFBbZMGgh1SYKKGuQGOsecZ2LNolDKGvxRF3PmXlbXDEjiY91NFmud1X8iIhXYy58n4C-31Lh9l_mkYSZIpL5VG1cdIIzaMeIk8RV6p-IL2IZz87SBEHVNbH5K-lC1Uc_kOUoXHoOimi-Rqa46AncJLS06YQ1rr1lJwqwgcfQhttTkzKmUrX5M22ibuMilQyPSe2erTOtyWEG9YqdmXWa6MHSffA4gOGLU_be8Ed2AS_kHDXDWnm0oW9-ZgO1Kw21Us3oGJueVV2dm20D9Ihmus";
         $response = Http::withHeaders([
                             'Authorization' => "Bearer ".$api_token
-                        ])->get('https://api.gettruehelp.com/api/get-candidates');
+                        ])->get($this->API.'get-candidates');
         $contents = $response->getBody();
         $data = json_decode($contents);
         $employees = $data->response;
         return json_encode($employees);
+    }
+
+    public function seenNotification($id)
+    {
+        $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
+        $api_token = session()->get('api_token');
+        $response = Http::withHeaders([
+                            'Authorization' => "Bearer ".$api_token
+                        ])->post($this->API.'seenNotification',[
+                            'api_key' => $apiKeys,
+                            'id' => $id
+                        ]);
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+
+        return redirect('surveys/reports') ;
     }
 }

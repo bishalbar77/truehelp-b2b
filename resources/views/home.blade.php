@@ -105,7 +105,30 @@
   letter-spacing: normal;
   color: #b6b8c3;
 }
+.fa-icon-lg {
+  font-size: 1.6em;
+  line-height: 0.05em;
+  vertical-align: -35%;
+}
+.card-box {
+  width: 700px;
+  border-radius: .5rem;
+  box-shadow: 0 15px 30px 0 rgba(0,0,0,.11),0 5px 15px 0 rgba(0,0,0,.08)!important;
+}
 </style>
+<?php
+   $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
+        $api_token = session()->get('api_token');
+        // dd($api_token);
+        $response = Http::withHeaders([
+                            'Authorization' => "Bearer ".$api_token
+                        ])->post('https://api.gettruehelp.com/api/notification-count',[
+                            'api_key' => $apiKeys
+                        ]);
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        $count = $data->response->data->messages;
+?>
 @endsection
 
 {{-- Content --}}
@@ -125,6 +148,27 @@
       </li>
       <li class="pl-2 pt-2">
         <i class="fa fa-caret-down"></i>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+      <!-- Notifications Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="far fa-bell fa-icon-lg text-primary"></i>
+          <span class="badge badge-primary navbar-badge">{{$count}}</span>
+        </a>
+        <div class="dropdown-menu card-box dropdown-menu-lg dropdown-menu-right">
+        <div class="notification-top text-center p-2"><h3>{{$count}} New</h3><p class="opacity-75">App Notifications</p></div>
+          <div class="dropdown-divider"></div>
+          @foreach ($nf_message as $message)
+          <a href="{{ url('seenNotification/'.$message->id) }}" class="dropdown-item">
+            <i class="fa fa-users mr-2"></i> {{$message->nf_message}}
+          </a>
+          <div class="dropdown-divider"></div>
+          @endforeach
+          <div class="text-center pt-1"><a href="/notifications"><span>View All Notifications</span></a></div>
+        </div>
       </li>
     </ul>
   </nav>

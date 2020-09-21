@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,8 @@
     <link rel="stylesheet" href="https://enterprise.gettruehelp.com/v2/public/css/app.css" />
     <script defer src="https://enterprise.gettruehelp.com/v2/public/employeesjs/app.js"></script>
     <link rel="stylesheet" href="https://enterprise.gettruehelp.com/v2/public/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="https://enterprise.gettruehelp.com/v2/public/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="https://enterprise.gettruehelp.com/v2/public/plugins/icheck-bootstrap/icheck-bootstrap.min.css">

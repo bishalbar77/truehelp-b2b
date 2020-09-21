@@ -6,20 +6,10 @@ use Illuminate\Http\Request;
 use App\Employee;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
-
+use \Cache;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-
     /**
      * Show the application dashboard.
      *
@@ -77,7 +67,14 @@ class HomeController extends Controller
         } else {
             $employees = NULL;
         }
-        
+        $response = Http::withHeaders([
+                            'Authorization' => "Bearer ".$api_token
+                        ])->post('https://api.gettruehelp.com/api/notification',[
+                            'api_key' => $apiKeys
+                        ]);
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        $nf_message = $data->response->data->messages;
 
         return view('home')->with([
             'registered_employees' => $registered_employees,
@@ -85,6 +82,7 @@ class HomeController extends Controller
             'pending_verifications' => $pending_verifications,
             'red_cases' => $red_cases,
             'employees' => $employees,
+            'nf_message' => $nf_message,
         ]);
     }
 

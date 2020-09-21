@@ -1,3 +1,16 @@
+<?php
+   $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
+        $api_token = session()->get('api_token');
+        // dd($api_token);
+        $response = Http::withHeaders([
+                            'Authorization' => "Bearer ".$api_token
+                        ])->post('https://api.gettruehelp.com/api/notification-count',[
+                            'api_key' => $apiKeys
+                        ]);
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        $count = $data->response->data->messages;
+?>
     <!-- Brand Logo -->
     <a href="{{ url('home') }}" class="brand-link">
       <img src="{{ asset('images/Logo-07.png') }}" alt="TrueHelp Logo" class="brand-image">
@@ -68,7 +81,7 @@
             <a href="{{ url('notifications') }}" class="nav-link {{ Request::is('notifications')  ? 'active' : '' }}">
               <i class="nav-icon fa fa-bell"></i>
               <p class="nav-menu">
-                Notifications
+                Notifications <p class="right"> {{$count}} </p>
               </p>
             </a>
           </li>
