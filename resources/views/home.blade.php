@@ -151,9 +151,21 @@
       </li>
     </ul>
 
+    <!-- SEARCH FORM -->
+    <form class="form-inline ml-3" action="{{ route('search') }}" method="POST">
+    @csrf
+      <div class="input-group input-group-sm">
+        <input class="form-control form-control-navbar" type="search" name="query" placeholder="Search" aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-navbar" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
     <ul class="navbar-nav ml-auto" id="navbar">
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown navbar-collapse collapse" style="float: none;display: inline-block;">
+      <li class="nav-item dropdown navbar-collapse collapse">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell fa-icon-lg text-primary"></i>
           <span class="badge badge-primary navbar-badge">{{$count}}</span>
@@ -165,7 +177,7 @@
           @foreach ($nf_message as $message)
           @if($n++>4)@continue;@endif
           <a href="{{ url('seenNotification/'.$message->id) }}" class="dropdown-item">
-            <i class="fa fa-users mr-2"></i> {{$message->nf_message}}
+            <i class="fa fa-user mr-2"></i> {{$message->nf_message}}
           </a>
           <div class="dropdown-divider"></div>
           @endforeach
@@ -419,6 +431,8 @@
 @endsection
 
 @section('scripts')
+
+</script>
 <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
 @if (app()->isLocal())
   <script src="{{ asset('js/app.js') }}"></script>

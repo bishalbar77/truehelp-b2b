@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Employee;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
+use Spatie\Searchable\Search;
 use \Cache;
 
 class HomeController extends Controller
@@ -86,7 +87,8 @@ class HomeController extends Controller
         ]);
     }
 
-    public function change_password(Request $request){
+    public function change_password(Request $request)
+    {
         $api_token = session()->get('api_token');
         $response = Http::withHeaders([
                             'Authorization' => "Bearer ".$api_token
@@ -100,5 +102,14 @@ class HomeController extends Controller
         $message = $data->response->message;
         Session::flash('message', $message);
         return redirect('/profile') ;
+    }
+
+    public function search(Request $request)
+    {
+        $searchResults = (new Search())
+            ->registerModel(Employee::class, 'name')
+            ->perform($request->input('query'));
+
+        return view('pages.search', compact('searchResults'));
     }
 }

@@ -633,7 +633,7 @@ table.dataTable.no-footer {
                     <div class="col-lg-4 mb-lg-0 mb-6">
                       <div class="form-group" id="filter_col0" data-column="0">
                         <label class="search-text">Name</label>
-                        <input type="text" name="Name" class="form-control form-control-sm column_filter" id="col0_filter" placeholder="Name">
+                        <input type="text" name="search_name" class="form-control form-control-sm column_filter" id="col0_filter" placeholder="Name" value="{{ request('search_name', '') }}">
                       </div>
                     </div>
                     <div class="col-lg-4 mb-lg-0 mb-6">
@@ -702,7 +702,6 @@ function showDiv(select){
           $('#datatable').DataTable( {
               "ordering": false,
               "info":     false,
-              "dom": 'lrtip',
               "ajax": "{{ route('api.employees.index') }}",
               "columns": [
                   {
