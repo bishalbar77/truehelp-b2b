@@ -106,8 +106,16 @@ class HomeController extends Controller
 
     public function search(Request $request)
     {
+        $api_token = session()->get('api_token');
+        $response = Http::withHeaders([
+                            // 'Accept' => 'application/json',
+                            'Authorization' => "Bearer ".$api_token
+                        ])->get('https://api.gettruehelp.com/api/get-candidates');
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+
         $searchResults = (new Search())
-            ->registerModel(Employee::class, 'name')
+            ->registerModel($data, 'name')
             ->perform($request->input('query'));
 
         return view('pages.search', compact('searchResults'));

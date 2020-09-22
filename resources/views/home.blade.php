@@ -115,6 +115,9 @@
   border-radius: .5rem;
   box-shadow: 0 15px 30px 0 rgba(0,0,0,.11),0 5px 15px 0 rgba(0,0,0,.08)!important;
 }
+.box {
+  color:#eceff3;
+}
 </style>
 <?php
    $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
@@ -176,10 +179,19 @@
           <?php $n=1 ?>
           @foreach ($nf_message as $message)
           @if($n++>4)@continue;@endif
-          <a href="{{ url('seenNotification/'.$message->id) }}" class="dropdown-item">
-            <i class="fa fa-user mr-2"></i> {{$message->nf_message}}
+          @if($message->is_seen=='Y')
+          <div class="box">
+            <a href="{{ url('seenNotification/'.$message->id.'/'.$message->nf_action_url) }}" class="dropdown-item">
+              <i class="fa fa-users mr-2"></i> {{$message->nf_message}}
+            </a>
+          </div>
+          <div class="dropdown-divider"></div>
+          @else
+          <a href="{{ url('seenNotification/'.$message->id.'/'.$message->nf_action_url) }}" class="dropdown-item">
+            <i class="fa fa-users mr-2"></i> {{$message->nf_message}}
           </a>
           <div class="dropdown-divider"></div>
+          @endif
           @endforeach
           <div class="text-center pt-1"><a href="/notifications"><span>View All Notifications</span></a></div>
         </div>
