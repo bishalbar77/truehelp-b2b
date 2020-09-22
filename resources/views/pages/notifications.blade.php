@@ -183,12 +183,16 @@ font-weight: 600;
 
   <div class="container col-md-8 my-4">
     @foreach ($nf_message as $message)
-    <div class="card-new my-3 rad shadow ">
+    @if($message->is_seen=='Y')
+    <div class="card-new my-3 rad shadow">
+      @else
+      <div class="card-new my-3 rad shadow" style="background-color: lightskyblue ;">
+      @endif
       <div class="card-body">
 
-        <a href="{{ url('seenNotification/'.$message->id) }}">
+        <a href="{{ url('seenNotification/'.$message->id.'/'.$message->nf_action_url) }}">
         <h5 class="ver5"><div class="d-flex align-items-stretch ">
-          <div href="{{ url('seenNotification/'.$message->id) }}" class="w-100 full-bl wgt-600"><i class="fa fa-user-circle"> &nbsp</i>{{$message->nf_message}}</div>
+          <div class="w-100 full-bl wgt-600"><i class="fa fa-user-circle"> &nbsp</i>{{$message->nf_message}}</div>
           {{$message->date}}
           <!-- surveys/reports --><!-- 
           <a href="url('seenNotification/'.$message->id) " class="full-bl">  <div class="flex-grow-1 "><i class="fa fa-angle-right"></i></div></a> -->

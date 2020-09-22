@@ -164,7 +164,7 @@
           <?php $n=1 ?>
           @foreach ($nf_message as $message)
           @if($n++>4)@continue;@endif
-          <a href="{{ url('seenNotification/'.$message->id) }}" class="dropdown-item">
+          <a href="{{ url('seenNotification/'.$message->id.'/'.$message->nf_action_url) }}" class="dropdown-item">
             <i class="fa fa-users mr-2"></i> {{$message->nf_message}}
           </a>
           <div class="dropdown-divider"></div>

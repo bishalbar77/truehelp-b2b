@@ -47,4 +47,4 @@ Route::group(['middleware' => 'usersession'], function () {
     Route::post('/change-password', 'HomeController@change_password');
     Route::get('/notifications','EmployeeController@notifications')->name('notifications');
 });
-Route::get('/seenNotification/{id}','EmployeeController@seenNotification')->name('seenNotification');
+Route::get('/seenNotification/{id}/{url}','EmployeeController@seenNotification')->name('seenNotification');
