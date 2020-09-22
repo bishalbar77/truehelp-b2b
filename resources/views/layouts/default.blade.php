@@ -90,7 +90,6 @@
         $.widget.bridge('uibutton', $.ui.button)
         </script>
         <!-- Bootstrap 4 -->
-        <script src="https://enterprise.gettruehelp.com/v2/public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- ChartJS -->
         <script src="https://enterprise.gettruehelp.com/v2/public/plugins/chart.js/Chart.min.js"></script>
         <!-- Sparkline -->
@@ -117,6 +116,5 @@
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </body>
 </html>
