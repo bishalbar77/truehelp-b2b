@@ -46,6 +46,7 @@ Route::group(['middleware' => 'usersession'], function () {
     Route::get('/employees/details/{id}', 'EmployeeController@employees_details')->name('employees-details');
     Route::post('/change-password', 'HomeController@change_password');
     Route::get('/notifications','EmployeeController@notifications')->name('notifications');
-    Route::post('/search', 'HomeController@search')->name('search');
+    Route::post('/searchAnalytics', 'HomeController@searchAnalytics')->name('searchAnalytics');
+    Route::post('/searchcheck', 'HomeController@searchcheck')->name('search.check');
 });
 Route::get('/seenNotification/{id}/{url}','EmployeeController@seenNotification')->name('seenNotification');

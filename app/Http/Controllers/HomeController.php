@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Spatie\Searchable\Search;
 use \Cache;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -76,7 +78,17 @@ class HomeController extends Controller
         $contents = $response->getBody();
         $data = json_decode($contents);
         $nf_message = $data->response->data->messages;
+        
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => "Bearer ".$api_token
+        ])->post('https://api.gettruehelp.com/api/get-survey', [
+            'api_key' => $apiKeys,
+        ]);
 
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        $orders = $data->response->data;
         return view('home')->with([
             'registered_employees' => $registered_employees,
             'verified_employees' => $verified_employees,
@@ -84,6 +96,7 @@ class HomeController extends Controller
             'red_cases' => $red_cases,
             'employees' => $employees,
             'nf_message' => $nf_message,
+            'orders' => $orders,
         ]);
     }
 
@@ -104,20 +117,40 @@ class HomeController extends Controller
         return redirect('/profile') ;
     }
 
-    public function search(Request $request)
+    public function searchAnalytics(Request $request)
     {
+        $id = $request->employee_id;
+        if(strlen($id) >=5 )
+        {
+            return redirect()->route('surveys-details', $id);
+        }
+        return redirect()->route('employees-details', $id);
+    }
+
+    public function searchcheck(Request $request)
+    {
+        //
+    }
+
+    public function users($id)
+    {
+        $id = md5($id);
         $api_token = session()->get('api_token');
         $response = Http::withHeaders([
-                            // 'Accept' => 'application/json',
                             'Authorization' => "Bearer ".$api_token
-                        ])->get('https://api.gettruehelp.com/api/get-candidates');
+                        ])->get('https://api.gettruehelp.com/api/employee-profile/'.$id);
         $contents = $response->getBody();
         $data = json_decode($contents);
+        $user = $data->response->data->employee;
+        $user_docs = $data->response->data->user_docs;
+        $verification_types = $data->response->data->verification_types;
+        $employee_lookup_histories = $data->response->data->employee_lookup_histories;
 
-        $searchResults = (new Search())
-            ->registerModel($data, 'name')
-            ->perform($request->input('query'));
-
-        return view('pages.search', compact('searchResults'));
+        return view('employees.verify')->with([
+            'user' =>$user,
+            'user_docs' => $user_docs,
+            'verification_types' => $verification_types,
+            'employee_lookup_histories' => $employee_lookup_histories
+        ]);
     }
 }

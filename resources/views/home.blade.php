@@ -6,6 +6,9 @@
 <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
 <script defer src="{{ asset('js/app.js') }}"></script>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/css/boot.min.css">
+<link rel="stylesheet" href="tokenize2.css">
 <style>
 .Oval {
   width: 40px;
@@ -119,7 +122,6 @@
 <?php
    $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
         $api_token = session()->get('api_token');
-        // dd($api_token);
         $response = Http::withHeaders([
                             'Authorization' => "Bearer ".$api_token
                         ])->post('https://api.gettruehelp.com/api/notification-count',[
@@ -150,18 +152,22 @@
         <i class="fa fa-caret-down"></i>
       </li>
     </ul>
-
+    <?php $s=1 ?>
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3" action="{{ route('search') }}" method="POST">
+    <form class="form-inline ml-3" action="{{ route('searchAnalytics') }}" method="POST">
     @csrf
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" name="query" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
+      <div class="input-group input-group-lg">
+      <select id="select" name="employee_id" class="tokenize-demo" multiple>
+      @foreach($employees as $employee)
+        <option value="{{ $employee->employee_id }}">{{ $employee->first_name }} {{ $employee->last_name }} : In Users</option>
+      @endforeach
+      @foreach($orders as $employee)
+      @if($s++>9)@continue;@endif
+        <option value="{{ md5($employee->id) }}">{{ $employee->first_name }} {{ $employee->last_name }} : In Reports</option>
+      @endforeach
+      </select>
       </div>
+      <a type="submit"></a>
     </form>
     <ul class="navbar-nav ml-auto" id="navbar">
       <!-- Notifications Dropdown Menu -->
@@ -176,17 +182,10 @@
           <?php $n=1 ?>
           @foreach ($nf_message as $message)
           @if($n++>4)@continue;@endif
-          @if($message->is_seen=='Y')
             <a href="{{ url('seenNotification/'.$message->id.'/'.$message->nf_action_url) }}" class="dropdown-item" style="color:rgb(192,192,192);">
               <i class="fa fa-user mr-2"></i> {{$message->nf_message}}
             </a>
           <div class="dropdown-divider"></div>
-          @else
-          <a href="{{ url('seenNotification/'.$message->id.'/'.$message->nf_action_url) }}" class="dropdown-item">
-            <i class="fa fa-user mr-2"></i> {{$message->nf_message}}
-          </a>
-          <div class="dropdown-divider"></div>
-          @endif
           @endforeach
           <div class="text-center pt-1"><a href="/notifications"><span>Read All Notifications</span></a></div>
         </div>
@@ -288,7 +287,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body" >
-                    <table class="table" id="datatable">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -438,7 +437,17 @@
 @endsection
 
 @section('scripts')
-
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="tokenize2.js"></script>
+<script>
+$('.tokenize-demo').tokenize2({sortable: true});
+</script> 
+    <script>
+$("#select").change(function() {
+  var option = $(this).find('option:selected');
+  window.location.href = option.data("url");
+});
 </script>
 <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
 @if (app()->isLocal())

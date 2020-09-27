@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/api/v1/employees', 'EmployeeController@employees')->name('api.employees.index');
+Route::get('/api/v1/search', 'EmployeeController@searchjson')->name('api.employees.search');
 Route::get('/api/v1/survey', 'SurveyController@api')->name('api.survey.index');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
