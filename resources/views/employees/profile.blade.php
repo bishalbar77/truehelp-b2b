@@ -22,6 +22,99 @@
   letter-spacing: normal;
   color: #121212;
 }
+.My-employees {
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--black);
+}
+.t-head {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--black);
+  overflow-x:auto;
+}
+.t-body {
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #85899a;
+  overflow-x:auto;
+}
+.Rectangle-Copy-6 {
+  border-radius: 15px;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.14);
+  background-color: #ffffff;
+}
+.nav-menu {
+  height: 25px;
+  font-family: Helvetica;
+  font-size: 14.3px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  color: #ffffff;
+}
+.table-side-tag {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #167aff;
+}
+.order-img {
+  width: 90%;
+}
+.Request-sent {
+  width:100%;
+  font-family: Montserrat;
+  font-size: 19px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--black);
+}
+.Lorem-ipsum-dolor-si {
+  height: 66px;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #b6b8c3;
+}
+.fa-icon-lg {
+  font-size: 1.6em;
+  line-height: 0.05em;
+  vertical-align: -35%;
+}
+.card-box {
+  width: 700px;
+  border-radius: .7rem !important;
+  box-shadow: 0 15px 30px 0 rgba(0,0,0,.11),0 5px 15px 0 rgba(0,0,0,.08)!important;
+}
 .card-layout {
   width: 100%;
   background-color: #1e2933;
@@ -475,28 +568,8 @@
 
 {{-- Content --}}
 @section('content')
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li>
-        <div class="pl-4">
-          <img src="{{ ('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="Oval img-circle">
-        </div>
-      </li>
-      <li class="pl-2 pt-2">
-        <p class="nav-name">{{ session()->get('first_name') }}</p>
-      </li>
-      <li class="pl-2 pt-2">
-        <i class="fa fa-caret-down"></i>
-      </li>
-    </ul>
-    <ul class="navbar-nav ml-auto pl-5">
-      <!-- <button type="button" class="btn btn-primary">Order Verification</button> -->
-      <a class="pl-5"></a>
-    </ul>
-  </nav>
+  <!-- /.navbar -->
+  @include('layouts.header')
  <!-- /.navbar -->
   <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="requestModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -509,7 +582,7 @@
         </div>
         <div class="modal-body">
         <div class="signup-form">
-        <form action="{{ url('/change-password') }}" method="post">
+        <form action="{{ url('/change-password') }}">
         @csrf
           <div class="form-group row">
             <div class="col-lg-12">
@@ -530,6 +603,7 @@
             </div>  
           </div>
             <div class="form-group row"><a class="p-2"></a></div>
+            {{ method_field('PUT') }}
         <div class="form-group row float-right">
                 <button type="submit" class="btn-warning button-proceed Proceed">Proceed</button>
             </div>

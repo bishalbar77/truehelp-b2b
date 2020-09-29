@@ -20,6 +20,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{ url('orders') }}" class="nav-link {{ Request::is('orders')  ? 'active' : '' }}">
+              <i class="nav-icon fa fa-user-circle-o"></i>
+              <p class="nav-menu">
+                Order Verification
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{ url('employees') }}" class="nav-link {{ Request::is('employees')  ? 'active' : '' }}">
               <i class="nav-icon fa fa-user"></i>
               <p class="nav-menu">
@@ -64,14 +72,6 @@
               </li>
             </ul>
           </li>
-          <!-- <li class="nav-item">
-            <a href="{{ url('notifications') }}" class="nav-link {{ Request::is('notifications')  ? 'active' : '' }}">
-              <i class="nav-icon fa fa-bell"></i>
-              <p class="nav-menu">
-                Notifications <p class="right"> {{$count ?? ''}} </p>
-              </p>
-            </a>
-          </li> -->
           <!-- <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
               <i class="nav-icon fa fa-bell-o"></i>
@@ -118,7 +118,7 @@
               <p class="nav-menu">Dark Mode</p>
             </a>
           </li> -->
-          <form id="logout-form" action="/logout" style="display: none;">
+          <form id="logout-form" action="{{ route('logout') }}" style="display: none;">
             @csrf
           </form>
           <li class="nav-item">

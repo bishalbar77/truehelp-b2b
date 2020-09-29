@@ -8,7 +8,6 @@
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/css/boot.min.css">
-<link rel="stylesheet" href="tokenize2.css">
 <style>
 .Oval {
   width: 40px;
@@ -118,81 +117,33 @@
   border-radius: .7rem !important;
   box-shadow: 0 15px 30px 0 rgba(0,0,0,.11),0 5px 15px 0 rgba(0,0,0,.08)!important;
 }
+.inner-addon { 
+    position: relative; 
+}
+
+/* style icon */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+/* align icon */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
 </style>
-<?php
-   $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
-        $api_token = session()->get('api_token');
-        $response = Http::withHeaders([
-                            'Authorization' => "Bearer ".$api_token
-                        ])->post('https://api.gettruehelp.com/api/notification-count',[
-                            'api_key' => $apiKeys
-                        ]);
-        $contents = $response->getBody();
-        $data = json_decode($contents);
-        $count = $data->response->data->messages;
-?>
+
 @endsection
 
 {{-- Content --}}
 @section('content')
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
-      </li>
-      <li>
-        <div class="pl-4">
-          <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="Oval img-circle">
-        </div>
-      </li>
-      <li class="pl-2 pt-2">
-        <p class="nav-name">{{ session()->get('first_name') }}</p>
-      </li>
-      <li class="pl-2 pt-2">
-        <i class="fa fa-caret-down"></i>
-      </li>
-    </ul>
-    <?php $s=1 ?>
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3" action="{{ route('searchAnalytics') }}" method="POST">
-    @csrf
-      <div class="input-group input-group-lg">
-      <select id="select" name="employee_id" class="tokenize-demo" multiple>
-      @foreach($employees as $employee)
-        <option value="{{ $employee->employee_id }}">{{ $employee->first_name }} {{ $employee->last_name }} : In Users</option>
-      @endforeach
-      @foreach($orders as $employee)
-      @if($s++>9)@continue;@endif
-        <option value="{{ md5($employee->id) }}">{{ $employee->first_name }} {{ $employee->last_name }} : In Reports</option>
-      @endforeach
-      </select>
-      </div>
-      <a type="submit"></a>
-    </form>
-    <ul class="navbar-nav ml-auto" id="navbar">
-      <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown navbar-collapse collapse">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell fa-icon-lg text-primary"></i>
-          <span class="badge badge-primary navbar-badge">{{$count}}</span>
-        </a>
-        <div class="dropdown-menu card-box dropdown-menu-lg dropdown-menu-right">
-        <div class="notification-top text-center p-2"><h3>{{$count}} New</h3><p class="opacity-75">App Notifications</p></div>
-          <div class="dropdown-divider"></div>
-          <?php $n=1 ?>
-          @foreach ($nf_message as $message)
-          @if($n++>4)@continue;@endif
-            <a href="{{ url('seenNotification/'.$message->id.'/'.$message->nf_action_url) }}" class="dropdown-item" style="color:rgb(192,192,192);">
-              <i class="fa fa-user mr-2"></i> {{$message->nf_message}}
-            </a>
-          <div class="dropdown-divider"></div>
-          @endforeach
-          <div class="text-center pt-1"><a href="/notifications"><span>Read All Notifications</span></a></div>
-        </div>
-      </li>
-    </ul>
-  </nav>
+
   <!-- /.navbar -->
+  @include('layouts.header')
 
     <aside class="main-sidebar elevation-4 side-bar">
     @include('layouts.sidebar')
@@ -437,18 +388,8 @@
 @endsection
 
 @section('scripts')
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script src="tokenize2.js"></script>
-<script>
-$('.tokenize-demo').tokenize2({sortable: true});
-</script> 
-    <script>
-$("#select").change(function() {
-  var option = $(this).find('option:selected');
-  window.location.href = option.data("url");
-});
-</script>
+
+
 <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
 @if (app()->isLocal())
   <script src="{{ asset('js/app.js') }}"></script>

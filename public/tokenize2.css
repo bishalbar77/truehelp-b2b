@@ -48,7 +48,7 @@
 }
 
 .tokenize > .tokens-container > .token-search {
-    min-width: 198px;
+    min-width: 15rem;
 }
 
 .tokenize.sortable > .tokens-container > .token {

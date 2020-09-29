@@ -13,7 +13,7 @@ use App\Exports\EmployeesExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Facades\Redirect;
 
 class EmployeeController extends Controller
 {   
@@ -278,7 +278,7 @@ class EmployeeController extends Controller
         return json_encode($employees);
     }
 
-    public function seenNotification($id,$url)
+    public function seenNotification($id)
     {
         $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
         $api_token = session()->get('api_token');
@@ -290,6 +290,6 @@ class EmployeeController extends Controller
                         ]);
         $contents = $response->getBody();
         $data = json_decode($contents);
-        return redirect()->away('https://enterprise.gettruehelp.com/v2/public/surveys/details/'.$url);
+        return Redirect::to('google.com');
     }
 }

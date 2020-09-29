@@ -1,75 +1,327 @@
+{{-- Extends layout --}}
+@extends('layouts.default')
+{{-- Styles Section --}}
+@section('styles')
+<title>TrueHelp | Dashboard</title>
+<link rel="stylesheet" href="{{ mix('css/app.css') }}" />
+<script defer src="{{ mix('js/app.js') }}"></script>
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>jQuery Tokenize2 Plugin Basic Demo</title>
-<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-<link rel="stylesheet" href="tokenize2.css">
-<style>
-body { background-color:#fafafa;}
-.container { margin:150px auto; max-width:400px;}
-h1 { margin-bottom:20px;}
+<style type="text/css">
+.Oval {
+  width: 40px;
+  height: 40px;
+}
+.nav-name {
+  margin-top: 3px;
+  font-family: Helvetica;
+  font-size: 15.8px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  color: #121212;
+}
+
+body{
+  font-family: Montserrat;
+}
+
+/*
+responsive*/
+
+@media screen and (min-width: 601px) {
+
+
+.ver5 {
+font-size: 17px;
+/*font-size: 120%;*/  
+}
+.ver4{
+font-size: 18px;
+}
+.ver3{
+font-size: 150%;
+}
+}
+
+@media screen and (max-width: 600px) {
+.ver5 {
+font-size: 14px;
+}
+
+
+.ver3{
+font-size: 20px;
+}
+
+
+
+
+
+
+
+.ver2{
+font-size: 15px;
+}
+.ver4{
+font-size: 15px;
+}
+
+}
+
+
+
+.ver3,.ver4,.ver5{
+font-weight: 700;
+}
+.pro-wgt{
+font-weight: 600;
+}
+
+.wi{
+color: rgb(253 253 253);
+}
+
+
+
+
+.bl{
+color: rgb( 19 20 21);
+
+}
+
+.shade-bl{
+color:rgb(153 153 153);
+
+}
+
+.gr{
+color: rgb( 12 175 82);
+
+}
+
+.re{
+color: rgb(235 75 75);
+}
+.full-bl{
+color:rgb(0 0 0);
+}
+
+.medium-bl{
+color: rgb(76 77 76);
+}
+
+.blu{
+color: rgb(0 122 255);
+}
+
+.ver2{
+font-family: 'Montserrat'; color: rgb(255 255 255);
+}
+.wgt-600{
+font-weight: 600;
+}
+
+
+.card-new {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 15px;
+}
+.card-new-grey {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: rgb(232 232 232);
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 15px; 
+}
+body{margin-top:20px;
+}
+
+.btn {
+    margin-bottom: 5px;
+}
+
+.grid {
+    position: relative;
+    width: 100%;
+    color: #666666;
+    border-radius: 10px;
+    background: white;
+    margin-bottom: 25px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.grid .grid-body {
+    padding: 15px 20px 15px 20px;
+    font-size: 1em;
+    line-height: 1.9em;
+}
+
+.search table tr td.rate {
+    color: #f39c12;
+    line-height: 50px;
+}
+
+.search table tr:hover {
+    cursor: pointer;
+}
+
+.search table tr td.image {
+	width: 50px;
+}
+
+.search table tr td img {
+	width: 50px;
+	height: 50px;
+}
+
+.search table tr td.rate {
+	color: #f39c12;
+	line-height: 50px;
+}
+
+.search table tr td.price {
+	font-size: 1.5em;
+	line-height: 50px;
+}
+
+.search #price1,
+.search #price2 {
+	display: inline;
+	font-weight: 600;
+}
+/*responsive*/
+.Verify {
+  margin-top: 20px !important;
+  font-family: Montserrat  !important;
+  font-size: 15px  !important;
+  font-weight: 700  !important;
+  font-stretch: normal  !important;
+  font-style: normal  !important;
+  line-height: normal  !important;
+  letter-spacing: normal  !important;
+  color: #167aff  !important;
+}
+
 </style>
-</head>
 
-<body>
-<div id="jquery-script-menu">
-<div class="jquery-script-center">
-<ul>
-<li><a href="https://www.jqueryscript.net/form/Dynamic-Autocomplete-Tag-Input-Plugin-For-jQuery-Tokenize2.html">Download This Plugin</a></li>
-<li><a href="https://www.jqueryscript.net/">Back To jQueryScript.Net</a></li>
-</ul>
-<div class="jquery-script-ads"><script type="text/javascript"><!--
-google_ad_client = "ca-pub-2783044520727903";
-/* jQuery_demo */
-google_ad_slot = "2780937993";
-google_ad_width = 728;
-google_ad_height = 90;
-//-->
-</script>
-<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
-</script></div>
-<div class="jquery-script-clear"></div>
-</div>
-</div>
+@endsection
+
+{{-- Content --}}
+@section('content')
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
+      </li>
+      <li>
+        <div class="pl-4">
+          <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="Oval img-circle">
+        </div>
+      </li>
+      <li class="pl-2 pt-2">
+        <p class="nav-name">{{ session()->get('first_name') }}</p>
+      </li>
+      <li class="pl-2 pt-2">
+        <i class="fa fa-caret-down"></i>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto pl-5">
+    </ul>
+  </nav>
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar elevation-4 side-bar">
+    @include('layouts.sidebar')
+  </aside>
+  <div class="content-wrapper">
+  <div class="pr-5 my-4 d-flex align-items-stretch">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
-<h1>Tokenize2</h1>
-<select class="tokenize-demo" multiple>
-  <option value="1">Acura</option>
-  <option value="2">Audi</option>
-  <option value="3">Alfa Romeo</option>
-  <option value="4">Aston Martin</option>
-  <option value="5">Chevrolet</option>
-  <option value="6">Ferrari</option>
-  <option value="7">Ford</option>
-  <option value="8">Honda</option>
-  <option value="9">Lexus</option>
-  <option value="10">Mercedes-Benz</option>
-</select>
+<div class="row">
+  <!-- BEGIN SEARCH RESULT -->
+  <div class="col-md-12">
+    <div class="grid search">
+      <div class="grid-body">
+        <div class="row">
+          <!-- BEGIN RESULT -->
+          <div class="col-md-12">
+            <h5><i class="fas fa-search p-2 "></i>Search Result</h5>
+            <hr>
+            <p>Showing all results matching to your search</p>
+            
+            <div class="padding"></div>
+            
+            <!-- BEGIN TABLE RESULT -->
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <tbody>
+                @foreach($employees as $employee)
+                @foreach($id as $data)
+                @if($employee->employee_id == $data)
+                @if(strlen($data) < 5)
+                <tr>
+                  <td class="product"><strong>{{ $employee->first_name }} {{ $employee->last_name }}</strong><br>Search results from User list.</td>
+                  <td class="Verify text-right pt-4">
+                  <a href="{{ url('employees/details/'.$employee->employee_id) }}" type="submit">
+                    View Details <i class="fa fa-angle-right" aria-hidden="true"></i>
+                  </a> </td>
+                </tr>
+                @endif
+                @endif
+                @endforeach
+                @endforeach
+
+                @foreach($orders as $order)
+                @foreach($id as $data)
+                @if(md5($order->id) == $data)
+                @if(strlen($data) >= 5)
+                <tr>
+                  <td class="product"><strong>{{ $order->first_name }} {{ $order->last_name }}</strong><br>Search results from Report list.</td>
+                  <td class="Verify text-right pt-4"><a href="{{ url('/surveys/details/'.$data) }}"> View Details <i class="fa fa-angle-right" aria-hidden="true"></i></a> </td>
+                </tr>
+                @endif
+                @endif
+                @endforeach
+                @endforeach
+              </tbody></table>
+            </div>
+            <!-- END TABLE RESULT -->
+          </div>
+          <!-- END RESULT -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END SEARCH RESULT -->
 </div>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script src="tokenize2.js"></script>
-<script>
-$('.tokenize-demo').tokenize2({sortable: true});
-</script>
-<script type="text/javascript">
+</div>
+</div>
+</div>
+@endsection
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-36251023-1']);
-  _gaq.push(['_setDomainName', 'jqueryscript.net']);
-  _gaq.push(['_trackPageview']);
+@section('scripts')
+<link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
+@if (app()->isLocal())
+  <script src="{{ asset('js/app.js') }}"></script>
+@else
+  <script src="{{ mix('js/manifest.js') }}"></script>
+  <script src="{{ mix('js/vendor.js') }}"></script>
+  <script src="{{ mix('js/app.js') }}"></script>
+@endif
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-</body>
-</html>
+<link rel="stylesheet" href="{{ mix('css/app.css') }}" />
+<script defer src="{{ mix('js/app.js') }}"></script>
+@endsection

@@ -70,33 +70,12 @@ class HomeController extends Controller
         } else {
             $employees = NULL;
         }
-        $response = Http::withHeaders([
-                            'Authorization' => "Bearer ".$api_token
-                        ])->post('https://api.gettruehelp.com/api/notification',[
-                            'api_key' => $apiKeys
-                        ]);
-        $contents = $response->getBody();
-        $data = json_decode($contents);
-        $nf_message = $data->response->data->messages;
-        
-        $response = Http::withHeaders([
-            'Accept' => 'application/json',
-            'Authorization' => "Bearer ".$api_token
-        ])->post('https://api.gettruehelp.com/api/get-survey', [
-            'api_key' => $apiKeys,
-        ]);
-
-        $contents = $response->getBody();
-        $data = json_decode($contents);
-        $orders = $data->response->data;
         return view('home')->with([
             'registered_employees' => $registered_employees,
             'verified_employees' => $verified_employees,
             'pending_verifications' => $pending_verifications,
             'red_cases' => $red_cases,
             'employees' => $employees,
-            'nf_message' => $nf_message,
-            'orders' => $orders,
         ]);
     }
 
@@ -115,21 +94,6 @@ class HomeController extends Controller
         $message = $data->response->message;
         Session::flash('message', $message);
         return redirect('/profile') ;
-    }
-
-    public function searchAnalytics(Request $request)
-    {
-        $id = $request->employee_id;
-        if(strlen($id) >=5 )
-        {
-            return redirect()->route('surveys-details', $id);
-        }
-        return redirect()->route('employees-details', $id);
-    }
-
-    public function searchcheck(Request $request)
-    {
-        //
     }
 
     public function users($id)
