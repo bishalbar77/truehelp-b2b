@@ -47,6 +47,8 @@ Route::group(['middleware' => 'usersession'], function () {
     Route::any('/change-password', 'HomeController@change_password');
     Route::get('/notifications','EmployeeController@notifications')->name('notifications');
     Route::any('searchAnalytics', 'SearchController@store')->name('searchAnalytics.store');
+    Route::get('searchEmployee/{id}', 'SearchController@searchEmployee')->name('searchEmployee');
+    Route::get('searchReport/{id}', 'SearchController@searchReport')->name('searchReport');
     Route::resource('orders', 'OrderController');
 });
 Route::get('/seenNotification/{id}','EmployeeController@seenNotification')->name('seenNotification');

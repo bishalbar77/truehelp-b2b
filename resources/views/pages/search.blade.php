@@ -222,26 +222,8 @@ body{margin-top:20px;
 
 {{-- Content --}}
 @section('content')
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
-      </li>
-      <li>
-        <div class="pl-4">
-          <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="Oval img-circle">
-        </div>
-      </li>
-      <li class="pl-2 pt-2">
-        <p class="nav-name">{{ session()->get('first_name') }}</p>
-      </li>
-      <li class="pl-2 pt-2">
-        <i class="fa fa-caret-down"></i>
-      </li>
-    </ul>
-    <ul class="navbar-nav ml-auto pl-5">
-    </ul>
-  </nav>
+  <!-- /.navbar -->
+  @include('layouts.header')
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar elevation-4 side-bar">
     @include('layouts.sidebar')
@@ -275,7 +257,7 @@ body{margin-top:20px;
                 <tr>
                   <td class="product"><strong>{{ $employee->first_name }} {{ $employee->last_name }}</strong><br>Search results from User list.</td>
                   <td class="Verify text-right pt-4">
-                  <a href="{{ url('employees/details/'.$employee->employee_id) }}" type="submit">
+                  <a href="{{ route('searchEmployee', $employee->employee_id) }}" type="submit">
                     View Details <i class="fa fa-angle-right" aria-hidden="true"></i>
                   </a> </td>
                 </tr>
@@ -290,7 +272,7 @@ body{margin-top:20px;
                 @if(strlen($data) >= 5)
                 <tr>
                   <td class="product"><strong>{{ $order->first_name }} {{ $order->last_name }}</strong><br>Search results from Report list.</td>
-                  <td class="Verify text-right pt-4"><a href="{{ url('/surveys/details/'.$data) }}"> View Details <i class="fa fa-angle-right" aria-hidden="true"></i></a> </td>
+                  <td class="Verify text-right pt-4"><a href="{{ route('searchReport', $data) }}"> View Details <i class="fa fa-angle-right" aria-hidden="true"></i></a> </td>
                 </tr>
                 @endif
                 @endif

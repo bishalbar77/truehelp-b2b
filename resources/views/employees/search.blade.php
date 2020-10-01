@@ -657,7 +657,7 @@ table.dataTable.no-footer {
                 </form>
               </div>
               <div class="card-body" >
-              <table id="datatable" class="table">
+              <table id="empdatatable" class="table">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -699,9 +699,10 @@ function showDiv(select){
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
-          $('#datatable').DataTable( {
+          $('#empdatatable').DataTable( {
               "ordering": false,
               "info":     false,
+              "dom": 'lrtip',
               "ajax": "{{ route('api.employees.index') }}",
               "columns": [
                   {

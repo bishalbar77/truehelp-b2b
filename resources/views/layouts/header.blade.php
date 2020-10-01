@@ -73,15 +73,16 @@
     
       <div class="input-group input-group-lg">
       <i class="glyphicon glyphicon-user"></i>
-      <select type="text" id="select" name="employee_id[]" class="tokenize-demo" multiple>
+      <select type="text" id="select" name="employee_id[]" class="tokenize-demo" multiple required>
       @foreach($employees as $employee)
         <option value="{{ $employee->employee_id }}">{{ $employee->first_name }} {{ $employee->last_name }} : In Users</option>
       @endforeach
       @foreach($orders as $employee)
-      @if($s++>9)@continue;@endif
+      @if($s++>10)@continue;@endif
         <option value="{{ md5($employee->id) }}">{{ $employee->first_name }} {{ $employee->last_name }} : In Reports</option>
       @endforeach
       </select>
+      <div class="search"></div>
       </div>
       {{ method_field('PUT') }}
       <a type="submit"></a>
@@ -116,6 +117,10 @@
 <script>
 $('.tokenize-demo').tokenize2({
   placeholder: "Search...",
+  searchHighlight:true,
+  searchFromStart:false,
+  displayNoResultsMessage:true,
+  noResultsMessageText:'No results mached "%s"',
     allowClear: true
 });
 </script> 

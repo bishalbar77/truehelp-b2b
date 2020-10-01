@@ -9,6 +9,9 @@
 <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/css/boot.min.css">
 <style>
+body {
+  background-color: #ffffff !important;
+}
 .Oval {
   width: 40px;
   height: 40px;
@@ -117,24 +120,300 @@
   border-radius: .7rem !important;
   box-shadow: 0 15px 30px 0 rgba(0,0,0,.11),0 5px 15px 0 rgba(0,0,0,.08)!important;
 }
+.tab {
+  float: left;
+  border: 2px solid #ccc;
+  background-color: #ffffff;
+  width: 33%;
+  height: 700px;
+  padding: .8rem;
+}
+/* Style the buttons inside the tab */
+.tab button {
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: Montserrat;
+  font-weight: 600;
+  font-size: 15px;
+}
+.content-box
+{
+  width:100%;
+}
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-size: 15px;
+  background-color: #e8f2fe;
+}
+
+/* Style the tab content */
+.tabcontent {
+  float: left;
+  padding: 10px;
+  border-left: none;
+  height: 100%;
+  background-color: #ffffff ;
+}
+.text-name {
+  font-family: Montserrat;
+  font-size: 18.1px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.45;
+  letter-spacing: normal;
+  color: #000000;
+}
+.text-para {
+  font-family: Montserrat;
+  font-size: 13.1px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.45;
+  letter-spacing: normal;
+  color: #000000;
+}
+.para-button {
+  width: 175px;
+  height: 44px;
+  border-radius: 5.6px;
+  background-color: #167aff;
+}
+.para-text 
+{
+  font-family: Montserrat;
+  font-size: 14.8px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ff8585;
+}
+.input-search {
+  width: 100%;
+  height: 40px;
+  border-radius: 20.1px;
+  border: solid 0.9px #e1e1e1;
+  background-color: #fafafa;
+  outline: none;
+}
 .inner-addon { 
     position: relative; 
 }
 
 /* style icon */
-.inner-addon .glyphicon {
+.inner-addon .fa {
   position: absolute;
   padding: 10px;
   pointer-events: none;
 }
 
 /* align icon */
-.left-addon .glyphicon  { left:  0px;}
-.right-addon .glyphicon { right: 0px;}
+.left-addon .fa  { 
+  left:  0px;
+  opacity: 0.5;
+}
+.right-addon .fa { right: 0px;}
 
 /* add padding  */
 .left-addon input  { padding-left:  30px; }
 .right-addon input { padding-right: 30px; }
+.form-label-text {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+}
+.button-proceed {
+  border-radius: 8px;
+  background-color: #fecf3a;
+}
+.Proceed {
+  font-family: Montserrat;
+  font-size: 13px;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-align: center;
+  color: var(--black);
+}
+.check-box-unselected {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #999999;
+}
+.check-box-selected {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #352641;
+}
+.Employee-currently-w {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: bold;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+}
+.upload-pink {
+  width: 250px;
+  height: 130px;
+  border-radius: 10px;
+  background-color: #ffe9f6;
+}
+.upload-blue {
+  height: 130px;
+  border-radius: 10px;
+  background-color: #e9f6fe;
+}
+.Download-the-Excel-s {
+  width: 526px;
+  height: 25px;
+  font-family: Montserrat;
+  font-size: 19px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--black);
+}
+.Lorem-ipsum-dolor-si {
+  height: 66px;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #b6b8c3;
+}
+.Download-Template {
+  height: 20px;
+  font-family: Montserrat;
+  font-size: 14.8px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #167aff;
+}
+.VERIFIED {
+  width: 78px;
+  height: 19px;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #07901a;
+}
+.Verify- {
+  width: 68px;
+  height: 22px;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #167aff;
+}
+.UNVERIFIED {
+  width: 104px;
+  height: 19px;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #9295a5;
+}
+.Path-107 {
+  width: 6px;
+  height: 13px;
+  border: solid 1px #171819;
+}
+.Upload-Employee-Pic {
+  height: 13px;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  margin-left: 24px;
+  margin-top: 10px;
+  /* position: absolute; */
+  position: relative;
+  color: Black;
+  z-index: 5;
+}
+.custom-file-input {
+  color: transparent;
+}
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.Oval {
+  width: 40px;
+  height: 40px;
+}
+.nav-name {
+  margin-top: 3px;
+  font-family: Helvetica;
+  font-size: 15.8px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  color: #121212;
+}
 </style>
 
 @endsection
@@ -147,9 +426,108 @@
   <aside class="main-sidebar elevation-4 side-bar">
     @include('layouts.sidebar')
   </aside>
+  <!--body-->
+  <div class="content-wrapper">
+    <section class="content pt-3">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="content-box">
+              <div class="tab">
+                <div class="inner-addon left-addon">
+                  <i class="fa fa-search"></i>
+                  <input class="input-search" type="text" placeholder="Search...">
+                  <a class="p-2">&nbsp;</a>
+                </div>
+                <button class="tablinks  active" style="border: 1px solid #ededed;" onclick="openCity(event, 'Aadhar')" id="defaultOpen">Aadhar verification <a class="float-right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></a></button>
+                <button class="tablinks" style="border: 1px solid #ededed;" onclick="openCity(event, 'Criminal')">Criminal verification<a class="float-right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></a></button>
+                <button class="tablinks" style="border: 1px solid #ededed;" onclick="openCity(event, 'Voter')">Voter ID Verification<a class="float-right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></a></button>
+                <button class="tablinks" style="border: 1px solid #ededed;" onclick="openCity(event, 'Driving')">Driving licence verification<a class="float-right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></a></button>
+                <button class="tablinks" style="border: 1px solid #ededed;" onclick="openCity(event, 'Employment')">Employment verification<a class="float-right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></a></button>
+              </div>
+              <div class="tab">
+                <div class="inner-addon left-addon">
+                  <i class="fa fa-search"></i>
+                  <input class="input-search" type="text" placeholder="Search...">
+                  <a class="p-2">&nbsp;</a>
+                </div>
+                <?php $a=1; $b=1; $c=1; $d=1; $e=1; ?>
+                @foreach($employees as $employee)
+                  <div  id="Aadhar" ><button class="tablinks"  style="border: 1px solid #ededed;"  onclick="openCity(event, '{{ $employee->first_name }}')" ><input type="checkbox" style="  border-radius: 3.6px; border: solid 0.9px #9e9e9e; background-color: #fafafb;"><a class="pl-4"></a>{{ $employee->first_name }} {{ $employee->last_name }}<a class="float-right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></a></button></div>
+                
+                @endforeach
+                </div>
+                <div class="tab">
+                @foreach($employees as $employee)
+                  <div id="{{ $employee->first_name }}" class="tabcontent">
+                    <h3 class="text-name">{{ $employee->first_name }} {{ $employee->last_name }}</h3>
+                    <p class="para-text">Aadhar card image unavailable.</p> 
+                    <div>
+                      <div class="p-4">
+                        <div class="upload-pink pl-4">
+                          <span class="upload-pink"><input type="file" class="custom-file-input" /></span>
+                          <i class="fa fa-picture-o fa-2x pl-5" style="margin-left:20px;" aria-hidden="true"></i>
+                          <div><p class="Upload-Employee-Pic" style="color:black;">Upload Document Pic</p></div>
+                        </div>
+                        <div class="pt-5">
+                          <p class="text-para">Any missing field</p>
+                          <input type="text" class="form-control">
+                          <div  class="pt-3">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                @endforeach
+                  <div id="8" class="tabcontent">
+                    <h3>Criminal verification</h3>
+                    <p>Tokyo is the capital of Japan.</p>
+                  </div>
+                  <div id="7" class="tabcontent">
+                    <h3>Voter ID Verification</h3>
+                    <p >London is the capital city of England.</p>
+                  </div>
+
+                  <div id="5" class="tabcontent">
+                    <h3>Driving licesnce verification</h3>
+                    <p>Paris is the capital of France.</p> 
+                  </div>
+
+                  <div id="6" class="tabcontent">
+                    <h3 class="para-text">Employment verification</h3>
+                    <p >London is the capital city of England.</p>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
 @endsection
 
 @section('scripts')
+<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", " active");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
 <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
 @if (app()->isLocal())
   <script src="{{ asset('js/app.js') }}"></script>

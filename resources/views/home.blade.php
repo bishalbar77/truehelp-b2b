@@ -135,6 +135,7 @@
 /* add padding  */
 .left-addon input  { padding-left:  30px; }
 .right-addon input { padding-right: 30px; }
+
 </style>
 
 @endsection
