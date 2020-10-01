@@ -49,7 +49,7 @@
 }
 
 .tokenize > .tokens-container > .token-search {
-    min-width: 15em;
+    min-width: 25em;
 }
 
 .tokenize.sortable > .tokens-container > .token {

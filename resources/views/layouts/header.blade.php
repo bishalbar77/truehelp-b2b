@@ -1,4 +1,10 @@
-
+<style>
+.hidden_content{display:none;}
+.Hidden {
+  display: none;
+  transition: .3s ease-in-out;
+}
+</style>
 <link rel="stylesheet" href="tokenize2.css">
 <!--body-->
 <?php
@@ -66,12 +72,20 @@
         <i class="fa fa-caret-down"></i>
       </li>
     </ul>
+    <a class="pl-4"></a>
+    <ul class="navbar-nav">
+      <li>
+        <a id="searchicondiv" class="button_style nav-link">
+          <i class="fas fa-search fa-lg searchicon"></i>
+        </a>
+      </li>
+    </ul>
     <?php $s=1 ?>
     <!-- SEARCH FORM -->
     <form class="form-inline ml-3" action="{{ route('searchAnalytics.store') }}" enctype="multipart/form-data">
     @csrf
     
-      <div class="input-group input-group-lg">
+      <div class="col-25 input-group input-group-lg" id="hiddensearch" style="display: none; margin-top:5px;>
       <i class="glyphicon glyphicon-user"></i>
       <select type="text" id="select" name="employee_id[]" class="tokenize-demo" multiple required>
       @foreach($employees as $employee)
@@ -120,7 +134,22 @@ $('.tokenize-demo').tokenize2({
   searchHighlight:true,
   searchFromStart:false,
   displayNoResultsMessage:true,
-  noResultsMessageText:'No results mached "%s"',
+  noResultsMessageText:'No results matched "%s"',
     allowClear: true
 });
 </script> 
+<script>
+  $(document).ready(function() {
+
+// jQuery methods go here...
+
+$(".searchicon").click(function hidesearch() {
+  $('#hiddensearch').slideToggle();
+  
+  $(".searchicon").toggleClass("fa-search");
+    $(".searchicon").toggleClass("fa-times");
+});
+
+
+});
+</script>

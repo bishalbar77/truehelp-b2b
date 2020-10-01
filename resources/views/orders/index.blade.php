@@ -120,12 +120,18 @@ body {
   border-radius: .7rem !important;
   box-shadow: 0 15px 30px 0 rgba(0,0,0,.11),0 5px 15px 0 rgba(0,0,0,.08)!important;
 }
+.container-tag
+{
+  border: 2px solid #ccc;
+  background-color: #ffffff;
+}
 .tab {
   float: left;
   border: 2px solid #ccc;
   background-color: #ffffff;
   width: 33%;
-  height: 700px;
+  height: 55rem;
+  border-radius : 2px;
   padding: .8rem;
 }
 /* Style the buttons inside the tab */
@@ -159,15 +165,6 @@ body {
   font-weight: 600;
   font-size: 15px;
   background-color: #e8f2fe;
-}
-
-/* Style the tab content */
-.tabcontent {
-  float: left;
-  padding: 10px;
-  border-left: none;
-  height: 100%;
-  background-color: #ffffff ;
 }
 .text-name {
   font-family: Montserrat;
@@ -218,23 +215,6 @@ body {
     position: relative; 
 }
 
-/* style icon */
-.inner-addon .fa {
-  position: absolute;
-  padding: 10px;
-  pointer-events: none;
-}
-
-/* align icon */
-.left-addon .fa  { 
-  left:  0px;
-  opacity: 0.5;
-}
-.right-addon .fa { right: 0px;}
-
-/* add padding  */
-.left-addon input  { padding-left:  30px; }
-.right-addon input { padding-right: 30px; }
 .form-label-text {
   font-family: Montserrat;
   font-size: 14px;
@@ -299,6 +279,7 @@ body {
   background-color: #ffe9f6;
 }
 .upload-blue {
+  width: 250px;
   height: 130px;
   border-radius: 10px;
   background-color: #e9f6fe;
@@ -414,6 +395,26 @@ body {
   letter-spacing: normal;
   color: #121212;
 }
+.inner-addon { 
+    position: relative; 
+}
+
+/* style icon */
+.inner-addon .fa {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+/* align icon */
+.left-addon .fa  { 
+  left:  0px;
+  opacity: 0.5;
+}
+.right-addon .fa { right: 0px;}
+
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
 </style>
 
 @endsection
@@ -439,7 +440,7 @@ body {
                   <input class="input-search" type="text" placeholder="Search...">
                   <a class="p-2">&nbsp;</a>
                 </div>
-                <button class="tablinks  active" style="border: 1px solid #ededed;" onclick="openCity(event, 'Aadhar')" id="defaultOpen">Aadhar verification <a class="float-right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></a></button>
+                <button class="tablinks" style="border: 1px solid #ededed;" onclick="openCity(event, 'Aadhar')" id="defaultOpen">Aadhar verification <a class="float-right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></a></button>
                 <button class="tablinks" style="border: 1px solid #ededed;" onclick="openCity(event, 'Criminal')">Criminal verification<a class="float-right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></a></button>
                 <button class="tablinks" style="border: 1px solid #ededed;" onclick="openCity(event, 'Voter')">Voter ID Verification<a class="float-right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></a></button>
                 <button class="tablinks" style="border: 1px solid #ededed;" onclick="openCity(event, 'Driving')">Driving licence verification<a class="float-right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></a></button>
@@ -451,57 +452,166 @@ body {
                   <input class="input-search" type="text" placeholder="Search...">
                   <a class="p-2">&nbsp;</a>
                 </div>
-                <?php $a=1; $b=1; $c=1; $d=1; $e=1; ?>
-                @foreach($employees as $employee)
-                  <div  id="Aadhar" ><button class="tablinks"  style="border: 1px solid #ededed;"  onclick="openCity(event, '{{ $employee->first_name }}')" ><input type="checkbox" style="  border-radius: 3.6px; border: solid 0.9px #9e9e9e; background-color: #fafafb;"><a class="pl-4"></a>{{ $employee->first_name }} {{ $employee->last_name }}<a class="float-right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></a></button></div>
-                
-                @endforeach
+                <?php $a=1; $b=1; $c=1; $d=1; $e=1; $f=1; $g=1; $h=1; $i=1; $j=1; ?>
+                <div id="Aadhar" class="tabcontent" >
+                  @foreach($employees as $employee)
+                  <button class="tablinks2"  style="border: 1px solid #ededed;"  onclick="openCity2(event, 'Aadhar{{ $a++ }}')" id="defaultOpen2">
+                    <input type="checkbox" style="  border-radius: 3.6px; border: solid 0.9px #9e9e9e; background-color: #fafafb;">
+                    <a class="pl-4"></a>{{ $employee->first_name }} {{ $employee->last_name }}
+                    <a class="float-right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></a>
+                  </button>
+                  @endforeach
                 </div>
-                <div class="tab">
+                <div id="Voter" class="tabcontent" >
+                  @foreach($employees as $employee)
+                  <button class="tablinks2"  style="border: 1px solid #ededed;"  onclick="openCity2(event, 'Voter{{ $b++ }}')" >
+                    <input type="checkbox" style="  border-radius: 3.6px; border: solid 0.9px #9e9e9e; background-color: #fafafb;">
+                    <a class="pl-4"></a>{{ $employee->first_name }} {{ $employee->last_name }}
+                    <a class="float-right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></a>
+                  </button>
+                  @endforeach
+                </div>
+                <div id="Driving" class="tabcontent" >
+                  @foreach($employees as $employee)
+                  <button class="tablinks2"  style="border: 1px solid #ededed;"  onclick="openCity2(event, 'Driving{{ $c++ }}')" >
+                    <input type="checkbox" style="  border-radius: 3.6px; border: solid 0.9px #9e9e9e; background-color: #fafafb;">
+                    <a class="pl-4"></a>{{ $employee->first_name }} {{ $employee->last_name }}
+                    <a class="float-right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></a>
+                  </button>
+                  @endforeach
+                </div>
+                <div id="Employment" class="tabcontent" >
+                  @foreach($employees as $employee)
+                  <button class="tablinks2"  style="border: 1px solid #ededed;"  onclick="openCity2(event, 'Employment{{ $d++ }}')" >
+                    <input type="checkbox" style="  border-radius: 3.6px; border: solid 0.9px #9e9e9e; background-color: #fafafb;">
+                    <a class="pl-4"></a>{{ $employee->first_name }} {{ $employee->last_name }}
+                    <a class="float-right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></a>
+                  </button>
+                  @endforeach
+                </div>
+                <div id="Criminal" class="tabcontent" >
+                  @foreach($employees as $employee)
+                  <button class="tablinks2"  style="border: 1px solid #ededed;"  onclick="openCity2(event, 'Criminal{{ $e++ }}')" >
+                    <input type="checkbox" style="  border-radius: 3.6px; border: solid 0.9px #9e9e9e; background-color: #fafafb;">
+                    <a class="pl-4"></a>{{ $employee->first_name }} {{ $employee->last_name }}
+                    <a class="float-right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></a>
+                  </button>
+                  @endforeach
+                </div>
+
+              </div>
+              <div class="tab">
                 @foreach($employees as $employee)
-                  <div id="{{ $employee->first_name }}" class="tabcontent">
-                    <h3 class="text-name">{{ $employee->first_name }} {{ $employee->last_name }}</h3>
-                    <p class="para-text">Aadhar card image unavailable.</p> 
-                    <div>
-                      <div class="p-4">
-                        <div class="upload-pink pl-4">
-                          <span class="upload-pink"><input type="file" class="custom-file-input" /></span>
-                          <i class="fa fa-picture-o fa-2x pl-5" style="margin-left:20px;" aria-hidden="true"></i>
-                          <div><p class="Upload-Employee-Pic" style="color:black;">Upload Document Pic</p></div>
-                        </div>
-                        <div class="pt-5">
-                          <p class="text-para">Any missing field</p>
-                          <input type="text" class="form-control">
-                          <div  class="pt-3">
-                          </div>
+                <div id="Aadhar{{ $f++ }}" class="tabcontent2">
+                  <h3 class="text-name">{{ $employee->first_name }} {{ $employee->last_name }}</h3>
+                  <p class="para-text">Aadhar card image unavailable.</p> 
+                  <div>
+                    <div class="p-4">
+                      <div class="upload-pink pl-4">
+                        <span class="upload-pink"><input type="file" class="custom-file-input" /></span>
+                        <i class="fa fa-picture-o fa-2x pl-5" style="margin-left:20px;" aria-hidden="true"></i>
+                        <div><p class="Upload-Employee-Pic" style="color:black;">Upload Document Pic</p></div>
+                      </div>
+                      <div class="pt-5">
+                        <p class="text-para">Any missing field</p>
+                        <input type="text" class="form-control">
+                        <div  class="pt-3">
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
                 @endforeach
-                  <div id="8" class="tabcontent">
-                    <h3>Criminal verification</h3>
-                    <p>Tokyo is the capital of Japan.</p>
+                @foreach($employees as $employee)
+                <div id="Voter{{ $g++ }}" class="tabcontent2">
+                  <h3 class="text-name">{{ $employee->first_name }} {{ $employee->last_name }}</h3>
+                  <p class="para-text">Voter card image unavailable.</p> 
+                  <div>
+                    <div class="p-4">
+                      <div class="upload-pink pl-4">
+                        <span class="upload-pink"><input type="file" class="custom-file-input" /></span>
+                        <i class="fa fa-picture-o fa-2x pl-5" style="margin-left:20px;" aria-hidden="true"></i>
+                        <div><p class="Upload-Employee-Pic" style="color:black;">Upload Document Pic</p></div>
+                      </div>
+                      <div class="pt-5">
+                        <p class="text-para">Any missing field</p>
+                        <input type="text" class="form-control">
+                        <div  class="pt-3">
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div id="7" class="tabcontent">
-                    <h3>Voter ID Verification</h3>
-                    <p >London is the capital city of England.</p>
+                </div>
+                @endforeach
+                @foreach($employees as $employee)
+                <div id="Driving{{ $h++ }}" class="tabcontent2">
+                  <h3 class="text-name">{{ $employee->first_name }} {{ $employee->last_name }}</h3>
+                  <p class="para-text">Driving License image unavailable.</p> 
+                  <div>
+                    <div class="p-4">
+                      <div class="upload-blue pl-4">
+                        <span class="upload-blue"><input type="file" class="custom-file-input" /></span>
+                        <i class="fa fa-picture-o fa-2x pl-5" style="margin-left:20px;" aria-hidden="true"></i>
+                        <div><p class="Upload-Employee-Pic" style="color:black;">Upload Document Pic</p></div>
+                      </div>
+                      <div class="pt-5">
+                        <p class="text-para">Any missing field</p>
+                        <input type="text" class="form-control">
+                        <div  class="pt-3">
+                        </div>
+                      </div>
+                    </div>
                   </div>
-
-                  <div id="5" class="tabcontent">
-                    <h3>Driving licesnce verification</h3>
-                    <p>Paris is the capital of France.</p> 
+                </div>
+                @endforeach
+                @foreach($employees as $employee)
+                <div id="Employment{{ $i++ }}" class="tabcontent2">
+                  <h3 class="text-name">{{ $employee->first_name }} {{ $employee->last_name }}</h3>
+                  <p class="para-text">Employment history related documents.</p> 
+                  <div>
+                    <div class="p-4">
+                      <div class="upload-pink pl-4">
+                        <span class="upload-pink"><input type="file" class="custom-file-input" /></span>
+                        <i class="fa fa-picture-o fa-2x pl-5" style="margin-left:20px;" aria-hidden="true"></i>
+                        <div><p class="Upload-Employee-Pic" style="color:black;">Upload Document Pic</p></div>
+                      </div>
+                      <div class="pt-5">
+                        <p class="text-para">Any missing field</p>
+                        <input type="text" class="form-control">
+                        <div  class="pt-3">
+                        </div>
+                      </div>
+                    </div>
                   </div>
-
-                  <div id="6" class="tabcontent">
-                    <h3 class="para-text">Employment verification</h3>
-                    <p >London is the capital city of England.</p>
+                </div>
+                @endforeach
+                @foreach($employees as $employee)
+                <div id="Criminal{{ $j++ }}" class="tabcontent2">
+                  <h3 class="text-name">{{ $employee->first_name }} {{ $employee->last_name }}</h3>
+                  <p class="para-text">Criminal history document unavailable.</p> 
+                  <div>
+                    <div class="p-4">
+                      <div class="upload-blue pl-4">
+                        <span class="upload-blue"><input type="file" class="custom-file-input" /></span>
+                        <i class="fa fa-picture-o fa-2x pl-5" style="margin-left:20px;" aria-hidden="true"></i>
+                        <div><p class="Upload-Employee-Pic" style="color:black;">Upload Document Pic</p></div>
+                      </div>
+                      <div class="pt-5">
+                        <p class="text-para">Any missing field</p>
+                        <input type="text" class="form-control">
+                        <div  class="pt-3">
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  
+                </div>
+                @endforeach
+                <div id="8" class="tabcontent">
                 </div>
               </div>
             </div>
           </div>
+          &nbsp;
         </div>
       </div>
     </section>
@@ -519,14 +629,30 @@ function openCity(evt, cityName) {
   }
   tablinks = document.getElementsByClassName("tablinks");
   for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", " active");
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
 }
-
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
+</script>
+<script>
+function openCity2(evt, cityName2) {
+  var i, tabcontent2, tablinks2;
+  tabcontent2 = document.getElementsByClassName("tabcontent2");
+  for (i = 0; i < tabcontent2.length; i++) {
+    tabcontent2[i].style.display = "none";
+  }
+  tablinks2 = document.getElementsByClassName("tablinks2");
+  for (i = 0; i < tablinks2.length; i++) {
+    tablinks2[i].className = tablinks2[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName2).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen2").click();
 </script>
 <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
 @if (app()->isLocal())
