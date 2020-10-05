@@ -2164,11 +2164,6 @@ pre code {
   opacity: 1;
 }
 
-.form-control::-ms-input-placeholder {
-  color: #6c757d;
-  opacity: 1;
-}
-
 .form-control::placeholder {
   color: #6c757d;
   opacity: 1;
@@ -8328,7 +8323,7 @@ button.bg-dark:focus {
 }
 
 .w-100 {
-  width: 80% !important;
+  width: 100% !important;
 }
 
 .w-auto {
