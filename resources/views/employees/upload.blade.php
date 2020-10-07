@@ -302,6 +302,41 @@
   letter-spacing: normal;
   color: #121212;
 }
+.order-img {
+  width: 90%;
+}
+.Request-sent {
+  width:100%;
+  font-family: Montserrat;
+  font-size: 19px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--black);
+}
+.Lorem-ipsum-dolor-si {
+  height: 66px;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #b6b8c3;
+}
+.fa-icon-lg {
+  font-size: 1.6em;
+  line-height: 0.05em;
+  vertical-align: -35%;
+}
+.card-box {
+  width: 700px;
+  border-radius: .7rem !important;
+  box-shadow: 0 15px 30px 0 rgba(0,0,0,.11),0 5px 15px 0 rgba(0,0,0,.08)!important;
+}
 .error {
   font-size: 10.8px;
   align: center;
@@ -459,14 +494,14 @@
                                 <td><input class="form-control" name="parent_dob[]" value="{{ $key['parent_dob']}}" style="width:170px;"></td>
                                 <td><input class="form-control" name="parent_gender[]" value="{{ $key['parent_gender']}}" style="width:170px;"></td>
                                 <td><input class="form-control" name="email[]" value="{{ $key['email']}}" style="width:170px;"></td>
-                                <td><input class="form-control" id="mobile" name="mobile[]" value="{{ $key['mobile']}}" style="width:170px;"></td>
-                                <td><input class="form-control" name="first_name[]" value="{{ $key['first_name']}}" style="width:170px;"></td>
+                                <td><input class="form-control" id="mobile" name="mobile[]" value="{{ $key['mobile']}}" style="width:170px;" required></td>
+                                <td><input class="form-control" name="first_name[]" value="{{ $key['first_name']}}" style="width:170px;" required></td>
                                 <td><input class="form-control" name="middle_name[]" value="{{ $key['middle_name']}}" style="width:170px;"></td>
-                                <td><input class="form-control" name="last_name[]" value="{{ $key['last_name']}}" style="width:170px;"></td>
+                                <td><input class="form-control" name="last_name[]" value="{{ $key['last_name']}}" style="width:170px;" required></td>
                                 <td><input class="form-control" name="student_code[]" value="{{ $key['student_code']}}" style="width:170px;"></td>
-                                <td><input class="form-control" name="dob[]" value="{{ $key['dob']}}" style="width:170px;"></td>
-                                <td><input class="form-control" name="gender[]" value="{{ $key['gender']}}" style="width:170px;"></td>
-                                <td><input class="form-control" name="employee_types_id[]" value="{{ $key['employee_types_id']}}" style="width:170px;"></td>
+                                <td><input class="form-control" name="dob[]" value="{{ $key['dob']}}" style="width:170px;" required></td>
+                                <td><input class="form-control" name="gender[]" value="{{ $key['gender']}}" style="width:170px;" required></td>
+                                <td><input class="form-control" name="employee_types_id[]" value="{{ $key['employee_types_id']}}" style="width:170px;" required></td>
                             </tr>
                             @endforeach
                           @endforeach
@@ -524,15 +559,15 @@ function showDiv(select){
 		$('#validate_form').validate({
 
 			rules : {
-				username : {
+				mobile : {
 					required : {
 						depends:function(){
 							$(this).val($.trim($(this).val()));
 							return true;
 						}
 					},
-					minlength : 3,
-					maxlength : 30
+					minlength : 10,
+					maxlength : 12
 				},
 				emailadd : {
 					required : true,
