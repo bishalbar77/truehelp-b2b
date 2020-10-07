@@ -23,19 +23,23 @@ class CreateEmployeesTable extends Migration
             $table->string('dob');
             $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('address');
-            $table->string('guardian_name')->nullable();
-            $table->string('guardian_phone')->nullable();
-            $table->string('guardian_relation')->nullable();
-            $table->string('user_type')->default('Employee');
+            $table->timestamp('student_code')->nullable();
+            $table->string('co_relation');
+            $table->string('parent_email')->nullable();
+            $table->string('parent_mobile')->nullable();
+            $table->string('parent_first_name')->nullable();
+            $table->string('parent_middle_name')->nullable();
+            $table->string('parent_last_name')->nullable();
+            $table->string('parent_dob')->nullable();
+            $table->string('parent_gender')->nullable();
+            $table->string('source_name')->default('B2B');
+            $table->string('emp_type')->default('Employee');
             $table->integer('is_active')->default(0);
             $table->integer('send_otp')->default(1);
-            $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

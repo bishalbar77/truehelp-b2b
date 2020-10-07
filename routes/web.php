@@ -31,8 +31,8 @@ Route::group(['middleware' => 'usersession'], function () {
     Route::post('/students/store', 'StudentController@store')->name('students.store');
     Route::post('/import', 'StudentController@import');
     Route::get('/employees/{user}/changestatus', 'EmployeeController@changestatus')->name('employees.changestatus');
-    Route::post('/import_excel/import', 'EmployeeController@import');
-    Route::get('export', 'EmployeeController@export')->name('export');
+    Route::post('/import_excel', 'EmployeeController@import');
+    Route::post('/upload/data', 'EmployeeController@uploaddata');
     Route::get('/verify={user}', 'EmployeeController@verify')->name('verify');
     Route::get('/profile', 'EmployeeController@profile')->name('profile');
     Route::get('/search', 'EmployeeController@search')->name('search');
@@ -50,3 +50,4 @@ Route::group(['middleware' => 'usersession'], function () {
     Route::resource('orders', 'OrderController');
 });
 Route::get('/seenNotification/{id}','EmployeeController@seenNotification')->name('seenNotification');
+Route::get('export', 'EmployeeController@export')->name('export');

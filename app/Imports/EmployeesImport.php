@@ -3,66 +3,40 @@
 namespace App\Imports;
 
 use App\Employee;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\SkipsOnError;
-use Maatwebsite\Excel\Concerns\SkipsErrors;
-use Maatwebsite\Excel\Concerns\Importable;
-use Maatwebsite\Excel\Concerns\SkipsFailures;
-use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\Concerns\SkipsOnFailure;
-use Illuminate\Support\Facades\Http;
-use Maatwebsite\Excel\Concerns\WithValidation;
-use Illuminate\Support\Facades\Session;
-use Maatwebsite\Excel\Validators\Failure;
-use Throwable;
+use Maatwebsite\Excel\Concerns\WithMultipleSheets;
+use Maatwebsite\Excel\Imports\HeadingRowFormatter;
+use Maatwebsite\Excel\Concerns\WithEvents;
 
-class EmployeesImport implements ToModel, WithHeadingRow, SkipsOnError, WithValidation, SkipsOnFailure
+use Maatwebsite\Excel\Events\BeforeImport;
+use Maatwebsite\Excel\Events\AfterImport;
+use Maatwebsite\Excel\Events\BeforeSheet;
+use Maatwebsite\Excel\Events\AfterSheet;
+
+// Überschriften werden genau so übernommen wie sie in der Datei angegeben wurden
+HeadingRowFormatter::default('none');
+
+class EmployeesImport implements ToCollection, WithHeadingRow, WithEvents
 {
-
-    use Importable, SkipsErrors, SkipsFailures;
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
-    public function model(array $row)
-    {
-
-        $api_token = session()->get('api_token');
-        $source_name = "B2B";
-        $response = Http::withHeaders(['Authorization' => "Bearer ".$api_token])
-            ->post('https://api.gettruehelp.com/api/register-students', [
-            'co_relation' => $row['co_relation'],
-            'parent_email' => $row['parent_email'],
-            'parent_mobile' => $row['parent_mobile'],
-            'parent_first_name' => $row['parent_first_name'],
-            'parent_middle_name' => $row['parent_middle_name'],
-            'parent_last_name' => $row['parent_last_name'],
-            'parent_dob' =>  $row['parent_dob'],
-            'parent_gender' =>  $row['parent_gender'],
-            'email' => $row['email'],
-            'mobile' => $row['mobile'],
-            'first_name' =>$row['first_name'],
-            'middle_name' => $row['middle_name'],
-            'last_name' => $row['last_name'],
-            'student_code' => $row['student_code'],
-            'dob' => $row['dob'],
-            'gender' => $row['gender'],
-            'source_name' =>$source_name,
-            'employee_types_id' => $row['employee_types_id']
-        ]);
+    public $sheetNames;
+    public $sheetData;
+	
+    public function __construct(){
+        $this->sheetNames = [];
+	$this->sheetData = [];
     }
-
-    public function rules(): array
+    public function collection(Collection $collection)
+    {
+    	$this->sheetData[] = $collection;
+    }
+    public function registerEvents(): array
     {
         return [
-            '*.email' => ['email'],
-            '*.mobile' => ['required','max:13'],
-            '*.first_name' => ['required','string'],
-            '*.last_name' => ['required','string'],
-            '*.dob' => ['required'],
-            '*.gender' => ['required']
+            BeforeSheet::class => function(BeforeSheet $event) {
+            	$this->sheetNames[] = $event->getSheet()->getTitle();
+            } 
         ];
     }
 

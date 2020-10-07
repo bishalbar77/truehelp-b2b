@@ -130,6 +130,12 @@
   border-radius: 8px;
   background-color: #fecf3a;
 }
+.button-upload {
+  width: 170px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: #fecf3a;
+}
 .Proceed {
   font-family: Montserrat;
   font-size: 13px;
@@ -294,6 +300,12 @@
   line-height: 1.25;
   letter-spacing: normal;
   color: #121212;
+}
+.error {
+  font-size: 10.8px;
+  align: center;
+  color: red;
+  font-weight: 700;
 }
 </style>
 @endsection
@@ -500,7 +512,7 @@
             <label class="checkbox-inline check-box-unselected p-2"><input type="checkbox" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal"><a class="pl-2">Individually</a></label>
             <label class="checkbox-inline check-box-selected p-2"><input type="checkbox" checked ="Checked"><a class="pl-2">Upload List</a></label>
           </div>
-        <form method="post" enctype="multipart/form-data" action="{{ url('/import_excel/import') }}">
+        <form method="post" enctype="multipart/form-data" action="{{ url('/import_excel') }}">
           {{ csrf_field() }}
           <div class="form-group row pt-5 pl-5">
             <p class="Download-the-Excel-s">
@@ -581,27 +593,40 @@
               <div class="card-body" >
                 <table class="table table-stripped">
                     <tr>
-                        <th>Error at Row</th>
-                        <th>Attribute</th>
-                        <th>Errors</th>
-                        <th>Inserted Data</th>
+                        <th>Co Relation</th>
+                        <th>Parent Email</th>
+                        <th>Parent Mobile</th>
+                        <th>Parent First Name</th>
+                        <th>Parent Middle Name</th>
+                        <th>Parent Last Name</th>
+                        <th>Parent DOB</th>
+                        <th>Parent Gender</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Last Name</th>
+                        <th>Student Code</th>
+                        <th>DOB</th>
+                        <th>Gender</th>
+                        <th>Employee Type ID</th>
                     </tr>
-
+                    <?php $temp=0; ?>
                     @foreach (session()->get('failures') as $validation)
-                        <tr>
-                            <td>{{ $validation->row() }}</td>
-                            <td>{{ $validation->attribute() }}</td>
-                            <td>
-                            @foreach ($validation->errors() as $e)
-                                <ul>{{ $e }}</ul>
-                            @endforeach
-                            </td>
-                            <td>
-                                {{ $validation->values()[$validation->attribute()] }}
-                            </td>
-                        </tr>
+                      <tr>
+                        @if( $temp != $validation->row())
+                        @foreach ($validation->values() as $crew)
+
+                              <td><input class="form-control" value="{{ $crew }}" style="width:170px;"></td>
+                        <?php $temp=$validation->row(); ?>
+                        @endforeach
+                        @endif
+                      </tr>
                     @endforeach
                 </table>
+                <div class="p-4">
+                  <button type="submit" class="btn-primary button-upload Proceed">Upload</button><a class="p-5"></a>
+                </div>
               </div>
             </div>
             @endif

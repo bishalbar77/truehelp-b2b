@@ -56,6 +56,7 @@ class EmployeeController extends Controller
 
         $data = json_decode($contents);
         $emp_type = $data->response->data;
+        // dd($emp_type);
         return view('employees.index', compact('employees','emp_type'));
     }
 
@@ -118,12 +119,19 @@ class EmployeeController extends Controller
         $this->validate($request, [
         'select_file'  => 'required|mimes:xls,xlsx'
         ]);
-        $import = new EmployeesImport;
-        $import->import(request()->file('select_file'));
-        if ($import->failures()->isNotEmpty()) {
-            return back()->withFailures($import->failures());
-        }
-        return back()->withStatus('Candidates imported successfully.');
+        $importFile = $request->select_file;
+        $Import = new EmployeesImport();
+        $ts = Excel::import($Import, $importFile);
+        // dd($Import->sheetData);
+        $Import = $Import->sheetData;
+        $data = json_decode(json_encode($Import),true);
+        // dd($data);
+        return view('employees.upload', compact('data'));
+    }
+
+    public function uploaddata(Request $request)
+    {  
+        dd(request()->all());
     }
 
     public function export() 
