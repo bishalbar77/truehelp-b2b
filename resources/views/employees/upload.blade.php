@@ -485,23 +485,71 @@
                           @foreach($data as $employee)
                            @foreach($employee as $key )
                             <tr>
-                                <td><input class="form-control" name="co_relation[]" value="{{ $key['co_relation']}}" style="width:170px;"></td>
-                                <td><input class="form-control" name="parent_email[]" value="{{ $key['parent_email']}}" style="width:170px;"></td>
-                                <td><input class="form-control" name="parent_mobile[]" value="{{ $key['parent_mobile']}}" style="width:170px;"></td>
-                                <td><input class="form-control" name="parent_first_name[]" value="{{ $key['parent_first_name']}}" style="width:170px;"></td>
-                                <td><input class="form-control" name="parent_middle_name[]" value="{{ $key['parent_middle_name']}}" style="width:170px;"></td>
-                                <td><input class="form-control" name="parent_last_name[]" value="{{ $key['parent_last_name']}}" style="width:170px;"></td>
-                                <td><input class="form-control" name="parent_dob[]" value="{{ $key['parent_dob']}}" style="width:170px;"></td>
-                                <td><input class="form-control" name="parent_gender[]" value="{{ $key['parent_gender']}}" style="width:170px;"></td>
-                                <td><input class="form-control" name="email[]" value="{{ $key['email']}}" style="width:170px;"></td>
-                                <td><input class="form-control" id="mobile" name="mobile[]" value="{{ $key['mobile']}}" style="width:170px;" required></td>
-                                <td><input class="form-control" name="first_name[]" value="{{ $key['first_name']}}" style="width:170px;" required></td>
-                                <td><input class="form-control" name="middle_name[]" value="{{ $key['middle_name']}}" style="width:170px;"></td>
-                                <td><input class="form-control" name="last_name[]" value="{{ $key['last_name']}}" style="width:170px;" required></td>
-                                <td><input class="form-control" name="student_code[]" value="{{ $key['student_code']}}" style="width:170px;"></td>
-                                <td><input class="form-control" name="dob[]" value="{{ $key['dob']}}" style="width:170px;" required></td>
-                                <td><input class="form-control" name="gender[]" value="{{ $key['gender']}}" style="width:170px;" required></td>
-                                <td><input class="form-control" name="employee_types_id[]" value="{{ $key['employee_types_id']}}" style="width:170px;" required></td>
+                                <td>
+                                <input class="form-control" name="co_relation[]" value="{{ $key['co_relation']}}" style="width:170px;">
+                                </td>
+                                <td><input class="form-control" name="parent_email[]" value="{{ $key['parent_email']}}" style="width:170px;">
+                                </td>
+                                <td><input class="form-control" name="parent_mobile[]" value="{{ $key['parent_mobile']}}" style="width:170px;">
+                                </td>
+                                <td><input class="form-control" name="parent_first_name[]" value="{{ $key['parent_first_name']}}" style="width:170px;">
+                                </td>
+                                <td><input class="form-control" name="parent_middle_name[]" value="{{ $key['parent_middle_name']}}" style="width:170px;">
+                                </td>
+                                <td><input class="form-control" name="parent_last_name[]" value="{{ $key['parent_last_name']}}" style="width:170px;">
+                                </td>
+                                <td><input class="form-control" name="parent_dob[]" value="{{ $key['parent_dob']}}" style="width:170px;">
+                                </td>
+                                <td><input class="form-control" name="parent_gender[]" value="{{ $key['parent_gender']}}" style="width:170px;">
+                                </td>
+                                <td><input class="form-control @error('email') is-invalid @enderror" name="email[]" value="{{ $key['email']}}" style="width:170px;">
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                </td>
+                                <td><input class="form-control @error('phone') is-invalid @enderror" id="mobile" name="mobile[]" value="{{ $key['mobile']}}" style="width:170px;" required>
+                                @error('phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                </td>
+                                <td><input class="form-control @error('name') is-invalid @enderror" name="first_name[]" value="{{ $key['first_name']}}" style="width:170px;" required>
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                </td>
+                                <td><input class="form-control" name="middle_name[]" value="{{ $key['middle_name']}}" style="width:170px;">
+                                </td>
+                                <td><input class="form-control @error('last_name') is-invalid @enderror" name="last_name[]" value="{{ $key['last_name']}}" style="width:170px;" required>
+                                @error('last_name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                </td>
+                                <td><input class="form-control" name="student_code[]" value="{{ $key['student_code']}}" style="width:170px;">
+                                </td>
+                                <td><input class="form-control @error('dob') is-invalid @enderror" name="dob[]" value="{{ $key['dob']}}" style="width:170px;" required>
+                                @error('dob')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                </td>
+                                <td><input class="form-control @error('gender') is-invalid @enderror" name="gender[]" value="{{ $key['gender']}}" style="width:170px;" required>
+                                @error('gender')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                </td>
+                                <td><input class="form-control" name="employee_types_id[]" value="{{ $key['employee_types_id']}}" style="width:170px;" required>
+                                </td>
                             </tr>
                             @endforeach
                           @endforeach

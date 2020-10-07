@@ -89,6 +89,13 @@
         $.widget.bridge('uibutton', $.ui.button)
         </script>
         <!-- Bootstrap 4 -->
+        <script src="/plugins/jquery/jquery.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <!-- jquery-validation -->
+        <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
+        <script src="/plugins/jquery-validation/additional-methods.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="/dist/js/adminlte.min.js"></script>
         <!-- ChartJS -->
         <script src="/plugins/chart.js/Chart.min.js"></script>
         <!-- Sparkline -->

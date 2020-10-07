@@ -131,7 +131,46 @@ class EmployeeController extends Controller
 
     public function uploaddata(Request $request)
     {  
-        dd(request()->all());
+        // dd(request()->all());
+        $co_relation = $request->co_relation;
+        $parent_email = $request->parent_email;
+        $parent_mobile = $request->parent_mobile;
+        $parent_first_name = $request->parent_first_name;
+        $parent_middle_name = $request->parent_middle_name;
+        $parent_last_name = $request->parent_last_name;
+        $parent_dob = $request->parent_dob;
+        $parent_gender = $request->parent_gender;
+        $email= $request->email;
+        $mobile = $request->mobile;
+        $first_name = $request->first_name;
+        $middle_name = $request->middle_name;
+        $last_name = $request->last_name;
+        $student_code = $request->student_code;
+        $dob = $request->dob;
+        $gender= $request->gender;
+        $employee_types_id = $request->employee_types_id;
+        foreach($first_name as $key => $no)
+        {
+            $input['co_relation'] = $co_relation[$key];
+            $input['parent_email'] = $parent_email[$key];
+            $input['parent_mobile'] = $parent_mobile[$key];
+            $input['parent_first_name'] = $parent_first_name[$key];
+            $input['parent_middle_name'] = $parent_middle_name[$key];
+            $input['parent_last_name'] = $parent_last_name[$key];
+            $input['parent_dob'] = $parent_dob[$key];
+            $input['parent_gender'] = $parent_gender[$key];
+            $input['email'] = $email[$key];
+            $input['mobile'] = $mobile[$key];
+            $input['first_name'] = $first_name[$key];
+            $input['middle_name'] = $middle_name[$key];
+            $input['last_name'] = $last_name[$key];
+            $input['student_code'] = $student_code[$key];
+            $input['dob'] = $dob[$key];
+            $input['gender'] = $gender[$key];
+            $input['employee_types_id'] = $employee_types_id[$key];
+            dd($input);
+            Employee::create($insert);
+        }
     }
 
     public function export() 
