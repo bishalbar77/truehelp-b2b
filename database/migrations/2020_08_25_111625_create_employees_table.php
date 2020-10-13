@@ -23,8 +23,8 @@ class CreateEmployeesTable extends Migration
             $table->string('dob');
             $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->timestamp('student_code')->nullable();
-            $table->string('co_relation');
+            $table->string('student_code')->nullable();
+            $table->string('co_relation')->nullable();
             $table->string('parent_email')->nullable();
             $table->string('parent_mobile')->nullable();
             $table->string('parent_first_name')->nullable();
@@ -33,7 +33,7 @@ class CreateEmployeesTable extends Migration
             $table->string('parent_dob')->nullable();
             $table->string('parent_gender')->nullable();
             $table->string('source_name')->default('B2B');
-            $table->string('emp_type')->default('Employee');
+            $table->string('employee_types_id')->default('Employee');
             $table->integer('is_active')->default(0);
             $table->integer('send_otp')->default(1);
             $table->rememberToken();

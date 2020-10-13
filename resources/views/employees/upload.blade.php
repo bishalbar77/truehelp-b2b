@@ -3,8 +3,6 @@
 {{-- Styles Section --}}
 @section('styles')
 <title>TrueHelp | My Candidate</title>
-<link rel="stylesheet" href="{{ mix('css/app.css') }}" />
-<script defer src="{{ mix('js/app.js') }}"></script>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 <link rel="stylesheet" type="text/css" href="css/screen.css">
 <style>
@@ -502,21 +500,16 @@
                                 </td>
                                 <td><input class="form-control" name="parent_gender[]" value="{{ $key['parent_gender']}}" style="width:170px;">
                                 </td>
-                                <td><input class="form-control @error('email') is-invalid @enderror" name="email[]" value="{{ $key['email']}}" style="width:170px;">
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <td><input class="form-control" name="email[]" value="{{ $key['email']}}" style="width:170px;">
                                 </td>
-                                <td><input class="form-control @error('phone') is-invalid @enderror" id="mobile" name="mobile[]" value="{{ $key['mobile']}}" style="width:170px;" required>
+                                <td><input class="form-control" id="mobile" name="mobile[]" value="{{ $key['mobile']}}" style="width:170px;" required>
                                 @error('phone')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                                 </td>
-                                <td><input class="form-control @error('name') is-invalid @enderror" name="first_name[]" value="{{ $key['first_name']}}" style="width:170px;" required>
+                                <td><input class="form-control" name="first_name[]" value="{{ $key['first_name']}}" style="width:170px;" required>
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -525,7 +518,7 @@
                                 </td>
                                 <td><input class="form-control" name="middle_name[]" value="{{ $key['middle_name']}}" style="width:170px;">
                                 </td>
-                                <td><input class="form-control @error('last_name') is-invalid @enderror" name="last_name[]" value="{{ $key['last_name']}}" style="width:170px;" required>
+                                <td><input class="form-control" name="last_name[]" value="{{ $key['last_name']}}" style="width:170px;" required>
                                 @error('last_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -534,14 +527,14 @@
                                 </td>
                                 <td><input class="form-control" name="student_code[]" value="{{ $key['student_code']}}" style="width:170px;">
                                 </td>
-                                <td><input class="form-control @error('dob') is-invalid @enderror" name="dob[]" value="{{ $key['dob']}}" style="width:170px;" required>
+                                <td><input class="form-control" name="dob[]" value="{{ $key['dob']}}" style="width:170px;" required>
                                 @error('dob')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                                 </td>
-                                <td><input class="form-control @error('gender') is-invalid @enderror" name="gender[]" value="{{ $key['gender']}}" style="width:170px;" required>
+                                <td><input class="form-control" name="gender[]" value="{{ $key['gender']}}" style="width:170px;" required>
                                 @error('gender')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -572,136 +565,51 @@
     </section>
     <!-- /.content -->
   </div>
-  <script type="text/javascript">
-function showDiv(select){
-   if(select.value==1){
-    document.getElementById('hidden_div').style.display = "block";
-   } else{
-    document.getElementById('hidden_div').style.display = "none";
-   }
-} 
-</script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" type="text/javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="Jquery-plugin/jquery.validate.js"></script>
 <script type="text/javascript">
-	
-	$(document).ready(function (){
-
-		$.validator.setDefaults({
-			submitHandler:function(){
-				alert("Submited");
-				console.log("Submited");
-			}
-		});
-
-		$.validator.addMethod("regex", function(value, element, regexp){
-			var re = new RegExp(regexp);
-			return this.optional(element) || re.test(value);
-		}, "Please Check Your Input" );
-
-		$.validator.addMethod("checknull", function(value, element, arg){
-			return arg !== value;
-		}, "Please Check Your input" );
-
-		$('#validate_form').validate({
-
-			rules : {
-				mobile : {
-					required : {
-						depends:function(){
-							$(this).val($.trim($(this).val()));
-							return true;
-						}
-					},
-					minlength : 10,
-					maxlength : 12
-				},
-				emailadd : {
-					required : true,
-					minlength : 10
-				},
-				phonenum : {
-					required : true,
-					regex : /^[+]?(\d{1,2})?[\s.-]?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/
-				},
-				pass1 : {
-					required : true,
-					minlength : 5,
-					maxlength : 20
-				},
-				confirmpass : {
-					required : true,
-					minlength : 5,
-					maxlength : 20,
-					equalTo : "#pass1"
-				},
-				message : {
-					required : true,
-					minlength : 10
-				},
-				country : {
-					checknull : ""
-				},
-				dob : {
-					checknull : ""
-				},
-				policy : {
-					required : true
-				}
-
-			},
-			messages : {
-				username : {
-					required : "Please Enter User Name",
-					minlength : "Please Enter Valid User Name", 
-					maxlength : "User Name is Too Long"
-				},
-				emailadd : {
-					required : "Please Enter Email Address",
-					minlength : "Please Enter Valid Email"
-				},
-				phonenum : {
-					required : "Please Enter Phone Number",
-					regex : "Enter Number On Proper Format"
-				},
-				pass1 : {
-					required : "Please Enter Password",
-					minlength : "Minumun 5 Charter Required",
-					maxlength : "Password Too Long (20 Allow)"
-				},
-				confirmpass : {
-					required : "Please Enter Confirm Password",
-					minlength : "Minumun 5 Charter Required",
-					maxlength : "Password Too Long (20 Allow)",
-					equalTo : "Password Does Not Match"
-				},
-				message : {
-					required : "Please Enter Message",
-					minlength : "Please Enter More then 10 Charater"
-				},
-				country : {
-					checknull : "Please Select Country"
-				},
-				dob : {
-					checknull : "Please Select Date Of Birth"
-				},
-				policy : {
-					required : "Please Agree With Our Policy"
-				}
-
-			},
-			highlight:function(element){
-				$(element).addClass("is-invalid").removeClass("is-valid");
-			},
-			unhighlight:function(element){
-				$(element).addClass("is-valid").removeClass("is-invalid");
-			}
-
-		})
-
-	});
-
+$(document).ready(function () {
+  $.validator.setDefaults({
+    submitHandler: function () {
+      alert( "Form successful submitted!" );
+    }
+  });
+  $('#quickForm').validate({
+    rules: {
+      email: {
+        required: true,
+        email: true,
+      },
+      password: {
+        required: true,
+        minlength: 5
+      },
+      terms: {
+        required: true
+      },
+    },
+    messages: {
+      email: {
+        required: "Please enter a email address",
+        email: "Please enter a vaild email address"
+      },
+      password: {
+        required: "Please provide a password",
+        minlength: "Your password must be at least 5 characters long"
+      },
+      terms: "Please accept our terms"
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.form-group').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    }
+  });
+});
 </script>
 @endsection
 

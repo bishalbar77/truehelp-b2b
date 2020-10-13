@@ -4,20 +4,33 @@
   display: none;
   transition: .3s ease-in-out;
 }
+.select-date {
+  width: 118px;
+  height: 32px;
+  margin-top: 2px;
+  border-radius: 6px;
+  border: solid 0.5px #a5a5a5;
+  background-color: #ffffff;
+}
+.para-date {
+  font-family: Montserrat;
+  font-size: 12.8px;
+  font-weight: 700;
+  margin-top: 10px;
+  margin-right: 8px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #352641;
+}
+
 </style>
 <link rel="stylesheet" href="tokenize2.css">
 <!--body-->
 <?php
    $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
         $api_token = session()->get('api_token');
-        $response = Http::withHeaders([
-                            'Authorization' => "Bearer ".$api_token
-                        ])->post('https://api.gettruehelp.com/api/notification-count',[
-                            'api_key' => $apiKeys
-                        ]);
-        $contents = $response->getBody();
-        $data = json_decode($contents);
-        $count = $data->response->data->messages;
         $response = Http::withHeaders([
                             // 'Accept' => 'application/json',
                             'Authorization' => "Bearer ".$api_token
@@ -34,14 +47,6 @@
         } else {
             $employees = NULL;
         }
-        $response = Http::withHeaders([
-                            'Authorization' => "Bearer ".$api_token
-                        ])->post('https://api.gettruehelp.com/api/notification',[
-                            'api_key' => $apiKeys
-                        ]);
-        $contents = $response->getBody();
-        $data = json_decode($contents);
-        $nf_message = $data->response->data->messages;
         
         $response = Http::withHeaders([
             'Accept' => 'application/json',
@@ -105,23 +110,10 @@
     <ul class="navbar-nav ml-auto" id="navbar">
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown navbar-collapse collapse">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell fa-icon-lg text-primary"></i>
-          <span class="badge badge-primary navbar-badge">{{$count}}</span>
-        </a>
-        <div class="dropdown-menu card-box dropdown-menu-lg dropdown-menu-right">
-        <div class="notification-top text-center p-2"><h3>{{$count}} New</h3><p class="opacity-75">App Notifications</p></div>
-          <div class="dropdown-divider"></div>
-          <?php $n=1 ?>
-          @foreach ($nf_message as $message)
-          @if($n++>4)@continue;@endif
-            <a href="{{ url($message->nf_action_url) }}" class="dropdown-item" style="color:#000000;">
-              <i class="fa fa-user mr-2"></i> {{$message->nf_message}}
-            </a>
-          <div class="dropdown-divider"></div>
-          @endforeach
-          <div class="text-center pt-1"><a href="{{ route('notifications') }}"><span>Read All Notifications</span></a></div>
-        </div>
+          <p class="para-date">Select Date</p>
+      </li>
+      <li>
+          <input class="select-date" type="date" name="date" style="font-size: 12px;font-weight: 500;">
       </li>
     </ul>
   </nav>

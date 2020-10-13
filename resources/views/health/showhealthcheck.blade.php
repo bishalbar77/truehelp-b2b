@@ -295,24 +295,6 @@
   letter-spacing: normal;
   color: #121212;
 }
-table.dataTable thead th {
-  border-bottom: none !important;
-}
-table.dataTable.no-footer {
-  border-bottom: none !important;
-}
-.dataTables_wrapper .dataTables_length label {
-    font-weight: bolder !important;
-    text-align: right !important;
-    white-space: nowrap !important;
-}
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
-    font-weight: bolder;
-    
-}
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-  font-weight: bolder !important;
-}
 </style>
 @endsection
 
@@ -323,11 +305,11 @@ table.dataTable.no-footer {
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li>
         <div class="pl-4">
-          <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="Oval img-circle">
+          <img src="dist/img/user1-128x128.jpg" alt="User Avatar"  class="Oval img-circle">
         </div>
       </li>
       <li class="pl-2 pt-2">
@@ -339,8 +321,9 @@ table.dataTable.no-footer {
     </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto pl-5">
+      <button type="button" class="btn btn-primary">Order Verification</button>
       <a class="pl-5"></a>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+ Add Survey</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+ Add Candidate</button>
       <a class="pl-5"></a>
     </ul>
   </nav>
@@ -356,47 +339,30 @@ table.dataTable.no-footer {
 
             <div class="Rectangle-Copy-6 pl-4 t-head">
               <div class="pt-4 pl-4">
-                <h3  class=" My-employees">Health Check Reports</h3>
+                <h3  class=" My-employees">Survey Response</h3>
               </div>
+              <!-- /.card-header -->
               <div class="card-body" >
-                <table class="table">
-                  <thead>
-                    <tr>
-                        <th>Survey Type</th>
-                        <th>Candidate</th>
-                        <th width="50px">Severty</th>
-                        <th width="130px">Survey Start</th>
-                        <th width="130px">Survey End</th>
-                        <th>Create At</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody class="t-body">
-                    @foreach($orders as $order)
-                        @if(md5($order->id) == $no)
+                    <table class="table" id="datatable">
+                      @if(isset($survey_answers))
+                      @foreach($survey_answers as $survey)
+                        <thead class="pt-2">
+                            <tr>
+                                <th>Q. {{ $survey->question_name }}</th>
+                            </tr>
+                        </thead>
+                        <tbody class="t-body">
                         <tr>
-                            <td>{{ str_replace('_', ' ', $order->survey_type) }}</td>
-                            <td>{{ $order->first_name.' '.$order->middle_name.' '.$order->last_name }}</td>
-                            <td>{{ $order->severity ?? 'NOT DONE' }}</td>
-                            <td>{{ $order->survey_start }}</td>
-                            <td>{{ $order->survey_end }}</td>
-                            <td>{{ date('Y-m-d H:i:s', strtotime($order->created_at)) }}</td>
-                            <td>{{ $order->survey_status }}</td>
-                            <td>
-                              <a href="{{ url('surveys/details/'.md5($order->id)) }}" class="pl-1" type="submit">View Details ></a>
-                              |
-                              <a href="https://www.gettruehelp.com/healthcheck/?eid={{ md5($order->employee_id) }}" class="pl-1" type="submit" target="-_blank">View Survey ></a>
-                            </td>
+                          <td>A. {{ $survey->question_answer }}</td>
                         </tr>
+                        </tbody>
+                      @endforeach
                       @endif
-                    @endforeach
-                  </tbody>
-                </table>
+                    </table>
               </div>
               <!-- /.card-body -->
             </div>
-            <br>
+            <!-- /.card -->
           </div>
           <!-- /.col -->
         </div>
@@ -406,13 +372,8 @@ table.dataTable.no-footer {
     </section>
     <!-- /.content -->
   </div>
-</div>
   
 @endsection
 
 @section('scripts')
-
-<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    
 @endsection

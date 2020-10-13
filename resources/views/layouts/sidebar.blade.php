@@ -12,6 +12,14 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-header nav-menu-tag">MENU</li>
           <li class="nav-item">
+            <a href="{{ url('health') }}" class="nav-link {{ Request::is('health') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-plus-circle"></i>
+              <p class="nav-menu">
+                Health Check
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{ url('home') }}" class="nav-link {{ Request::is('/') || Request::is('home') ? 'active' : '' }}">
               <i class="nav-icon fa fa-th"></i>
               <p class="nav-menu">
@@ -44,33 +52,13 @@
               </p>
             </a>
           </li>
-          <li class="nav-item {{ Request::is('surveys/dashboard') || Request::is('surveys/reports') || Request::is('surveys/details/*') ? 'menu-open' : '' }}">
-            <a href="#" class="nav-link {{ Request::is('surveys/dashboard') || Request::is('surveys/reports') ? 'active' : '' }}">
+          <li class="nav-item">
+          <a href="{{ url('surveys/reports') }}" class="nav-link {{ Request::is('surveys/reports') || Request::is('surveys/details/*')  ? 'active' : '' }}">
               <i class="nav-icon fa fa-list-alt"></i>
               <p class="nav-menu">
-                Health Check
-                <i class="right fa fa-angle-right"></i>
+                Health Reports
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ url('/dashboard') }}" class="nav-link {{ Request::is('/dashboard')  ? 'active' : '' }}">
-                  <i class="nav-icon fa fa-angle-double-right"></i>
-                  <p class="nav-menu">
-                    Dashboard
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ url('surveys/reports') }}" class="nav-link {{ Request::is('surveys/reports') || Request::is('surveys/details/*')  ? 'active' : '' }}">
-                  <i class="nav-icon fa fa-angle-double-right"></i>
-                  <p class="nav-menu">
-                    Reports
-                  <!-- <span class="right"><i class="fa fa-exclamation-circle"></i></span> -->
-                  </p>
-                </a>
-              </li>
-            </ul>
           </li>
           <!-- <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">

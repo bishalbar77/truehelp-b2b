@@ -23,8 +23,11 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::group(['middleware' => 'usersession'], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/health', 'SurveyController@dashboard2')->name('health.dashboard');
     Route::get('/dashboard', 'SurveyController@dashboard')->name('survey-dashboard');
     Route::get('/surveys/reports', 'SurveyController@getsurvey')->name('getsurvey');
+    Route::get('/surveys/ajax', 'SurveyController@ajax')->name('ajax');
+    Route::get('/health/details/{id}', 'SurveyController@health_details')->name('health-details');
     Route::get('/surveys/details/{id}', 'SurveyController@survey_details')->name('surveys-details');
     Route::resource('employees', 'EmployeeController');
     Route::get('/students', 'StudentController@index')->name('students.index');
@@ -51,3 +54,4 @@ Route::group(['middleware' => 'usersession'], function () {
 });
 Route::get('/seenNotification/{id}','EmployeeController@seenNotification')->name('seenNotification');
 Route::get('export', 'EmployeeController@export')->name('export');
+Route::get('test', 'EmployeeController@test')->name('test');

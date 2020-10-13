@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
-    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Google Font: Source Sans Pro -->
@@ -54,20 +54,20 @@
         @yield('javascripts')
         <script>
 		 function filterGlobal () {
-		$('#datatable').DataTable().search(
+		$('#empdatatable').DataTable().search(
 			$('#global_filter').val(),
 		
 		).draw();
 		}
 		
 		function filterColumn ( i ) {
-			$('#datatable').DataTable().column( i ).search(
+			$('#empdatatable').DataTable().column( i ).search(
 				$('#col'+i+'_filter').val()
 			).draw();
 		}
 		
 		$(document).ready(function() {
-			$('#datatable').DataTable();
+			$('#empdatatable').DataTable();
 			
 			$('input.global_filter').on( 'keyup click', function () {
 				filterGlobal();

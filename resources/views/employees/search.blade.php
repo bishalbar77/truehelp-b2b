@@ -3,8 +3,6 @@
 {{-- Styles Section --}}
 @section('styles')
 <title>TrueHelp | My Candidate</title>
-<link rel="stylesheet" href="{{ mix('css/app.css') }}" />
-<script defer src="{{ mix('js/app.js') }}"></script>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 <style>
 .signup-form{
@@ -703,7 +701,7 @@ function showDiv(select){
               "ordering": false,
               "info":     false,
               "dom": 'lrtip',
-              "ajax": "{{ route('api.employees.index') }}",
+              "ajax": "{{ url('https://enterprise.gettruehelp.com/api/api/v1/employees') }}",
               "columns": [
                   {
                     "data": null,

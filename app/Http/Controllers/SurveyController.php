@@ -59,6 +59,84 @@ class SurveyController extends Controller
         ]);
     }
 
+    public function ajax()
+    {
+        $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
+        $api_token = session()->get('api_token');
+        $response = Http::withHeaders([
+                            'Accept' => 'application/json',
+                            'Authorization' => "Bearer ".$api_token
+                        ])->post($this->API.'get-survey', [
+                            'api_key' => $apiKeys,
+                        ]);
+        
+        $contents = $response->getBody();
+
+        $data = json_decode($contents);
+        
+        if(isset($data->response)) {
+            if($data->response->status != 200) {
+                $orders = NULL;
+            } else {
+                $orders = $data->response->data;
+            }
+        } else {
+            $orders = NULL;
+        }
+        return view('health.ajax')->with([
+            'orders' => $orders
+        ]);
+    }
+    
+
+    public function health_details($id)
+    { 
+        $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
+        $api_token = session()->get('api_token');
+        $response = Http::withHeaders([
+                            'Accept' => 'application/json',
+                            'Authorization' => "Bearer ".$api_token
+                        ])->post($this->API.'get-survey-data/'.$id, [
+                            'api_key' => $apiKeys,
+                        ]);
+        
+        $contents = $response->getBody();
+
+        $data = json_decode($contents);
+
+        $surveys = $data->response->data->survey ?? NULL;
+        $employee_id = $data->response->data->survey->employee_id ?? NULL;
+        $answers = $data->response->data->survey_answers ?? NULL;
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => "Bearer ".$api_token
+        ])->post($this->API.'get-survey', [
+            'api_key' => $apiKeys,
+        ]);
+
+        $contents = $response->getBody();
+
+        $data = json_decode($contents);
+
+        if(isset($data->response)) {
+        if($data->response->status != 200) {
+        $orders = NULL;
+            } else {
+            $orders = $data->response->data;
+            }
+        } else {
+            $orders = NULL;
+        }
+
+        return view('health.showprofile')->with([
+            'surveys' => $surveys,
+            'answers' => $answers,
+            'orders' => $orders,
+            'employee_id' => $employee_id,
+        ]);
+
+    }
+
     public function survey_details($id)
     {   
         $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
@@ -114,6 +192,85 @@ class SurveyController extends Controller
             $fever_up=($data->fever_increase>=0)?'up':'down';
             return view('health.dashboard')->with(['data'=>$data, 'covid_up'=>$covid_up, 'fever_up' => $fever_up]);
         }
+
+    }
+
+    public function dashboard2()
+    {   
+        $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
+        $api_token = session()->get('api_token');
+        $response = Http::withHeaders([
+                            'Accept' => 'application/json',
+                            'Authorization' => "Bearer ".$api_token
+                        ])->post($this->API.'get-survey', [
+                            'api_key' => $apiKeys,
+                        ]);
+        
+        $contents = $response->getBody();
+
+        $data = json_decode($contents);
+        
+        if(isset($data->response)) {
+            if($data->response->status != 200) {
+                $orders = NULL;
+            } else {
+                $orders = $data->response->data;
+            }
+        } else {
+            $orders = NULL;
+        }
+        $survey_completed =0 ; $survey_postive =0 ; $survey_pending = 0;
+
+        foreach($orders as $order)
+        {
+            if($order->severity=="GREEN")
+            {
+                $survey_completed++;
+            }
+            elseif($order->severity=="RED")
+            {
+                $survey_completed++;
+                $survey_postive++;
+            }
+            else
+            {
+                $survey_pending++;
+            }
+        }
+        
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => "Bearer ".$api_token
+        ])->post('https://api.gettruehelp.com/api/employer-dashboard', [
+            'api_key' => $apiKeys,
+        ]);
+
+        $contents = $response->getBody();
+
+        $data = json_decode($contents);
+
+        if(isset($data->response)) 
+        {
+            if($data->response->status == 200) 
+            {
+                $registered_employees = $data->response->data->registered_employees;
+            }
+             else 
+            {
+                $registered_employees = '0';
+            }
+        } 
+        else 
+        {
+            $registered_employees = '0';
+        }
+        return view('health.dashboard_v2')->with([
+            'orders'=> $orders,
+            'registered_employees' => $registered_employees,
+            'survey_completed' => $survey_completed,
+            'survey_postive' => $survey_postive,
+            'survey_pending' => $survey_pending,
+        ]);
 
     }
 

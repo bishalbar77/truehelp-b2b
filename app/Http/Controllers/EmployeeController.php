@@ -129,6 +129,11 @@ class EmployeeController extends Controller
         return view('employees.upload', compact('data'));
     }
 
+    public function test()
+    {
+        return view('pages.upload');
+    }
+
     public function uploaddata(Request $request)
     {  
         // dd(request()->all());
@@ -168,9 +173,10 @@ class EmployeeController extends Controller
             $input['dob'] = $dob[$key];
             $input['gender'] = $gender[$key];
             $input['employee_types_id'] = $employee_types_id[$key];
-            dd($input);
-            Employee::create($insert);
+            // dd($input);
+            Employee::create($input);
         }
+        return redirect('/home') ;
     }
 
     public function export() 
@@ -310,7 +316,7 @@ class EmployeeController extends Controller
         $contents = $response->getBody();
         $data = json_decode($contents);
         $employees = $data->response;
-        return json_encode($employees);
+        echo json_encode($employees);
     }
 
     public function searchjson()

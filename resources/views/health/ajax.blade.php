@@ -23,7 +23,7 @@
   }
   .signup-form hr {
       margin: 0 -30px 20px;
-  }
+  }    
 .signup-form .form-group{
   margin-bottom: 20px;
 }
@@ -275,6 +275,9 @@
 .custom-file-input {
   color: transparent;
 }
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
 .Oval {
   width: 40px;
   height: 40px;
@@ -318,7 +321,7 @@ table.dataTable.no-footer {
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
       </li>
       <li>
         <div class="pl-4">
@@ -385,7 +388,6 @@ table.dataTable.no-footer {
                   </div>
                 </form>
               </div>
-              <!-- /.card-header -->
               <div class="card-body" >
                 <table id="empdatatable" class="table">
                   <thead>
@@ -401,30 +403,12 @@ table.dataTable.no-footer {
                     </tr>
                   </thead>
                   <tbody class="t-body">
-                  @if($orders!=NULL)
-                  @foreach($orders as $order)
-                    <tr>
-                        <td>{{ str_replace('_', ' ', $order->survey_type) }}</td>
-                        <td>{{ $order->first_name.' '.$order->middle_name.' '.$order->last_name }}</td>
-                        <td>{{ $order->severity ?? 'NOT DONE' }}</td>
-                        <td>{{ $order->survey_start }}</td>
-                        <td>{{ $order->survey_end }}</td>
-                        <td>{{ date('Y-m-d H:i:s', strtotime($order->created_at)) }}</td>
-                        <td>{{ $order->survey_status }}</td>
-                        <td>
-                          <a href="{{ url('health/details/'.md5($order->id)) }}" class="pl-1" type="submit">View Details ></a>
-                          |
-                          <a href="https://www.gettruehelp.com/healthcheck/?eid={{ md5($order->employee_id) }}" class="pl-1" type="submit" target="-_blank">View Survey ></a>
-                        </td>
-                    </tr>
-                  @endforeach
-                  @endif
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
             </div>
-            <!-- /.card -->
+            <br>
           </div>
           <!-- /.col -->
         </div>
@@ -434,7 +418,6 @@ table.dataTable.no-footer {
     </section>
     <!-- /.content -->
   </div>
-
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -446,7 +429,7 @@ table.dataTable.no-footer {
          </div>
          <div class="modal-body">
             <div class="signup-form">
-               <form action="/survey/add" method="post">
+               <form action="https://enterprise.gettruehelp.com/survey/add" method="post">
                   @csrf
                   <div class="form-group row">
                      <div class="col-lg-12">
@@ -469,20 +452,44 @@ table.dataTable.no-footer {
       </div>
    </div>
 </div>
-
+  
 @endsection
 
 @section('scripts')
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
           $('#empdatatable').DataTable( {
               "ordering": false,
               "info":     false,
-              "dom": 'lrtip'
+              "dom": 'lrtip',
+              "ajax": "{{ url('https://enterprise.gettruehelp.com/api/api/v1/survey') }}",
+              "columns": [
+                  { "data": "survey_type" },
+                  {
+                    "data": null,
+                    "render": function(data, type, full, meta){
+                        return full["first_name"] + " " + full["last_name"];
+                    }
+                  },
+                  { "data": "severity" },
+                  { "data": "survey_start" },
+                  { "data": "survey_end" },
+                  { "data": "created_at" },
+                  { "data": "survey_status" },
+                  {
+                      "mData": null,
+                      "bSortable": false,
+                      "mRender": function (o) 
+                      {
+                        return '<a type="submit" href=/surveys/details/{{md5('+o.id+')}}>' + 'View Details> '+ '</a>'  +' |'+ '<a href=https://www.gettruehelp.com/new/healthcheck/?eid={{md5('o.employer_id')}} type="submit" target="_blank">' + 'View Survey>'; 
+                      }
+                  }
+              ]
           } );
       } );
     </script>
+    
 @endsection
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   

@@ -3,8 +3,8 @@
 {{-- Styles Section --}}
 @section('styles')
 <title>TrueHelp | Dashboard</title>
-<link rel="stylesheet" href="{{ mix('css/app.css') }}" />
-<script defer src="{{ mix('js/app.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('css/app.css') }}" />
+<script defer src="{{ asset('js/app.js') }}"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
   <!-- Google Fonts -->
   <link rel="stylesheet" href="css/montserratfont.css">
