@@ -110,7 +110,7 @@
     <ul class="navbar-nav ml-auto" id="navbar">
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown navbar-collapse collapse">
-          <p class="para-date">Select Date</p>
+          <p class="para-date">Date</p>
       </li>
       <li>
           <input class="select-date" type="date" name="date" style="font-size: 12px;font-weight: 500;">

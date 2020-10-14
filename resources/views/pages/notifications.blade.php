@@ -25,7 +25,7 @@
 }
 
 body{
-  font-family: Montserrat;
+  background-color: #ffffff !important;
 }
 
 /*
@@ -183,94 +183,28 @@ font-weight: 600;
 
   <div class="container col-md-8 my-4">
     @foreach ($nf_message as $message)
-    
-    <div class="card-new my-3 rad shadow">
-      <div class="card-body">
-        <h5 class="ver5"><div class="d-flex align-items-stretch ">
-          <div class="w-75 full-bl wgt-600"><i class="fa fa-user-circle"> &nbsp</i>{{$message->nf_message}}</div>
-                <a class="padding-right: 10.75rem">{{ date(" H:i:s M d, Y",strtotime($message->date)) }} </a>
-          <a href="{{ url($message->nf_action_url) }}" class="full-bl pl-4" style="float: right !important;"><i class="fa fa-angle-right"></i></a>
-        </h5>
+      @if($message->is_seen=='N')
+      <div class="card-new my-3 rad shadow" style="background-color:#eceff3;">
+        <div class="card-body">
+          <h5 class="ver5"><div class="d-flex align-items-stretch ">
+            <div class="w-75 full-bl wgt-600"><i class="fa fa-user-circle"> &nbsp</i>{{$message->nf_message}}</div>
+                  <a class="padding-right: 10.75rem">{{ date(" H:i:s M d, Y",strtotime($message->date)) }} </a>
+            <a href="" class="full-bl pl-4" style="float: right !important;"><i class="fa fa-angle-right"></i></a>
+          </h5>
+        </div>
       </div>
-    </div>
+      @else
+      <div class="card-new my-3 rad shadow" style="background-color:#fffffc;">
+        <div class="card-body">
+          <h5 class="ver5"><div class="d-flex align-items-stretch ">
+            <div class="w-75 full-bl wgt-600"><i class="fa fa-user-circle"> &nbsp</i>{{$message->nf_message}}</div>
+                  <a class="padding-right: 10.75rem">{{ date(" H:i:s M d, Y",strtotime($message->date)) }} </a>
+            <a href="" class="full-bl pl-4" style="float: right !important;"><i class="fa fa-angle-right"></i></a>
+          </h5>
+        </div>
+      </div>
+      @endif
     @endforeach
-
-  <!--   <div class="card-new my-3 rad shadow ">
-      <div class="card-body">
-        <h5 class="ver5"><div class="d-flex align-items-stretch ">
-          <div class="w-100 full-bl wgt-600"><i class="fa fa-edit"> &nbsp</i><span class="re">Possible criminal record </span>found for Mr. Leoroy sane
-          </div>
-
-
-          <a href="" class="full-bl">  <div class="flex-grow-1 "><i class="fa fa-angle-right"></i></div></a>
-
-        </div></h5>
-      </div>
-    </div>
-
-    <div class="card-new my-3 shadow rad">
-      <div class="card-body">
-       <h5 class="ver5"><div class="d-flex align-items-stretch ">
-        <div class="w-100 full-bl wgt-600"><i class="fa fa-user-circle"> &nbsp</i>Driving License Verification for Rohan Sakore, Serjio Augeoro, David Silva, and 3others is completed
-        </div>
-
-        
-        <a href="" class="full-bl">  <div class="flex-grow-1 "><i class="fa fa-angle-right"></i></div></a>
-
-      </div></h5>
-    </div>
-  </div>
-
-  <div class="card-new my-3 shadow rad">
-    <div class="card-body">
-      <h5 class="ver5"><div class="d-flex align-items-stretch ">
-        <div class="w-100 full-bl wgt-600"><i class="fa fa-user-circle"> &nbsp</i>Verification for Rohan Sakore, Serjio Augeoro, David Silva, and 3 others is completed.
-        </div>
-
-
-        <a href="" class="full-bl">  <div class="flex-grow-1 "><i class="fa fa-angle-right"></i></div></a>
-      </div></h5>
-    </div>
-  </div>
-
-  <div class="card-new-grey my-3 shadow rad">
-    <div class="card-body">
-     <h5 class="ver5"><div class="d-flex align-items-stretch ">
-      <div class="w-100 full-bl wgt-600"><i class="fa fa-edit"> &nbsp</i><span class="re">Possible criminal record </span>found for Mr. Leoroy sane
-      </div>
-
-
-      <a href="" class="full-bl">  <div class="flex-grow-1 "><i class="fa fa-angle-right"></i></div></a>
-
-    </div></h5>
-  </div>
-</div>
-
-<div class="card-new-grey my-3 radius shadow ">
-  <div class="card-body">
-    <h5 class="ver5"><div class="d-flex align-items-stretch ">
-      <div class="w-100 full-bl wgt-600"><i class="fa fa-user-circle"> &nbsp</i>Criminal Record Verification for Rohan Sakore, Serjio Audeoro, David Silva, and 3 others is completed
-      </div>
-
-
-      <a href="" class="full-bl">  <div class="flex-grow-1 "><i class="fa fa-angle-right"></i></div></a>
-
-    </div></h5>
-  </div>
-</div>
-
-<div class="card-new-grey my-3 rad shadow ">
-  <div class="card-body">
-   <h5 class="ver5"><div class="d-flex align-items-stretch ">
-    <div class="w-100 full-bl wgt-600"><i class="fa fa-user-circle"> &nbsp</i>Verification for Rohan Sakore, Serjio Audeoro, David Silva, and 3 others is completed
-    </div>
-
-    <a href="" class="full-bl">  <div class="flex-grow-1 "><i class="fa fa-angle-right"></i></div></a>
-
-  </div></h5>
-</div>
-</div>
- -->
 </div>
 
 

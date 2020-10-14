@@ -4,6 +4,19 @@
   display: none;
   transition: .3s ease-in-out;
 }
+.noti-text {
+  color: #000000; 
+  font-family: Montserrat;
+  font-size: 19px;
+  font-weight: 600;
+}
+.noti-text-light {
+  color: #000000; 
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 300;
+  opacity: 0.9;
+}
 </style>
 <link rel="stylesheet" href="tokenize2.css">
 <!--body-->
@@ -85,7 +98,7 @@
     <form class="form-inline ml-3" action="{{ route('searchAnalytics.store') }}" enctype="multipart/form-data">
     @csrf
     
-      <div class="col-25 input-group input-group-lg" id="hiddensearch" style="display: none; margin-top:5px;>
+      <div class="col-25 input-group input-group-lg" id="hiddensearch" style="display: none; margin-top:5px;">
       <i class="glyphicon glyphicon-user"></i>
       <select type="text" id="select" name="employee_id[]" class="tokenize-demo" multiple required>
       @foreach($employees as $employee)
@@ -110,17 +123,28 @@
           <span class="badge badge-primary navbar-badge">{{$count}}</span>
         </a>
         <div class="dropdown-menu card-box dropdown-menu-lg dropdown-menu-right">
-        <div class="notification-top text-center p-2"><h3>{{$count}} New</h3><p class="opacity-75">App Notifications</p></div>
-          <div class="dropdown-divider"></div>
-          <?php $n=1 ?>
-          @foreach ($nf_message as $message)
-          @if($n++>4)@continue;@endif
-            <a href="{{ url($message->nf_action_url) }}" class="dropdown-item" style="color:#000000;">
-              <i class="fa fa-user mr-2"></i> {{$message->nf_message}}
-            </a>
-          <div class="dropdown-divider"></div>
-          @endforeach
-          <div class="text-center pt-1"><a href="{{ route('notifications') }}"><span>Read All Notifications</span></a></div>
+          <div class="notification-top text-center p-2"><h3 class="noti-text">{{$count}} New</h3><p class="noti-text-light">App Notifications</p></div>
+            <div class="dropdown-divider"></div>
+            <?php $n=1 ?>
+            @foreach ($nf_message as $message)
+            @if($n++>6)@continue;@endif
+            @if($message->is_seen=='N')
+            <div  style="background-color:#eceff3;">
+              <a href="{{ route('seenNotification',$message->id) }}" class="dropdown-item">
+                <i class="fa fa-user mr-2"></i> {{$message->nf_message}}
+              </a>
+            </div>
+            <div class="dropdown-divider"></div>
+            @else
+            <div  style="background-color:#fffffc;">
+              <a href="{{ route('seenNotification',$message->id) }}" class="dropdown-item">
+                <i class="fa fa-user mr-2"></i> {{$message->nf_message}}
+              </a>
+            </div>
+            <div class="dropdown-divider"></div>
+            @endif
+            @endforeach
+            <div class="text-center pt-1"><a href="{{ route('notifications') }}"><span>Read All Notifications</span></a></div>
         </div>
       </li>
     </ul>

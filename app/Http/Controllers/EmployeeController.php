@@ -343,6 +343,7 @@ class EmployeeController extends Controller
                         ]);
         $contents = $response->getBody();
         $data = json_decode($contents);
-        return Redirect::to('google.com');
+        $employees = $data->response->data->messages;
+        return Redirect::to($employees);
     }
 }

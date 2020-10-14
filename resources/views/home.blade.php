@@ -120,7 +120,9 @@
 .inner-addon { 
     position: relative; 
 }
-
+body{
+  background-color: #ffffff !important;
+}
 /* style icon */
 .inner-addon .glyphicon {
   position: absolute;
