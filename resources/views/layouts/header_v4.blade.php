@@ -116,31 +116,10 @@
       {{ method_field('PUT') }}
       <a type="submit"></a>
     </form>
-    <ul class="navbar-nav ml-auto" id="navbar">
-      <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown navbar-collapse collapse">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell fa-icon-lg text-primary"></i>
-          <span class="badge badge-primary navbar-badge">{{$count}}</span>
-        </a>
-        <div class="dropdown-menu card-box dropdown-menu-lg dropdown-menu-right">
-          <div class="notification-top text-center p-2"><h3 class="noti-text">{{$count}} New</h3><p class="noti-text-light">App Notifications</p></div>
-            <div class="dropdown-divider"></div>
-            <?php $n=1 ?>
-            @foreach ($nf_message as $message)
-            @if($message->is_seen=='N')
-            @if($n++>6)@continue;@endif
-            <div  style="background-color:#eceff3;">
-              <a href="{{ route('seenNotification',$message->id) }}" class="dropdown-item">
-                <i class="fa fa-user mr-2"></i> {{$message->nf_message}}
-              </a>
-            </div>
-            <div class="dropdown-divider"></div>
-            @endif
-            @endforeach
-            <div class="text-center pt-1"><a href="{{ route('notifications') }}"><span>Read All Notifications</span></a></div>
-        </div>
-      </li>
+    <ul class="navbar-nav ml-auto pl-5">
+      <a class="pl-5"></a>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+ Add Survey</button>
+      <a class="pl-5"></a>
     </ul>
   </nav>
 <!--scripts-->

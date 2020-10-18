@@ -510,29 +510,33 @@
   text-align: right;
   color: #dadada;
 }
+.inner-addon { 
+    position: relative; 
+}
+body{
+  background-color: #ffffff !important;
+}
+/* style icon */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+/* align icon */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+
 </style>
 @endsection
 
 {{-- Content --}}
 @section('content')
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li>
-        <div class="pl-4">
-          <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="Oval img-circle">
-        </div>
-      </li>
-      <li class="pl-2 pt-2">
-        <p class="nav-name">{{ session()->get('first_name') }}</p>
-      </li>
-      <li class="pl-2 pt-2">
-        <i class="fa fa-caret-down"></i>
-      </li>
-    </ul>
-  </nav>
+@include('layouts.header_v5')
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar elevation-4 side-bar">
@@ -590,7 +594,11 @@
                   @foreach($answers as $answer)
                     <tr>
                       <th>{{ $answer->text ?? '' }}</th>
+                      @if(strlen($answer->question_answer) >=20 )
+                      <td class="table-text-cyan"><a href="{{ $answer->question_answer }}" target="_blank">View</a></td>
+                      @else
                       <td class="table-text-cyan">{{ $answer->question_answer }}</td>
+                      @endif
                     </tr>
                   @endforeach
                 @endif

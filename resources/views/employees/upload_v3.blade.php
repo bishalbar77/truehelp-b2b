@@ -2,10 +2,9 @@
 @extends('layouts.default')
 {{-- Styles Section --}}
 @section('styles')
-<title>TrueHelp | Health Check Reports</title>
-<link rel="stylesheet" href="{{ mix('css/app.css') }}" />
-<script defer src="{{ mix('js/app.js') }}"></script>
+<title>TrueHelp | Uploaded Candidates</title>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+<link rel="stylesheet" type="text/css" href="css/screen.css">
 <style>
 .signup-form{
   width: 95%;
@@ -126,6 +125,12 @@
 }
 .button-proceed {
   width: 270px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: #fecf3a;
+}
+.button-upload {
+  width: 170px;
   height: 40px;
   border-radius: 8px;
   background-color: #fecf3a;
@@ -295,44 +300,193 @@
   letter-spacing: normal;
   color: #121212;
 }
+.order-img {
+  width: 90%;
+}
+.Request-sent {
+  width:100%;
+  font-family: Montserrat;
+  font-size: 19px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--black);
+}
+.Lorem-ipsum-dolor-si {
+  height: 66px;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #b6b8c3;
+}
+.fa-icon-lg {
+  font-size: 1.6em;
+  line-height: 0.05em;
+  vertical-align: -35%;
+}
+.card-box {
+  width: 700px;
+  border-radius: .7rem !important;
+  box-shadow: 0 15px 30px 0 rgba(0,0,0,.11),0 5px 15px 0 rgba(0,0,0,.08)!important;
+}
+.error {
+  font-size: 10.8px;
+  align: center;
+  color: red;
+  font-weight: 700;
+}
+.inner-addon { 
+    position: relative; 
+}
+
+/* style icon */
+.inner-addon .fa {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+.col-lg-4 {
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
+/* align icon */
+.left-addon .fa  { 
+  left:  0px;
+  opacity: 0.5;
+}
+.right-addon .fa { right: 0px;}
+
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+
+
+ol.progtrckr {
+        display: table;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        table-layout: fixed;
+        width: 100%;
+    }
+    ol.progtrckr li {
+        display: table-cell;
+        text-align: center;
+        line-height: 3em;
+    }
+
+    ol.progtrckr[data-progtrckr-steps="2"] li { width: 49%; }
+    ol.progtrckr[data-progtrckr-steps="3"] li { width: 33%; }
+    ol.progtrckr[data-progtrckr-steps="4"] li { width: 24%; }
+    ol.progtrckr[data-progtrckr-steps="5"] li { width: 19%; }
+    ol.progtrckr[data-progtrckr-steps="6"] li { width: 16%; }
+    ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
+    ol.progtrckr[data-progtrckr-steps="8"] li { width: 12%; }
+    ol.progtrckr[data-progtrckr-steps="9"] li { width: 11%; }
+
+    ol.progtrckr li.progtrckr-done {
+        color: black;
+        border-bottom: 4px solid yellowgreen;
+    }
+    ol.progtrckr li.progtrckr-todo {
+        color: silver; 
+        border-bottom: 4px solid silver;
+    }
+
+    ol.progtrckr li:after {
+        content: "\00a0\00a0";
+    }
+    ol.progtrckr li:before {
+        position: relative;
+        bottom: -2.5em;
+        float: left;
+        left: 50%;
+        line-height: 1em;
+    }
+    ol.progtrckr li.progtrckr-done:before {
+        content: "\2713";
+        color: white;
+        background-color: yellowgreen;
+        height: 1.2em;
+        width: 1.2em;
+        line-height: 1.2em;
+        border: none;
+        border-radius: 1.2em;
+    }
+    ol.progtrckr li.progtrckr-todo:before {
+        content: "\039F";
+        color: silver;
+        background-color: #f4f6f7;
+        font-size: 1.5em;
+        bottom: -1.6em;
+    }
 </style>
 @endsection
 
 {{-- Content --}}
 @section('content')
 
-@include('layouts.header')
-    <aside class="main-sidebar elevation-4 side-bar">
+  <!-- /.navbar -->
+  @include('layouts.header')
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar elevation-4 side-bar">
     @include('layouts.sidebar')
   </aside>
   <div class="content-wrapper">
+    <div>
+      <ol class="progtrckr" data-progtrckr-steps="5">
+        <li class="progtrckr-done">Upload</li>
+        <li class="progtrckr-done">Check</li>
+        <li class="progtrckr-done">Import</li>
+        <li class="progtrckr-todo">Done</li>
+      </ol>
+    </div>
     <section class="content pt-5">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
             <!-- /.card -->
-
+            <br>
             <div class="Rectangle-Copy-6 pl-4 t-head">
               <div class="pt-4 pl-4">
-                <h3  class=" My-employees">Survey Response</h3>
+                <h3  class=" My-employees">Uploaded Candidates</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body" >
                     <table class="table" id="datatable">
-                      @if(isset($survey_answers))
-                      @foreach($survey_answers as $survey)
-                        <thead class="pt-2">
+                        <thead>
                             <tr>
-                                <th>Q. {{ $survey->question_name }}</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="t-body">
-                        <tr>
-                          <td>A. {{ $survey->question_answer }}</td>
-                        </tr>
+                          @if($employees!=NULL)
+                          @foreach($employees as $employee)
+                          
+                            <tr>
+                                <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
+                                <td>{{ $employee->email ?? '' }}</td>
+                                <td>{{ $employee->mobile }}</td>
+                                <td>{{ $employee->emp_status == 'I' ? 'In-Active' : 'Active' }}</td>
+                                <td>
+                                  <a href="{{ url('employees/details/'.$employee->employee_id) }}" type="submit">
+                                    View Details <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                  </a>
+                                </td>
+                            </tr>
+                          
+                          @endforeach
+                          @endif
                         </tbody>
-                      @endforeach
-                      @endif
                     </table>
               </div>
               <!-- /.card-body -->
@@ -347,7 +501,6 @@
     </section>
     <!-- /.content -->
   </div>
-  
 @endsection
 
 @section('scripts')

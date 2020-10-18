@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Hash;
 use DB;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Crypt;
@@ -168,7 +169,7 @@ class SurveyController extends Controller
             'employee_id' => $request->employee_id
         ]);
         
-        return redirect('surveys/reports')->with('success', 'Survey Created Successfully!');
+        return redirect('surveys/')->with('success', 'Survey Created Successfully!');
     }
 
     public function dashboard()
@@ -220,21 +221,180 @@ class SurveyController extends Controller
             $orders = NULL;
         }
         $survey_completed =0 ; $survey_postive =0 ; $survey_pending = 0;
+        $total[]=0; $positive[]=0; $negative[]=0; $day[]=0; $a=0; $b=0; $e=0; $f=0; $g=0; $h=0; 
+        $i=0; $j=0; $k=0; $l=0; $m=0; $n=0; $o=0; $p=0; $q=0; $r=0; $safe=0; 
+        $s=0; $t=0; $u=0; $v=0; $w=0; $x=0; $y=0; $z=0;
 
         foreach($orders as $order)
         {
-            if($order->severity=="GREEN")
+            if(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::today()->format('d/m/Y'))
             {
-                $survey_completed++;
+                if($order->severity=="RED")
+                {
+                    $a++;
+                    $b++;
+                }
+                else
+                {
+                    $a++;
+                    $s++;
+                }
             }
-            elseif($order->severity=="RED")
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(1)->format('d/m/Y'))
             {
-                $survey_completed++;
-                $survey_postive++;
+                if($order->severity=="RED")
+                {
+                    $e++;
+                    $f++;
+                }
+                else
+                {
+                    $e++;
+                    $t++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(2)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $g++;
+                    $h++;
+                }
+                else
+                {
+                    $g++;
+                    $u++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(3)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $i++;
+                    $j++;
+                }
+                else
+                {
+                    $i++;
+                    $v++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(4)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $k++;
+                    $l++;
+                }
+                else
+                {
+                    $k++;
+                    $w++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(5)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $m++;
+                    $n++;
+                }
+                else
+                {
+                    $m++;
+                    $x++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(6)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $o++;
+                    $p++;
+                }
+                else
+                {
+                    $o++;
+                    $y++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(7)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $q++;
+                    $r++;
+                }
+                else
+                {
+                    $q++;
+                    $z++;
+                }
             }
             else
+            {}
+                $day[0]=Carbon::today()->format('d M');
+                $total[0]=$a;
+                $positive[0]=$b;
+                $negative[0]=$s;
+                $day[1]=Carbon::now()->subDays(1)->format('d M');
+                $total[1]=$e;
+                $positive[1]=$f;
+                $negative[1]=$t;
+                $day[2]=Carbon::now()->subDays(2)->format('d M');
+                $total[2]=$g;
+                $positive[2]=$h;
+                $negative[2]=$u;
+                $day[3]=Carbon::now()->subDays(3)->format('d M');
+                $total[3]=$i;
+                $positive[3]=$j;
+                $negative[3]=$v;
+                $day[4]=Carbon::now()->subDays(4)->format('d M');
+                $total[4]=$k;
+                $positive[4]=$l;
+                $negative[4]=$w;
+                $day[5]=Carbon::now()->subDays(5)->format('d M');
+                $total[5]=$m;
+                $positive[5]=$n;
+                $negative[5]=$x;
+                $day[6]=Carbon::now()->subDays(6)->format('d M');
+                $total[6]=$o;
+                $positive[6]=$p;
+                $negative[6]=$y;
+                $day[7]=Carbon::now()->subDays(7)->format('d M');
+                $total[7]=$q;
+                $positive[7]=$r;
+                $negative[7]=$z;
+        }
+    
+        if($total[0]!=0)
+        {
+            $text = $total[0]/2 > $positive[0] ? 'YAY! You are Safe Today' : 'You are at high risk';
+            $font = $total[0]/2 > $positive[0] ? '#00a13d' : 'rgb(255, 16, 96)';
+        }
+        else
+        {
+            $text = 'SORRY! No surveys Today';
+            $font = '#a9a9a9' ;
+        }
+        foreach($orders as $order)
+        {
+            if(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::today()->format('d/m/Y'))
             {
-                $survey_pending++;
+                if($order->severity=="GREEN")
+                {
+                    $survey_completed++;
+                    $safe++;
+                }
+                elseif($order->severity=="RED")
+                {
+                    $survey_completed++;
+                    $survey_postive++;
+                }
+                else
+                {
+                    $survey_pending++;
+                }
             }
         }
         
@@ -270,8 +430,560 @@ class SurveyController extends Controller
             'survey_completed' => $survey_completed,
             'survey_postive' => $survey_postive,
             'survey_pending' => $survey_pending,
+            'day' => $day,
+            'total' => $total,
+            'positive' => $positive,
+            'negative' => $negative,
+            'text' => $text,
+            'font' => $font,
+            'safe' => $safe
         ]);
 
+    }
+
+    public function dashboardv3($id)
+    {
+        $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
+        $api_token = session()->get('api_token');
+        $response = Http::withHeaders([
+                            'Accept' => 'application/json',
+                            'Authorization' => "Bearer ".$api_token
+                        ])->post($this->API.'get-survey', [
+                            'api_key' => $apiKeys,
+                        ]);
+        
+        $contents = $response->getBody();
+
+        $data = json_decode($contents);
+        
+        if(isset($data->response)) {
+            if($data->response->status != 200) {
+                $orders = NULL;
+            } else {
+                $orders = $data->response->data;
+            }
+        } else {
+            $orders = NULL;
+        }
+        $survey_completed =0 ; $survey_postive =0 ; $survey_pending = 0;
+        $total[]=0; $positive[]=0; $negative[]=0; $day[]=0; $a=0; $b=0; $e=0; $f=0; $g=0; $h=0; 
+        $i=0; $j=0; $k=0; $l=0; $m=0; $n=0; $o=0; $p=0; $q=0; $r=0; $safe=0; 
+        $s=0; $t=0; $u=0; $v=0; $w=0; $x=0; $y=0; $z=0; $registered_candidates=0;
+
+        foreach($orders as $order)
+        {
+            if(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::today()->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $a++;
+                    $b++;
+                }
+                else
+                {
+                    $a++;
+                    $s++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(1)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $e++;
+                    $f++;
+                }
+                else
+                {
+                    $e++;
+                    $t++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(2)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $g++;
+                    $h++;
+                }
+                else
+                {
+                    $g++;
+                    $u++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(3)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $i++;
+                    $j++;
+                }
+                else
+                {
+                    $i++;
+                    $v++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(4)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $k++;
+                    $l++;
+                }
+                else
+                {
+                    $k++;
+                    $w++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(5)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $m++;
+                    $n++;
+                }
+                else
+                {
+                    $m++;
+                    $x++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(6)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $o++;
+                    $p++;
+                }
+                else
+                {
+                    $o++;
+                    $y++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(7)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $q++;
+                    $r++;
+                }
+                else
+                {
+                    $q++;
+                    $z++;
+                }
+            }
+            else
+            {}
+                $day[0]=Carbon::today()->format('d M');
+                $total[0]=$a;
+                $positive[0]=$b;
+                $negative[0]=$s;
+                $day[1]=Carbon::now()->subDays(1)->format('d M');
+                $total[1]=$e;
+                $positive[1]=$f;
+                $negative[1]=$t;
+                $day[2]=Carbon::now()->subDays(2)->format('d M');
+                $total[2]=$g;
+                $positive[2]=$h;
+                $negative[2]=$u;
+                $day[3]=Carbon::now()->subDays(3)->format('d M');
+                $total[3]=$i;
+                $positive[3]=$j;
+                $negative[3]=$v;
+                $day[4]=Carbon::now()->subDays(4)->format('d M');
+                $total[4]=$k;
+                $positive[4]=$l;
+                $negative[4]=$w;
+                $day[5]=Carbon::now()->subDays(5)->format('d M');
+                $total[5]=$m;
+                $positive[5]=$n;
+                $negative[5]=$x;
+                $day[6]=Carbon::now()->subDays(6)->format('d M');
+                $total[6]=$o;
+                $positive[6]=$p;
+                $negative[6]=$y;
+                $day[7]=Carbon::now()->subDays(7)->format('d M');
+                $total[7]=$q;
+                $positive[7]=$r;
+                $negative[7]=$z;
+        }
+    
+        if($total[0]!=0)
+        {
+            $text = $total[0]/2 > $positive[0] ? 'YAY! You are Safe Today' : 'You are at high risk';
+            $font = $total[0]/2 > $positive[0] ? '#00a13d' : 'rgb(255, 16, 96)';
+        }
+        else
+        {
+            $text = 'Sorry! No surveys Today';
+            $font = '#a9a9a9' ;
+        }
+        foreach($orders as $order)
+        {
+            if(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') > Carbon::now()->subDays($id-1)->format('d/m/Y'))
+            {
+                if($order->severity=="GREEN")
+                {
+                    $survey_completed++;
+                    $safe++;
+                    $registered_candidates++;
+                }
+                elseif($order->severity=="RED")
+                {
+                    $survey_completed++;
+                    $survey_postive++;
+                    $registered_candidates++;
+                }
+                else
+                {
+                    $survey_pending++;
+                    $registered_candidates++;
+                }
+            }
+        }
+        
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => "Bearer ".$api_token
+        ])->post('https://api.gettruehelp.com/api/employer-dashboard', [
+            'api_key' => $apiKeys,
+        ]);
+
+        $contents = $response->getBody();
+
+        $data = json_decode($contents);
+
+        if(isset($data->response)) 
+        {
+            if($data->response->status == 200) 
+            {
+                $registered_employees = $data->response->data->registered_employees;
+            }
+             else 
+            {
+                $registered_employees = '0';
+            }
+        } 
+        else 
+        {
+            $registered_employees = '0';
+        }
+        return view('health.dashboard_v2')->with([
+            'orders'=> $orders,
+            'registered_employees' => $registered_employees,
+            'survey_completed' => $survey_completed,
+            'survey_postive' => $survey_postive,
+            'survey_pending' => $survey_pending,
+            'day' => $day,
+            'total' => $total,
+            'positive' => $positive,
+            'negative' => $negative,
+            'text' => $text,
+            'font' => $font,
+            'safe' => $safe,
+            'registered_candidates' => $registered_candidates,
+        ]);
+
+    }
+
+    public function dashboardv4($id)
+    { 
+        $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
+        $api_token = session()->get('api_token');
+        $response = Http::withHeaders([
+                            'Accept' => 'application/json',
+                            'Authorization' => "Bearer ".$api_token
+                        ])->post($this->API.'get-survey', [
+                            'api_key' => $apiKeys,
+                        ]);
+        
+        $contents = $response->getBody();
+
+        $data = json_decode($contents);
+        
+        if(isset($data->response)) {
+            if($data->response->status != 200) {
+                $orders = NULL;
+            } else {
+                $orders = $data->response->data;
+            }
+        } else {
+            $orders = NULL;
+        }
+        $survey_completed =0 ; $survey_postive =0 ; $survey_pending = 0;
+        $total[]=0; $positive[]=0; $negative[]=0; $day[]=0; $a=0; $b=0; $e=0; $f=0; $g=0; $h=0; 
+        $i=0; $j=0; $k=0; $l=0; $m=0; $n=0; $o=0; $p=0; $q=0; $r=0; $safe=0; 
+        $s=0; $t=0; $u=0; $v=0; $w=0; $x=0; $y=0; $z=0; $registered_candidates=0; $check;
+
+        foreach($orders as $order)
+        {
+            if(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::today()->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $a++;
+                    $b++;
+                }
+                else
+                {
+                    $a++;
+                    $s++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(1)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $e++;
+                    $f++;
+                }
+                else
+                {
+                    $e++;
+                    $t++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(2)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $g++;
+                    $h++;
+                }
+                else
+                {
+                    $g++;
+                    $u++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(3)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $i++;
+                    $j++;
+                }
+                else
+                {
+                    $i++;
+                    $v++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(4)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $k++;
+                    $l++;
+                }
+                else
+                {
+                    $k++;
+                    $w++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(5)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $m++;
+                    $n++;
+                }
+                else
+                {
+                    $m++;
+                    $x++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(6)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $o++;
+                    $p++;
+                }
+                else
+                {
+                    $o++;
+                    $y++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(7)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $q++;
+                    $r++;
+                }
+                else
+                {
+                    $q++;
+                    $z++;
+                }
+            }
+            else
+            {}
+                $day[0]=Carbon::today()->format('d M');
+                $total[0]=$a;
+                $positive[0]=$b;
+                $negative[0]=$s;
+                $day[1]=Carbon::now()->subDays(1)->format('d M');
+                $total[1]=$e;
+                $positive[1]=$f;
+                $negative[1]=$t;
+                $day[2]=Carbon::now()->subDays(2)->format('d M');
+                $total[2]=$g;
+                $positive[2]=$h;
+                $negative[2]=$u;
+                $day[3]=Carbon::now()->subDays(3)->format('d M');
+                $total[3]=$i;
+                $positive[3]=$j;
+                $negative[3]=$v;
+                $day[4]=Carbon::now()->subDays(4)->format('d M');
+                $total[4]=$k;
+                $positive[4]=$l;
+                $negative[4]=$w;
+                $day[5]=Carbon::now()->subDays(5)->format('d M');
+                $total[5]=$m;
+                $positive[5]=$n;
+                $negative[5]=$x;
+                $day[6]=Carbon::now()->subDays(6)->format('d M');
+                $total[6]=$o;
+                $positive[6]=$p;
+                $negative[6]=$y;
+                $day[7]=Carbon::now()->subDays(7)->format('d M');
+                $total[7]=$q;
+                $positive[7]=$r;
+                $negative[7]=$z;
+        }
+    
+        if($total[0]!=0)
+        {
+            $text = $total[0]/2 > $positive[0] ? 'YAY! You are Safe Today' : 'You are at high risk';
+            $font = $total[0]/2 > $positive[0] ? '#00a13d' : 'rgb(255, 16, 96)';
+        }
+        else
+        {
+            $text = 'Sorry! No surveys Today';
+            $font = '#a9a9a9' ;
+        }
+        foreach($orders as $order)
+        {
+            if(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::today()->format('d/m/Y'))
+            {
+                if($order->severity=="GREEN")
+                {
+                    $survey_completed++;
+                    $safe++;
+                    $registered_candidates++;
+                }
+                elseif($order->severity=="RED")
+                {
+                    $survey_completed++;
+                    $survey_postive++;
+                    $registered_candidates++;
+                }
+                else
+                {
+                    $survey_pending++;
+                    $registered_candidates++;
+                }
+            }
+        }
+        if($id=='completed')
+        {
+            $check= 'COMPLETE';
+        }
+        elseif($id=='unsafe')
+        {
+            $check= 'RED';
+        }
+        elseif($id=='positive')
+        {
+            $check= 'RED';
+        }
+        elseif($id=='safe')
+        {
+            $check= 'GREEN';
+        }
+        else
+        {
+            $check= 'RED';
+        }
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => "Bearer ".$api_token
+        ])->post('https://api.gettruehelp.com/api/employer-dashboard', [
+            'api_key' => $apiKeys,
+        ]);
+
+        $contents = $response->getBody();
+
+        $data = json_decode($contents);
+
+        if(isset($data->response)) 
+        {
+            if($data->response->status == 200) 
+            {
+                $registered_employees = $data->response->data->registered_employees;
+            }
+             else 
+            {
+                $registered_employees = '0';
+            }
+        } 
+        else 
+        {
+            $registered_employees = '0';
+        }
+
+        return view('health.dashboard_v2')->with([
+            'orders'=> $orders,
+            'registered_employees' => $registered_employees,
+            'survey_completed' => $survey_completed,
+            'survey_postive' => $survey_postive,
+            'survey_pending' => $survey_pending,
+            'day' => $day,
+            'total' => $total,
+            'positive' => $positive,
+            'negative' => $negative,
+            'text' => $text,
+            'font' => $font,
+            'safe' => $safe,
+            'registered_candidates' => $registered_candidates,
+            'check' => $check
+        ]);
+
+    }
+
+    public function visitors(Request $request)
+    {
+        $api_token = session()->get('api_token');
+        $employer_id = session()->get('employer_id');
+        $country_code = $request->country_code;
+        $mobile = $request->mobile;
+        $first_name = $request->first_name;
+        $middle_name = $request->middle_name;
+        $last_name = $request->last_name;
+        $response = Http::withHeaders(['Authorization' => "Bearer ".$api_token])
+            ->post($this->API.'store-visitors', [
+            'country_code' => $country_code,
+            'mobile' => $mobile,
+            'first_name' =>$first_name,
+            'middle_name' => $middle_name,
+            'last_name' => $last_name,
+            'employer_id' => 64,
+        ]);
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        $message = $data->response->message;
+        // dd($data);
+        Session::flash('message', $message);
+        return redirect('/employees') ;
     }
 
     public function api()

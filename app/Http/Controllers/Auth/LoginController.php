@@ -73,6 +73,8 @@ class LoginController extends Controller
             return redirect()->back();
         }
         session()->put('first_name', $data->response->data->first_name);
+        session()->put('mobile', $data->response->data->mobile);
+        session()->put('employer_id', $data->response->data->id);
         session()->put('api_token', $data->response->data->api_token);
         return redirect()->route('home');
     }

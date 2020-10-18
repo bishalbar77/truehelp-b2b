@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>TrueHelp | My Candidate</title>
+  <title>TrueHelp | Upload Response</title>
   <!-- Tell the browser to be responsive to screen width -->
   <link rel="stylesheet" href="/css/app.css" />
     <script defer src="/employeesjs/app.js"></script>
@@ -387,6 +387,67 @@
 
 .left-addon input  { padding-left:  30px; }
 .right-addon input { padding-right: 30px; }
+
+
+ol.progtrckr {
+        display: table;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        table-layout: fixed;
+        width: 100%;
+    }
+    ol.progtrckr li {
+        display: table-cell;
+        text-align: center;
+        line-height: 3em;
+    }
+
+    ol.progtrckr[data-progtrckr-steps="2"] li { width: 49%; }
+    ol.progtrckr[data-progtrckr-steps="3"] li { width: 33%; }
+    ol.progtrckr[data-progtrckr-steps="4"] li { width: 24%; }
+    ol.progtrckr[data-progtrckr-steps="5"] li { width: 19%; }
+    ol.progtrckr[data-progtrckr-steps="6"] li { width: 16%; }
+    ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
+    ol.progtrckr[data-progtrckr-steps="8"] li { width: 12%; }
+    ol.progtrckr[data-progtrckr-steps="9"] li { width: 11%; }
+
+    ol.progtrckr li.progtrckr-done {
+        color: black;
+        border-bottom: 4px solid yellowgreen;
+    }
+    ol.progtrckr li.progtrckr-todo {
+        color: silver; 
+        border-bottom: 4px solid silver;
+    }
+
+    ol.progtrckr li:after {
+        content: "\00a0\00a0";
+    }
+    ol.progtrckr li:before {
+        position: relative;
+        bottom: -2.5em;
+        float: left;
+        left: 50%;
+        line-height: 1em;
+    }
+    ol.progtrckr li.progtrckr-done:before {
+        content: "\2713";
+        color: white;
+        background-color: yellowgreen;
+        height: 1.2em;
+        width: 1.2em;
+        line-height: 1.2em;
+        border: none;
+        border-radius: 1.2em;
+    }
+    ol.progtrckr li.progtrckr-todo:before {
+        content: "\039F";
+        color: silver;
+        background-color: #f4f6f7;
+        font-size: 1.5em;
+        bottom: -1.6em;
+    }
 </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -466,8 +527,8 @@
               </p>
             </a>
           </li>
-          <li class="nav-item {{ Request::is('surveys/dashboard') || Request::is('surveys/reports') || Request::is('surveys/details/*') ? 'menu-open' : '' }}">
-            <a href="#" class="nav-link {{ Request::is('surveys/dashboard') || Request::is('surveys/reports') ? 'active' : '' }}">
+          <li class="nav-item {{ Request::is('surveys/dashboard') || Request::is('surveys/') || Request::is('surveys/details/*') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link {{ Request::is('surveys/dashboard') || Request::is('surveys/') ? 'active' : '' }}">
               <i class="nav-icon fa fa-list-alt"></i>
               <p class="nav-menu">
                 Health Check
@@ -484,7 +545,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ url('surveys/reports') }}" class="nav-link {{ Request::is('surveys/reports') || Request::is('surveys/details/*')  ? 'active' : '' }}">
+                <a href="{{ url('surveys/') }}" class="nav-link {{ Request::is('surveys/') || Request::is('surveys/details/*')  ? 'active' : '' }}">
                   <i class="nav-icon fa fa-angle-double-right"></i>
                   <p class="nav-menu">
                     Reports
@@ -516,6 +577,14 @@
     <!-- /.sidebar -->
   </aside>
   <div class="content-wrapper">
+  <div>
+      <ol class="progtrckr" data-progtrckr-steps="5">
+        <li class="progtrckr-done">Upload</li>
+        <li class="progtrckr-todo">Check</li>
+        <li class="progtrckr-todo">Import</li>
+        <li class="progtrckr-todo">Done</li>
+      </ol>
+    </div>
     <section class="content pt-5">
       <div class="container-fluid">
         <div class="row">
@@ -591,14 +660,23 @@
             <br>
             <div class="Rectangle-Copy-6 p-4 t-head">
               <div class="p-4">
-                <h3  class=" My-employees">My Candidates</h3>
+                <h3  class=" My-employees">Upload Response</h3>
               </div>
-              <form action="/upload/data" method="post" id="quickForm">
+              <form action="/upload" method="post" id="quickForm">
               @csrf
               <div class="card-body" >
               <table class="table" id="datatable" name="registration">
                         <thead>
                             <tr>
+                            <th>First Name</th>
+                            <th>Middle Name</th>
+                            <th>Last Name</th>
+                            <th>Student Code</th>
+                            <th>DOB</th>
+                            <th>Gender</th>
+                            <th>Employee Type ID</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
                             <th>Co Relation</th>
                             <th>Parent Email</th>
                             <th>Parent Mobile</th>
@@ -607,21 +685,49 @@
                             <th>Parent Last Name</th>
                             <th>Parent DOB</th>
                             <th>Parent Gender</th>
-                            <th>Email</th>
-                            <th>Mobile</th>
-                            <th>First Name</th>
-                            <th>Middle Name</th>
-                            <th>Last Name</th>
-                            <th>Student Code</th>
-                            <th>DOB</th>
-                            <th>Gender</th>
-                            <th>Employee Type ID</th>
                             </tr>
                         </thead>
                         <tbody class="t-body">
+                        <?php $a=0; $b=0; $c=0; $d=0; $e=0; $f=0; $g=0;?>
                           @foreach($data as $employee)
                            @foreach($employee as $key )
                             <tr>
+                            <td><div class="form-group">
+                                 <input class="form-control" name="first_name[{{ $b++ }}]" value="{{ $key['first_name']}}" style="width:170px;" required>
+                                 </div>
+                                </td>
+                                <td><div class="form-group">
+                                 <input class="form-control" name="middle_name[]" value="{{ $key['middle_name']}}" style="width:170px;">
+                                 </div>
+                                </td>
+                                <td><div class="form-group">
+                                 <input class="form-control" name="last_name[{{ $c++ }}]" value="{{ $key['last_name']}}" style="width:170px;" required>
+                                 </div>
+                                </td>
+                                <td><div class="form-group">
+                                 <input class="form-control" name="student_code[]" value="{{ $key['student_code']}}" style="width:170px;">
+                                 </div>
+                                </td>
+                                <td><div class="form-group">
+                                 <input class="form-control" name="dob[{{ $d++ }}]" value="{{ $key['dob']}}" style="width:170px;" required>
+                                 </div>
+                                </td>
+                                <td><div class="form-group">
+                                 <input class="form-control" name="gender[{{ $e++ }}]" value="{{ $key['gender']}}" style="width:170px;" required>
+                                 </div>
+                                </td>
+                                <td><div class="form-group">
+                                 <input class="form-control" name="employee_types_id[{{ $f++ }}]" value="{{ $key['employee_types_id']}}" style="width:170px;" required>
+                                 </div>
+                                </td>
+                                <td><div class="form-group">
+                                 <input class="form-control" id="email" name="email[{{ $g++ }}]" value="{{ $key['email']}}" style="width:170px;">
+                                </div>
+                                </td>
+                                <td><div class="form-group">
+                                 <input class="form-control" id="mobile" name="mobile[{{ $a++ }}]" value="{{ $key['mobile']}}" style="width:170px;" required>
+                                 </div>
+                                </td>
                                 <td>
                                 <input class="form-control" name="co_relation[]" value="{{ $key['co_relation']}}" style="width:170px;">
                                 </td>
@@ -652,42 +758,6 @@
                                 <td><div class="form-group">
                                  <input class="form-control" name="parent_gender[]" value="{{ $key['parent_gender']}}" style="width:170px;">
                                 </div>
-                                </td>
-                                <td><div class="form-group">
-                                 <input class="form-control" id="email" name="email[]" value="{{ $key['email']}}" style="width:170px;">
-                                </div>
-                                </td>
-                                <td><div class="form-group">
-                                 <input class="form-control" id="mobile" name="mobile[]" value="{{ $key['mobile']}}" style="width:170px;" required>
-                                 </div>
-                                </td>
-                                <td><div class="form-group">
-                                 <input class="form-control" name="first_name[]" value="{{ $key['first_name']}}" style="width:170px;" required>
-                                 </div>
-                                </td>
-                                <td><div class="form-group">
-                                 <input class="form-control" name="middle_name[]" value="{{ $key['middle_name']}}" style="width:170px;">
-                                 </div>
-                                </td>
-                                <td><div class="form-group">
-                                 <input class="form-control" name="last_name[]" value="{{ $key['last_name']}}" style="width:170px;" required>
-                                 </div>
-                                </td>
-                                <td><div class="form-group">
-                                 <input class="form-control" name="student_code[]" value="{{ $key['student_code']}}" style="width:170px;">
-                                 </div>
-                                </td>
-                                <td><div class="form-group">
-                                 <input class="form-control" name="dob[]" value="{{ $key['dob']}}" style="width:170px;" required>
-                                 </div>
-                                </td>
-                                <td><div class="form-group">
-                                 <input class="form-control" name="gender[]" value="{{ $key['gender']}}" style="width:170px;" required>
-                                 </div>
-                                </td>
-                                <td><div class="form-group">
-                                 <input class="form-control" name="employee_types_id[]" value="{{ $key['employee_types_id']}}" style="width:170px;" required>
-                                 </div>
                                 </td>
                             </tr>
                             @endforeach
@@ -726,8 +796,9 @@
 <script type="text/javascript">
 $(document).ready(function () {
   $.validator.setDefaults({
-    submitHandler: function () {
-      alert( "Form successful submitted!" );
+    submitHandler: function(form) {
+      // do other things for a valid form
+      form.submit();
     }
   });
   $('#quickForm').validate({

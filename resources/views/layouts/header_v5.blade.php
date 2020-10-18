@@ -4,34 +4,13 @@
   display: none;
   transition: .3s ease-in-out;
 }
-.noti-text {
-  color: #000000; 
-  font-family: Montserrat;
-  font-size: 19px;
-  font-weight: 600;
-}
-.noti-text-light {
-  color: #000000; 
-  font-family: Montserrat;
-  font-size: 14px;
-  font-weight: 300;
-  opacity: 0.9;
-}
+
 </style>
 <link rel="stylesheet" href="tokenize2.css">
 <!--body-->
 <?php
    $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
         $api_token = session()->get('api_token');
-        $response = Http::withHeaders([
-                            'Authorization' => "Bearer ".$api_token
-                        ])->post('https://api.gettruehelp.com/api/notification-count',[
-                            'api_key' => $apiKeys
-                        ]);
-        $contents = $response->getBody();
-        $data = json_decode($contents);
-        $count = $data->response->data->messages;
-        $count = $count > 9 ? "9+" : $count;
         $response = Http::withHeaders([
                             // 'Accept' => 'application/json',
                             'Authorization' => "Bearer ".$api_token
@@ -48,14 +27,6 @@
         } else {
             $employees = NULL;
         }
-        $response = Http::withHeaders([
-                            'Authorization' => "Bearer ".$api_token
-                        ])->post('https://api.gettruehelp.com/api/notification',[
-                            'api_key' => $apiKeys
-                        ]);
-        $contents = $response->getBody();
-        $data = json_decode($contents);
-        $nf_message = $data->response->data->messages;
         
         $response = Http::withHeaders([
             'Accept' => 'application/json',
@@ -101,46 +72,18 @@
     
       <div class="col-25 input-group input-group-lg" id="hiddensearch" style="display: none; margin-top:5px;">
       <i class="glyphicon glyphicon-user"></i>
-      <select type="text" id="select" name="employee_id[]" class="tokenize-demo" multiple required>
-      @foreach($employees as $employee)
-        <option value="{{ $employee->employee_id }}">{{ $employee->first_name }} {{ $employee->last_name }} : In Users</option>
-      @endforeach
-      @foreach($orders as $employee)
-      @if(\Carbon\Carbon::parse($employee->created_at)->format('d/m/Y') == Carbon\Carbon::today()->format('d/m/Y'))
-        <option value="{{ md5($employee->id) }}">{{ $employee->first_name }} {{ $employee->last_name }} : In Reports</option>
-      @endif
-      @endforeach
-      </select>
+      <input type="text" id="select" name="employee_id[]" class="form-control form-control-lg" multiple required>
+    
       <div class="search"></div>
       </div>
       {{ method_field('PUT') }}
       <a type="submit"></a>
     </form>
-    <ul class="navbar-nav ml-auto" id="navbar">
-      <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown navbar-collapse collapse">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell fa-icon-lg text-primary"></i>
-          <span class="badge badge-primary navbar-badge">{{$count}}</span>
-        </a>
-        <div class="dropdown-menu card-box dropdown-menu-lg dropdown-menu-right">
-          <div class="notification-top text-center p-2"><h3 class="noti-text">{{$count}} New</h3><p class="noti-text-light">App Notifications</p></div>
-            <div class="dropdown-divider"></div>
-            <?php $n=1 ?>
-            @foreach ($nf_message as $message)
-            @if($message->is_seen=='N')
-            @if($n++>6)@continue;@endif
-            <div  style="background-color:#eceff3;">
-              <a href="{{ route('seenNotification',$message->id) }}" class="dropdown-item">
-                <i class="fa fa-user mr-2"></i> {{$message->nf_message}}
-              </a>
-            </div>
-            <div class="dropdown-divider"></div>
-            @endif
-            @endforeach
-            <div class="text-center pt-1"><a href="{{ route('notifications') }}"><span>Read All Notifications</span></a></div>
-        </div>
-      </li>
+    <ul class="navbar-nav ml-auto pl-5">
+      <!-- <button type="button" class="btn btn-primary">Order Verification</button> -->
+      <a class="pl-5"></a>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+ Add Candidate</button>
+      <a class="pl-5"></a>
     </ul>
   </nav>
 <!--scripts-->

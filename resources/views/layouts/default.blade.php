@@ -51,6 +51,12 @@
 
         @yield('javascripts')
         <script>
+            $("#select1").change(function() {
+            var option = $(this).find('option:selected');
+            window.location.href = option.data("url");
+            });
+        </script>
+        <script>
 		 function filterGlobal () {
 		$('#empdatatable').DataTable().search(
 			$('#global_filter').val(),
@@ -66,6 +72,35 @@
 		
 		$(document).ready(function() {
 			$('#empdatatable').DataTable();
+			
+			$('input.global_filter').on( 'keyup click', function () {
+				filterGlobal();
+			} );
+		
+			$('input.column_filter').on( 'keyup click', function () {
+				filterColumn( $(this).parents('div').attr('data-column') );
+			} );
+		} );
+        $('select.column_filter').on('change', function () {
+            filterColumn( $(this).parents('div').attr('data-column') );
+        } );
+		</script>
+        <script>
+		 function filterGlobal () {
+		$('#empdatatable2').DataTable().search(
+			$('#global_filter').val(),
+		
+		).draw();
+		}
+		
+		function filterColumn ( i ) {
+			$('#empdatatable2').DataTable().column( i ).search(
+				$('#col'+i+'_filter').val()
+			).draw();
+		}
+		
+		$(document).ready(function() {
+			$('#empdatatable2').DataTable();
 			
 			$('input.global_filter').on( 'keyup click', function () {
 				filterGlobal();

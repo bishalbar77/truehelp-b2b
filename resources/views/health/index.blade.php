@@ -314,31 +314,7 @@ table.dataTable.no-footer {
 {{-- Content --}}
 @section('content')
 
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li>
-        <div class="pl-4">
-          <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="Oval img-circle">
-        </div>
-      </li>
-      <li class="pl-2 pt-2">
-        <p class="nav-name">{{ session()->get('first_name') }}</p>
-      </li>
-      <li class="pl-2 pt-2">
-        <i class="fa fa-caret-down"></i>
-      </li>
-    </ul>
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto pl-5">
-      <a class="pl-5"></a>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+ Add Survey</button>
-      <a class="pl-5"></a>
-    </ul>
-  </nav>
+@include('layouts.header_v4')
     <aside class="main-sidebar elevation-4 side-bar">
     @include('layouts.sidebar')
   </aside>
@@ -453,8 +429,12 @@ table.dataTable.no-footer {
                         <label class="form-label-text">Select Candidate</label>
                         <select class="form-control" name="employee_id" required="required">
                           @if($orders!=NULL)
-                          @foreach($orders as $order)
+                          @foreach($employees as $order)
+                          @if(isset($order->parent_first_name))
+                            <option value="{{ $order->employee_id }}">{{ $order->parent_first_name.' '.$order->parent_middle_name.' '.$order->parent_last_name }}</option>
+                          @else
                             <option value="{{ $order->employee_id }}">{{ $order->first_name.' '.$order->middle_name.' '.$order->last_name }}</option>
+                          @endif
                           @endforeach
                           @endif
                         </select>

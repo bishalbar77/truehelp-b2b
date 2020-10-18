@@ -319,31 +319,7 @@ table.dataTable.no-footer {
 {{-- Content --}}
 @section('content')
 
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
-      </li>
-      <li>
-        <div class="pl-4">
-          <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="Oval img-circle">
-        </div>
-      </li>
-      <li class="pl-2 pt-2">
-        <p class="nav-name">{{ session()->get('first_name') }}</p>
-      </li>
-      <li class="pl-2 pt-2">
-        <i class="fa fa-caret-down"></i>
-      </li>
-    </ul>
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto pl-5">
-      <a class="pl-5"></a>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+ Add Survey</button>
-      <a class="pl-5"></a>
-    </ul>
-  </nav>
+@include('layouts.header')
     <aside class="main-sidebar elevation-4 side-bar">
     @include('layouts.sidebar')
   </aside>
@@ -384,7 +360,7 @@ table.dataTable.no-footer {
                             <td>{{ date('Y-m-d H:i:s', strtotime($order->created_at)) }}</td>
                             <td>{{ $order->survey_status }}</td>
                             <td>
-                              <a href="{{ url('surveys/details/'.md5($order->id)) }}" class="pl-1" type="submit">View Details ></a>
+                              <a href="{{ url('health/details/'.md5($order->id)) }}" class="pl-1" type="submit">View Details ></a>
                               |
                               <a href="https://www.gettruehelp.com/healthcheck/?eid={{ md5($order->employee_id) }}" class="pl-1" type="submit" target="-_blank">View Survey ></a>
                             </td>

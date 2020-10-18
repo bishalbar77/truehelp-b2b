@@ -24,8 +24,11 @@ Route::group(['middleware' => 'usersession'], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/health', 'SurveyController@dashboard2')->name('health.dashboard');
+    Route::any('/health/survey/{id}', 'SurveyController@dashboardv4')->name('report.dashboard');
+    Route::any('/health/{id}', 'SurveyController@dashboardv3')->name('survey.dashboard');
     Route::get('/dashboard', 'SurveyController@dashboard')->name('survey-dashboard');
-    Route::get('/surveys/reports', 'SurveyController@getsurvey')->name('getsurvey');
+    Route::post('/visitors', 'SurveyController@visitors')->name('visitors.store');
+    Route::get('/surveys', 'SurveyController@getsurvey')->name('getsurvey');
     Route::get('/surveys/ajax', 'SurveyController@ajax')->name('ajax');
     Route::get('/health/details/{id}', 'SurveyController@health_details')->name('health-details');
     Route::get('/surveys/details/{id}', 'SurveyController@survey_details')->name('surveys-details');
@@ -33,9 +36,10 @@ Route::group(['middleware' => 'usersession'], function () {
     Route::get('/students', 'StudentController@index')->name('students.index');
     Route::post('/students/store', 'StudentController@store')->name('students.store');
     Route::post('/import', 'StudentController@import');
+    Route::get('/uploaddata', 'EmployeeController@import1');
     Route::get('/employees/{user}/changestatus', 'EmployeeController@changestatus')->name('employees.changestatus');
     Route::post('/import_excel', 'EmployeeController@import');
-    Route::post('/upload/data', 'EmployeeController@uploaddata');
+    Route::post('/upload', 'EmployeeController@uploaddata');
     Route::get('/verify={user}', 'EmployeeController@verify')->name('verify');
     Route::get('/profile', 'EmployeeController@profile')->name('profile');
     Route::get('/search', 'EmployeeController@search')->name('search');

@@ -111,7 +111,6 @@ class EmployeeController extends Controller
         // dd($data);
         Session::flash('message', $message);
         return redirect('/employees') ;
-        // return redirect()->route('employees.index');
     }
 
     public function import(Request $request)
@@ -126,7 +125,13 @@ class EmployeeController extends Controller
         $Import = $Import->sheetData;
         $data = json_decode(json_encode($Import),true);
         // dd($data);
-        return view('employees.upload', compact('data'));
+        return view('pages.test', compact('data'));
+    }
+
+    public function import1()
+    {  
+    
+        return view('employees.upload_v1');
     }
 
     public function test()
@@ -136,7 +141,7 @@ class EmployeeController extends Controller
 
     public function uploaddata(Request $request)
     {  
-        // dd(request()->all());
+        $api_token = session()->get('api_token');
         $co_relation = $request->co_relation;
         $parent_email = $request->parent_email;
         $parent_mobile = $request->parent_mobile;
@@ -156,6 +161,7 @@ class EmployeeController extends Controller
         $employee_types_id = $request->employee_types_id;
         foreach($first_name as $key => $no)
         {
+            
             $input['co_relation'] = $co_relation[$key];
             $input['parent_email'] = $parent_email[$key];
             $input['parent_mobile'] = $parent_mobile[$key];
@@ -173,10 +179,22 @@ class EmployeeController extends Controller
             $input['dob'] = $dob[$key];
             $input['gender'] = $gender[$key];
             $input['employee_types_id'] = $employee_types_id[$key];
-            // dd($input);
             Employee::create($input);
+           
         }
-        return redirect('/home') ;
+        $employees = Employee::all()->take($key+1);
+
+        $device_id = "00000000-89ABCDEF-01234567-89ABCDEH";
+        $source = "B2B";
+        $response = Http::post($this->API.'employee-types', [
+            'device_id' => $device_id,
+            'source' => $source,
+        ]);
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        $emp_type = $data->response->data;
+
+        return view('employees.upload_v3', compact('employees','emp_type'));
     }
 
     public function export() 

@@ -23,7 +23,7 @@
             <a href="{{ url('home') }}" class="nav-link {{ Request::is('/') || Request::is('home') ? 'active' : '' }}">
               <i class="nav-icon fa fa-th"></i>
               <p class="nav-menu">
-                Dashboard
+              Verification
               </p>
             </a>
           </li>
@@ -52,14 +52,14 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-          <a href="{{ url('surveys/reports') }}" class="nav-link {{ Request::is('surveys/reports') || Request::is('surveys/details/*')  ? 'active' : '' }}">
+          <!-- <li class="nav-item">
+          <a href="{{ url('surveys/') }}" class="nav-link {{ Request::is('surveys/') || Request::is('surveys/details/*')  ? 'active' : '' }}">
               <i class="nav-icon fa fa-list-alt"></i>
               <p class="nav-menu">
                 Health Reports
               </p>
             </a>
-          </li>
+          </li> -->
           <!-- <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
               <i class="nav-icon fa fa-bell-o"></i>
