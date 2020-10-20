@@ -652,9 +652,7 @@
             <p class="body-text-4">Change Password</p>
             <p class="amount">Two factor verification</p>
             <p class="Lorem-ipsum-dolor-si">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore 
-            Ut enim ad minim veniam, quis nostrud exercitation 
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </p>
             <button type="button" data-toggle="modal" data-target="#requestModal" class="btn btn-primary" style=" width: 192px;">Proceed</button>
           </div>
@@ -662,6 +660,7 @@
        </div>
       </div>
     </div>
+  <div class="form-group row"><a class="p-4"></a></div>
   </div>
   
 @endsection

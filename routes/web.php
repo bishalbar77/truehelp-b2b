@@ -58,4 +58,5 @@ Route::group(['middleware' => 'usersession'], function () {
 });
 Route::get('/seenNotification/{id}','EmployeeController@seenNotification')->name('seenNotification');
 Route::get('export', 'EmployeeController@export')->name('export');
+Route::get('student/export', 'EmployeeController@studentexport')->name('student.export');
 Route::get('test', 'EmployeeController@test')->name('test');

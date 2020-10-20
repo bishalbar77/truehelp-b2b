@@ -366,16 +366,18 @@ class SurveyController extends Controller
                 $positive[7]=$r;
                 $negative[7]=$z;
         }
-    
+        $image=0;
         if($total[0]!=0)
         {
             $text = $total[0]/2 > $positive[0] ? 'YAY! You are Safe Today' : 'You are at high risk';
             $font = $total[0]/2 > $positive[0] ? '#00a13d' : 'rgb(255, 16, 96)';
+            $image =$total[0]/2 > $positive[0] ? 'safe' : 'danger';
         }
         else
         {
             $text = 'SORRY! No surveys Today';
             $font = '#a9a9a9' ;
+            $image = 'safe';
         }
         foreach($orders as $order)
         {
@@ -436,7 +438,8 @@ class SurveyController extends Controller
             'negative' => $negative,
             'text' => $text,
             'font' => $font,
-            'safe' => $safe
+            'safe' => $safe,
+            'image' => $image,
         ]);
 
     }
@@ -612,15 +615,18 @@ class SurveyController extends Controller
                 $negative[7]=$z;
         }
     
+         $image=0;
         if($total[0]!=0)
         {
             $text = $total[0]/2 > $positive[0] ? 'YAY! You are Safe Today' : 'You are at high risk';
             $font = $total[0]/2 > $positive[0] ? '#00a13d' : 'rgb(255, 16, 96)';
+            $image =$total[0]/2 > $positive[0] ? 'safe' : 'danger';
         }
         else
         {
-            $text = 'Sorry! No surveys Today';
+            $text = 'SORRY! No surveys Today';
             $font = '#a9a9a9' ;
+            $image = 'safe';
         }
         foreach($orders as $order)
         {
@@ -686,6 +692,7 @@ class SurveyController extends Controller
             'font' => $font,
             'safe' => $safe,
             'registered_candidates' => $registered_candidates,
+            'image' => $image,
         ]);
 
     }
@@ -861,15 +868,18 @@ class SurveyController extends Controller
                 $negative[7]=$z;
         }
     
+         $image=0;
         if($total[0]!=0)
         {
             $text = $total[0]/2 > $positive[0] ? 'YAY! You are Safe Today' : 'You are at high risk';
             $font = $total[0]/2 > $positive[0] ? '#00a13d' : 'rgb(255, 16, 96)';
+            $image =$total[0]/2 > $positive[0] ? 'safe' : 'danger';
         }
         else
         {
-            $text = 'Sorry! No surveys Today';
+            $text = 'SORRY! No surveys Today';
             $font = '#a9a9a9' ;
+            $image = 'safe';
         }
         foreach($orders as $order)
         {
@@ -955,6 +965,7 @@ class SurveyController extends Controller
             'font' => $font,
             'safe' => $safe,
             'registered_candidates' => $registered_candidates,
+            'image' => $image,
             'check' => $check
         ]);
 

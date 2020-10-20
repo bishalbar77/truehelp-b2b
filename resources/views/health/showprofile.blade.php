@@ -3,9 +3,9 @@
 {{-- Styles Section --}}
 @section('styles')
 <title>TrueHelp | Health Report Details</title>
-<link rel="stylesheet" href="{{ mix('css/app.css') }}" />
-<script defer src="{{ mix('js/app.js') }}"></script>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="../../css/boot.min.css">
 <style>
 .Oval {
   width: 40px;
@@ -531,12 +531,17 @@ body{
 .left-addon input  { padding-left:  30px; }
 .right-addon input { padding-right: 30px; }
 
+a {
+    color: none !important;
+    text-decoration: none !important;
+    background-color: transparent !important;
+}
 </style>
 @endsection
 
 {{-- Content --}}
 @section('content')
-@include('layouts.header_v5')
+@include('layouts.header')
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar elevation-4 side-bar">
@@ -620,7 +625,7 @@ body{
             <!-- /.card-header -->
             <div class="card-body" >
               <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table table-hover mb-0" id="empdatatable">
                 <?php $n=0; ?>
                 @if(isset($orders))
                   <tbody>
@@ -630,11 +635,11 @@ body{
                         <tr>
                           <th>{{ strftime("%d %b %Y",strtotime($order->created_at)) }}</th>
                           @if($order->severity=="GREEN")
-                          <td class="table-text-cyan">SAFE</td>
+                          <td><a href="{{ url('health/details/'.md5($order->id)) }}" class="table-text-cyan">SAFE</a></td>
                           @elseif($order->severity=="RED")
-                          <td class="table-text-red">UNSAFE</td>
+                          <td><a href="{{ url('health/details/'.md5($order->id)) }}" class="table-text-red">UNSAFE</a></td>
                           @else
-                          <td class="table-text-not-done">NOT DONE</td>
+                          <td><a href="{{ url('health/details/'.md5($order->id)) }}" class="table-text-not-done">NOT DONE</a></td>
                           @endif
                         </tr>
                         <?php $n++;?>
@@ -654,6 +659,15 @@ body{
 @endsection
 
 @section('scripts')
+<script>
+		 $(document).ready(function() {
+          $('#empdatatable').DataTable( {
+              "ordering": false,
+              "info":     false,
+              "dom": 'lrtip',
+          } );
+      } );
+		</script>
 <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
 @if (app()->isLocal())
   <script src="{{ asset('js/app.js') }}"></script>
@@ -662,6 +676,7 @@ body{
   <script src="{{ mix('js/vendor.js') }}"></script>
   <script src="{{ mix('js/app.js') }}"></script>
 @endif
+
 <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
 <script defer src="{{ mix('js/app.js') }}"></script>
 @endsection

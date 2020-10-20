@@ -502,7 +502,7 @@
             </p>
           </div>
           <div class="form-group row pr-5 pl-5">
-              <a class="Download-Template pl-2" href="/export"><i class="nav-icon fa fa-user pr-2"></i>Download Template</a>
+              <a class="Download-Template pl-2" href="/student/export"><i class="nav-icon fa fa-user pr-2"></i>Download Student Template</a><a class="Download-Template pl-4" href="/export"><i class="fas fa-user-tie pr-2"></i></i>Download Employee Template</a>
           </div>
           @if (isset($errors) && $errors->any())
               <div class="alert alert-danger">
@@ -520,6 +520,7 @@
               </div>
             </div>
           </div>
+
           <div class="form-group row float-right">
               <button type="submit" class="btn-warning button-proceed Proceed">Proceed</button><a class="p-5"></a>
           </div>

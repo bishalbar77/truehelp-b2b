@@ -19,21 +19,28 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="{{ url('home') }}" class="nav-link {{ Request::is('/') || Request::is('home') ? 'active' : '' }}">
+          <li class="nav-item has-treeview menu-open">
+            <a href="" class="nav-link {{ Request::is('/') || Request::is('home') || Request::is('orders') ? 'active' : '' }}">
               <i class="nav-icon fa fa-th"></i>
               <p class="nav-menu">
-              Verification
+                Verification
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('orders') }}" class="nav-link {{ Request::is('orders')  ? 'active' : '' }}">
-              <i class="nav-icon fa fa-user-circle-o"></i>
-              <p class="nav-menu">
-                Order Verification
-              </p>
-            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('home') }}" class="nav-link {{ Request::is('/') || Request::is('home')  ? 'active' : '' }}">
+                  <i class="nav-icon fa fa-th-list"></i>
+                  <p class="nav-menu">Dashboard</p>
+                </a>
+              </li>
+              <li class="nav-item">
+              <a href="{{ url('orders') }}" class="nav-link {{ Request::is('orders')  ? 'active' : '' }}">
+                <i class="nav-icon fa fa-user-circle-o"></i>
+                <p class="nav-menu">Order Verification</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
             <a href="{{ url('employees') }}" class="nav-link {{ Request::is('employees')  ? 'active' : '' }}">

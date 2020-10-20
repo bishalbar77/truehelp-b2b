@@ -36,16 +36,6 @@
             @yield('content')
 
         </div>
-        <order-form></order-form>
-        {{-- Includable JS --}}
-        <link rel="stylesheet" href="/dist/css/app.css">
-        @if (app()->isLocal())
-        <script src="/js/app.js"></script>
-        @else
-        <script src="/js/manifest.js"></script>
-        <script src="/js/vendor.js"></script>
-        <script src="/js/app.js"></script>
-        @endif
 
         @yield('scripts')
 
@@ -85,35 +75,7 @@
             filterColumn( $(this).parents('div').attr('data-column') );
         } );
 		</script>
-        <script>
-		 function filterGlobal () {
-		$('#empdatatable2').DataTable().search(
-			$('#global_filter').val(),
-		
-		).draw();
-		}
-		
-		function filterColumn ( i ) {
-			$('#empdatatable2').DataTable().column( i ).search(
-				$('#col'+i+'_filter').val()
-			).draw();
-		}
-		
-		$(document).ready(function() {
-			$('#empdatatable2').DataTable();
-			
-			$('input.global_filter').on( 'keyup click', function () {
-				filterGlobal();
-			} );
-		
-			$('input.column_filter').on( 'keyup click', function () {
-				filterColumn( $(this).parents('div').attr('data-column') );
-			} );
-		} );
-        $('select.column_filter').on('change', function () {
-            filterColumn( $(this).parents('div').attr('data-column') );
-        } );
-		</script>
+
         <script src="plugins/jquery/jquery.min.js"></script>
         <!-- jQuery UI 1.11.4 -->
         <script src="plugins/jquery-ui/jquery-ui.min.js"></script>

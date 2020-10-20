@@ -156,24 +156,6 @@
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+ Add Visitor</button>
       <a class="pl-2"></a>
     </ul>
-    <ul class="navbar-nav" id="navbar">
-      <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown navbar-collapse collapse">
-          <p class="para-date">Date</p>
-      </li>
-        <li>
-      <form id="form2" onsubmit="get_action(this);">
-        @csrf
-            <select id="select1" class="select-date" type="date" name="date" style="font-size: 12px;font-weight: 500;">
-            <option value="">Select Date</option>
-              <option data-url="{{ route('health.dashboard') }}">1 day</option>
-              <option data-url="{{ route('survey.dashboard', 7) }}">1 week</option>
-              <option data-url="{{ route('survey.dashboard', 14) }}">2 week</option>
-            </select>
-      {{ method_field('PUT') }}
-      </form>
-        </li>
-    </ul>
 
   </nav> 
 <!--scripts-->

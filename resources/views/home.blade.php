@@ -3,8 +3,6 @@
 {{-- Styles Section --}}
 @section('styles')
 <title>TrueHelp | Dashboard</title>
-<link rel="stylesheet" href="{{ asset('css/app.css') }}" />
-<script defer src="{{ asset('js/app.js') }}"></script>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/css/boot.min.css">

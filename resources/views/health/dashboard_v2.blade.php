@@ -48,6 +48,7 @@
   font-size: 18px;
   font-weight: 800;
   font-stretch: normal;
+  margin-bottom: 25px;
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
@@ -422,9 +423,9 @@ table.dataTable.no-footer {
     text-align: right !important;
     white-space: nowrap !important;
 }
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .d .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
     font-weight: bolder !important;
-}
+ataTables_wrapper}
 .search-box {
   height: 40px !important;
   border-radius: 11px !important;
@@ -434,11 +435,37 @@ table.dataTable.no-footer {
   left: -5px !important;
   content: "\f002" !important;
 }
-#myChart {
-  width: 10px;
-  height: 10px;
-  background: transparent url(../../images/safe.png) no-repeat 70px 65px !important;
+@media screen and (min-width: 500px) {
+    #myChart {
+    background: transparent url(../../images/<?php echo $image; ?>.png) no-repeat 13% 2rem !important;
+    background-size:contain !important;
+    object-position: 0% 50% !important;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}    
+@media screen and (min-height: 200px) {
+    #myChart {
+    background: none;
+    background-size:contain !important;
+    object-position: 0% 50% !important;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
 }
+@media screen and (max-width: 500px) {
+    #myChart {
+    background: transparent url(../../images/<?php echo $image; ?>.png) no-repeat -2% 2rem !important;
+    background-size:contain !important;
+    object-position: 0% 50% !important;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
 .active-card {
   background-color: #f3f3f3 !important;
   box-shadow: none !important;
@@ -459,7 +486,55 @@ a:hover {
 }
 a {
      text-decoration: none !important;
-  }
+}
+#empdatatable_filter input {
+  height: 40px !important;
+  border-radius: 7px !important;
+  box-shadow: 0 8px 13px 0 rgba(0, 0, 0, 0.02) !important;
+  background-color: #f3f3f3 !important;
+  position: relative !important;
+}
+#empdatatable2_filter input {
+  height: 40px !important;
+  border-radius: 11px !important;
+  box-shadow: 0 8px 13px 0 rgba(0, 0, 0, 0.02) !important;
+  background-color: #f3f3f3 !important;
+  position: relative !important;
+}
+#empdatatable3_filter input {
+  height: 40px !important;
+  border-radius: 11px !important;
+  box-shadow: 0 8px 13px 0 rgba(0, 0, 0, 0.02) !important;
+  background-color: #f3f3f3 !important;
+  position: relative !important;
+}
+#empdatatable4_filter input {
+  height: 40px !important;
+  border-radius: 11px !important;
+  box-shadow: 0 8px 13px 0 rgba(0, 0, 0, 0.02) !important;
+  background-color: #f3f3f3 !important;
+  position: relative !important;
+}
+#empdatatable5_filter input {
+  height: 40px !important;
+  border-radius: 11px !important;
+  box-shadow: 0 8px 13px 0 rgba(0, 0, 0, 0.02) !important;
+  background-color: #f3f3f3 !important;
+  position: relative !important;
+}
+#dataTables_filter input {
+  height: 40px !important;
+  border-radius: 11px !important;
+  box-shadow: 0 8px 13px 0 rgba(0, 0, 0, 0.02) !important;
+  background-color: #f3f3f3 !important;
+  position: relative !important;
+}
+.content-header {
+    padding: 5px 1rem !important;
+    background-color: white !important;
+    height: 3rem !important;
+    border :solid 1px #eee;
+}
 </style>
 
 @endsection
@@ -526,10 +601,34 @@ a {
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
+    <div class="form-group">
+      <div class="content-header">
+        <div class="card-box-subheader">
+          <div class="float-right">
+            <ul class="navbar-nav" id="navbar">
+              <!-- Notifications Dropdown Menu -->
+              <li class="nav-item dropdown navbar-collapse collapse">
+                <p class="para-date">Date</p>
+              </li>
+              <li>
+                <form id="form2" onsubmit="get_action(this);">
+                  @csrf
+                      <select id="select1" class="select-date" type="date" name="date" style="font-size: 12px;font-weight: 500;">
+                      <option>Select Date</option>
+                        <option data-url="{{ route('health.dashboard') }}">Today</option>
+                        <option data-url="{{ route('survey.dashboard', 7) }}">Last week</option>
+                        <option data-url="{{ route('survey.dashboard', 14) }}">Last month</option>
+                      </select>
+                {{ method_field('PUT') }}
+                </form>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
+    <br>
     <!-- /.content-header -->
-
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -538,7 +637,7 @@ a {
           <div class="col-lg-3">
             <!-- small box -->
             <div class="card-box-top blue">
-              <a href="/search"  class="hover-effect">
+              <a onclick="openCity(event, 'default')" id="defaultOpen"  class="hover-effect tablinks">
                 <p class="text-font pr-3 pl-3">Registered candidates</p>
                 <p class="text-blue-2">{{ $registered_employees }}</p>
               </a>
@@ -547,18 +646,18 @@ a {
           <!-- ./col -->
           <div class="col-lg-2">
             <!-- small box -->
-            <div class="card-box-top purple  {{ Request::is('health/survey/completed')  ? 'active-card' : '' }}">
-              <a href="{{ route('report.dashboard', 'completed') }}" class="hover-effect">
-                <p class="text-font pr-3 pl-3">Surveys Completed</p>
-                <p class="text-purple-2">{{ $survey_completed }}</p>
-              </a>
-            </div>
+              <div class="card-box-top purple  {{ Request::is('health/survey/completed')  ? 'active-card' : '' }}">
+                <a onclick="openCity(event, 'completed')" class="hover-effect tablinks">
+                  <p class="text-font pr-3 pl-3">Surveys Completed</p>
+                  <p class="text-purple-2">{{ $survey_completed }}</p>
+                </a>
+              </div>
           </div>
           <!-- ./col -->
           <div class="col-lg-2">
             <!-- small box -->
             <div class="card-box-top orange {{ Request::is('health/survey/positive')  ? 'active-card' : '' }}">
-              <a href="{{ route('report.dashboard', 'positive') }}" class="hover-effect">
+              <a onclick="openCity(event, 'positive')" class="hover-effect tablinks">
                 <p class="text-font pr-3 pl-3">COVID positive</p>
                 <p class="text-orange-2">{{ $survey_postive }}</p>
               </a>
@@ -568,7 +667,7 @@ a {
           <div class="col-lg-2">
             <!-- small box -->
             <div class="card-box-top green {{ Request::is('health/survey/safe')  ? 'active-card' : '' }}">
-              <a href="{{ route('report.dashboard', 'safe') }}" class="hover-effect">
+              <a onclick="openCity(event, 'safe')" class="hover-effect tablinks">
                 <p class="text-font pr-3 pl-3">Safe candidates</p>
                 <p class="text-green-2">{{ $safe }}</p>
               </a>
@@ -579,7 +678,7 @@ a {
           <div class="col-lg-3">
             <!-- small box -->
             <div class="card-box-top yellow {{ Request::is('health/survey/unsafe')  ? 'active-card' : '' }}">
-              <a href="{{ route('report.dashboard', 'unsafe') }}" class="hover-effect">
+              <a onclick="openCity(event, 'unsafe')" class="hover-effect tablinks">
                 <p class="text-font pr-3 pl-3">Unsafe candidates</p>
                 <p class="text-yellow-2">{{ $survey_postive }}</p>
               </a>
@@ -590,6 +689,7 @@ a {
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
+    
     @if($orders ?? ''!=NULL)
     <section class="content pt-5">
       <div class="container-fluid">
@@ -619,212 +719,348 @@ a {
       <!-- /.container-fluid -->
     </section>
     @endif
-    @if($check ?? ''!=NULL)
-    @if($check=='COMPLETE')
-    <section class="content pt-5">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <!-- /.card -->
-            <div class="Rectangle-Copy-6 pl-4 t-head">
-              <div class="row pt-4 pl-4 pr-5" style="width:100% !important;">
-                <div class="col-lg-10"><h3  class=" My-employees">Survey Completed Reports<a href="{{ url('surveys') }}" class="table-side-tag pl-4">SEE ALL</a></h3></div>
-                <div class="col-lg-2 pb-1 float-right">
-                  <div id="filter_col0" data-column="0">
-                    <input type="text" name="Name" class="form-control search-box form-control-sm column_filter" id="col0_filter" placeholder="Search" style="font-weight: 700;">
-                  </div>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body" >
-                    <table class="table" id="empdatatable2">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Verification Status</th>
-                                <th>Risk Factor</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody class="t-body">
-                          
-                          @foreach($orders ?? '' as $employee)
-                          @if($employee->survey_status=="COMPLETE")
-                              <tr>
-                                <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
-                                <td class="pl-4">Completed</td>
-                                @if($employee->severity=="GREEN")
-                                <td class="pl-4"><span class="safe">SAFE</span> </td>
-                                @elseif($employee->severity=="RED")
-                                <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
-                                @else
-                                <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
-                                @endif
-                                <td>
-                                  <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                   <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                                  </a>
-                                </td>
-                              </tr>
-                          @endif
-                          @endforeach
-                        </tbody>
-                    </table>
-                    <div class="pt-4 pl-4 pb-2 pr-5">
-                
-              </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.container-fluid -->
-    </section>
-    @else
-    <section class="content pt-5">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <!-- /.card -->
-            <div class="Rectangle-Copy-6 pl-4 t-head">
-              <div class="row pt-4 pl-4 pr-5" style="width:100% !important;">
-                <div class="col-lg-10"><h3  class=" My-employees">Survey<a href="{{ url('surveys') }}" class="table-side-tag pl-4">SEE ALL</a></h3></div>
-                <div class="col-lg-2 pb-1 float-right">
-                  <div id="filter_col0" data-column="0">
-                    <input type="text" name="Name" class="form-control search-box form-control-sm column_filter" id="col0_filter" placeholder="Search" style="font-weight: 700;">
-                  </div>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body" >
-                    <table class="table" id="empdatatable2">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Verification Status</th>
-                                <th>Risk Factor</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody class="t-body">
-                          
-                          @foreach($orders ?? '' as $employee)
-                          @if($employee->severity==$check)
-                              <tr>
-                                <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
-                                @if($employee->survey_status=="COMPLETE")
-                                <td class="pl-4">Completed</td>
-                                @else
-                                <td class="pl-4">Incomplete</td>
-                                @endif
-                                @if($employee->severity=="GREEN")
-                                <td class="pl-4"><span class="safe">SAFE</span> </td>
-                                @elseif($employee->severity=="RED")
-                                <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
-                                @else
-                                <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
-                                @endif
-                                <td>
-                                  <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                   <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                                  </a>
-                                </td>
-                              </tr>
-                          @endif
-                          @endforeach
-                        </tbody>
-                    </table>
-                    <div class="pt-4 pl-4 pb-2 pr-5">
-                
-              </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.container-fluid -->
-    </section>
-    @endif
-    @endif
-    <a class="p-4"></a>
-    @if($orders ?? ''!=NULL)
-    <section class="content pt-5">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <!-- /.card -->
-            <div class="Rectangle-Copy-6 pl-4 t-head">
-              <div class="row pt-4 pl-4 pr-5" style="width:100% !important;">
-                <div class="col-lg-10"><h3  class=" My-employees">Reports<a href="{{ url('surveys') }}" class="table-side-tag pl-4">SEE ALL</a></h3></div>
-                <div class="col-lg-2 pb-1 float-right">
-                  <div id="filter_col0" data-column="0">
-                    <input type="text" name="Name" class="form-control search-box form-control-sm column_filter" id="col0_filter" placeholder="Search" style="font-weight: 700;">
-                  </div>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body" >
-                    <table class="table" id="empdatatable">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Verification Status</th>
-                                <th>Risk Factor</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody class="t-body">
-                          
-                          @foreach($orders ?? '' as $employee)
-                          @if(\Carbon\Carbon::parse($employee->created_at)->format('d/m/Y') == Carbon\Carbon::today()->format('d/m/Y'))
-                              <tr>
-                                <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
-                                @if($employee->survey_status=="COMPLETE")
-                                <td class="pl-4">Completed</td>
-                                @else
-                                <td class="pl-4">Incomplete</td>
-                                @endif
-                                @if($employee->severity=="GREEN")
-                                <td class="pl-4"><span class="safe">SAFE</span> </td>
-                                @elseif($employee->severity=="RED")
-                                <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
-                                @else
-                                <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
-                                @endif
-                                <td>
-                                  <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                   <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                                  </a>
-                                </td>
-                              </tr>
-                          @endif
-                          @endforeach
-                        </tbody>
-                    </table>
-                    <div class="pt-4 pl-4 pb-2 pr-5">
-                
-              </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.container-fluid -->
-    </section>
-    @endif
 
+    <div id="completed" class="tabcontent" >
+      <section class="content pt-5">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <!-- /.card -->
+              <div class="Rectangle-Copy-6 pl-4 t-head">
+                <div class="row pt-4 pl-4 pr-5" style="width:100% !important;">
+                  <div class="col-lg-10"><h3  class=" My-employees">Survey Completed Reports<a href="{{ url('surveys') }}" class="table-side-tag pl-4">SEE ALL</a></h3></div>
+                  
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body" >
+                      <table class="table" id="empdatatable2">
+                          <thead>
+                              <tr>
+                                  <th>Name</th>
+                                  <th>Verification Status</th>
+                                  <th>Risk Factor</th>
+                                  <th></th>
+                              </tr>
+                          </thead>
+                          <?php $a=0 ?>
+                          <tbody class="t-body">
+                            
+                            @foreach($orders ?? '' as $employee)
+                            @if($employee->survey_status=="COMPLETE")
+                            @if($a++ < $survey_completed)
+                                <tr>
+                                  <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
+                                  <td class="pl-4">Completed</td>
+                                  @if($employee->severity=="GREEN")
+                                  <td class="pl-4"><span class="safe">SAFE</span> </td>
+                                  @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
+                                  @else
+                                  <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
+                                  @endif
+                                  <td>
+                                    <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
+                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                                    </a>
+                                  </td>
+                                </tr>
+                            @endif
+                            @endif
+                            @endforeach
+                          </tbody>
+                      </table>
+                      <div class="pt-4 pl-4 pb-2 pr-5">
+                  
+                </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+    </div>
+    <a class="p-4"></a>
+    
+    <div id="safe" class="tabcontent" >
+      <section class="content pt-5">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <!-- /.card -->
+              <div class="Rectangle-Copy-6 pl-4 t-head">
+                <div class="row pt-4 pl-4 pr-5" style="width:100% !important;">
+                  <div class="col-lg-10"><h3  class=" My-employees">Safe Candidates<a href="{{ url('surveys') }}" class="table-side-tag pl-4">SEE ALL</a></h3></div>
+                  
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body" >
+                      <table class="table" id="empdatatable5">
+                          <thead>
+                              <tr>
+                                  <th>Name</th>
+                                  <th>Verification Status</th>
+                                  <th>Risk Factor</th>
+                                  <th></th>
+                              </tr>
+                          </thead>
+                          <?php $b=0 ?>
+                          <tbody class="t-body">
+                            
+                            @foreach($orders ?? '' as $employee)
+                            @if($employee->severity=="GREEN")
+                            @if($b++ < $safe)
+                                <tr>
+                                  <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
+                                  @if($employee->survey_status=="COMPLETE")
+                                  <td class="pl-4">Completed</td>
+                                  @else
+                                  <td class="pl-4">Incomplete</td>
+                                  @endif
+                                  @if($employee->severity=="GREEN")
+                                  <td class="pl-4"><span class="safe">SAFE</span> </td>
+                                  @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
+                                  @else
+                                  <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
+                                  @endif
+                                  <td>
+                                    <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
+                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                                    </a>
+                                  </td>
+                                </tr>
+                            @endif
+                            @endif
+                            @endforeach
+                          </tbody>
+                      </table>
+                      <div class="pt-4 pl-4 pb-2 pr-5">
+                  
+                </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+    </div>
+    <a class="p-4"></a>
+
+    <div id="unsafe" class="tabcontent" >
+      <section class="content pt-5">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <!-- /.card -->
+              <div class="Rectangle-Copy-6 pl-4 t-head">
+                <div class="row pt-4 pl-4 pr-5" style="width:100% !important;">
+                  <div class="col-lg-10"><h3  class=" My-employees">Unsafe Candidates<a href="{{ url('surveys') }}" class="table-side-tag pl-4">SEE ALL</a></h3></div>
+                  
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body" >
+                      <table class="table" id="empdatatable3">
+                          <thead>
+                              <tr>
+                                  <th>Name</th>
+                                  <th>Verification Status</th>
+                                  <th>Risk Factor</th>
+                                  <th></th>
+                              </tr>
+                          </thead>
+                          <?php $c=0 ?>
+                          <tbody class="t-body">
+                            
+                            @foreach($orders ?? '' as $employee)
+                            @if($employee->severity=="RED")
+                            @if($c++ < $survey_postive)
+                                <tr>
+                                  <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
+                                  @if($employee->survey_status=="COMPLETE")
+                                  <td class="pl-4">Completed</td>
+                                  @else
+                                  <td class="pl-4">Incomplete</td>
+                                  @endif
+                                  @if($employee->severity=="GREEN")
+                                  <td class="pl-4"><span class="safe">SAFE</span> </td>
+                                  @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
+                                  @else
+                                  <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
+                                  @endif
+                                  <td>
+                                    <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
+                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                                    </a>
+                                  </td>
+                                </tr>
+                            @endif
+                            @endif
+                            @endforeach
+                          </tbody>
+                      </table>
+                      <div class="pt-4 pl-4 pb-2 pr-5">
+                  
+                </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+    </div>
+    <a class="p-4"></a>
+
+    <div id="positive" class="tabcontent" >
+      <section class="content pt-5">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <!-- /.card -->
+              <div class="Rectangle-Copy-6 pl-4 t-head">
+                <div class="row pt-4 pl-4 pr-5" style="width:100% !important;">
+                  <div class="col-lg-10"><h3  class=" My-employees">COVID Positive Candidates<a href="{{ url('surveys') }}" class="table-side-tag pl-4">SEE ALL</a></h3></div>
+                  
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body" >
+                      <table class="table" id="empdatatable4">
+                          <thead>
+                              <tr>
+                                  <th>Name</th>
+                                  <th>Verification Status</th>
+                                  <th>Risk Factor</th>
+                                  <th></th>
+                              </tr>
+                          </thead>
+                          <?php $d=0 ?>
+                          <tbody class="t-body">
+                            
+                            @foreach($orders ?? '' as $employee)
+                            @if($employee->severity=="RED")
+                            @if($d++ < $survey_postive)
+                                <tr>
+                                  <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
+                                  @if($employee->survey_status=="COMPLETE")
+                                  <td class="pl-4">Completed</td>
+                                  @else
+                                  <td class="pl-4">Incomplete</td>
+                                  @endif
+                                  @if($employee->severity=="GREEN")
+                                  <td class="pl-4"><span class="safe">SAFE</span> </td>
+                                  @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
+                                  @else
+                                  <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
+                                  @endif
+                                  <td>
+                                    <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
+                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                                    </a>
+                                  </td>
+                                </tr>
+                            @endif
+                            @endif
+                            @endforeach
+                          </tbody>
+                      </table>
+                      <div class="pt-4 pl-4 pb-2 pr-5">
+                  
+                </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+    </div>
+    <a class="p-4"></a>
+
+    <div id="default"  class="tabcontent">
+      <section class="content pt-5">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <!-- /.card -->
+              <div class="Rectangle-Copy-6 pl-4 t-head">
+                <div class="row pt-4 pl-4 pr-5" style="width:100% !important;">
+                  <div class="col-lg-10"><h3  class=" My-employees">Reports<a href="{{ url('surveys') }}" class="table-side-tag pl-4">SEE ALL</a></h3></div>
+                  
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body" >
+                      <table class="table" id="empdatatable">
+                          <thead>
+                              <tr>
+                                  <th>Name</th>
+                                  <th>Verification Status</th>
+                                  <th>Risk Factor</th>
+                                  <th></th>
+                              </tr>
+                          </thead>
+                          <tbody class="t-body">
+                            
+                            @foreach($orders ?? '' as $employee)
+                            @if(\Carbon\Carbon::parse($employee->created_at)->format('d/m/Y') == Carbon\Carbon::today()->format('d/m/Y'))
+                                <tr>
+                                  <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
+                                  @if($employee->survey_status=="COMPLETE")
+                                  <td class="pl-4">Completed</td>
+                                  @else
+                                  <td class="pl-4">Incomplete</td>
+                                  @endif
+                                  @if($employee->severity=="GREEN")
+                                  <td class="pl-4"><span class="safe">SAFE</span> </td>
+                                  @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
+                                  @else
+                                  <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
+                                  @endif
+                                  <td>
+                                    <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
+                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                                    </a>
+                                  </td>
+                                </tr>
+                            @endif
+                            @endforeach
+                          </tbody>
+                      </table>
+                      <div class="pt-4 pl-4 pb-2 pr-5">
+                  
+                </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+    </div>
     <a class="p-4"></a>
 
   </div>
@@ -833,6 +1069,23 @@ a {
 @endsection
 
 @section('scripts')
+<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active-card", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 <script>
  // Return with commas in between
@@ -1019,7 +1272,7 @@ var config = {
       "Registered Candidates"
     ],
     datasets: [{
-      data: [<?php echo $survey_completed; ?>, <?php echo $survey_postive; ?>, <?php echo $safe; ?>, <?php echo $survey_pending; ?>, <?php echo $registered_employees; ?>],
+      data: [<?php echo $survey_completed; ?>, <?php echo $survey_postive; ?>, <?php echo $safe; ?>, <?php echo $survey_postive; ?>, <?php echo $registered_employees; ?>],
       backgroundColor: [
         "#484edb",
         "rgb(255, 16, 96)",
@@ -1074,9 +1327,13 @@ var myChart = new Chart(ctx, config);
 <script>
 		 $(document).ready(function() {
           $('#empdatatable').DataTable( {
+            language: 
+            {
+              searchPlaceholder: "Search",
+              search: "",
+            },
               "ordering": false,
               "info":     false,
-              "dom": 'lrtip',
               "paging": false,
           } );
       } );
@@ -1084,9 +1341,55 @@ var myChart = new Chart(ctx, config);
     <script>
 		 $(document).ready(function() {
           $('#empdatatable2').DataTable( {
+            language: 
+            {
+              searchPlaceholder: "Search",
+              search: "",
+            },
               "ordering": false,
               "info":     false,
-              "dom": 'lrtip',
+          } );
+      } );
+		</script>
+    
+    <script>
+		 $(document).ready(function() {
+          $('#empdatatable3').DataTable( {
+            language: 
+            {
+              searchPlaceholder: "Search",
+              search: "",
+            },
+              "ordering": false,
+              "info":     false,
+          } );
+      } );
+		</script>
+    
+    <script>
+		 $(document).ready(function() {
+          $('#empdatatable4').DataTable( {
+            language: 
+            {
+              searchPlaceholder: "Search",
+              search: "",
+            },
+              "ordering": false,
+              "info":     false,
+          } );
+      } );
+		</script>
+    
+    <script>
+		 $(document).ready(function() {
+          $('#empdatatable5').DataTable( {
+            language: 
+            {
+              searchPlaceholder: "Search",
+              search: "",
+            },
+              "ordering": false,
+              "info":     false,
           } );
       } );
 		</script>

@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use DB;
 use App\Imports\EmployeesImport;
 use App\Exports\EmployeesExport;
+use App\Imports\StudentImport;
+use App\Exports\StudentExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
@@ -200,6 +202,11 @@ class EmployeeController extends Controller
     public function export() 
     {
         return Excel::download(new EmployeesExport, 'employees.xlsx');
+    }
+
+    public function studentexport() 
+    {
+        return Excel::download(new StudentExport, 'students.xlsx');
     }
 
     public function changestatus($id)
