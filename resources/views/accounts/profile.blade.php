@@ -666,14 +666,15 @@
 @endsection
 
 @section('scripts')
-<link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
+<link rel="stylesheet" href="https://enterprise.gettruehelp.com/dist/css/app.css">
 @if (app()->isLocal())
-  <script src="{{ asset('js/app.js') }}"></script>
+  <script src="https://enterprise.gettruehelp.com/js/app.js"></script>
 @else
-  <script src="{{ mix('js/manifest.js') }}"></script>
-  <script src="{{ mix('js/vendor.js') }}"></script>
-  <script src="{{ mix('js/app.js') }}"></script>
+  <script src="https://enterprise.gettruehelp.com/js/manifest.js"></script>
+  <script src="https://enterprise.gettruehelp.com/js/vendor.js"></script>
+  <script src="https://enterprise.gettruehelp.com/js/app.js"></script>
 @endif
-<link rel="stylesheet" href="{{ mix('css/app.css') }}" />
-<script defer src="{{ mix('js/app.js') }}"></script>
+
+<link rel="stylesheet" href="https://enterprise.gettruehelp.com/css/app.css" />
+<script defer src="https://enterprise.gettruehelp.com/js/app.js"></script>
 @endsection

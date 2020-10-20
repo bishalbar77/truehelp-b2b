@@ -755,10 +755,10 @@
 																<option data-offset="18000" value="Islamabad">(GMT+05:00) Islamabad</option>
 																<option data-offset="18000" value="Karachi">(GMT+05:00) Karachi</option>
 																<option data-offset="18000" value="Tashkent">(GMT+05:00) Tashkent</option>
-																<option data-offset="19800" value="Asia/Chennai">(GMT+05:30) Chennai</option>
-																<option data-offset="19800" value="Asia/Kolkata">(GMT+05:30) Kolkata</option>
-																<option data-offset="19800" value="Asia/Mumbai">(GMT+05:30) Mumbai</option>
-																<option data-offset="19800" value="Asia/New Delhi">(GMT+05:30) New Delhi</option>
+																<option data-offset="19800" value="Asia/pChennai">(GMT+05:30) Chennai</option>
+																<option data-offset="19800" value="Asia/pKolkata">(GMT+05:30) Kolkata</option>
+																<option data-offset="19800" value="Asia/pMumbai">(GMT+05:30) Mumbai</option>
+																<option data-offset="19800" value="Asia/pNew Delhi">(GMT+05:30) New Delhi</option>
 																<option data-offset="19800" value="Sri Jayawardenepura">(GMT+05:30) Sri Jayawardenepura</option>
 																<option data-offset="20700" value="Kathmandu">(GMT+05:45) Kathmandu</option>
 																<option data-offset="21600" value="Astana">(GMT+06:00) Astana</option>

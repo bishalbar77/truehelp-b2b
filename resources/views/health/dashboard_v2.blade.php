@@ -601,12 +601,11 @@ a {
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <div class="form-group">
+    <!-- <div class="form-group">
       <div class="content-header">
         <div class="card-box-subheader">
           <div class="float-right">
             <ul class="navbar-nav" id="navbar">
-              <!-- Notifications Dropdown Menu -->
               <li class="nav-item dropdown navbar-collapse collapse">
                 <p class="para-date">Date</p>
               </li>
@@ -627,7 +626,7 @@ a {
         </div>
       </div>
     </div>
-    <br>
+    <br> -->
     <!-- /.content-header -->
     <!-- Main content -->
     <section class="content">
@@ -1069,6 +1068,17 @@ a {
 @endsection
 
 @section('scripts')
+<link rel="stylesheet" href="https://enterprise.gettruehelp.com/dist/css/app.css">
+@if (app()->isLocal())
+  <script src="https://enterprise.gettruehelp.com/js/app.js"></script>
+@else
+  <script src="https://enterprise.gettruehelp.com/js/manifest.js"></script>
+  <script src="https://enterprise.gettruehelp.com/js/vendor.js"></script>
+  <script src="https://enterprise.gettruehelp.com/js/app.js"></script>
+@endif
+
+<link rel="stylesheet" href="https://enterprise.gettruehelp.com/css/app.css" />
+<script defer src="https://enterprise.gettruehelp.com/js/app.js"></script>
 <script>
 function openCity(evt, cityName) {
   var i, tabcontent, tablinks;

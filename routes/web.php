@@ -31,7 +31,7 @@ Route::group(['middleware' => 'usersession'], function () {
     Route::get('/surveys', 'SurveyController@getsurvey')->name('getsurvey');
     Route::get('/surveys/ajax', 'SurveyController@ajax')->name('ajax');
     Route::get('/health/details/{id}', 'SurveyController@health_details')->name('health-details');
-    Route::get('/surveys/details/{id}', 'SurveyController@survey_details')->name('surveys-details');
+    Route::get('/surveys/details/{id}', 'SurveyController@health_details')->name('surveys-details');
     Route::resource('employees', 'EmployeeController');
     Route::get('/students', 'StudentController@index')->name('students.index');
     Route::post('/students/store', 'StudentController@store')->name('students.store');
