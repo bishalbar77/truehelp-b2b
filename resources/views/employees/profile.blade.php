@@ -395,6 +395,23 @@
   border-radius: 8px;
   background-color: #fecf3a;
 }
+.button-update {
+    width: 170px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: #3384d7 !important;
+}
+.update {
+  font-family: Montserrat;
+  font-size: 13px;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-align: center;
+  color: var(--white);
+}
 .Proceed {
   font-family: Montserrat;
   font-size: 13px;
@@ -487,7 +504,7 @@
   font-family: Montserrat;
   font-size: 16px;
   font-weight: 500;
-  color: #494949;
+  color: #868686;
 }
 .Download-Template {
   height: 20px;
@@ -629,14 +646,14 @@
         </div>
         <div class="modal-body">
         <div class="signup-form">
-        <form action="{{ url('/change-preferences') }}">
+        <form action="{{ route('change.preferences') }}">
         @csrf
           <div class="form-group row text-awesome">
             <div class="col-lg-3">
               <label>SMS : </label> 
             </div>
             <div class="col-lg-6">
-            <label><input type="checkbox" checked="checked" value="Y" name="sms">
+            <label><input type="checkbox" checked="checked" value="Y" name="notify_by_sms">
             </div>
           </div>
           <div class="form-group row text-awesome">
@@ -644,15 +661,15 @@
               <label>WhatsApp : </label> 
             </div>
             <div class="col-lg-6">
-            <label><input type="checkbox" checked="checked" value="Y" name="whatsapp">
+            <label><input type="checkbox" checked="checked" value="Y" name="notify_by_wa">
             </div>
           </div>
           <div class="form-group row text-awesome">
             <div class="col-lg-3">
-              <label>Phone : </label> 
+              <label>Email : </label> 
             </div>
             <div class="col-lg-6">
-              <input type="checkbox" checked="checked" value="Y" name="phone">
+              <input type="checkbox" checked="checked" value="Y" name="notify_by_email">
             </div>
           </div>
           <div class="form-group row text-awesome">
@@ -755,10 +772,10 @@
 																<option data-offset="18000" value="Islamabad">(GMT+05:00) Islamabad</option>
 																<option data-offset="18000" value="Karachi">(GMT+05:00) Karachi</option>
 																<option data-offset="18000" value="Tashkent">(GMT+05:00) Tashkent</option>
-																<option data-offset="19800" value="Asia/pChennai">(GMT+05:30) Chennai</option>
-																<option data-offset="19800" value="Asia/pKolkata">(GMT+05:30) Kolkata</option>
-																<option data-offset="19800" value="Asia/pMumbai">(GMT+05:30) Mumbai</option>
-																<option data-offset="19800" value="Asia/pNew Delhi">(GMT+05:30) New Delhi</option>
+																<option data-offset="19800" value="Asia/Chennai">(GMT+05:30) Chennai</option>
+																<option data-offset="19800" value="Asia/Kolkata">(GMT+05:30) Kolkata</option>
+																<option data-offset="19800" value="Asia/Mumbai">(GMT+05:30) Mumbai</option>
+																<option data-offset="19800" value="Asia/New Delhi">(GMT+05:30) New Delhi</option>
 																<option data-offset="19800" value="Sri Jayawardenepura">(GMT+05:30) Sri Jayawardenepura</option>
 																<option data-offset="20700" value="Kathmandu">(GMT+05:45) Kathmandu</option>
 																<option data-offset="21600" value="Astana">(GMT+06:00) Astana</option>
@@ -810,7 +827,7 @@
             <div class="form-group row"><a class="p-2"></a></div>
             {{ method_field('PUT') }}
         <div class="form-group row float-right">
-                <button type="submit" class="btn-warning button-proceed Proceed">Proceed</button>
+                <button type="submit" class="btn btn-primary button-update update">Update</button>
             </div>
         </form>
     </div>
@@ -914,9 +931,12 @@
           </div>
           <div class="pl-5 pt-3">
             <p class="Lorem-ipsum-dolor-si">
-            <label><input type="checkbox" checked="checked" onclick="return false;"><a class="pl-2">SMS</a></label><br>
-            <label><input type="checkbox" checked="checked" onclick="return false;"><a class="pl-2">WhatsApp</a></label><br>
-            <label><input type="checkbox" checked="checked" onclick="return false;"><a class="pl-2">Phone</a></label><br>
+            <label>@if($preferences->notify_by_sms=="Y")<input type="checkbox" checked="checked" onclick="return false;">
+                  @else<input type="checkbox" onclick="return false;">@endif<a class="pl-2">SMS</a></label><br>
+            <label>@if($preferences->notify_by_wa=="Y")<input type="checkbox" checked="checked" onclick="return false;">
+                  @else<input type="checkbox" onclick="return false;">@endif<a class="pl-2">WhatsApp</a></label><br>
+            <label>@if($preferences->notify_by_email=="Y")<input type="checkbox" checked="checked" onclick="return false;">
+                  @else<input type="checkbox" onclick="return false;">@endif<a class="pl-2">Email</a></label><br>
             <label>Timezone : {{ $preferences->time_zone}}</label>
             </p>
           </div>

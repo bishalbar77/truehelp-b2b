@@ -159,7 +159,7 @@
 
   </nav> 
 <!--scripts-->
-<script src="http://code.jquery.com/jquery-3.0.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="tokenize2.js"></script>
 <script>

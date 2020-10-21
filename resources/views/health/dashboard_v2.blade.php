@@ -555,7 +555,7 @@ a {
       </div>
       <div class="modal-body">
       <div class="signup-form">
-      <form action="{{ route('visitors.store') }}" method="post">
+      <form action="{{ route('visitors.store') }}">
       @csrf
         <div class="form-group row">
             <div class="col-lg-4">
@@ -584,7 +584,7 @@ a {
            <div class="form-group row">
             <a class="p-2"></a>
            </div>
-        
+           {{ method_field('PUT') }}
         <div class="form-group row float-right">
                 <button type="submit" class="btn-warning button-proceed Proceed">Proceed</button>
             </div>
@@ -1068,17 +1068,6 @@ a {
 @endsection
 
 @section('scripts')
-<link rel="stylesheet" href="https://enterprise.gettruehelp.com/dist/css/app.css">
-@if (app()->isLocal())
-  <script src="https://enterprise.gettruehelp.com/js/app.js"></script>
-@else
-  <script src="https://enterprise.gettruehelp.com/js/manifest.js"></script>
-  <script src="https://enterprise.gettruehelp.com/js/vendor.js"></script>
-  <script src="https://enterprise.gettruehelp.com/js/app.js"></script>
-@endif
-
-<link rel="stylesheet" href="https://enterprise.gettruehelp.com/css/app.css" />
-<script defer src="https://enterprise.gettruehelp.com/js/app.js"></script>
 <script>
 function openCity(evt, cityName) {
   var i, tabcontent, tablinks;
@@ -1344,7 +1333,6 @@ var myChart = new Chart(ctx, config);
             },
               "ordering": false,
               "info":     false,
-              "paging": false,
           } );
       } );
 		</script>

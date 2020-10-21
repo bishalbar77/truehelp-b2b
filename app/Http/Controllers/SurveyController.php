@@ -994,7 +994,7 @@ class SurveyController extends Controller
         $message = $data->response->message;
         // dd($data);
         Session::flash('message', $message);
-        return redirect('/employees') ;
+        return redirect('/health') ;
     }
 
     public function api()

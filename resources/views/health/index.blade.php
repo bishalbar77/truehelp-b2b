@@ -390,8 +390,12 @@ table.dataTable.no-footer {
                         <td>
                           <a href="{{ url('health/details/'.md5($order->id)) }}" class="pl-1" type="submit">View Details ></a>
                           |
-                          <a href="https://www.gettruehelp.com/healthcheck/?eid={{ md5($order->employee_id) }}" class="pl-1" type="submit" target="-_blank">View Survey ></a>
-                        </td>
+                          @if($order->employee_id=='')
+                          <a href="https://www.gettruehelp.com/healthcheck/?vid={{ md5($order->visitor_id) }}" class="pl-1" type="submit" target="-_blank">View Survey ></a>
+                          @else
+                           <a href="https://www.gettruehelp.com/healthcheck/?eid={{ md5($order->employee_id) }}" class="pl-1" type="submit" target="-_blank">View Survey ></a>
+                          @endif
+                          </td>
                     </tr>
                   @endforeach
                   @endif

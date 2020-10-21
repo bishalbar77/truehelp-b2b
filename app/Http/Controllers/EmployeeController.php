@@ -253,6 +253,26 @@ class EmployeeController extends Controller
         ]);
     }
 
+    public function changepreferences(Request $request)
+    {
+        $api_token = session()->get('api_token');
+        $notify_by_sms = $request->notify_by_sms ?? "N";
+        $notify_by_email = $request->notify_by_email ?? "N";
+        $notify_by_wa = $request->notify_by_wa ?? "N";
+        $time_zone = $request->time_zone;
+        $response = Http::withHeaders([
+                            'Authorization' => "Bearer ".$api_token
+                            ])->post($this->API.'change_preference',[
+                                'notify_by_sms' => $notify_by_sms,
+                                'notify_by_email' => $notify_by_email,
+                                'notify_by_wa' => $notify_by_wa,
+                                'time_zone' => $time_zone
+                            ]);
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        return redirect('/profile');
+    }
+
     public function profile()
     {
         $api_token = session()->get('api_token');
