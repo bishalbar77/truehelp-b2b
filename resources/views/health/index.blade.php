@@ -308,6 +308,23 @@ table.dataTable.no-footer {
 .dataTables_wrapper .dataTables_paginate .paginate_button {
   font-weight: bolder !important;
 }
+.button-update {
+    width: 170px;
+    height: 40px;
+    border-radius: 17px;
+    background-color: #3384d7 !important;
+}
+.update {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-align: center;
+  color: var(--white);
+}
 </style>
 @endsection
 
@@ -388,7 +405,11 @@ table.dataTable.no-footer {
                         <td>{{ date('Y-m-d H:i:s', strtotime($order->created_at)) }}</td>
                         <td>{{ $order->survey_status }}</td>
                         <td>
+                          @if(isset($order->visitor_id))
+                          <a href="{{ url('health/visitor/'.md5($order->id)) }}" class="pl-1" type="submit">View Details ></a>
+                          @else
                           <a href="{{ url('health/details/'.md5($order->id)) }}" class="pl-1" type="submit">View Details ></a>
+                          @endif
                           |
                           @if($order->employee_id=='')
                           <a href="https://www.gettruehelp.com/healthcheck/?vid={{ md5($order->visitor_id) }}" class="pl-1" type="submit" target="-_blank">View Survey ></a>
@@ -446,6 +467,45 @@ table.dataTable.no-footer {
                   </div>
                   <div class="form-group row float-right">
                      <button type="submit" class="btn-warning button-proceed Proceed">Submit</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+  </div>
+ <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="postModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <div class="Add-Employees pt-3" id="postModalLabel">Post Survey</div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <div class="signup-form">
+               <form action="/survey/post" method="post">
+                  @csrf
+                  <div class="form-group row">
+                     <div class="col-lg-12">
+                        <label class="form-label-text">Select Candidate</label>
+                        <select class="form-control" name="employee_id" required="required">
+                          @if($orders!=NULL)
+                          @foreach($employees as $order)
+                          @if(isset($order->parent_first_name))
+                            <option value="{{ $order->employee_id }}">{{ $order->parent_first_name.' '.$order->parent_middle_name.' '.$order->parent_last_name }}</option>
+                          @else
+                            <option value="{{ $order->employee_id }}">{{ $order->first_name.' '.$order->middle_name.' '.$order->last_name }}</option>
+                          @endif
+                          @endforeach
+                          @endif
+                        </select>
+                     </div>
+                  </div>
+                  <br><br><br>
+                  <div class="form-group row float-right">
+                  <button type="submit" class="btn btn-primary button-proceed update">Submit</button>
                   </div>
                </form>
             </div>

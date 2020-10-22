@@ -17,6 +17,9 @@
   font-weight: 300;
   opacity: 0.9;
 }
+.dropdown-menu-lg {
+  max-width: 400px !important;
+}
 </style>
 <link rel="stylesheet" href="tokenize2.css">
 <!--body-->
@@ -131,9 +134,20 @@
             @if($message->is_seen=='N')
             @if($n++>6)@continue;@endif
             <div  style="background-color:#eceff3;">
-              <a href="{{ route('seenNotification',$message->id) }}" class="dropdown-item">
-                <i class="fa fa-user mr-2"></i> {{$message->nf_message}}
-              </a>
+              <div class="row">
+                <a href="{{ route('seenNotification',$message->id) }}" class="dropdown-item">
+                  <div class="col-lg-1">
+                    <i class="fa fa-user mr-2"></i>
+                  </div>
+                  <div class="col-lg-8">
+                      <p>You have a red case</p>
+                      {{$message->nf_message}}
+                  </div>
+                  <div class="col-lg-3">
+                    {{ date(" H:i:s",strtotime($message->date)) }}
+                  </div>
+                </a>
+              </div>
             </div>
             <div class="dropdown-divider"></div>
             @endif

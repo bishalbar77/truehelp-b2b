@@ -138,6 +138,70 @@ class SurveyController extends Controller
 
     }
 
+    public function visitor_health_details($id)
+    { 
+        $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
+        $api_token = session()->get('api_token');
+        $response = Http::withHeaders([
+                            'Accept' => 'application/json',
+                            'Authorization' => "Bearer ".$api_token
+                        ])->post($this->API.'get-survey-data/'.$id, [
+                            'api_key' => $apiKeys,
+                        ]);
+        
+        $contents = $response->getBody();
+
+        $data = json_decode($contents);
+
+        $surveys = $data->response->data->survey ?? NULL;
+        $employee_id = $data->response->data->survey->employee_id ?? NULL;
+        $answers = $data->response->data->survey_answers ?? NULL;
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => "Bearer ".$api_token
+        ])->post($this->API.'get-survey', [
+            'api_key' => $apiKeys,
+        ]);
+
+        $contents = $response->getBody();
+
+        $data = json_decode($contents);
+
+        if(isset($data->response)) {
+        if($data->response->status != 200) {
+        $orders = NULL;
+            } else {
+            $orders = $data->response->data;
+            }
+        } else {
+            $orders = NULL;
+        }
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => "Bearer ".$api_token
+        ])->get($this->API.'get-visitors');
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        $visitors = $data->response->data;
+
+        foreach($visitors as $visitor)
+        {
+            if($visitor->id==$surveys->visitor_id)
+            {
+                $visitor_details = $visitor;
+            }
+        }
+
+        return view('health.showvisitor')->with([
+            'surveys' => $surveys,
+            'answers' => $answers,
+            'orders' => $orders,
+            'employee_id' => $employee_id,
+            'visitor_details' => $visitor_details
+        ]);
+
+    }
+
     public function survey_details($id)
     {   
         $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
@@ -166,6 +230,15 @@ class SurveyController extends Controller
     public function store(Request $request)
     {
         $response = Http::post($this->API.'create-survey', [
+            'employee_id' => $request->employee_id
+        ]);
+        
+        return redirect('surveys/')->with('success', 'Survey Created Successfully!');
+    }
+
+    public function generate(Request $request)
+    {
+        $response = Http::post($this->API.'generate-message', [
             'employee_id' => $request->employee_id
         ]);
         

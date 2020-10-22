@@ -118,6 +118,8 @@
     </form>
     <ul class="navbar-nav ml-auto pl-5">
       <a class="pl-5"></a>
+      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#postModal">Post Survey</button>
+      <a class="pl-5"></a>
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+ Add Survey</button>
       <a class="pl-5"></a>
     </ul>

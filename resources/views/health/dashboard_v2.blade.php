@@ -296,6 +296,9 @@
 .yellow {
     border: solid 0.6px #f9b24b;
 }
+.pink {
+    border: solid 0.6px #c937f9;
+}
 .body {
     background-color: #ffffff !important;
 }
@@ -381,6 +384,18 @@
   letter-spacing: 1.23px;
   color: #f9aa37 !important;
 }
+.text-pink-2 {
+  opacity: 0.9;
+  font-family: Montserrat;
+  font-size: 29.5px;
+  font-weight: 600;
+  font-stretch: normal;
+  padding-left: 20px !important;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 1.23px;
+  color: #c937f9 !important;
+}
 .unsafe {
   width: 69px;
   height: 19px;
@@ -444,20 +459,10 @@ ataTables_wrapper}
     margin-left: auto !important;
     margin-right: auto !important;
   }
-}    
-@media screen and (min-height: 200px) {
-    #myChart {
-    background: none;
-    background-size:contain !important;
-    object-position: 0% 50% !important;
-    display: block;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 700px) {
     #myChart {
-    background: transparent url(../../images/<?php echo $image; ?>.png) no-repeat -2% 2rem !important;
+    background: none !important;
     background-size:contain !important;
     object-position: 0% 50% !important;
     display: block;
@@ -522,6 +527,13 @@ a {
   background-color: #f3f3f3 !important;
   position: relative !important;
 }
+#empdatatable6_filter input {
+  height: 40px !important;
+  border-radius: 11px !important;
+  box-shadow: 0 8px 13px 0 rgba(0, 0, 0, 0.02) !important;
+  background-color: #f3f3f3 !important;
+  position: relative !important;
+}
 #dataTables_filter input {
   height: 40px !important;
   border-radius: 11px !important;
@@ -541,7 +553,15 @@ a {
 
 {{-- Content --}}
 @section('content')
-
+<?php $visitors=0; $survey_candidates=0; ?>
+@foreach($orders ?? '' as $employee)
+@if(\Carbon\Carbon::parse($employee->created_at)->format('d/m/Y') == Carbon\Carbon::today()->format('d/m/Y'))
+<?php $survey_candidates++; ?>
+@if($employee->visitor_id!=null)
+<?php $visitors++; ?>
+@endif
+@endif
+@endforeach
   <!-- /.navbar -->
   @include('layouts.header_v2')
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -633,12 +653,12 @@ a {
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-          <div class="col-lg-3">
+          <div class="col-lg-2">
             <!-- small box -->
             <div class="card-box-top blue">
               <a onclick="openCity(event, 'default')" id="defaultOpen"  class="hover-effect tablinks">
-                <p class="text-font pr-3 pl-3">Registered candidates</p>
-                <p class="text-blue-2">{{ $registered_employees }}</p>
+                <p class="text-font pr-3 pl-3">Survey candidates</p>
+                <p class="text-blue-2">{{ $survey_candidates }}</p>
               </a>
             </div>
           </div>
@@ -674,12 +694,22 @@ a {
           </div>
           <!-- ./col -->
             <!-- ./col -->
-          <div class="col-lg-3">
+          <div class="col-lg-2">
             <!-- small box -->
             <div class="card-box-top yellow {{ Request::is('health/survey/unsafe')  ? 'active-card' : '' }}">
               <a onclick="openCity(event, 'unsafe')" class="hover-effect tablinks">
                 <p class="text-font pr-3 pl-3">Unsafe candidates</p>
                 <p class="text-yellow-2">{{ $survey_postive }}</p>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-2">
+            <!-- small box -->
+            <div class="card-box-top pink {{ Request::is('health/survey/unsafe')  ? 'active-card' : '' }}">
+              <a onclick="openCity(event, 'visitors')" class="hover-effect tablinks">
+                <p class="text-font pr-3 pl-3">Visitors</p>
+                <p class="text-pink-2">{{ $visitors }}</p>
               </a>
             </div>
           </div>
@@ -758,9 +788,15 @@ a {
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
                                   @endif
                                   <td>
+                                  @if(isset($employee->visitor_id))
+                                    <a href="{{ url('health/visitor/'.md5($employee->id)) }}" class="arrow-head" type="submit">
+                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                                    </a>
+                                  @else
                                     <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
                                     <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
                                     </a>
+                                  @endif
                                   </td>
                                 </tr>
                             @endif
@@ -828,10 +864,7 @@ a {
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
                                   @endif
                                   <td>
-                                    <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                                    </a>
-                                  </td>
+
                                 </tr>
                             @endif
                             @endif
@@ -898,10 +931,15 @@ a {
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
                                   @endif
                                   <td>
+                                  @if(isset($employee->visitor_id))
+                                    <a href="{{ url('health/visitor/'.md5($employee->id)) }}" class="arrow-head" type="submit">
+                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                                    </a>
+                                  @else
                                     <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
                                     <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
                                     </a>
-                                  </td>
+                                  @endif
                                 </tr>
                             @endif
                             @endif
@@ -968,10 +1006,15 @@ a {
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
                                   @endif
                                   <td>
+                                  @if(isset($employee->visitor_id))
+                                    <a href="{{ url('health/visitor/'.md5($employee->id)) }}" class="arrow-head" type="submit">
+                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                                    </a>
+                                  @else
                                     <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
                                     <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
                                     </a>
-                                  </td>
+                                  @endif
                                 </tr>
                             @endif
                             @endif
@@ -1036,11 +1079,90 @@ a {
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
                                   @endif
                                   <td>
+                                  @if(isset($employee->visitor_id))
+                                    <a href="{{ url('health/visitor/'.md5($employee->id)) }}" class="arrow-head" type="submit">
+                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                                    </a>
+                                  @else
                                     <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
                                     <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
                                     </a>
-                                  </td>
+                                  @endif
                                 </tr>
+                            @endif
+                            @endforeach
+                          </tbody>
+                      </table>
+                      <div class="pt-4 pl-4 pb-2 pr-5">
+                  
+                </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+    </div>
+    <a class="p-4"></a>
+
+    <div id="visitors"  class="tabcontent">
+      <section class="content pt-5">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <!-- /.card -->
+              <div class="Rectangle-Copy-6 pl-4 t-head">
+                <div class="row pt-4 pl-4 pr-5" style="width:100% !important;">
+                  <div class="col-lg-10"><h3  class=" My-employees">Visitors<a href="{{ url('surveys') }}" class="table-side-tag pl-4">SEE ALL</a></h3></div>
+                  
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body" >
+                      <table class="table" id="empdatatable6">
+                          <thead>
+                              <tr>
+                                  <th>Name</th>
+                                  <th>Verification Status</th>
+                                  <th>Risk Factor</th>
+                                  <th></th>
+                              </tr>
+                          </thead>
+                          <tbody class="t-body">
+                            
+                            @foreach($orders ?? '' as $employee)
+                            @if($employee->visitor_id!=null)
+                            @if(\Carbon\Carbon::parse($employee->created_at)->format('d/m/Y') == Carbon\Carbon::today()->format('d/m/Y'))
+                                <tr>
+                                  <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
+                                  @if($employee->survey_status=="COMPLETE")
+                                  <td class="pl-4">Completed</td>
+                                  @else
+                                  <td class="pl-4">Incomplete</td>
+                                  @endif
+                                  @if($employee->severity=="GREEN")
+                                  <td class="pl-4"><span class="safe">SAFE</span> </td>
+                                  @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
+                                  @else
+                                  <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
+                                  @endif
+                                  <td>
+                                  @if(isset($employee->visitor_id))
+                                    <a href="{{ url('health/visitor/'.md5($employee->id)) }}" class="arrow-head" type="submit">
+                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                                    </a>
+                                  @else
+                                    <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
+                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                                    </a>
+                                  @endif
+                                </tr>
+                            @endif
                             @endif
                             @endforeach
                           </tbody>
@@ -1271,7 +1393,7 @@ var config = {
       "Registered Candidates"
     ],
     datasets: [{
-      data: [<?php echo $survey_completed; ?>, <?php echo $survey_postive; ?>, <?php echo $safe; ?>, <?php echo $survey_postive; ?>, <?php echo $registered_employees; ?>],
+      data: [<?php echo $survey_completed; ?>, <?php echo $survey_postive; ?>, <?php echo $safe; ?>, <?php echo $survey_postive; ?>, <?php echo $survey_candidates; ?>],
       backgroundColor: [
         "#484edb",
         "rgb(255, 16, 96)",
@@ -1381,6 +1503,19 @@ var myChart = new Chart(ctx, config);
     <script>
 		 $(document).ready(function() {
           $('#empdatatable5').DataTable( {
+            language: 
+            {
+              searchPlaceholder: "Search",
+              search: "",
+            },
+              "ordering": false,
+              "info":     false,
+          } );
+      } );
+		</script>
+    <script>
+		 $(document).ready(function() {
+          $('#empdatatable6').DataTable( {
             language: 
             {
               searchPlaceholder: "Search",
