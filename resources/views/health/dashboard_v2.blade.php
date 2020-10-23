@@ -559,6 +559,15 @@ a {
     height: 3rem !important;
     border :solid 1px #eee;
 }
+[data-href] { cursor: pointer; }
+
+.table-style {
+  transition: 0.3s;
+}
+
+.table-style:hover {
+  background-color: #eeeeee;
+}
 </style>
 
 @endsection
@@ -782,7 +791,6 @@ a {
                                   <th>Verification Status</th>
                                   <th>Risk Factor</th>
                                   <th>Candidate Type</th>
-                                  <th></th>
                               </tr>
                           </thead>
                           <?php $a=0 ?>
@@ -791,7 +799,8 @@ a {
                             @foreach($orders ?? '' as $employee)
                             @if($employee->survey_status=="COMPLETE")
                             @if($a++ < $survey_completed)
-                                <tr>
+                              @if(isset($employee->visitor_id))
+                                <tr class="table-style" onclick="window.location='{{ url('health/visitor/'.md5($employee->id)) }}';">
                                   <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
                                   <td class="pl-4">Completed</td>
                                   @if($employee->severity=="GREEN")
@@ -801,22 +810,21 @@ a {
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
                                   @endif
-                                  @if(isset($employee->visitor_id))
                                   <td class="pl-4">Visitor</td>
-                                  <td>
-                                    <a href="{{ url('health/visitor/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                                    </a>
-                                  </td>
-                                  @else
-                                  <td class="pl-4">Employee</td>
-                                  <td>
-                                    <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                      <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                                    </a>
-                                  </td>
-                                  @endif
                                 </tr>
+                              @else
+                                <tr class="table-style"  onclick="window.location='{{ url('health/details/'.md5($employee->id)) }}';">
+                                  <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
+                                  <td class="pl-4">Completed</td>
+                                  @if($employee->severity=="GREEN")
+                                  <td class="pl-4"><span class="safe">SAFE</span> </td>
+                                  @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
+                                  @else
+                                  <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
+                                  @endif
+                                  <td class="pl-4">Employee</td>
+                              @endif
                             @endif
                             @endif
                             @endforeach
@@ -859,7 +867,6 @@ a {
                                   <th>Verification Status</th>
                                   <th>Risk Factor</th>
                                   <th>Candidate Type</th>
-                                  <th></th>
                               </tr>
                           </thead>
                           <?php $b=0 ?>
@@ -868,13 +875,10 @@ a {
                             @foreach($orders ?? '' as $employee)
                             @if($employee->severity=="GREEN")
                             @if($b++ < $safe)
-                                <tr>
+                            @if(isset($employee->visitor_id))
+                                <tr class="table-style" onclick="window.location='{{ url('health/visitor/'.md5($employee->id)) }}';">
                                   <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
-                                  @if($employee->survey_status=="COMPLETE")
                                   <td class="pl-4">Completed</td>
-                                  @else
-                                  <td class="pl-4">Incomplete</td>
-                                  @endif
                                   @if($employee->severity=="GREEN")
                                   <td class="pl-4"><span class="safe">SAFE</span> </td>
                                   @elseif($employee->severity=="RED")
@@ -882,23 +886,21 @@ a {
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
                                   @endif
-                                  @if(isset($employee->visitor_id))
                                   <td class="pl-4">Visitor</td>
-                                  <td>
-                                    <a href="{{ url('health/visitor/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                                    </a>
-                                  </td>
-                                  @else
-                                  <td class="pl-4">Employee</td>
-                                  <td>
-                                    <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                      <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                                    </a>
-                                  </td>
-                                  @endif
-
                                 </tr>
+                              @else
+                                <tr class="table-style"  onclick="window.location='{{ url('health/details/'.md5($employee->id)) }}';">
+                                  <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
+                                  <td class="pl-4">Completed</td>
+                                  @if($employee->severity=="GREEN")
+                                  <td class="pl-4"><span class="safe">SAFE</span> </td>
+                                  @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
+                                  @else
+                                  <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
+                                  @endif
+                                  <td class="pl-4">Employee</td>
+                              @endif
                             @endif
                             @endif
                             @endforeach
@@ -941,7 +943,6 @@ a {
                                   <th>Verification Status</th>
                                   <th>Risk Factor</th>
                                   <th>Candidate Type</th>
-                                  <th></th>
                               </tr>
                           </thead>
                           <?php $c=0 ?>
@@ -950,13 +951,10 @@ a {
                             @foreach($orders ?? '' as $employee)
                             @if($employee->severity=="RED")
                             @if($c++ < $survey_postive)
-                                <tr>
+                            @if(isset($employee->visitor_id))
+                                <tr class="table-style" onclick="window.location='{{ url('health/visitor/'.md5($employee->id)) }}';">
                                   <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
-                                  @if($employee->survey_status=="COMPLETE")
                                   <td class="pl-4">Completed</td>
-                                  @else
-                                  <td class="pl-4">Incomplete</td>
-                                  @endif
                                   @if($employee->severity=="GREEN")
                                   <td class="pl-4"><span class="safe">SAFE</span> </td>
                                   @elseif($employee->severity=="RED")
@@ -964,17 +962,21 @@ a {
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
                                   @endif
-                                  <td>
-                                  @if(isset($employee->visitor_id))
-                                    <a href="{{ url('health/visitor/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                                    </a>
-                                  @else
-                                    <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                                    </a>
-                                  @endif
+                                  <td class="pl-4">Visitor</td>
                                 </tr>
+                              @else
+                                <tr class="table-style"  onclick="window.location='{{ url('health/details/'.md5($employee->id)) }}';">
+                                  <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
+                                  <td class="pl-4">Completed</td>
+                                  @if($employee->severity=="GREEN")
+                                  <td class="pl-4"><span class="safe">SAFE</span> </td>
+                                  @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
+                                  @else
+                                  <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
+                                  @endif
+                                  <td class="pl-4">Employee</td>
+                              @endif
                             @endif
                             @endif
                             @endforeach
@@ -1017,7 +1019,6 @@ a {
                                   <th>Verification Status</th>
                                   <th>Risk Factor</th>
                                   <th>Candidate Type</th>
-                                  <th></th>
                               </tr>
                           </thead>
                           <?php $d=0 ?>
@@ -1026,13 +1027,10 @@ a {
                             @foreach($orders ?? '' as $employee)
                             @if($employee->severity=="RED")
                             @if($d++ < $survey_postive)
-                                <tr>
+                            @if(isset($employee->visitor_id))
+                                <tr class="table-style" onclick="window.location='{{ url('health/visitor/'.md5($employee->id)) }}';">
                                   <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
-                                  @if($employee->survey_status=="COMPLETE")
                                   <td class="pl-4">Completed</td>
-                                  @else
-                                  <td class="pl-4">Incomplete</td>
-                                  @endif
                                   @if($employee->severity=="GREEN")
                                   <td class="pl-4"><span class="safe">SAFE</span> </td>
                                   @elseif($employee->severity=="RED")
@@ -1040,22 +1038,21 @@ a {
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
                                   @endif
-                                  @if(isset($employee->visitor_id))
                                   <td class="pl-4">Visitor</td>
-                                  <td>
-                                    <a href="{{ url('health/visitor/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                                    </a>
-                                  </td>
-                                  @else
-                                  <td class="pl-4">Employee</td>
-                                  <td>
-                                    <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                      <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                                    </a>
-                                  </td>
-                                  @endif
                                 </tr>
+                              @else
+                                <tr class="table-style"  onclick="window.location='{{ url('health/details/'.md5($employee->id)) }}';">
+                                  <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
+                                  <td class="pl-4">Completed</td>
+                                  @if($employee->severity=="GREEN")
+                                  <td class="pl-4"><span class="safe">SAFE</span> </td>
+                                  @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
+                                  @else
+                                  <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
+                                  @endif
+                                  <td class="pl-4">Employee</td>
+                              @endif
                             @endif
                             @endif
                             @endforeach
@@ -1098,20 +1095,16 @@ a {
                                   <th>Verification Status</th>
                                   <th>Risk Factor</th>
                                   <th>Candidate Type</th>
-                                  <th></th>
                               </tr>
                           </thead>
                           <tbody class="t-body">
                             
                             @foreach($orders ?? '' as $employee)
                             @if(\Carbon\Carbon::parse($employee->created_at)->format('d/m/Y') == Carbon\Carbon::today()->format('d/m/Y'))
-                                <tr>
+                            @if(isset($employee->visitor_id))
+                                <tr class="table-style" onclick="window.location='{{ url('health/visitor/'.md5($employee->id)) }}';">
                                   <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
-                                  @if($employee->survey_status=="COMPLETE")
                                   <td class="pl-4">Completed</td>
-                                  @else
-                                  <td class="pl-4">Incomplete</td>
-                                  @endif
                                   @if($employee->severity=="GREEN")
                                   <td class="pl-4"><span class="safe">SAFE</span> </td>
                                   @elseif($employee->severity=="RED")
@@ -1119,22 +1112,21 @@ a {
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
                                   @endif
-                                  @if(isset($employee->visitor_id))
                                   <td class="pl-4">Visitor</td>
-                                  <td>
-                                    <a href="{{ url('health/visitor/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                                    </a>
-                                  </td>
-                                  @else
-                                  <td class="pl-4">Employee</td>
-                                  <td>
-                                    <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                      <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                                    </a>
-                                  </td>
-                                  @endif
                                 </tr>
+                              @else
+                                <tr class="table-style"  onclick="window.location='{{ url('health/details/'.md5($employee->id)) }}';">
+                                  <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
+                                  <td class="pl-4">Completed</td>
+                                  @if($employee->severity=="GREEN")
+                                  <td class="pl-4"><span class="safe">SAFE</span> </td>
+                                  @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
+                                  @else
+                                  <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
+                                  @endif
+                                  <td class="pl-4">Employee</td>
+                              @endif
                             @endif
                             @endforeach
                           </tbody>
@@ -1176,7 +1168,6 @@ a {
                                   <th>Verification Status</th>
                                   <th>Risk Factor</th>
                                   <th>Candidate Type</th>
-                                  <th></th>
                               </tr>
                           </thead>
                           <tbody class="t-body">
@@ -1184,13 +1175,9 @@ a {
                             @foreach($orders ?? '' as $employee)
                             @if($employee->visitor_id!=null)
                             @if(\Carbon\Carbon::parse($employee->created_at)->format('d/m/Y') == Carbon\Carbon::today()->format('d/m/Y'))
-                                <tr>
+                                <tr class="table-style" onclick="window.location='{{ url('health/visitor/'.md5($employee->id)) }}';">
                                   <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
-                                  @if($employee->survey_status=="COMPLETE")
                                   <td class="pl-4">Completed</td>
-                                  @else
-                                  <td class="pl-4">Incomplete</td>
-                                  @endif
                                   @if($employee->severity=="GREEN")
                                   <td class="pl-4"><span class="safe">SAFE</span> </td>
                                   @elseif($employee->severity=="RED")
@@ -1198,21 +1185,7 @@ a {
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
                                   @endif
-                                  @if(isset($employee->visitor_id))
                                   <td class="pl-4">Visitor</td>
-                                  <td>
-                                    <a href="{{ url('health/visitor/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                                    </a>
-                                  </td>
-                                  @else
-                                  <td class="pl-4">Employee</td>
-                                  <td>
-                                    <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                      <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                                    </a>
-                                  </td>
-                                  @endif
                                 </tr>
                             @endif
                             @endif
