@@ -314,6 +314,18 @@
   letter-spacing: normal;
   color: #131415;
 }
+.text-font-sm {
+  opacity: 0.9;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 800;
+  padding-top: 20px !important;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #131415;
+}
 .col-lg-2, .col-lg-3 {
     position: relative;
     width: 100%;
@@ -657,12 +669,22 @@ a {
             <!-- small box -->
             <div class="card-box-top blue">
               <a onclick="openCity(event, 'default')" id="defaultOpen"  class="hover-effect tablinks">
-                <p class="text-font pr-3 pl-3">Survey candidates</p>
+                <p class="text-font pr-2 pl-2">Registered candidates</p>
                 <p class="text-blue-2">{{ $survey_candidates }}</p>
               </a>
             </div>
           </div>
           <!-- ./col -->
+          
+          <div class="col-lg-2">
+            <!-- small box -->
+            <div class="card-box-top pink {{ Request::is('health/survey/unsafe')  ? 'active-card' : '' }}">
+              <a onclick="openCity(event, 'visitors')" class="hover-effect tablinks">
+                <p class="text-font pr-3 pl-3">Visitors</p>
+                <p class="text-pink-2">{{ $visitors }}</p>
+              </a>
+            </div>
+          </div>
           <div class="col-lg-2">
             <!-- small box -->
               <div class="card-box-top purple  {{ Request::is('health/survey/completed')  ? 'active-card' : '' }}">
@@ -704,15 +726,6 @@ a {
             </div>
           </div>
 
-          <div class="col-lg-2">
-            <!-- small box -->
-            <div class="card-box-top pink {{ Request::is('health/survey/unsafe')  ? 'active-card' : '' }}">
-              <a onclick="openCity(event, 'visitors')" class="hover-effect tablinks">
-                <p class="text-font pr-3 pl-3">Visitors</p>
-                <p class="text-pink-2">{{ $visitors }}</p>
-              </a>
-            </div>
-          </div>
           <!-- ./col -->
         </div>
         <!-- /.row -->
@@ -768,6 +781,7 @@ a {
                                   <th>Name</th>
                                   <th>Verification Status</th>
                                   <th>Risk Factor</th>
+                                  <th>Candidate Type</th>
                                   <th></th>
                               </tr>
                           </thead>
@@ -787,17 +801,21 @@ a {
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
                                   @endif
-                                  <td>
                                   @if(isset($employee->visitor_id))
+                                  <td class="pl-4">Visitor</td>
+                                  <td>
                                     <a href="{{ url('health/visitor/'.md5($employee->id)) }}" class="arrow-head" type="submit">
                                     <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
                                     </a>
-                                  @else
-                                    <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                                    </a>
-                                  @endif
                                   </td>
+                                  @else
+                                  <td class="pl-4">Employee</td>
+                                  <td>
+                                    <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
+                                      <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                                    </a>
+                                  </td>
+                                  @endif
                                 </tr>
                             @endif
                             @endif
@@ -840,6 +858,7 @@ a {
                                   <th>Name</th>
                                   <th>Verification Status</th>
                                   <th>Risk Factor</th>
+                                  <th>Candidate Type</th>
                                   <th></th>
                               </tr>
                           </thead>
@@ -863,7 +882,21 @@ a {
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
                                   @endif
+                                  @if(isset($employee->visitor_id))
+                                  <td class="pl-4">Visitor</td>
                                   <td>
+                                    <a href="{{ url('health/visitor/'.md5($employee->id)) }}" class="arrow-head" type="submit">
+                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                                    </a>
+                                  </td>
+                                  @else
+                                  <td class="pl-4">Employee</td>
+                                  <td>
+                                    <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
+                                      <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                                    </a>
+                                  </td>
+                                  @endif
 
                                 </tr>
                             @endif
@@ -907,6 +940,7 @@ a {
                                   <th>Name</th>
                                   <th>Verification Status</th>
                                   <th>Risk Factor</th>
+                                  <th>Candidate Type</th>
                                   <th></th>
                               </tr>
                           </thead>
@@ -982,6 +1016,7 @@ a {
                                   <th>Name</th>
                                   <th>Verification Status</th>
                                   <th>Risk Factor</th>
+                                  <th>Candidate Type</th>
                                   <th></th>
                               </tr>
                           </thead>
@@ -1005,15 +1040,20 @@ a {
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
                                   @endif
-                                  <td>
                                   @if(isset($employee->visitor_id))
+                                  <td class="pl-4">Visitor</td>
+                                  <td>
                                     <a href="{{ url('health/visitor/'.md5($employee->id)) }}" class="arrow-head" type="submit">
                                     <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
                                     </a>
+                                  </td>
                                   @else
+                                  <td class="pl-4">Employee</td>
+                                  <td>
                                     <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                                      <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
                                     </a>
+                                  </td>
                                   @endif
                                 </tr>
                             @endif
@@ -1057,6 +1097,7 @@ a {
                                   <th>Name</th>
                                   <th>Verification Status</th>
                                   <th>Risk Factor</th>
+                                  <th>Candidate Type</th>
                                   <th></th>
                               </tr>
                           </thead>
@@ -1078,15 +1119,20 @@ a {
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
                                   @endif
-                                  <td>
                                   @if(isset($employee->visitor_id))
+                                  <td class="pl-4">Visitor</td>
+                                  <td>
                                     <a href="{{ url('health/visitor/'.md5($employee->id)) }}" class="arrow-head" type="submit">
                                     <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
                                     </a>
+                                  </td>
                                   @else
+                                  <td class="pl-4">Employee</td>
+                                  <td>
                                     <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                                      <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
                                     </a>
+                                  </td>
                                   @endif
                                 </tr>
                             @endif
@@ -1129,6 +1175,7 @@ a {
                                   <th>Name</th>
                                   <th>Verification Status</th>
                                   <th>Risk Factor</th>
+                                  <th>Candidate Type</th>
                                   <th></th>
                               </tr>
                           </thead>
@@ -1151,15 +1198,20 @@ a {
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
                                   @endif
-                                  <td>
                                   @if(isset($employee->visitor_id))
+                                  <td class="pl-4">Visitor</td>
+                                  <td>
                                     <a href="{{ url('health/visitor/'.md5($employee->id)) }}" class="arrow-head" type="submit">
                                     <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
                                     </a>
+                                  </td>
                                   @else
+                                  <td class="pl-4">Employee</td>
+                                  <td>
                                     <a href="{{ url('health/details/'.md5($employee->id)) }}" class="arrow-head" type="submit">
-                                    <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                                      <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
                                     </a>
+                                  </td>
                                   @endif
                                 </tr>
                             @endif

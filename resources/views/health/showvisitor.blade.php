@@ -522,7 +522,9 @@ body{
   padding: 10px;
   pointer-events: none;
 }
-
+.order-img {
+  width: 90%;
+}
 /* align icon */
 .left-addon .glyphicon  { left:  0px;}
 .right-addon .glyphicon { right: 0px;}
@@ -558,7 +560,7 @@ a {
             <div class="p-xl-5 pt-xl-5">
               <div class="form-group row">
                 <div class="col-lg-3">
-                  <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="img-circle Mask">
+                  <img src="{{ asset('dist/img/avatar.png') }}" alt="User Avatar"  class="img-circle Mask">
                 </div>
                 <div class="col-lg-9 pt-1 pl-5">
                   <p class="Name">{{ $visitor_details->first_name }} {{ $visitor_details->last_name }}</p>
@@ -584,6 +586,7 @@ a {
         </div>
       </div>
     </div>
+    @if($surveys->survey_status == "COMPLETE")
     <div class="container  p-4 ">
       <div class="Rectangle-Copy-6 t-head">
         <div class="pt-4 pl-4">
@@ -595,6 +598,14 @@ a {
             <table class="table table-hover mb-0">
             @if(isset($surveys))
               <tbody>
+                    <tr>
+                      <th>Survey Start Time</th>
+                      <td class="table-text-cyan">{{ date("g:i A",strtotime($surveys->survey_start)) }}</td>
+                    </tr>
+                    <tr>
+                      <th>Survey End Time</th>
+                      <td class="table-text-cyan">{{ date("g:i A",strtotime($surveys->survey_end)) }}</td>
+                    </tr>
                 @if($answers)
                   @foreach($answers as $answer)
                     <tr>
@@ -615,6 +626,51 @@ a {
         <!-- /.card-body -->
       </div>
     </div>
+    @else
+    <div class="container  p-4 ">
+      <div class="row">
+        <div class="col-12">
+          <!-- /.card -->
+          <div class="Rectangle-Copy-6 pl-4 t-head">
+            <div class="pt-4 pl-4 pb-2 pr-5">
+              <h3  class=" My-employees">LAST REPORT</h3>
+              <hr>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body" >
+              <div class="container">
+                <div class="form-group row">
+                  <div class="col-lg-5">
+                    <img src="../../images/change.jpg" alt="User Avatar"  class="order-img">
+                  </div>
+                  <div class="col-lg-1"></div>
+                  <div class="col-lg-6">
+                    <div class="form-group row pt-2 pr-1">
+                      <p class="Request-sent">
+                      Survey Report Not Found
+                      </p>
+                    </div>
+                    <div class="form-group row pr-1">
+                      <p class="Lorem-ipsum-dolor-si">
+                      Visitor have not completed the survey yet,
+                      ask them to complete the survey.
+                      </p>
+                    </div>
+                    <div class="form-group row pr-1">
+                      <a href="{{ route('getsurvey') }}"><button type="button" class="btn btn-primary">Check Reports</button></a>
+                      <a class="pl-5"></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.col -->
+        </div>
+      </div>
+    </div>
+    @endif
   </div>
 @endsection
 
