@@ -543,7 +543,7 @@ a {
 
 {{-- Content --}}
 @section('content')
-@include('layouts.header')
+@include('layouts.header_v2')
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar elevation-4 side-bar">
@@ -609,9 +609,112 @@ a {
                 @if($answers)
                   @foreach($answers as $answer)
                     <tr>
+                      @if(strpos($answer->text, 'tested positive for COVID-19') !== false)
+                      <th>{{ $answer->text ?? '' }}</th>
+                      @if($answer->question_answer=="Yes")
+                      <td class="table-text-red">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @else
+                      <td class="table-text-cyan">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @endif
+                      @endif
+                      @if(strpos($answer->text, 'you come to') !== false)
+                      <th>Did you come to {{$account->b2b_company_name}} yesterday?</th>
+                      @if($answer->question_answer=="Yes")
+                      <td class="table-text-not-done">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @else
+                      <td class="table-text-cyan">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @endif
+                      @endif
+                      @if(strpos($answer->text, 'current temperature') !== false)
+                      <th>{{ $answer->text ?? '' }}</th>
+                      <?php $temp = (float)$answer->question_answer;?>
+                      @if($temp > 100)
+                      <td class="table-text-not-done">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @else
+                      <td class="table-text-cyan">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @endif
+                      @endif
+                      @if(strpos($answer->text, 'visit any public place yesterday') !== false)
+                      <th>{{ $answer->text ?? '' }}</th>
+                      @if($answer->question_answer=="Yes")
+                      <td class="table-text-not-done">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @else
+                      <td class="table-text-cyan">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @endif
+                      @endif
+                      @if(strpos($answer->text, 'Where did you go') !== false)
+                      <th>{{ $answer->text ?? '' }}</th>
+                      <td class="table-text-not-done">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @endif
+                      @if(strpos($answer->text, 'Was any of them COVID19 positive') !== false)
+                      <th>{{ $answer->text ?? '' }}</th>
+                      @if($answer->question_answer=="Not Sure")
+                      <td class="table-text-cyan">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @else
+                      <td class="table-text-not-done">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @endif
+                      @endif
+                      @if(strpos($answer->text, ' any of the following symptoms') !== false)
+                      <th>{{ $answer->text ?? '' }}</th>
+                      @if($answer->question_answer=="None of these")
+                      <td class="table-text-cyan">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @else
+                      <td class="table-text-not-done">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @endif
+                      @endif
+                      @if(strpos($answer->text, 'means of transport') !== false)
+                      <th>{{ $answer->text ?? '' }}</th>
+                      @if($answer->question_answer=="Personal")
+                      <td class="table-text-cyan">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @else
+                      <td class="table-text-not-done">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @endif
+                      @endif
+                      @if(strpos($answer->text, 'have you come in contact with') !== false)
+                      <th>{{ str_replace("<employer/school name>",$account->b2b_company_name,$answer->text) }}</th>
+                      @if($answer->question_answer=="Less_than_5")
+                      <td class="table-text-cyan">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @else
+                      <td class="table-text-not-done">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @endif
+                      @endif
                       <th>{{ $answer->text ?? '' }}</th>
                       @if(strlen($answer->question_answer) >=20 )
-                      <td class="table-text-cyan"><a href="{{ $answer->question_answer }}" target="_blank">View</a></td>
+                      <td class="table-text-cyan pl-2"><a href="{{ $answer->question_answer }}" class="table-text-cyan pl-2" target="_blank"><i class="fa fa-file-text-o"></i></a></td>
                       @else
                       <td class="table-text-cyan">{{ $answer->question_answer }}</td>
                       @endif
@@ -688,14 +791,14 @@ a {
                       @foreach($orders as $order)
                       @if($order->employee_id == $employee_id)
                       @if($n > 5)@continue @endif
-                        <tr>
+                        <tr onclick="window.location='{{ url('health/details/'.md5($order->id)) }}';">
                           <th>{{ strftime("%d %b %Y",strtotime($order->created_at)) }}</th>
                           @if($order->severity=="GREEN")
-                          <td><a href="{{ url('health/details/'.md5($order->id)) }}" class="table-text-cyan">SAFE</a></td>
+                          <td><a class="table-text-cyan">SAFE</a></td>
                           @elseif($order->severity=="RED")
-                          <td><a href="{{ url('health/details/'.md5($order->id)) }}" class="table-text-red">UNSAFE</a></td>
+                          <td><a class="table-text-red">UNSAFE</a></td>
                           @else
-                          <td><a href="{{ url('health/details/'.md5($order->id)) }}" class="table-text-not-done">NOT DONE</a></td>
+                          <td><a class="table-text-not-done">NOT DONE</a></td>
                           @endif
                         </tr>
                         <?php $n++;?>
@@ -724,15 +827,4 @@ a {
           } );
       } );
 		</script>
-<link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
-@if (app()->isLocal())
-  <script src="{{ asset('js/app.js') }}"></script>
-@else
-  <script src="{{ mix('js/manifest.js') }}"></script>
-  <script src="{{ mix('js/vendor.js') }}"></script>
-  <script src="{{ mix('js/app.js') }}"></script>
-@endif
-
-<link rel="stylesheet" href="{{ mix('css/app.css') }}" />
-<script defer src="{{ mix('js/app.js') }}"></script>
 @endsection

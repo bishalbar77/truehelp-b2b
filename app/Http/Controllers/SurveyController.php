@@ -129,9 +129,22 @@ class SurveyController extends Controller
             $orders = NULL;
         }
 
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer ".$api_token
+        ])->get($this->API.'account-info');
+
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        $account = $data->response->data->employer;
+        if($account == "Trying to get property 'id' of non-object")
+        {
+            $account=NULL;
+        }
+
         return view('health.showprofile')->with([
             'surveys' => $surveys,
             'answers' => $answers,
+            'account' => $account,
             'orders' => $orders,
             'employee_id' => $employee_id,
         ]);
@@ -192,10 +205,23 @@ class SurveyController extends Controller
             }
         }
 
+        
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer ".$api_token
+        ])->get($this->API.'account-info');
+
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        $account = $data->response->data->employer;
+        if($account == "Trying to get property 'id' of non-object")
+        {
+            $account=NULL;
+        }
         return view('health.showvisitor')->with([
             'surveys' => $surveys,
             'answers' => $answers,
             'orders' => $orders,
+            'account' => $account,
             'employee_id' => $employee_id,
             'visitor_details' => $visitor_details
         ]);

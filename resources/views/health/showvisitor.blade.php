@@ -597,7 +597,7 @@ a {
           <div class="table-responsive">
             <table class="table table-hover mb-0">
             @if(isset($surveys))
-              <tbody>
+            <tbody>
                     <tr>
                       <th>Survey Start Time</th>
                       <td class="table-text-cyan">{{ date("g:i A",strtotime($surveys->survey_start)) }}</td>
@@ -609,9 +609,112 @@ a {
                 @if($answers)
                   @foreach($answers as $answer)
                     <tr>
+                      @if(strpos($answer->text, 'tested positive for COVID-19') !== false)
+                      <th>{{ $answer->text ?? '' }}</th>
+                      @if($answer->question_answer=="Yes")
+                      <td class="table-text-red">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @else
+                      <td class="table-text-cyan">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @endif
+                      @endif
+                      @if(strpos($answer->text, 'you come to') !== false)
+                      <th>Did you come to {{$account->b2b_company_name}} yesterday?</th>
+                      @if($answer->question_answer=="Yes")
+                      <td class="table-text-not-done">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @else
+                      <td class="table-text-cyan">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @endif
+                      @endif
+                      @if(strpos($answer->text, 'current temperature') !== false)
+                      <th>{{ $answer->text ?? '' }}</th>
+                      <?php $temp = (float)$answer->question_answer;?>
+                      @if($temp > 100)
+                      <td class="table-text-not-done">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @else
+                      <td class="table-text-cyan">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @endif
+                      @endif
+                      @if(strpos($answer->text, 'visit any public place yesterday') !== false)
+                      <th>{{ $answer->text ?? '' }}</th>
+                      @if($answer->question_answer=="Yes")
+                      <td class="table-text-not-done">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @else
+                      <td class="table-text-cyan">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @endif
+                      @endif
+                      @if(strpos($answer->text, 'Where did you go') !== false)
+                      <th>{{ $answer->text ?? '' }}</th>
+                      <td class="table-text-not-done">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @endif
+                      @if(strpos($answer->text, 'Was any of them COVID19 positive') !== false)
+                      <th>{{ $answer->text ?? '' }}</th>
+                      @if($answer->question_answer=="Not Sure")
+                      <td class="table-text-not-done">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @else
+                      <td class="table-text-cyan">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @endif
+                      @endif
+                      @if(strpos($answer->text, ' any of the following symptoms') !== false)
+                      <th>{{ $answer->text ?? '' }}</th>
+                      @if($answer->question_answer=="None of these")
+                      <td class="table-text-cyan">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @else
+                      <td class="table-text-not-done">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @endif
+                      @endif
+                      @if(strpos($answer->text, 'means of transport') !== false)
+                      <th>{{ $answer->text ?? '' }}</th>
+                      @if($answer->question_answer=="Personal")
+                      <td class="table-text-cyan">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @else
+                      <td class="table-text-not-done">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @endif
+                      @endif
+                      @if(strpos($answer->text, 'have you come in contact with') !== false)
+                      <th>{{ str_replace("<employer/school name>",$account->b2b_company_name,$answer->text) }}</th>
+                      @if($answer->question_answer=="Less_than_5")
+                      <td class="table-text-cyan">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @else
+                      <td class="table-text-not-done">{{ $answer->question_answer }}</td>
+                      @continue
+                      </tr>
+                      @endif
+                      @endif
                       <th>{{ $answer->text ?? '' }}</th>
                       @if(strlen($answer->question_answer) >=20 )
-                      <td class="table-text-cyan"><a href="{{ $answer->question_answer }}" target="_blank">View</a></td>
+                      <td class="table-text-cyan pl-2"><a href="{{ $answer->question_answer }}" class="table-text-cyan pl-2" target="_blank"><i class="fa fa-file-text-o"></i></a></td>
                       @else
                       <td class="table-text-cyan">{{ $answer->question_answer }}</td>
                       @endif
