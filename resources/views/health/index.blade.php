@@ -361,6 +361,7 @@ table.dataTable.no-footer {
                         <select type="text" class="form-control form-control-sm column_filter" id="col2_filter">
                           <option value="">Select Type</option>
                           <option>RED</option>
+                          <option>YELLOW</option>
                           <option>GREEN</option>
                           </select>
                       </div>

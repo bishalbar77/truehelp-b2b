@@ -319,7 +319,7 @@ class SurveyController extends Controller
         } else {
             $orders = NULL;
         }
-        $survey_completed =0 ; $survey_postive =0 ; $survey_pending = 0;
+        $survey_completed =0 ; $survey_postive =0; $survey_unsafe =0; $survey_pending = 0;
         $total[]=0; $positive[]=0; $negative[]=0; $day[]=0; $a=0; $b=0; $e=0; $f=0; $g=0; $h=0; 
         $i=0; $j=0; $k=0; $l=0; $m=0; $n=0; $o=0; $p=0; $q=0; $r=0; $safe=0; 
         $s=0; $t=0; $u=0; $v=0; $w=0; $x=0; $y=0; $z=0;
@@ -492,6 +492,11 @@ class SurveyController extends Controller
                     $survey_completed++;
                     $survey_postive++;
                 }
+                elseif($order->severity=="YELLOW")
+                {
+                    $survey_completed++;
+                    $survey_unsafe++;
+                }
                 else
                 {
                     $survey_pending++;
@@ -539,6 +544,7 @@ class SurveyController extends Controller
             'font' => $font,
             'safe' => $safe,
             'image' => $image,
+            'survey_unsafe' => $survey_unsafe,
         ]);
 
     }

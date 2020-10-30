@@ -3,8 +3,6 @@
 {{-- Styles Section --}}
 @section('styles')
 <title>TrueHelp | My Candidate</title>
-<link rel="stylesheet" href="{{ mix('css/app.css') }}" />
-<script defer src="{{ mix('js/app.js') }}"></script>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 <style>
 .signup-form{

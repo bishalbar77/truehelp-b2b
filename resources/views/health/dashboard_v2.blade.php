@@ -251,11 +251,6 @@
   line-height: 0.05em;
   vertical-align: -35%;
 }
-.card-box {
-  width: 700px;
-  border-radius: .7rem !important;
-  box-shadow: 0 15px 30px 0 rgba(0,0,0,.11),0 5px 15px 0 rgba(0,0,0,.08)!important;
-}
 .inner-addon { 
     position: relative; 
 }
@@ -408,6 +403,18 @@
   letter-spacing: 1.23px;
   color: #c937f9 !important;
 }
+.red {
+  width: 69px;
+  height: 19px;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ff0000;
+}
 .unsafe {
   width: 69px;
   height: 19px;
@@ -418,7 +425,7 @@
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #ff5b5b;
+  color: #ffbc00;
 }
 .safe {
   width: 69px;
@@ -730,7 +737,7 @@ a {
             <div class="card-box-top yellow {{ Request::is('health/survey/unsafe')  ? 'active-card' : '' }}">
               <a onclick="openCity(event, 'unsafe')" class="hover-effect tablinks">
                 <p class="text-font pr-3 pl-3">Unsafe candidates</p>
-                <p class="text-yellow-2">{{ $survey_postive }}</p>
+                <p class="text-yellow-2">{{ $survey_unsafe }}</p>
               </a>
             </div>
           </div>
@@ -806,6 +813,8 @@ a {
                                   @if($employee->severity=="GREEN")
                                   <td class="pl-4"><span class="safe">SAFE</span> </td>
                                   @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="red">POSITIVE</span> </td>
+                                  @elseif($employee->severity=="YELLOW")
                                   <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
@@ -819,6 +828,8 @@ a {
                                   @if($employee->severity=="GREEN")
                                   <td class="pl-4"><span class="safe">SAFE</span> </td>
                                   @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="red">POSITIVE</span> </td>
+                                  @elseif($employee->severity=="YELLOW")
                                   <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
@@ -882,6 +893,8 @@ a {
                                   @if($employee->severity=="GREEN")
                                   <td class="pl-4"><span class="safe">SAFE</span> </td>
                                   @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="red">POSITIVE</span> </td>
+                                  @elseif($employee->severity=="YELLOW")
                                   <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
@@ -895,6 +908,8 @@ a {
                                   @if($employee->severity=="GREEN")
                                   <td class="pl-4"><span class="safe">SAFE</span> </td>
                                   @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="red">POSITIVE</span> </td>
+                                  @elseif($employee->severity=="YELLOW")
                                   <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
@@ -949,8 +964,8 @@ a {
                           <tbody class="t-body">
                             
                             @foreach($orders ?? '' as $employee)
-                            @if($employee->severity=="RED")
-                            @if($c++ < $survey_postive)
+                            @if($employee->severity=="YELLOW")
+                            @if($c++ < $survey_unsafe)
                             @if(isset($employee->visitor_id))
                                 <tr class="table-style" onclick="window.location='{{ url('health/visitor/'.md5($employee->id)) }}';">
                                   <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
@@ -958,6 +973,8 @@ a {
                                   @if($employee->severity=="GREEN")
                                   <td class="pl-4"><span class="safe">SAFE</span> </td>
                                   @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="red">POSITIVE</span> </td>
+                                  @elseif($employee->severity=="YELLOW")
                                   <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
@@ -971,6 +988,8 @@ a {
                                   @if($employee->severity=="GREEN")
                                   <td class="pl-4"><span class="safe">SAFE</span> </td>
                                   @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="red">POSITIVE</span> </td>
+                                  @elseif($employee->severity=="YELLOW")
                                   <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
@@ -1034,6 +1053,8 @@ a {
                                   @if($employee->severity=="GREEN")
                                   <td class="pl-4"><span class="safe">SAFE</span> </td>
                                   @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="red">POSITIVE</span> </td>
+                                  @elseif($employee->severity=="YELLOW")
                                   <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
@@ -1047,6 +1068,8 @@ a {
                                   @if($employee->severity=="GREEN")
                                   <td class="pl-4"><span class="safe">SAFE</span> </td>
                                   @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="red">POSITIVE</span> </td>
+                                  @elseif($employee->severity=="YELLOW")
                                   <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
@@ -1104,10 +1127,16 @@ a {
                             @if(isset($employee->visitor_id))
                                 <tr class="table-style" onclick="window.location='{{ url('health/visitor/'.md5($employee->id)) }}';">
                                   <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
+                                  @if($employee->survey_status=="COMPLETE")
                                   <td class="pl-4">Completed</td>
+                                  @else
+                                  <td class="pl-4">Incomplete</td>
+                                  @endif
                                   @if($employee->severity=="GREEN")
                                   <td class="pl-4"><span class="safe">SAFE</span> </td>
                                   @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="red">POSITIVE</span> </td>
+                                  @elseif($employee->severity=="YELLOW")
                                   <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
@@ -1117,10 +1146,16 @@ a {
                               @else
                                 <tr class="table-style"  onclick="window.location='{{ url('health/details/'.md5($employee->id)) }}';">
                                   <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
+                                  @if($employee->survey_status=="COMPLETE")
                                   <td class="pl-4">Completed</td>
+                                  @else
+                                  <td class="pl-4">Incomplete</td>
+                                  @endif
                                   @if($employee->severity=="GREEN")
                                   <td class="pl-4"><span class="safe">SAFE</span> </td>
                                   @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="red">POSITIVE</span> </td>
+                                  @elseif($employee->severity=="YELLOW")
                                   <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
@@ -1177,10 +1212,16 @@ a {
                             @if(\Carbon\Carbon::parse($employee->created_at)->format('d/m/Y') == Carbon\Carbon::today()->format('d/m/Y'))
                                 <tr class="table-style" onclick="window.location='{{ url('health/visitor/'.md5($employee->id)) }}';">
                                   <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
+                                  @if($employee->survey_status=="COMPLETE")
                                   <td class="pl-4">Completed</td>
+                                  @else
+                                  <td class="pl-4">Incomplete</td>
+                                  @endif
                                   @if($employee->severity=="GREEN")
                                   <td class="pl-4"><span class="safe">SAFE</span> </td>
                                   @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="red">POSITIVE</span> </td>
+                                  @elseif($employee->severity=="YELLOW")
                                   <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
@@ -1418,7 +1459,7 @@ var config = {
       "Registered Candidates"
     ],
     datasets: [{
-      data: [<?php echo $survey_completed; ?>, <?php echo $survey_postive; ?>, <?php echo $safe; ?>, <?php echo $survey_postive; ?>, <?php echo $survey_candidates; ?>],
+      data: [<?php echo $survey_completed; ?>, <?php echo $survey_postive; ?>, <?php echo $safe; ?>, <?php echo $survey_unsafe; ?>, <?php echo $survey_candidates; ?>],
       backgroundColor: [
         "#484edb",
         "rgb(255, 16, 96)",

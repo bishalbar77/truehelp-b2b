@@ -2,9 +2,7 @@
 @extends('layouts.default')
 {{-- Styles Section --}}
 @section('styles')
-<title>TrueHelp | My Candidate</title>
-<link rel="stylesheet" href="{{ mix('css/app.css') }}" />
-<script defer src="{{ mix('js/app.js') }}"></script>
+<title>TrueHelp | Employer Profile</title>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 <style>
 .Oval {
@@ -109,11 +107,6 @@
   font-size: 1.6em;
   line-height: 0.05em;
   vertical-align: -35%;
-}
-.card-box {
-  width: 700px;
-  border-radius: .7rem !important;
-  box-shadow: 0 15px 30px 0 rgba(0,0,0,.11),0 5px 15px 0 rgba(0,0,0,.08)!important;
 }
 .card-layout {
   width: 100%;

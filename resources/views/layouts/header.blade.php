@@ -44,9 +44,15 @@ border-bottom-left-radius: .7rem !important;
 element.style {
 }
 .font-medium {
-  font-weight: 500!important;
+  font-weight: 600!important;
   font-family: Montserrat;
   font-size: 14px;
+}
+.text-yellow {
+    color: #f8ab00  !important;
+}
+.text-warning {
+    color: #f8ab00 !important;
 }
 .text-red {
     color: #ff0c0c !important;
@@ -179,13 +185,23 @@ padding: 0px 1rem !important;
             @if($n++>6)@continue;@endif
                 <a href="{{ route('seenNotification',$message->id) }}" class="dropdown-item">
                   <ul style="padding: 0;list-style-type: none;" class="row p-2">
+                      @if(strpos($message->nf_message, 'Yellow Case') !== false)
+                      <div class="col-lg-1 noti-icon" style="margin-top: .5rem!important;">
+                        <span class="feather-icon select-none relative"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info text-warning"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="8"></line></svg></span>
+                      </div>
+                      <div class="col-lg-9">
+                      <span class="font-medium block notification-title text-yellow">Unsafe survey report</span><br>
+                          {{$message->nf_message}}
+                      </div>
+                      @else
                       <div class="col-lg-1 noti-icon" style="margin-top: .5rem!important;">
                         <span class="feather-icon select-none relative"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon text-danger stroke-current mr-1 h-6 w-6"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg></span>
                       </div>
                       <div class="col-lg-9">
-                      <span class="font-medium block notification-title text-red">Unsafe survey report</span><br>
+                      <span class="font-medium block notification-title text-red">Positive survey report</span><br>
                           {{$message->nf_message}}
                       </div>
+                      @endif
                       <div class="col-lg-2">
                         <div class="float-right">
                           {{ \Carbon\Carbon::parse($message->date)->diffForHumans() }}

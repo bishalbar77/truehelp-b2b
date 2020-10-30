@@ -4,32 +4,37 @@
 @section('styles')
 <title>TrueHelp | My Candidate</title>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+<link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+<link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
 <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/boot.min.css">
 <style>
-.card-box {
-  width: 700px;
-  border-radius: .7rem !important;
-  box-shadow: 0 15px 30px 0 rgba(0,0,0,.11),0 5px 15px 0 rgba(0,0,0,.08)!important;
-}
-.inner-addon { 
-    position: relative; 
-}
 body{
   background-color: #ffffff !important;
 }
 /* style icon */
-.inner-addon .glyphicon {
+.inner-addon { 
+    position: relative; 
+}
+
+/* style icon */
+.inner-addon .fa {
   position: absolute;
   padding: 10px;
   pointer-events: none;
 }
-
+.col-lg-4 {
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
 /* align icon */
-.left-addon .glyphicon  { left:  0px;}
-.right-addon .glyphicon { right: 0px;}
+.left-addon .fa  { 
+  left:  0px;
+  opacity: 0.5;
+}
+.right-addon .fa { right: 0px;}
 
-/* add padding  */
 .left-addon input  { padding-left:  30px; }
 .right-addon input { padding-right: 30px; }
 .signup-form{

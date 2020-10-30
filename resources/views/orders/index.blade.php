@@ -3,8 +3,6 @@
 {{-- Styles Section --}}
 @section('styles')
 <title>TrueHelp | Order Verification</title>
-<link rel="stylesheet" href="{{ mix('css/app.css') }}" />
-<script defer src="{{ mix('js/app.js') }}"></script>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/css/boot.min.css">
@@ -114,11 +112,6 @@ body {
   font-size: 1.6em;
   line-height: 0.05em;
   vertical-align: -35%;
-}
-.card-box {
-  width: 700px;
-  border-radius: .7rem !important;
-  box-shadow: 0 15px 30px 0 rgba(0,0,0,.11),0 5px 15px 0 rgba(0,0,0,.08)!important;
 }
 .container-tag
 {

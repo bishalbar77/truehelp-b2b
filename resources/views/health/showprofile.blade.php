@@ -2,9 +2,12 @@
 @extends('layouts.default')
 {{-- Styles Section --}}
 @section('styles')
-<title>TrueHelp | Health Report Details</title>
+<title>TrueHelp | Health Report Details Page</title>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+<link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+<link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
 <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../../css/boot.min.css">
 <style>
 .Oval {
@@ -459,6 +462,16 @@
   letter-spacing: normal !important;
   color: #ffb40c !important;
 }
+.table-text-not-safe {
+  font-family: Montserrat !important;
+  font-size: 17px !important;
+  font-weight: 800 !important;
+  font-stretch: normal !important;
+  font-style: normal !important;
+  line-height: normal !important;
+  letter-spacing: normal !important;
+  color: #df802e !important;
+}
 .table-text-red {
   font-family: Montserrat !important;
   font-size: 17px !important;
@@ -498,6 +511,16 @@
   line-height: normal;
   letter-spacing: normal;
   color: #efbd48;
+}
+.not-safe {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #df802e;
 }
 .para-text-top {
   font-family: Montserrat;
@@ -569,7 +592,9 @@ a {
                   @if($surveys->severity == "GREEN")
                   <p class="safe">CURRENT STATUS : SAFE</p>
                   @elseif($surveys->severity == "RED")
-                  <p class="unsafe">CURRENT STATUS : UNSAFE</p>
+                  <p class="unsafe">CURRENT STATUS : COVID POSITIVE</p>
+                  @elseif($surveys->severity == "YELLOW")
+                  <p class="not-safe">CURRENT STATUS : UNSAFE</p>
                   @else
                   <p class="not-done">CURRENT STATUS : NOT DONE</p>
                   @endif
@@ -796,7 +821,9 @@ a {
                           @if($order->severity=="GREEN")
                           <td><a class="table-text-cyan">SAFE</a></td>
                           @elseif($order->severity=="RED")
-                          <td><a class="table-text-red">UNSAFE</a></td>
+                          <td><a class="table-text-red">POSITIVE</a></td>
+                          @elseif($order->severity=="YELLOW")
+                          <td><a class="table-text-not-safe">UNSAFE</a></td>
                           @else
                           <td><a class="table-text-not-done">NOT DONE</a></td>
                           @endif

@@ -569,7 +569,9 @@ a {
                   @if($surveys->severity == "GREEN")
                   <p class="safe">CURRENT STATUS : SAFE</p>
                   @elseif($surveys->severity == "RED")
-                  <p class="unsafe">CURRENT STATUS : UNSAFE</p>
+                  <p class="unsafe">CURRENT STATUS : COVID POSITIVE</p>
+                  @elseif($surveys->severity == "YELLOW")
+                  <p class="not-safe">CURRENT STATUS : UNSAFE</p>
                   @else
                   <p class="not-done">CURRENT STATUS : NOT DONE</p>
                   @endif
