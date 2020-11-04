@@ -53,6 +53,7 @@ Route::group(['middleware' => 'usersession'], function () {
     Route::get('/employees/{user}/changestatus', 'EmployeeController@changestatus')->name('employees.changestatus');
     Route::post('/import_excel', 'EmployeeController@import');
     Route::post('/upload', 'EmployeeController@uploaddata');
+    Route::post('/photo', 'EmployeeController@photo')->name('employees.picture');
     Route::get('/verify={user}', 'EmployeeController@verify')->name('verify');
     Route::get('/profile', 'EmployeeController@profile')->name('profile');
     Route::get('/search', 'EmployeeController@search')->name('search');
@@ -73,6 +74,9 @@ Route::group(['middleware' => 'usersession'], function () {
 
     //Order Routes
     Route::resource('orders', 'OrderController');
+
+    //Payment Routes
+    Route::get('payment', 'PaymentController@payment')->name('payment');
 });
 
 //Notification Routes

@@ -51,6 +51,18 @@
   text-align: left;
   color: #ffffff;
 }
+.edit-pic {
+  width: 100%;
+  height: 24px;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: lightblue;
+}
 .bottom-text {
   height: 10px;
   font-family: Montserrat;
@@ -460,6 +472,10 @@ body{
 .left-addon input  { padding-left:  30px; }
 .right-addon input { padding-right: 30px; }
 
+
+
+
+
 </style>
 @endsection
 
@@ -629,6 +645,39 @@ body{
       </div>
     </div>
   </div>
+  <div class="modal fade" id="picModal" tabindex="-1" role="dialog" aria-labelledby="picModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="Add-Employees pt-3" id="picModalLabel">Upload Profile Picture</div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        <div class="signup-form">
+        <form action="{{ route('employees.picture') }}" method="post" enctype="multipart/form-data">
+        @csrf
+        <input type="hidden" name="employee_id" value="{{ $id}}">
+          <div class="form-group row pl-3">
+            <div class="col-lg-4">
+              <div class="upload-pink">
+                <span class="upload-pink"><input type="file" name="file" id="file" class="custom-file-input" accept=".png, .jpg, .jpeg">
+                <i class="fa fa-picture-o pl-5" style="margin-left:20px;" aria-hidden="true"></i>
+                  <div><p class="Upload-Employee-Pic" style="color:black;">Upload Candidate Pic</p></div>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row float-right">
+                  <button type="submit" class="btn-warning button-proceed Proceed">Proceed</button>
+              </div>
+          </form>
+      </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="requestModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -665,22 +714,29 @@ body{
     <div class="card-layout">
       <div class="container">
       <div class="form-group row">
-        <div class="col-lg-6">
+        <div class="col-lg-8">
           <div class="p-xl-5 pt-xl-5">
             <div class="form-group row">
-              <div class="col-lg-3">
+              <div class="col-lg-2">
+              <?php $temp = null; ?>
+              @foreach($user_pics ?? '' as $user_pics)
+                <img src="{{ $user_pics->photo_url ?? asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="img-circle Mask">
+              <?php $temp = $user_pics->photo_url; ?>
+              @break;
+              @endforeach
+              @if($temp==null)
                 <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="img-circle Mask">
+              @endif
               </div>
-              <div class="col-lg-9 pt-1 pl-5">
-                <p class="Name">{{ $user->first_name }} {{ $user->last_name }}</p>
+              <div class="col-lg-8 pt-1 pl-5">
+                <p class="Name">{{ $user->first_name }} {{ $user->last_name }} </i></p>
                 <p class="bottom-text">{{ $user->type }}</p>
-                <p class="bottom-text">Ph no: {{ $user->mobile }}</p>  
+                <p class="bottom-text">Phone no: {{ $user->mobile }}</p>  
                 <p class="Verified-user pt-2"><i class="fa fa-check-circle fa-lg pr-2" aria-hidden="true"></i></i>Verified</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-2"></div>
         <div class="col-lg-4">
           <div class="p-xl-5 pt-xl-5">
             <a href="#"><img src="{{ asset('images/png/facebook.png') }}" alt="User Avatar"  class="icon-shape"></a>
@@ -746,7 +802,7 @@ body{
       <div class="row">
        <div class="col-lg-12">
         <div class="box-item">
-          <p class="body-text-4 pl-5 pt-5">Employee Work History</p>
+          <p class="body-text-4 p-5">Employee Work History</p>
           <hr>
           @foreach($employee_lookup_histories as $history)
           <div class="pl-5 pt-3">

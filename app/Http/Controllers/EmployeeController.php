@@ -241,6 +241,7 @@ class EmployeeController extends Controller
         $contents = $response->getBody();
         $data = json_decode($contents);
         $user = $data->response->data->employee;
+        $user_pics = $data->response->data->user_pics;
         $user_docs = $data->response->data->user_docs;
         $verification_types = $data->response->data->verification_types;
         $employee_lookup_histories = $data->response->data->employee_lookup_histories;
@@ -249,7 +250,9 @@ class EmployeeController extends Controller
             'user' =>$user,
             'user_docs' => $user_docs,
             'verification_types' => $verification_types,
-            'employee_lookup_histories' => $employee_lookup_histories
+            'employee_lookup_histories' => $employee_lookup_histories,
+            'user_pics' => $user_pics,
+            'id' => $id,
         ]);
     }
 
@@ -271,6 +274,27 @@ class EmployeeController extends Controller
         $contents = $response->getBody();
         $data = json_decode($contents);
         return redirect('/profile');
+    }
+
+    public function photo(Request $request)
+    {
+        $api_token = session()->get('api_token');
+        $employee_id = $request->employee_id;
+        $photo = $request->file('file');
+        $source = "B2B";
+        $postData =[
+            'employee_id' => $employee_id,
+            'photo' => $photo,
+            'source' => $source
+        ];
+        $response = Http::withHeaders([
+                            'Authorization' => "Bearer ".$api_token
+                            ])->post($this->API.'upload-employee-photo',$postData);
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        $user = $data->response;
+        // dd($postData);
+        return redirect(route('employees.index'));
     }
 
     public function profile()

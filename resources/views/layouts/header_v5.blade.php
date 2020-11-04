@@ -84,6 +84,8 @@
       <a class="pl-5"></a>
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+ Add Candidate</button>
       <a class="pl-5"></a>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#picModal">Edit Profile</button>
+      <a class="pl-5"></a>
     </ul>
   </nav>
 <!--scripts-->

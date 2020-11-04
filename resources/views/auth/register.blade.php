@@ -199,6 +199,20 @@ body {
               </div>
 
               <div class="form-label-group">
+                <input id="mobile" type="number" class="form-control @error('mobile') is-invalid @enderror" name="mobile" required>
+                <label for="mobile">Company Name</label>
+                @error('mobile')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            
+              <div class="form-label-group">
+                <input id="email" type="email" class="form-control" name="email" >
+                <label for="email">Brand Name</label>
+              </div>
+              <div class="form-label-group">
                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                 <label for="inputPassword">Password</label>
                 <div class="col-md-6">
@@ -210,17 +224,7 @@ body {
                 </div>
               </div>
 
-              <div class="form-label-group">
-                <input id="password-confirm" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="current-password">
-                <label for="inputPassword">Confirm Password</label>
-                <div class="col-md-6">
-                    @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-              </div>
+
 
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign up</button>
               <hr class="my-4">

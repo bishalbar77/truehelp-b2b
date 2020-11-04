@@ -2,9 +2,7 @@
 @extends('layouts.default')
 {{-- Styles Section --}}
 @section('styles')
-<title>TrueHelp | Dashboard</title>
-<link rel="stylesheet" href="{{ mix('css/app.css') }}" />
-<script defer src="{{ mix('js/app.js') }}"></script>
+<title>TrueHelp | Notifications</title>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 
 <style type="text/css">
@@ -156,27 +154,8 @@ font-weight: 600;
 
 {{-- Content --}}
 @section('content')
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
-      </li>
-      <li>
-        <div class="pl-4">
-          <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"  class="Oval img-circle">
-        </div>
-      </li>
-      <li class="pl-2 pt-2">
-        <p class="nav-name">{{ session()->get('first_name') }}</p>
-      </li>
-      <li class="pl-2 pt-2">
-        <i class="fa fa-caret-down"></i>
-      </li>
-    </ul>
-    <ul class="navbar-nav ml-auto pl-5">
-    </ul>
-  </nav>
-  <!-- Main Sidebar Container -->
+  
+@include('layouts.header')
   <aside class="main-sidebar elevation-4 side-bar">
     @include('layouts.sidebar')
   </aside>
