@@ -437,7 +437,7 @@
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #07901a;
+  color: #0bc224;
 }
 .arrow-head {
   color: #000000 !important;
@@ -481,6 +481,28 @@ ataTables_wrapper}
 }
 @media screen and (max-width: 700px) {
     #myChart {
+    background: none !important;
+    background-size:contain !important;
+    object-position: 0% 50% !important;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+@media screen and (min-width: 500px) {
+    #myChart2 {
+    background: transparent url(../../images/visitor.png) no-repeat 13% 2rem !important;
+    background-size:contain !important;
+    object-position: 0% 50% !important;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+@media screen and (max-width: 700px) {
+    #myChart2 {
     background: none !important;
     background-size:contain !important;
     object-position: 0% 50% !important;
@@ -777,6 +799,100 @@ a {
       <!-- /.container-fluid -->
     </section>
     @endif
+    <section class="content pt-5">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <!-- /.card -->
+            <div class="form-group row">
+              <div class="col-lg-6 pt-4 ">
+                <div class="Rectangle-Copy-6 pl-4 t-head">
+                  <!-- /.card-body -->
+                <div class="p-2"> <canvas id="barchart2" width="600" height="350"></canvas></div>
+                </div>
+              </div>
+              <div class="col-lg-6 pt-4 ">
+                <div class="Rectangle-Copy-6 pl-4 t-head">
+                  <!-- /.card-body -->
+                  <div class="p-2"> <canvas id="myChart2" width="600" height="350"></canvas></div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <div id="visitors"  class="tabcontent">
+      <section class="content pt-5">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <!-- /.card -->
+              <div class="Rectangle-Copy-6 pl-4 t-head">
+                <div class="row pt-4 pl-4 pr-5" style="width:100% !important;">
+                  <div class="col-lg-10"><h3  class=" My-employees">Visitor Log<a href="{{ url('surveys') }}" class="table-side-tag pl-4">SEE ALL</a></h3></div>
+                  
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body" >
+                      <table class="table" id="empdatatable6">
+                          <thead>
+                              <tr>
+                                  <th>Name</th>
+                                  <th>Verification Status</th>
+                                  <th>Updated on</th>
+                                  <th>Risk Factor</th>
+                                  <th>Candidate Type</th>
+                              </tr>
+                          </thead>
+                          <tbody class="t-body">
+                            
+                            @foreach($orders ?? '' as $employee)
+                            @if($employee->visitor_id!=null)
+                            @if(\Carbon\Carbon::parse($employee->created_at)->format('d/m/Y') == Carbon\Carbon::today()->format('d/m/Y'))
+                                <tr class="table-style" onclick="window.location='{{ url('health/visitor/'.md5($employee->id)) }}';">
+                                  <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
+                                  @if($employee->survey_status=="COMPLETE")
+                                  <td class="pl-4">Completed</td>
+                                  @else
+                                  <td class="pl-4">Incomplete</td>
+                                  @endif
+                                  <td><span class="safe">{{ date(" M d, H:i  Y",strtotime($employee->updated_at)) }}</span></td>
+                                  @if($employee->severity=="GREEN")
+                                  <td class="pl-4"><span class="safe">SAFE</span> </td>
+                                  @elseif($employee->severity=="RED")
+                                  <td class="pl-4"><span class="red">POSITIVE</span> </td>
+                                  @elseif($employee->severity=="YELLOW")
+                                  <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
+                                  @else
+                                  <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
+                                  @endif
+                                  <td class="pl-4">Visitor</td>
+                                </tr>
+                            @endif
+                            @endif
+                            @endforeach
+                          </tbody>
+                      </table>
+                      <div class="pt-4 pl-4 pb-2 pr-5">
+                  
+                </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+    </div>
 
     <div id="completed" class="tabcontent" >
       <section class="content pt-5">
@@ -1183,71 +1299,6 @@ a {
     </div>
     <a class="p-4"></a>
 
-    <div id="visitors"  class="tabcontent">
-      <section class="content pt-5">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-12">
-              <!-- /.card -->
-              <div class="Rectangle-Copy-6 pl-4 t-head">
-                <div class="row pt-4 pl-4 pr-5" style="width:100% !important;">
-                  <div class="col-lg-10"><h3  class=" My-employees">Visitors<a href="{{ url('surveys') }}" class="table-side-tag pl-4">SEE ALL</a></h3></div>
-                  
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body" >
-                      <table class="table" id="empdatatable6">
-                          <thead>
-                              <tr>
-                                  <th>Name</th>
-                                  <th>Verification Status</th>
-                                  <th>Risk Factor</th>
-                                  <th>Candidate Type</th>
-                              </tr>
-                          </thead>
-                          <tbody class="t-body">
-                            
-                            @foreach($orders ?? '' as $employee)
-                            @if($employee->visitor_id!=null)
-                            @if(\Carbon\Carbon::parse($employee->created_at)->format('d/m/Y') == Carbon\Carbon::today()->format('d/m/Y'))
-                                <tr class="table-style" onclick="window.location='{{ url('health/visitor/'.md5($employee->id)) }}';">
-                                  <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
-                                  @if($employee->survey_status=="COMPLETE")
-                                  <td class="pl-4">Completed</td>
-                                  @else
-                                  <td class="pl-4">Incomplete</td>
-                                  @endif
-                                  @if($employee->severity=="GREEN")
-                                  <td class="pl-4"><span class="safe">SAFE</span> </td>
-                                  @elseif($employee->severity=="RED")
-                                  <td class="pl-4"><span class="red">POSITIVE</span> </td>
-                                  @elseif($employee->severity=="YELLOW")
-                                  <td class="pl-4"><span class="unsafe">UNSAFE</span> </td>
-                                  @else
-                                  <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
-                                  @endif
-                                  <td class="pl-4">Visitor</td>
-                                </tr>
-                            @endif
-                            @endif
-                            @endforeach
-                          </tbody>
-                      </table>
-                      <div class="pt-4 pl-4 pb-2 pr-5">
-                  
-                </div>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-            </div>
-            <!-- /.col -->
-          </div>
-          <!-- /.row -->
-        </div>
-        <!-- /.container-fluid -->
-      </section>
-    </div>
     <a class="p-4"></a>
 
   </div>
@@ -1507,6 +1558,214 @@ var config = {
 };
 
 var ctx = document.getElementById("myChart").getContext("2d");
+var myChart = new Chart(ctx, config);
+</script>
+<script>
+ // Return with commas in between
+ var numberWithCommas = function(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+var dataPack1 = [<?php echo $visitor_bar[7]; ?>, <?php echo $visitor_bar[6]; ?>,<?php echo $visitor_bar[5]; ?>,<?php echo $visitor_bar[4]; ?>,
+<?php echo $visitor_bar[3]; ?>,<?php echo $visitor_bar[2]; ?>,<?php echo $visitor_bar[1]; ?>,<?php echo $visitor_bar[0]; ?>];
+var dates = ["<?php echo $day[7]; ?>","<?php echo $day[6]; ?>","<?php echo $day[5]; ?>","<?php echo $day[4]; ?>","<?php echo $day[3]; ?>",
+"<?php echo $day[2]; ?>","<?php echo $day[1]; ?>","<?php echo $day[0]; ?>",];
+
+// Chart.defaults.global.elements.rectangle.backgroundColor = '#FF0000';
+
+var bar_ctx = document.getElementById('barchart2');
+var bar_chart = new Chart(bar_ctx, {
+    type: 'bar',
+    align: 'start',
+    data: {
+        labels: dates,
+        
+         datasets: [
+        {
+            label: 'Total',
+            data: dataPack1,
+						backgroundColor: "rgb(30,144,255)",
+						hoverBackgroundColor: "rgb(65,105,225)",
+						hoverBorderWidth: 2,
+						hoverBorderColor: 'lightgrey'
+        },
+        ]
+    },
+    options: {
+        title: {
+            display: true,
+            text: 'Visitor History',
+            fontSize : 18,
+            fontFamily : 'Montserrat',
+            align: 'start',
+        },
+     		animation: {
+        	duration: 10,
+        },
+        tooltips: {
+					mode: 'label',
+          callbacks: {
+          label: function(tooltipItem, data) { 
+          	return data.datasets[tooltipItem.datasetIndex].label + ": " + numberWithCommas(tooltipItem.yLabel);
+          }
+          }
+         },
+        scales: {
+          xAxes: [{ 
+            barPercentage: 0.4,
+          	stacked: true, 
+            gridLines: { display: false },
+            }],
+          yAxes: [{ 
+          	stacked: true, 
+            ticks: {
+        			callback: function(value) { return numberWithCommas(value); },
+     				}, 
+            }],
+        }, // scales
+        legend: {display: true}
+    } // options
+   }
+);
+</script>
+<script>
+    Chart.pluginService.register({
+      beforeDraw: function(chart) {
+        if (chart.config.options.elements.center) {
+          // Get ctx from string
+          var ctx = chart.chart.ctx;
+
+          // Get options from the center object in options
+          var centerConfig = chart.config.options.elements.center;
+          var fontStyle = centerConfig.fontStyle || 'Arial';
+          var txt = centerConfig.text;
+          var color = centerConfig.color || '#000';
+          var maxFontSize = centerConfig.maxFontSize || 75;
+          var sidePadding = centerConfig.sidePadding || 20;
+          var sidePaddingCalculated = (sidePadding / 100) * (chart.innerRadius * 2)
+          // Start with a base font of 30px
+          ctx.font = "30px " + fontStyle;
+
+          // Get the width of the string and also the width of the element minus 10 to give it 5px side padding
+          var stringWidth = ctx.measureText(txt).width;
+          var elementWidth = (chart.innerRadius * 2) - sidePaddingCalculated;
+
+          // Find out how much the font can grow in width.
+          var widthRatio = elementWidth / stringWidth;
+          var newFontSize = Math.floor(30 * widthRatio);
+          var elementHeight = (chart.innerRadius * 2);
+
+          // Pick a new font size so it will not be larger than the height of label.
+          var fontSizeToUse = Math.min(newFontSize, elementHeight, maxFontSize);
+          var minFontSize = centerConfig.minFontSize;
+          var lineHeight = centerConfig.lineHeight || 25;
+          var wrapText = false;
+
+          if (minFontSize === undefined) {
+            minFontSize = 20;
+          }
+
+          if (minFontSize && fontSizeToUse < minFontSize) {
+            fontSizeToUse = minFontSize;
+            wrapText = true;
+          }
+
+          // Set font settings to draw it correctly.
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          var centerX = ((chart.chartArea.left + chart.chartArea.right) / 2);
+          var centerY = ((chart.chartArea.top + chart.chartArea.bottom) / 2);
+          ctx.font = fontSizeToUse + "px " + fontStyle;
+          ctx.fillStyle = color;
+
+          if (!wrapText) {
+            ctx.fillText(txt, centerX, centerY);
+            return;
+          }
+
+          var words = txt.split(' ');
+          var line = '';
+          var lines = [];
+
+          // Break words up into multiple lines if necessary
+          for (var n = 0; n < words.length; n++) {
+            var testLine = line + words[n] + ' ';
+            var metrics = ctx.measureText(testLine);
+            var testWidth = metrics.width;
+            if (testWidth > elementWidth && n > 0) {
+              lines.push(line);
+              line = words[n] + ' ';
+            } else {
+              line = testLine;
+            }
+          }
+
+          // Move the center up depending on line height and number of lines
+          centerY -= (lines.length / 2) * lineHeight;
+
+          for (var n = 0; n < lines.length; n++) {
+            ctx.fillText(lines[n], centerX, centerY);
+            centerY += lineHeight;
+          }
+          //Draw text in center
+          ctx.fillText(line, centerX, centerY);
+        }
+      }
+    });
+
+
+var config = {
+  type: 'doughnut',
+  data: {
+    labels: [
+      "Total Visitors","Safe Visitors","Unsafe Visitors"
+    ],
+    datasets: [{
+      data: [<?php echo $visitor_bar[0]; ?>,<?php echo $visitor_safe; ?>, <?php echo $visitor_unsafe; ?>],
+      backgroundColor: [
+        "rgb(56, 88, 255)",
+        "rgb(86, 58, 255)",
+        "rgb(25,25,112)"
+      ],
+      borderWidth: 4,
+      hoverBackgroundColor: [
+        "rgb(48, 77, 224)",
+        "rgb(73, 48, 224 )",
+        "rgb(25,25,112)"
+      ]
+    }]
+  },
+  options: {
+    title: {
+            display: true,
+            text: 'Distribution',
+            fontSize : 20,
+            fontColor : 'rgb(54, 35, 166)',
+            fontFamily : 'Montserrat',
+            align: 'start',
+            fontStyle: "800",
+        },
+    cutoutPercentage: 80,
+    legend: {
+            display: true,
+            position: 'right',
+            align: 'end'
+        },
+    percentageInnerCutout: 10,
+    elements: {
+      center: {
+        text: '',
+        color: '#FF6384', // Default is #000000
+        fontStyle: 'Arial', // Default is Arial
+        sidePadding: 20, // Default is 20 (as a percentage)
+        minFontSize: 25, // Default is 20 (in px), set to false and text will not wrap.
+        lineHeight: 25 // Default is 25 (in px), used for when text wraps
+      }
+    }
+  }
+};
+
+var ctx = document.getElementById("myChart2").getContext("2d");
 var myChart = new Chart(ctx, config);
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>

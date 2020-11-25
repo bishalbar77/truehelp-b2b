@@ -323,6 +323,8 @@ class SurveyController extends Controller
         $total[]=0; $positive[]=0; $negative[]=0; $day[]=0; $a=0; $b=0; $e=0; $f=0; $g=0; $h=0; 
         $i=0; $j=0; $k=0; $l=0; $m=0; $n=0; $o=0; $p=0; $q=0; $r=0; $safe=0; 
         $s=0; $t=0; $u=0; $v=0; $w=0; $x=0; $y=0; $z=0;
+        $v1=0; $v2=0; $v3=0; $v4=0; $v5=0; $v6=0; $v7=0; $v8=0; 
+        $visitor_bar[]=0; $visitor_safe=0; $visitor_unsafe=0;
 
         foreach($orders as $order)
         {
@@ -338,6 +340,10 @@ class SurveyController extends Controller
                     $a++;
                     $s++;
                 }
+                if(isset($order->visitor_id))
+                {
+                    $v1++;
+                }
             }
             elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(1)->format('d/m/Y'))
             {
@@ -350,6 +356,10 @@ class SurveyController extends Controller
                 {
                     $e++;
                     $t++;
+                }
+                if(isset($order->visitor_id))
+                {
+                    $v2++;
                 }
             }
             elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(2)->format('d/m/Y'))
@@ -364,6 +374,10 @@ class SurveyController extends Controller
                     $g++;
                     $u++;
                 }
+                if(isset($order->visitor_id))
+                {
+                    $v3++;
+                }
             }
             elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(3)->format('d/m/Y'))
             {
@@ -376,6 +390,10 @@ class SurveyController extends Controller
                 {
                     $i++;
                     $v++;
+                }
+                if(isset($order->visitor_id))
+                {
+                    $v4++;
                 }
             }
             elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(4)->format('d/m/Y'))
@@ -390,6 +408,10 @@ class SurveyController extends Controller
                     $k++;
                     $w++;
                 }
+                if(isset($order->visitor_id))
+                {
+                    $v5++;
+                }
             }
             elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(5)->format('d/m/Y'))
             {
@@ -402,6 +424,10 @@ class SurveyController extends Controller
                 {
                     $m++;
                     $x++;
+                }
+                if(isset($order->visitor_id))
+                {
+                    $v6++;
                 }
             }
             elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(6)->format('d/m/Y'))
@@ -416,6 +442,10 @@ class SurveyController extends Controller
                     $o++;
                     $y++;
                 }
+                if(isset($order->visitor_id))
+                {
+                    $v7++;
+                }
             }
             elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(7)->format('d/m/Y'))
             {
@@ -429,6 +459,10 @@ class SurveyController extends Controller
                     $q++;
                     $z++;
                 }
+                if(isset($order->visitor_id))
+                {
+                    $v8++;
+                }
             }
             else
             {}
@@ -436,34 +470,42 @@ class SurveyController extends Controller
                 $total[0]=$a;
                 $positive[0]=$b;
                 $negative[0]=$s;
+                $visitor_bar[0]=$v1;
                 $day[1]=Carbon::now()->subDays(1)->format('d M');
                 $total[1]=$e;
                 $positive[1]=$f;
                 $negative[1]=$t;
+                $visitor_bar[1]=$v2;
                 $day[2]=Carbon::now()->subDays(2)->format('d M');
                 $total[2]=$g;
                 $positive[2]=$h;
                 $negative[2]=$u;
+                $visitor_bar[2]=$v3;
                 $day[3]=Carbon::now()->subDays(3)->format('d M');
                 $total[3]=$i;
                 $positive[3]=$j;
                 $negative[3]=$v;
+                $visitor_bar[3]=$v4;
                 $day[4]=Carbon::now()->subDays(4)->format('d M');
                 $total[4]=$k;
                 $positive[4]=$l;
                 $negative[4]=$w;
+                $visitor_bar[4]=$v5;
                 $day[5]=Carbon::now()->subDays(5)->format('d M');
                 $total[5]=$m;
                 $positive[5]=$n;
                 $negative[5]=$x;
+                $visitor_bar[5]=$v6;
                 $day[6]=Carbon::now()->subDays(6)->format('d M');
                 $total[6]=$o;
                 $positive[6]=$p;
                 $negative[6]=$y;
+                $visitor_bar[6]=$v7;
                 $day[7]=Carbon::now()->subDays(7)->format('d M');
                 $total[7]=$q;
                 $positive[7]=$r;
                 $negative[7]=$z;
+                $visitor_bar[7]=$v8;
         }
         $image=0;
         if($total[0]!=0)
@@ -484,16 +526,28 @@ class SurveyController extends Controller
             {
                 if($order->severity=="GREEN")
                 {
+                    if(isset($order->visitor_id))
+                    {
+                        $visitor_safe++;
+                    }
                     $survey_completed++;
                     $safe++;
                 }
                 elseif($order->severity=="RED")
                 {
+                    if(isset($order->visitor_id))
+                    {
+                        $visitor_unsafe++;
+                    }
                     $survey_completed++;
                     $survey_postive++;
                 }
                 elseif($order->severity=="YELLOW")
                 {
+                    if(isset($order->visitor_id))
+                    {
+                        $visitor_unsafe++;
+                    }
                     $survey_completed++;
                     $survey_unsafe++;
                 }
@@ -545,6 +599,9 @@ class SurveyController extends Controller
             'safe' => $safe,
             'image' => $image,
             'survey_unsafe' => $survey_unsafe,
+            'visitor_bar' => $visitor_bar,
+            'visitor_safe' => $visitor_safe,
+            'visitor_unsafe' => $visitor_unsafe,
         ]);
 
     }
