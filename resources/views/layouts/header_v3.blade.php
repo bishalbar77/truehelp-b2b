@@ -101,8 +101,15 @@ padding: 0px 1rem !important;
                         ]);
         $contents = $response->getBody();
         $data = json_decode($contents);
-        $count = $data->response->data->messages;
-        $count = $count > 9 ? "9+" : $count;
+        if(isset($data->response->data->messages))
+        {
+          $count = $data->response->data->messages;
+          $count = $count > 9 ? "9+" : $count;
+        }
+        else
+        {
+          $count = 0;
+        }
         $response = Http::withHeaders([
                             // 'Accept' => 'application/json',
                             'Authorization' => "Bearer ".$api_token
@@ -126,7 +133,14 @@ padding: 0px 1rem !important;
                         ]);
         $contents = $response->getBody();
         $data = json_decode($contents);
-        $nf_message = $data->response->data->messages;
+        if(isset($data->response->data->messages))
+        {
+          $nf_message = $data->response->data->messages;
+        }
+        else
+        {
+          $nf_message = [];
+        }
         
         $response = Http::withHeaders([
             'Accept' => 'application/json',
@@ -137,7 +151,14 @@ padding: 0px 1rem !important;
 
         $contents = $response->getBody();
         $data = json_decode($contents);
-        $orders = $data->response->data;
+        if(isset($data->response))
+        {
+          $orders = $data->response->data;
+        }
+        else
+        {
+          $orders = [];
+        }
 ?>
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -173,6 +194,7 @@ padding: 0px 1rem !important;
       <div class="col-25 input-group input-group-lg" id="hiddensearch" style="display: none; margin-top:5px;">
       <i class="glyphicon glyphicon-user"></i>
       <select type="text" id="select" name="employee_id[]" class="tokenize-demo" multiple required>
+      @if(isset($employees))
       @foreach($employees as $employee)
         <option value="{{ $employee->employee_id }}">{{ $employee->first_name }} {{ $employee->last_name }} : In Users</option>
       @endforeach
@@ -181,6 +203,7 @@ padding: 0px 1rem !important;
         <option value="{{ md5($employee->id) }}">{{ $employee->first_name }} {{ $employee->last_name }} : In Reports</option>
       @endif
       @endforeach
+      @endif
       </select>
       <div class="search"></div>
       </div>

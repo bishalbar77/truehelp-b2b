@@ -13,7 +13,8 @@ header('Content-Type: text/html');?>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'TrueHelp - India first ML/AI based complete service for employees.') }}</title>
+    <title>TrueHelp - India first ML/AI based complete service for employees.</title>
+	<meta name="description" content="TrueHelp™ technology based employee verification platform helps employers at homes or offices do background checks on their employees." />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Fonts -->
@@ -167,6 +168,12 @@ body {
     color: #777;
   }
 }
+.alert {
+    padding: .35rem 1.25rem !important;
+}
+.alert-dismissible .close {
+    padding: .2rem 1rem !important;
+}
 	</style>
   <div class="container">
     <div class="row">
@@ -178,7 +185,16 @@ body {
               </a>
             <h4 class="card-title text-center">Login to Account</h4>
             <form method="POST" class="form-signin" action="/login">
-                        @csrf
+              @csrf
+              @if(isset($alert))
+              <div class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size: 14px;">
+                  <span class="text-danger">{{$alert}}</span>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              @endif
+              
               <div class="form-label-group">
               <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required>
                 <label for="email">Email address</label>
@@ -206,8 +222,8 @@ body {
                 <label class="custom-control-label" for="customCheck1">Remember password</label>
               </div>
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
-              <hr class="my-4">
-              <a href="https://enterprise.gettruehelp.com/register" class="btn btn-lg btn btn-success btn-block text-uppercase"><i class="fab fa-new-f mr-2"></i> Create New Account</a>
+              <!-- <hr class="my-4">
+              <a href="/register" class="btn btn-lg btn btn-success btn-block text-uppercase"><i class="fab fa-new-f mr-2"></i> Create New Account</a> -->
               <!-- <a href="https://enterprise.gettruehelp.com/v2/public/otp" class="btn btn-lg btn btn-danger btn-block text-uppercase"><i class="fab fa-new-f mr-2"></i> Sign in by Phone number</a> -->
             </form>
           </div>

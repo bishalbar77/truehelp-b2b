@@ -6,7 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     @yield('styles')
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{{ asset('/favicon.ico') }}">
+	<meta name="description" content="TrueHelp™ technology based employee verification platform helps employers at homes or offices do background checks on their employees." />
     <!-- Font Awesome -->
+    
     <link rel="stylesheet" href="https://enterprise.gettruehelp.com/plugins/fontawesome-free/css/all.min.css">
     <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -83,7 +86,12 @@
         <script>
         $.widget.bridge('uibutton', $.ui.button)
         </script>
+        
+    <script>
+      feather.replace()
+    </script>
         <!-- Bootstrap 4 -->
+        <script src="https://unpkg.com/feather-icons"></script> 
         <script src="https://enterprise.gettruehelp.com/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- ChartJS -->
         <script src="https://enterprise.gettruehelp.com/plugins/chart.js/Chart.min.js"></script>

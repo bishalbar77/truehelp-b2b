@@ -117,4 +117,8 @@ class HomeController extends Controller
             'employee_lookup_histories' => $employee_lookup_histories
         ]);
     }
+    public function email()
+    {
+        return view('emails.weeklyReport');
+    }
 }

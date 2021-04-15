@@ -68,10 +68,12 @@ class LoginController extends Controller
         $data = json_decode($contents);
 
         if($data->response->status != 200){
-            $message = 'Incorrect Email or Password';
-            session()->flash('msg', $message);
-            return redirect()->back();
+            $alert = $data->response->message ?? "Sorry! Something went wrong.";
+            // dd($alert);
+            return view('auth.login')->with(['alert'=> $alert]);
         }
+        // dd($data->response->data);
+        session()->put('id', $data->response->data->id);
         session()->put('first_name', $data->response->data->first_name);
         session()->put('mobile', $data->response->data->mobile);
         session()->put('employer_id', $data->response->data->id);

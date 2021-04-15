@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Mail\WeeklyReport;
+use App\Mail\DailyReport;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -76,7 +77,16 @@ Route::group(['middleware' => 'usersession'], function () {
     Route::resource('orders', 'OrderController');
 
     //Payment Routes
+    Route::get('invoice', 'PaymentController@invoice');
+    Route::get('plan', 'PaymentController@create');
+    Route::post('plan', 'PaymentController@store')->name('payment.store');
     Route::get('payment', 'PaymentController@payment')->name('payment');
+    Route::get('subscribe', 'PaymentController@subscribe')->name('subscribe');
+    Route::get('card-pay', 'PaymentController@card_pay')->name('card-pay');
+    Route::get('subscribe/{id}', 'PaymentController@edit')->name('subscribe.edit');
+    Route::get('cancel/{id}', 'PaymentController@cancel')->name('subscribe.cancel');
+    Route::post ('/card/check', 'PaymentController@check');
+    Route::post ('/updateCard', 'PaymentController@updateCard');
 });
 
 //Notification Routes
@@ -86,3 +96,15 @@ Route::get('/seenNotification/{id}','EmployeeController@seenNotification')->name
 Route::get('export', 'EmployeeController@export')->name('export');
 Route::get('student/export', 'EmployeeController@studentexport')->name('student.export');
 Route::get('test', 'EmployeeController@test')->name('test');
+Route::get('email', 'SurveyController@email')->name('email');
+Route::get('mail', function () {
+    Mail::to('bishalsanam01@gmail.com')->send(new DailyReport('It works!'));
+    return 'Email sent successfully !';
+});
+Route::get('sendemail', function () {
+    $data = array(
+        'name' => "Truehelp",
+    );
+    Mail::to('bishal.rana@gettruehelp.com')->send(new WeeklyReport($data));
+    return redirect('/profile');
+});

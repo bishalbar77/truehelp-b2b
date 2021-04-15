@@ -635,13 +635,13 @@ table.dataTable.no-footer {
               <div class="card-body">
                 <form id="clear">
                   <div class="row">               
-                    <div class="col-lg-4 mb-lg-0 mb-6">
+                    <div class="col-lg-4 mb-lg-0 mb-6 p-2">
                       <div class="form-group" id="filter_col0" data-column="0">
                         <label class="search-text">Name</label>
                         <input type="text" name="search_name" class="form-control form-control-sm column_filter" id="col0_filter" placeholder="Name" value="{{ request('search_name', '') }}">
                       </div>
                     </div>
-                    <div class="col-lg-4 mb-lg-0 mb-6">
+                    <div class="col-lg-4 mb-lg-0 mb-6 p-2">
                       <div class="form-group" id="filter_col1" data-column="1">
                         <label class="search-text">Designation</label>
                         <select type="text" class="form-control form-control-sm column_filter" id="col1_filter" placeholder="Designation">
@@ -652,7 +652,7 @@ table.dataTable.no-footer {
                           </select>
                       </div>
                     </div>
-                    <div class="col-lg-4 mb-lg-0 mb-6">
+                    <div class="col-lg-4 mb-lg-0 mb-6 p-2">
                       <div class="form-group" id="filter_col2" data-column="2">
                         <label class="search-text">Email</label>
                         <input type="text" name="Name" class="form-control form-control-sm column_filter" id="col2_filter" placeholder="Email Address">
@@ -663,17 +663,36 @@ table.dataTable.no-footer {
               </div>
               <div class="card-body" >
               <table id="empdatatable" class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Designation</th>
-                        <th>Email</th>
-                        <th>Mobile</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="t-body">
-                </tbody>
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Designation</th>
+                      <th>Email</th>
+                      <th>Mobile</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                  </tr>
+              </thead>
+              <tbody class="t-body">
+                @if($employees!=NULL)
+                @foreach($employees as $employee)
+                
+                  <tr>
+                      <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
+                      <td>{{ $employee->type }}</td>
+                      <td>{{ $employee->emp_email ?? '' }}</td>
+                      <td>{{ $employee->mobile }}</td>
+                      <td>{{ $employee->emp_status == 'I' ? 'In-Active' : 'Active' }}</td>
+                      <td>
+                        <a href="{{ url('employees/details/'.$employee->employee_id) }}" type="submit">
+                          View Details <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </a>
+                      </td>
+                  </tr>
+                
+                @endforeach
+                @endif
+              </tbody>
             </table>
               </div>
               <!-- /.card-body -->
@@ -704,28 +723,12 @@ function showDiv(select){
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
-          $('#empdatatable').DataTable( {
+          $('#empdatatable').DataTable({
               "ordering": false,
               "info":     false,
               "dom": 'lrtip',
-              "ajax": "{{ url('https://enterprise.gettruehelp.com/api/api/v1/employees') }}",
-              "columns": [
-                  {
-                    "data": null,
-                    "render": function(data, type, full, meta){
-                        return full["first_name"] + " " + full["last_name"];
-                    }
-                  },
-                  { "data": "type" },
-                  { "data": "emp_email" },
-                  { "data": "mobile" },
-                  {
-                      "mData": null,
-                      "bSortable": false,
-                      "mRender": function (o) { return '<a href=/employees/details/' + o.employee_id + '>' + 'View Details <i class="fa fa-angle-right" aria-hidden="true"></i>' + '</a>'; }
-                  }
-              ]
-          } );
+              
+          });
       } );
     </script>
 @endsection

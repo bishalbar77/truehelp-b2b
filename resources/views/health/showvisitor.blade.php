@@ -449,6 +449,16 @@
   letter-spacing: normal !important;
   color: #27cd90 !important;
 }
+.table-text-black {
+  font-family: Montserrat !important;
+  font-size: 17px !important;
+  font-weight: 800 !important;
+  font-stretch: normal !important;
+  font-style: normal !important;
+  line-height: normal !important;
+  letter-spacing: normal !important;
+  color: #000000 !important;
+}
 .table-text-not-done {
   font-family: Montserrat !important;
   font-size: 17px !important;
@@ -607,6 +617,14 @@ a {
                     <tr>
                       <th>Survey End Time</th>
                       <td class="table-text-cyan">{{ date("g:i A",strtotime($surveys->survey_end)) }}</td>
+                    </tr>
+                    <tr>
+                      <th>Person to meet</th>
+                      <td class="table-text-black">{{ $visitor_details->person_to_meet }}</td>
+                    </tr>
+                    <tr>
+                      <th>Reason</th>
+                      <td class="table-text-black">{{ $visitor_details->reason }}</td>
                     </tr>
                 @if($answers)
                   @foreach($answers as $answer)

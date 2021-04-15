@@ -335,6 +335,349 @@ class SurveyController extends Controller
                     $a++;
                     $b++;
                 }
+                else if($order->severity=="GREEN")
+                {
+                    $a++;
+                    $s++;
+                }
+                else
+                {
+                    $a++;
+                }
+                if(isset($order->visitor_id))
+                {
+                    $v1++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(1)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $e++;
+                    $f++;
+                }
+                else if($order->severity=="GREEN")
+                {
+                    $e++;
+                    $t++;
+                }
+                else
+                {
+                    $e++;
+                }
+                if(isset($order->visitor_id))
+                {
+                    $v2++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(2)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $g++;
+                    $h++;
+                }
+                else if($order->severity=="GREEN")
+                {
+                    $g++;
+                    $u++;
+                }
+                else
+                {
+                    $g++;
+                }
+                if(isset($order->visitor_id))
+                {
+                    $v3++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(3)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $i++;
+                    $j++;
+                }
+                else if($order->severity=="GREEN")
+                {
+                    $i++;
+                    $v++;
+                }
+                else
+                {
+                    $i++;
+                }
+                if(isset($order->visitor_id))
+                {
+                    $v4++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(4)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $k++;
+                    $l++;
+                }
+                else if($order->severity=="GREEN")
+                {
+                    $k++;
+                    $w++;
+                }
+                else
+                {
+                    $k++;
+                }
+                if(isset($order->visitor_id))
+                {
+                    $v5++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(5)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $m++;
+                    $n++;
+                }
+                else if($order->severity=="GREEN")
+                {
+                    $m++;
+                    $x++;
+                }
+                else
+                {
+                    $m++;
+                }
+                if(isset($order->visitor_id))
+                {
+                    $v6++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(6)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $o++;
+                    $p++;
+                }
+                else if($order->severity=="GREEN")
+                {
+                    $o++;
+                    $y++;
+                }
+                else
+                {
+                    $o++;
+                }
+                if(isset($order->visitor_id))
+                {
+                    $v7++;
+                }
+            }
+            elseif(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::now()->subDays(7)->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $q++;
+                    $r++;
+                }
+                else if($order->severity=="GREEN")
+                {
+                    $q++;
+                    $z++;
+                }
+                else
+                {
+                    $q++;
+                }
+                if(isset($order->visitor_id))
+                {
+                    $v8++;
+                }
+            }
+            else
+            {}
+
+        }
+        $day[0]=Carbon::today()->format('d M');
+        $total[0]=$a??0;
+        $positive[0]=$b??0;
+        $negative[0]=$s??0;
+        $visitor_bar[0]=$v1??0;
+        $day[1]=Carbon::now()->subDays(1)->format('d M');
+        $total[1]=$e??0;
+        $positive[1]=$f??0;
+        $negative[1]=$t??0;
+        $visitor_bar[1]=$v2??0;
+        $day[2]=Carbon::now()->subDays(2)->format('d M');
+        $total[2]=$g??0;
+        $positive[2]=$h??0;
+        $negative[2]=$u??0;
+        $visitor_bar[2]=$v3??0;
+        $day[3]=Carbon::now()->subDays(3)->format('d M');
+        $total[3]=$i??0;
+        $positive[3]=$j??0;
+        $negative[3]=$v??0;
+        $visitor_bar[3]=$v4??0;
+        $day[4]=Carbon::now()->subDays(4)->format('d M');
+        $total[4]=$k??0;
+        $positive[4]=$l??0;
+        $negative[4]=$w??0;
+        $visitor_bar[4]=$v5??0;
+        $day[5]=Carbon::now()->subDays(5)->format('d M');
+        $total[5]=$m??0;
+        $positive[5]=$n??0;
+        $negative[5]=$x??0;
+        $visitor_bar[5]=$v6??0;
+        $day[6]=Carbon::now()->subDays(6)->format('d M');
+        $total[6]=$o??0;
+        $positive[6]=$p??0;
+        $negative[6]=$y??0;
+        $visitor_bar[6]=$v7??0;
+        $day[7]=Carbon::now()->subDays(7)->format('d M');
+        $total[7]=$q??0;
+        $positive[7]=$r??0;
+        $negative[7]=$z??0;
+        $visitor_bar[7]=$v8??0;
+        $image=0;
+        if($total[0]!=0)
+        {
+            $text = $total[0]/2 > $positive[0] ? 'YAY! You are Safe Today' : 'You are at high risk';
+            $font = $total[0]/2 > $positive[0] ? '#00a13d' : 'rgb(255, 16, 96)';
+            $image =$total[0]/2 > $positive[0] ? 'safe' : 'danger';
+        }
+        else
+        {
+            $text = 'SORRY! No surveys Today';
+            $font = '#a9a9a9' ;
+            $image = 'safe';
+        }
+        foreach($orders as $order)
+        {
+            if(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::today()->format('d/m/Y'))
+            {
+                if($order->severity=="GREEN")
+                {
+                    if(isset($order->visitor_id))
+                    {
+                        $visitor_safe++;
+                    }
+                    $survey_completed++;
+                    $safe++;
+                }
+                elseif($order->severity=="RED")
+                {
+                    if(isset($order->visitor_id))
+                    {
+                        $visitor_unsafe++;
+                    }
+                    $survey_completed++;
+                    $survey_postive++;
+                }
+                elseif($order->severity=="YELLOW")
+                {
+                    if(isset($order->visitor_id))
+                    {
+                        $visitor_unsafe++;
+                    }
+                    $survey_completed++;
+                    $survey_unsafe++;
+                }
+                else
+                {
+                    $survey_pending++;
+                }
+            }
+        }
+        
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => "Bearer ".$api_token
+        ])->post('https://api.gettruehelp.com/api/employer-dashboard', [
+            'api_key' => $apiKeys,
+        ]);
+
+        $contents = $response->getBody();
+
+        $data = json_decode($contents);
+
+        if(isset($data->response)) 
+        {
+            if($data->response->status == 200) 
+            {
+                $registered_employees = $data->response->data->registered_employees;
+            }
+             else 
+            {
+                $registered_employees = '0';
+            }
+        } 
+        else 
+        {
+            $registered_employees = '0';
+        }
+        return view('health.dashboard_v2')->with([
+            'orders'=> $orders,
+            'registered_employees' => $registered_employees,
+            'survey_completed' => $survey_completed,
+            'survey_postive' => $survey_postive,
+            'survey_pending' => $survey_pending,
+            'day' => $day,
+            'total' => $total,
+            'positive' => $positive,
+            'negative' => $negative,
+            'text' => $text,
+            'font' => $font,
+            'safe' => $safe,
+            'image' => $image,
+            'survey_unsafe' => $survey_unsafe,
+            'visitor_bar' => $visitor_bar,
+            'visitor_safe' => $visitor_safe,
+            'visitor_unsafe' => $visitor_unsafe,
+        ]);
+
+    }
+    public function email()
+    {
+        $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
+        $api_token = session()->get('api_token');
+        $response = Http::withHeaders([
+                            'Accept' => 'application/json',
+                            'Authorization' => "Bearer ".$api_token
+                        ])->post($this->API.'get-survey', [
+                            'api_key' => $apiKeys,
+                        ]);
+        
+        $contents = $response->getBody();
+
+        $data = json_decode($contents);
+        
+        if(isset($data->response)) {
+            if($data->response->status != 200) {
+                $orders = NULL;
+            } else {
+                $orders = $data->response->data;
+            }
+        } else {
+            $orders = NULL;
+        }
+        $survey_completed =0 ; $survey_postive =0; $survey_unsafe =0; $survey_pending = 0;
+        $total[]=0; $positive[]=0; $negative[]=0; $day[]=0; $a=0; $b=0; $e=0; $f=0; $g=0; $h=0; 
+        $i=0; $j=0; $k=0; $l=0; $m=0; $n=0; $o=0; $p=0; $q=0; $r=0; $safe=0; 
+        $s=0; $t=0; $u=0; $v=0; $w=0; $x=0; $y=0; $z=0;
+        $v1=0; $v2=0; $v3=0; $v4=0; $v5=0; $v6=0; $v7=0; $v8=0; 
+        $visitor_bar[]=0; $visitor_safe=0; $visitor_unsafe=0;
+
+        foreach($orders as $order)
+        {
+            if(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::today()->format('d/m/Y'))
+            {
+                if($order->severity=="RED")
+                {
+                    $a++;
+                    $b++;
+                }
                 else
                 {
                     $a++;
@@ -522,34 +865,17 @@ class SurveyController extends Controller
         }
         foreach($orders as $order)
         {
-            if(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') == Carbon::today()->format('d/m/Y'))
+            if(\Carbon\Carbon::parse($order->created_at)->format('d/m/Y') > Carbon::now()->subDays(6)->format('d/m/Y'))
             {
                 if($order->severity=="GREEN")
                 {
-                    if(isset($order->visitor_id))
-                    {
-                        $visitor_safe++;
-                    }
                     $survey_completed++;
                     $safe++;
                 }
                 elseif($order->severity=="RED")
                 {
-                    if(isset($order->visitor_id))
-                    {
-                        $visitor_unsafe++;
-                    }
                     $survey_completed++;
                     $survey_postive++;
-                }
-                elseif($order->severity=="YELLOW")
-                {
-                    if(isset($order->visitor_id))
-                    {
-                        $visitor_unsafe++;
-                    }
-                    $survey_completed++;
-                    $survey_unsafe++;
                 }
                 else
                 {
@@ -584,7 +910,15 @@ class SurveyController extends Controller
         {
             $registered_employees = '0';
         }
-        return view('health.dashboard_v2')->with([
+
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer ".$api_token
+        ])->get($this->API.'account-info');
+        $contents = $response->getBody();
+        $data = json_decode($contents);
+        $account = $data->response->data->employer;
+        
+        return view('emails.weeklyReport')->with([
             'orders'=> $orders,
             'registered_employees' => $registered_employees,
             'survey_completed' => $survey_completed,
@@ -602,8 +936,8 @@ class SurveyController extends Controller
             'visitor_bar' => $visitor_bar,
             'visitor_safe' => $visitor_safe,
             'visitor_unsafe' => $visitor_unsafe,
+            'account' => $account,
         ]);
-
     }
 
     public function dashboardv3($id)
@@ -1137,6 +1471,7 @@ class SurveyController extends Controller
     {
         $api_token = session()->get('api_token');
         $employer_id = session()->get('employer_id');
+        // dd($employer_id);
         $country_code = $request->country_code;
         $mobile = $request->mobile;
         $first_name = $request->first_name;
@@ -1149,7 +1484,7 @@ class SurveyController extends Controller
             'first_name' =>$first_name,
             'middle_name' => $middle_name,
             'last_name' => $last_name,
-            'employer_id' => 64,
+            'employer_id' => $employer_id,
         ]);
         $contents = $response->getBody();
         $data = json_decode($contents);

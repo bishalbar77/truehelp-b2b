@@ -83,8 +83,15 @@ padding: 0px 1rem !important;
                         ]);
         $contents = $response->getBody();
         $data = json_decode($contents);
-        $count = $data->response->data->messages;
-        $count = $count > 9 ? "9+" : $count;
+        if(isset($data->response->data->messages))
+        {
+          $count = $data->response->data->messages;
+          $count = $count > 9 ? "9+" : $count;
+        }
+        else
+        {
+          $count = 0;
+        }
         $response = Http::withHeaders([
                             // 'Accept' => 'application/json',
                             'Authorization' => "Bearer ".$api_token
@@ -108,7 +115,14 @@ padding: 0px 1rem !important;
                         ]);
         $contents = $response->getBody();
         $data = json_decode($contents);
-        $nf_message = $data->response->data->messages;
+        if(isset($data->response->data->messages))
+        {
+          $nf_message = $data->response->data->messages;
+        }
+        else
+        {
+          $nf_message = [];
+        }
         
         $response = Http::withHeaders([
             'Accept' => 'application/json',
@@ -119,7 +133,14 @@ padding: 0px 1rem !important;
 
         $contents = $response->getBody();
         $data = json_decode($contents);
-        $orders = $data->response->data;
+        if(isset($data->response))
+        {
+          $orders = $data->response->data;
+        }
+        else
+        {
+          $orders = [];
+        }
 ?>
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -155,6 +176,7 @@ padding: 0px 1rem !important;
       <div class="col-25 input-group input-group-lg" id="hiddensearch" style="display: none; margin-top:5px;">
       <i class="glyphicon glyphicon-user"></i>
       <select type="text" id="select" name="employee_id[]" class="tokenize-demo" multiple required>
+      @if(isset($employees))
       @foreach($employees as $employee)
         <option value="{{ $employee->employee_id }}">{{ $employee->first_name }} {{ $employee->last_name }} : In Users</option>
       @endforeach
@@ -163,6 +185,7 @@ padding: 0px 1rem !important;
         <option value="{{ md5($employee->id) }}">{{ $employee->first_name }} {{ $employee->last_name }} : In Reports</option>
       @endif
       @endforeach
+      @endif
       </select>
       <div class="search"></div>
       </div>
@@ -187,7 +210,7 @@ padding: 0px 1rem !important;
                   <ul style="padding: 0;list-style-type: none;" class="row p-2">
                       @if(strpos($message->nf_message, 'Yellow Case') !== false)
                       <div class="col-lg-1 noti-icon" style="margin-top: .5rem!important;">
-                        <span class="feather-icon select-none relative"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info text-warning"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="8"></line></svg></span>
+                        <span class="feather-icon select-none relative"><svg xmlns="https://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info text-warning"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="8"></line></svg></span>
                       </div>
                       <div class="col-lg-9">
                       <span class="font-medium block notification-title text-yellow">Unsafe survey report</span><br>
@@ -195,7 +218,7 @@ padding: 0px 1rem !important;
                       </div>
                       @else
                       <div class="col-lg-1 noti-icon" style="margin-top: .5rem!important;">
-                        <span class="feather-icon select-none relative"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon text-danger stroke-current mr-1 h-6 w-6"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg></span>
+                        <span class="feather-icon select-none relative"><svg xmlns="https://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon text-danger stroke-current mr-1 h-6 w-6"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg></span>
                       </div>
                       <div class="col-lg-9">
                       <span class="font-medium block notification-title text-red">Positive survey report</span><br>

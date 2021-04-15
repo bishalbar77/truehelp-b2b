@@ -19,28 +19,19 @@
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview menu-open">
-            <a href="" class="nav-link {{ Request::is('/') || Request::is('home') || Request::is('orders') ? 'active' : '' }}">
-              <i class="nav-icon fa fa-th"></i>
-              <p class="nav-menu">
-                Verification
-                <i class="right fas fa-angle-left"></i>
+          <li class="nav-item">
+            <a href="{{ url('home') }}" class="nav-link {{ Request::is('/') || Request::is('home') || Request::is('orders') ? 'active' : '' }}">
+            <span style="padding-left:1px;" class="feather-icon select-none relative"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg></span>
+             <p class="nav-menu">
+                &nbsp;Verifications
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ url('home') }}" class="nav-link {{ Request::is('/') || Request::is('home')  ? 'active' : '' }}">
-                  <i class="nav-icon fa fa-th-list"></i>
-                  <p class="nav-menu">Dashboard</p>
-                </a>
-              </li>
-              <li class="nav-item">
+            <!-- <li class="nav-item">
               <a href="{{ url('orders') }}" class="nav-link {{ Request::is('orders')  ? 'active' : '' }}">
                 <i class="nav-icon fa fa-user-circle-o"></i>
                 <p class="nav-menu">Order Verification</p>
-                </a>
-              </li>
-            </ul>
+              </a>
+            </li> -->
           </li>
           <li class="nav-item">
             <a href="{{ url('employees') }}" class="nav-link {{ Request::is('employees')  ? 'active' : '' }}">
@@ -100,6 +91,25 @@
               </p>
             </a>
           </li> -->
+          <li class="nav-header nav-menu-tag">BILLING</li>
+          <li class="nav-item">
+            <a href="{{ url('subscribe') }}" class="nav-link {{ Request::is('subscribe')  ? 'active' : '' }}">
+              <i class="nav-icon fa fa-tasks"></i>
+              <p class="nav-menu">Subscription</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('card-pay') }}" class="nav-link {{ Request::is('card-pay')  ? 'active' : '' }}">
+              <i class="nav-icon fa fa-credit-card"></i>
+              <p class="nav-menu">Add default card</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('invoice') }}" class="nav-link {{ Request::is('invoice')  ? 'active' : '' }}">
+              <i class="nav-icon fa fa-bars"></i>
+              <p class="nav-menu">Invoices</p>
+            </a>
+          </li>
           <li class="nav-header nav-menu-tag">SETTINGS</li>
           <li class="nav-item">
             <a href="{{ url('profile') }}" class="nav-link {{ Request::is('profile')  ? 'active' : '' }}">

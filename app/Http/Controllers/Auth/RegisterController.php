@@ -52,11 +52,14 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        // dd($data);
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'mobile' => ['required', 'max:13', 'unique:users'],
-            'email' => '',
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'mobile' => ['required', 'max:13'],
+            'dob' => 'required',
+            'email' => 'required',
+            'gender' => 'required',
         ]);
     }
 
@@ -70,16 +73,15 @@ class RegisterController extends Controller
     {
         $apiKeys = 'FNgq0fsKbZjiqZrTCev3icyevDhr1v1JnboI5z6fdHHgAfRD8Vb7kvBu7XJq3d6Ajc2TpBiF93YC7GEoKUnqNdezGr9TM7IfrRAJnPL4SFPGY9rBTX40Jq76VjeBzNlVGSGtBAl2K3GS10jJuhBetCfEm9llof9xFRe33vMyF8Dhzrq7K6EeTjbEOu2AK4vCxvpJCtRg';
         $response = Http::post('https://api.gettruehelp.com/api/register-employer', [
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'mobile' => $data['mobile'],
             'email' => $data['email'],
-            'first_name' => $data['name'],
+            'dob' => $data['dob'],
+            'gender' => $data['gender'],
             'source_name' => 'B2B',
             'device_id' => '00000000-89ABCDEF-01234567-89ABCDEH',
-            'dob' => '2000-11-22',
             'mac_address' => '00:00:00:00',
-            'gender' => 'M',
-            'employer_type' => 'SCHOOL',
-            'mobile' => $data['mobile'],
-            'password' => Hash::make($data['password']),
             'api_key' => $apiKeys,
         ]);
         $contents = $response->getBody();
@@ -89,6 +91,7 @@ class RegisterController extends Controller
         if($data->response->status != 200){
             dd($data->response);
         }
+        dd($data->response);
         session()->put('first_name', $data->response->data->first_name);
         session()->put('api_token', $data->response->data->api_token);
         return redirect()->route('home');

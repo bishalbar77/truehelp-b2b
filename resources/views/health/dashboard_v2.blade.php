@@ -7,6 +7,9 @@
 <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/css/boot.min.css">
 <style>
+html {
+  scroll-behavior: smooth;
+}
 .signup-form{
   width: 95%;
   margin: 30px auto;
@@ -706,7 +709,7 @@ a {
           <div class="col-lg-2">
             <!-- small box -->
             <div class="card-box-top blue">
-              <a onclick="openCity(event, 'default')" id="defaultOpen"  class="hover-effect tablinks">
+              <a onclick="openCity(event, 'default')" id="defaultOpen" href="#default" class="hover-effect tablinks">
                 <p class="text-font pr-2 pl-2">Registered candidates</p>
                 <p class="text-blue-2">{{ $survey_candidates }}</p>
               </a>
@@ -717,7 +720,7 @@ a {
           <div class="col-lg-2">
             <!-- small box -->
             <div class="card-box-top pink {{ Request::is('health/survey/unsafe')  ? 'active-card' : '' }}">
-              <a onclick="openCity(event, 'visitors')" class="hover-effect tablinks">
+              <a onclick="openCity(event, 'visitors')" class="hover-effect tablinks"  href="#visitors">
                 <p class="text-font pr-3 pl-3">Visitors</p>
                 <p class="text-pink-2">{{ $visitors }}</p>
               </a>
@@ -726,7 +729,7 @@ a {
           <div class="col-lg-2">
             <!-- small box -->
               <div class="card-box-top purple  {{ Request::is('health/survey/completed')  ? 'active-card' : '' }}">
-                <a onclick="openCity(event, 'completed')" class="hover-effect tablinks">
+                <a onclick="openCity(event, 'completed')" class="hover-effect tablinks" href="#completed">
                   <p class="text-font pr-3 pl-3">Surveys Completed</p>
                   <p class="text-purple-2">{{ $survey_completed }}</p>
                 </a>
@@ -736,7 +739,7 @@ a {
           <div class="col-lg-2">
             <!-- small box -->
             <div class="card-box-top orange {{ Request::is('health/survey/positive')  ? 'active-card' : '' }}">
-              <a onclick="openCity(event, 'positive')" class="hover-effect tablinks">
+              <a onclick="openCity(event, 'positive')" class="hover-effect tablinks" href="#positive">
                 <p class="text-font pr-3 pl-3">COVID positive</p>
                 <p class="text-orange-2">{{ $survey_postive }}</p>
               </a>
@@ -746,7 +749,7 @@ a {
           <div class="col-lg-2">
             <!-- small box -->
             <div class="card-box-top green {{ Request::is('health/survey/safe')  ? 'active-card' : '' }}">
-              <a onclick="openCity(event, 'safe')" class="hover-effect tablinks">
+              <a onclick="openCity(event, 'safe')" class="hover-effect tablinks" href="#safe">
                 <p class="text-font pr-3 pl-3">Safe candidates</p>
                 <p class="text-green-2">{{ $safe }}</p>
               </a>
@@ -757,7 +760,7 @@ a {
           <div class="col-lg-2">
             <!-- small box -->
             <div class="card-box-top yellow {{ Request::is('health/survey/unsafe')  ? 'active-card' : '' }}">
-              <a onclick="openCity(event, 'unsafe')" class="hover-effect tablinks">
+              <a onclick="openCity(event, 'unsafe')" class="hover-effect tablinks" href="#unsafe">
                 <p class="text-font pr-3 pl-3">Unsafe candidates</p>
                 <p class="text-yellow-2">{{ $survey_unsafe }}</p>
               </a>
@@ -799,6 +802,7 @@ a {
       <!-- /.container-fluid -->
     </section>
     @endif
+    @if($visitors ?? ''!=NULL)
     <section class="content pt-5">
       <div class="container-fluid">
         <div class="row">
@@ -826,6 +830,7 @@ a {
       </div>
       <!-- /.container-fluid -->
     </section>
+    @endif
     <div id="visitors"  class="tabcontent">
       <section class="content pt-5">
         <div class="container-fluid">
@@ -843,6 +848,8 @@ a {
                           <thead>
                               <tr>
                                   <th>Name</th>
+                                  <th>Mobile</th>
+                                  <th>Person to Meet</th>
                                   <th>Verification Status</th>
                                   <th>Updated on</th>
                                   <th>Risk Factor</th>
@@ -856,10 +863,12 @@ a {
                             @if(\Carbon\Carbon::parse($employee->created_at)->format('d/m/Y') == Carbon\Carbon::today()->format('d/m/Y'))
                                 <tr class="table-style" onclick="window.location='{{ url('health/visitor/'.md5($employee->id)) }}';">
                                   <td>{{ $employee->first_name }} {{ $employee->middle_name }}  {{ $employee->last_name }}</td>
+                                  <td>{{ $employee->mobile }}</td>
+                                  <td class="pl-4">{{ $employee->person_to_meet }}</td>
                                   @if($employee->survey_status=="COMPLETE")
-                                  <td class="pl-4">Completed</td>
+                                  <td class="pl-5">Completed</td>
                                   @else
-                                  <td class="pl-4">Incomplete</td>
+                                  <td class="pl-5">Incomplete</td>
                                   @endif
                                   <td><span class="safe">{{ date(" M d, H:i  Y",strtotime($employee->updated_at)) }}</span></td>
                                   @if($employee->severity=="GREEN")
@@ -871,7 +880,7 @@ a {
                                   @else
                                   <td class="pl-4" style="color: #07901a;">&nbsp;&nbsp;&nbsp;-</td>
                                   @endif
-                                  <td class="pl-4">Visitor</td>
+                                  <td class="pl-5">Visitor</td>
                                 </tr>
                             @endif
                             @endif
